@@ -176,7 +176,7 @@ class File {
         }
     }
 
-    public static function info($node): stdClass
+    public static function info($object, $node): stdClass
     {
         $rev = strrev($node->name);
         $explode = explode('.', $rev, 2);
