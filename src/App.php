@@ -321,6 +321,13 @@ class App extends Data {
                             'request',
                             $request
                         );
+                        $object->logger(App::LOGGER_NAME)->info(
+                            'Controller (' .
+                            $route->controller .
+                            ') function (' .
+                            $route->function .
+                            ') triggered.'
+                        );
                         $result = $route->controller::{$route->function}($object);
                         Event::trigger($object, 'app.run.route.controller', [
                             'route' => $route,
@@ -724,7 +731,6 @@ class App extends Data {
                             case 'null':
                                 $value = null;
                             break;
-                            case 'false':
                             case '[]':
                                 $value = [];
                             break;
