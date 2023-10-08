@@ -176,6 +176,9 @@ class File {
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public static function info(App $object, stdClass $node): stdClass
     {
         $rev = strrev($node->name);
