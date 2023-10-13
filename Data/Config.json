@@ -50,6 +50,7 @@
         "ico": "image\/x-icon",
         "png": "image\/png",
         "jpg": "image\/jpeg",
+        "JPG": "image\/jpeg",
         "bmp": "image\/bmp",
         "gif": "image\/gif",
         "svg": "image\/svg+xml",
