@@ -193,6 +193,7 @@ class Event extends Main {
                 ]
             ]
         );
+        ddd($count);
         if($count === 0 || $limit === 0){
             return;
         }
