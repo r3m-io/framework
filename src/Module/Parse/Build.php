@@ -341,6 +341,7 @@ class Build {
         $placeholder = $storage->data('placeholder.function');
         $url_list = [];
         $limit = $this->limit();
+        d($document);
         d($data);
         foreach($data as $name => $record){
             $exist = false;
