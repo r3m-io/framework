@@ -327,6 +327,7 @@ class Build {
     private function createRequireContent($type='', $document=[]): array
     {
         d($type);
+        d($document);
         $debug = debug_backtrace(true);
         d($debug[0]['file'] . ' (' . $debug[0]['line'] . ')' . ' ' . $debug[0]['function'] . ' ' . $debug[0]['class']);
         d($debug[1]['file'] . ' (' . $debug[1]['line'] . ')' . ' ' . $debug[1]['function'] . ' ' . $debug[1]['class']);
@@ -346,8 +347,6 @@ class Build {
         $placeholder = $storage->data('placeholder.function');
         $url_list = [];
         $limit = $this->limit();
-        d($document);
-        d($data);
         foreach($data as $name => $record){
             $exist = false;
             $function_name = str_replace('function_', '', $name, $function_count);
