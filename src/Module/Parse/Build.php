@@ -326,6 +326,7 @@ class Build {
      */
     private function createRequireContent($type='', $document=[]): array
     {
+        d($type);
         $debug = debug_backtrace(true);
         d($debug[0]['file'] . ' (' . $debug[0]['line'] . ')' . ' ' . $debug[0]['function'] . ' ' . $debug[0]['class']);
         d($debug[1]['file'] . ' (' . $debug[1]['line'] . ')' . ' ' . $debug[1]['function'] . ' ' . $debug[1]['class']);
