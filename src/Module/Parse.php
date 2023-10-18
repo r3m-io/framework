@@ -66,6 +66,7 @@ class Parse {
      * @throws ObjectException
      */
     private function configure(){
+        d('configure parse');
         $id = posix_geteuid();
         $config = $this->object()->data(App::NAMESPACE . '.' . Config::NAME);
         $dir_plugin = $config->data('project.dir.plugin');

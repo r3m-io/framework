@@ -232,6 +232,7 @@ class App extends Data {
                 } elseif (
                     property_exists($route, 'url')
                 ) {
+                    //configure plugin
                     $parse = new Parse($object, $object->data());
                     $route->url = $parse->compile($route->url, $object->data());
                     if (File::extension($route->url) === $object->config('extension.json')) {
