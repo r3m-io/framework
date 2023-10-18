@@ -341,6 +341,7 @@ class Build {
         $placeholder = $storage->data('placeholder.function');
         $url_list = [];
         $limit = $this->limit();
+        d($data);
         foreach($data as $name => $record){
             $exist = false;
             $function_name = str_replace('function_', '', $name, $function_count);
