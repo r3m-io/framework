@@ -326,6 +326,10 @@ class Build {
      */
     private function createRequireContent($type='', $document=[]): array
     {
+        $debug = debug_backtrace(true);
+        d($debug[0]['file'] . ' (' . $debug[0]['line'] . ')' . ' ' . $debug[0]['function'] . ' ' . $debug[0]['class']);
+        d($debug[1]['file'] . ' (' . $debug[1]['line'] . ')' . ' ' . $debug[1]['function'] . ' ' . $debug[1]['class']);
+        d($debug[2]['file'] . ' (' . $debug[2]['line'] . ')' . ' ' . $debug[2]['function'] . ' ' . $debug[2]['class']);
         $object = $this->object();
         $url = false;
         $config = $object->data(App::CONFIG);
