@@ -370,6 +370,8 @@ class Parse {
             if(array_key_exists(2, $debug)){
                 d($debug[2]['line'] . ' ' . $debug[2]['file'] . ' ' . $debug[2]['function'] . ' ' . $debug[2]['class']);
             }
+            d($storage->data('r3m.io.parse.view.source'));
+            d($storage->data('r3m.io.parse.view.url'));
             //this section takes at least 5 msec per document: file:put 2msec, memcache::put 2msec, rest 1msec
             $build = $this->build(new Build($this->object(), $this, $is_debug));
             $build->cache_dir($this->cache_dir());
