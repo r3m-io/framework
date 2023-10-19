@@ -337,6 +337,7 @@ class Build {
             $dir_plugin = $storage->data('plugin');
         }
         if(empty($dir_plugin)){
+            d($this->storage());
             $debug = debug_backtrace(true);
             ddd($debug);
         }

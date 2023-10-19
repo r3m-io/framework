@@ -78,13 +78,11 @@ class Parse {
         if(empty($dir_plugin)){
             $config->data('host.dir.plugin', $config->data('host.dir.root') . Parse::PLUGIN . $config->data('ds'));
         }
-        d($config->data('host.dir.plugin'));
         $dir_plugin = $config->data('framework.dir.plugin');
         if(empty($dir_plugin)){
             $config->data('framework.dir.plugin', $config->data('framework.dir.source') . Parse::PLUGIN . $config->data('ds'));
         }
         $dir_plugin = $config->data('controller.dir.plugin');
-        d($dir_plugin);
         if(empty($dir_plugin)){
             if(empty($config->data('controller.dir.root'))){
                 throw new Exception('Controller dir root is not set');
