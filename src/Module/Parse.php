@@ -69,6 +69,7 @@ class Parse {
         d('configure parse');
         $id = posix_geteuid();
         $config = $this->object()->data(App::NAMESPACE . '.' . Config::NAME);
+        d($config);
         $dir_plugin = $config->data('project.dir.plugin');
         if(empty($dir_plugin)){
             $config->data('project.dir.plugin', $config->data('project.dir.root') . Parse::PLUGIN . $config->data('ds'));

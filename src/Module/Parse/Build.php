@@ -334,6 +334,7 @@ class Build {
         d($debug[2]['file'] . ' (' . $debug[2]['line'] . ')' . ' ' . $debug[2]['function'] . ' ' . $debug[2]['class']);
         $object = $this->object();
         $url = false;
+        //reconfigure build parse
         $config = $object->data(App::CONFIG);
         $storage = $this->storage();
         $dir_plugin = $config->get(Config::DATA_PARSE_DIR_PLUGIN);
