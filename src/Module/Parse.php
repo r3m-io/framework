@@ -94,7 +94,7 @@ class Parse {
         if(empty($template)){
             $config->data('dictionary.template', Parse::TEMPLATE);
         }
-        d($config);
+//        d($config);
         if(
             $config->data('ramdisk.url') &&
             empty($config->data('ramdisk.is.disabled'))
