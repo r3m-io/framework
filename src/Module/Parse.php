@@ -69,7 +69,6 @@ class Parse {
         d('configure parse');
         $id = posix_geteuid();
         $config = $this->object()->data(App::NAMESPACE . '.' . Config::NAME);
-        d($config);
         $dir_plugin = $config->data('project.dir.plugin');
         if(empty($dir_plugin)){
             $config->data('project.dir.plugin', $config->data('project.dir.root') . Parse::PLUGIN . $config->data('ds'));
@@ -94,6 +93,7 @@ class Parse {
         if(empty($template)){
             $config->data('dictionary.template', Parse::TEMPLATE);
         }
+        d($config);
         if(
             $config->data('ramdisk.url') &&
             empty($config->data('ramdisk.is.disabled'))
