@@ -340,6 +340,7 @@ class Build {
         if(empty($dir_plugin)){
             $dir_plugin = $storage->data('plugin');
         }
+        d($dir_plugin);
         $data = $storage->data($type);
         if(empty($data)){
             return $document;
