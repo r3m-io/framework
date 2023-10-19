@@ -238,7 +238,7 @@ class App extends Data {
                         'vendor' . $object->config('ds') .
                         'r3m_io' . $object->config('ds') .
                         'framework' . $object->config('ds') .
-                        'src' . $object->config('ds') .
+                        'src' . $object->config('ds')
                     );
                     $parse = new Parse($object, $object->data());
                     d($object->config());
