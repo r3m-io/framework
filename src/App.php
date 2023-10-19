@@ -232,7 +232,7 @@ class App extends Data {
                 } elseif (
                     property_exists($route, 'url')
                 ) {
-                    $object->configure('controller.dir.root', $object->config('project.dir.root') . 'Controller' . $object->config('ds'));
+                    $object->config('controller.dir.root', $object->config('project.dir.root') . 'Controller' . $object->config('ds'));
                     $parse = new Parse($object, $object->data());
                     d($object->config());
                     $route->url = $parse->compile($route->url, $object->data());
