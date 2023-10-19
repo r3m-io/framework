@@ -315,8 +315,6 @@ class App extends Data {
                         'route' => $route,
                         'methods' => $methods,
                     ]);
-                    d($route);
-                    d($methods);
                     if (in_array($route->function, $methods, true)) {
                         $functions[] = $route->function;
                         $object->config('controller.function', $route->function);
