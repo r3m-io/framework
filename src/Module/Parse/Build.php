@@ -11,8 +11,7 @@
 
 namespace R3m\Io\Module\Parse;
 
-
-
+use R3m\Io\Module\Controller;
 use R3m\Io\Module\SharedMemory;
 use stdClass;
 
@@ -337,9 +336,21 @@ class Build {
             $dir_plugin = $storage->data('plugin');
         }
         if(empty($dir_plugin)){
-            d($this->storage());
-            $debug = debug_backtrace(true);
-            ddd($debug);
+            Controller::plugin(
+                $object,
+                $config->data('project.dir.root') .
+                'vendor' .
+                $config->data('ds') .
+                'r3m_io' .
+                $config->data('ds') .
+                'framework' .
+                $config->data('ds') .
+                'src' .
+                $config->data('ds') .
+                'Plugin' .
+                $config->data('ds')
+            );
+            $dir_plugin = $config->get(Config::DATA_PARSE_DIR_PLUGIN);
         }
         $data = $storage->data($type);
         if(empty($data)){
