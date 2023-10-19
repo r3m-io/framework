@@ -501,6 +501,7 @@ class Parse {
             ]);
             $tree = $build->require('function', $tree);
             $tree = $build->require('modifier', $tree);
+            d('shitty tree');
             $build_storage = $build->storage();
             $document = $build_storage->data('document');
             if(empty($document)){
