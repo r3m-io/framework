@@ -326,24 +326,21 @@ class Build {
      */
     private function createRequireContent($type='', $document=[]): array
     {
-        d($type);
-//        d($document);
-        $debug = debug_backtrace(true);
-        d($debug[0]['file'] . ' (' . $debug[0]['line'] . ')' . ' ' . $debug[0]['function'] . ' ' . $debug[0]['class']);
-        d($debug[1]['file'] . ' (' . $debug[1]['line'] . ')' . ' ' . $debug[1]['function'] . ' ' . $debug[1]['class']);
-        d($debug[2]['file'] . ' (' . $debug[2]['line'] . ')' . ' ' . $debug[2]['function'] . ' ' . $debug[2]['class']);
         $object = $this->object();
         $url = false;
         //reconfigure build parse
+
         $config = $object->data(App::CONFIG);
         $storage = $this->storage();
         $dir_plugin = $config->get(Config::DATA_PARSE_DIR_PLUGIN);
         if(empty($dir_plugin)){
             $dir_plugin = $storage->data('plugin');
         }
-        d($dir_plugin);
+        if(empty($dir_plugin)){
+            $debug = debug_backtrace(true);
+            ddd($debug);
+        }
         $data = $storage->data($type);
-        d($data);
         if(empty($data)){
             return $document;
         }
