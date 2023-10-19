@@ -239,7 +239,6 @@ class App extends Data {
                         'r3m_io' . $object->config('ds') .
                         'framework' . $object->config('ds') .
                         'src' . $object->config('ds') .
-                        'Plugin' . $object->config('ds')
                     );
                     $parse = new Parse($object, $object->data());
                     d($object->config());
