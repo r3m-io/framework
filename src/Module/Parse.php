@@ -66,8 +66,8 @@ class Parse {
      * @throws ObjectException
      * @throws Exception
      */
-    private function configure(){
-        d('configure parse');
+    private function configure(): void
+    {
         $id = posix_geteuid();
         $config = $this->object()->data(App::NAMESPACE . '.' . Config::NAME);
         $dir_plugin = $config->data('project.dir.plugin');
@@ -89,7 +89,6 @@ class Parse {
             }
             $config->data('controller.dir.plugin', $config->data('controller.dir.root') . Parse::PLUGIN . $config->data('ds'));
         }
-        d($config->data('controller.dir.plugin'));
         $compile = $config->data('dictionary.compile');
         if(empty($compile)){
             $config->data('dictionary.compile', Parse::COMPILE);
