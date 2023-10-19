@@ -64,6 +64,7 @@ class Parse {
 
     /**
      * @throws ObjectException
+     * @throws Exception
      */
     private function configure(){
         d('configure parse');
@@ -85,6 +86,9 @@ class Parse {
         $dir_plugin = $config->data('controller.dir.plugin');
         d($dir_plugin);
         if(empty($dir_plugin)){
+            if(empty($config->data('controller.dir.root'))){
+                throw new Exception('Controller dir root is not set');
+            }
             $config->data('controller.dir.plugin', $config->data('controller.dir.root') . Parse::PLUGIN . $config->data('ds'));
         }
         d($config->data('controller.dir.plugin'));
