@@ -232,6 +232,10 @@ class App extends Data {
                 } elseif (
                     property_exists($route, 'url')
                 ) {
+                    //  /Application/vendor/r3m_io/framework/src/Plugin
+
+                    ddd($object->config());
+
                     $object->config('controller.dir.root', $object->config('project.dir.root') . 'Controller' . $object->config('ds'));
                     $parse = new Parse($object, $object->data());
                     d($object->config());
