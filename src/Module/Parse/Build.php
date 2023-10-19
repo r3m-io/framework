@@ -342,6 +342,7 @@ class Build {
         }
         d($dir_plugin);
         $data = $storage->data($type);
+        d($data);
         if(empty($data)){
             return $document;
         }
