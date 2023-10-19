@@ -369,15 +369,6 @@ class Parse {
         elseif(stristr($string, '{') === false){
             return $string;
         } else {
-            d($string);
-            $debug = debug_backtrace(true);
-            d($debug[0]['line'] . ' ' . $debug[0]['file'] . ' ' . $debug[0]['function'] . ' ' . $debug[0]['class']);
-            d($debug[1]['line'] . ' ' . $debug[1]['file'] . ' ' . $debug[1]['function'] . ' ' . $debug[1]['class']);
-            if(array_key_exists(2, $debug)){
-                d($debug[2]['line'] . ' ' . $debug[2]['file'] . ' ' . $debug[2]['function'] . ' ' . $debug[2]['class']);
-            }
-            d($storage->data('r3m.io.parse.view.source'));
-            d($storage->data('r3m.io.parse.view.url'));
             //this section takes at least 5 msec per document: file:put 2msec, memcache::put 2msec, rest 1msec
             $build = $this->build(new Build($this->object(), $this, $is_debug));
             $build->cache_dir($this->cache_dir());
@@ -506,7 +497,6 @@ class Parse {
             ]);
             $tree = $build->require('function', $tree);
             $tree = $build->require('modifier', $tree);
-            d('shitty tree');
             $build_storage = $build->storage();
             $document = $build_storage->data('document');
             if(empty($document)){

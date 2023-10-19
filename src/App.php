@@ -241,7 +241,6 @@ class App extends Data {
                         'src' . $object->config('ds')
                     );
                     $parse = new Parse($object, $object->data());
-                    d($object->config());
                     $route->url = $parse->compile($route->url, $object->data());
                     if (File::extension($route->url) === $object->config('extension.json')) {
                         $response = new Response(
