@@ -87,7 +87,7 @@ class Parse {
         if(empty($dir_plugin)){
             $config->data('controller.dir.plugin', $config->data('controller.dir.root') . Parse::PLUGIN . $config->data('ds'));
         }
-        d($dir_plugin);
+        d($config->data('controller.dir.plugin'));
         $compile = $config->data('dictionary.compile');
         if(empty($compile)){
             $config->data('dictionary.compile', Parse::COMPILE);
