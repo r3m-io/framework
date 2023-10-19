@@ -234,6 +234,7 @@ class App extends Data {
                 ) {
                     //configure plugin
                     $parse = new Parse($object, $object->data());
+                    d($parse);
                     $route->url = $parse->compile($route->url, $object->data());
                     if (File::extension($route->url) === $object->config('extension.json')) {
                         $response = new Response(
