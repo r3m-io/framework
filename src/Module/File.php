@@ -198,7 +198,6 @@ class File {
         }
         $node->mtime = File::mtime($node->url);
         $node->size = File::size($node->url);
-        d($node);
         return $node;
     }
 
