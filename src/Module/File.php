@@ -198,6 +198,7 @@ class File {
         }
         $node->mtime = File::mtime($node->url);
         $node->size = File::size($node->url);
+        //htmlentities to name ?
         return $node;
     }
 
