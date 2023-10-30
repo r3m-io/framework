@@ -65,7 +65,7 @@ class Dir {
                 }
                 return $mkdir;
             }
-            catch (Exception $exception){
+            catch (Exception | ErrorException $exception){
                 throw new DirectoryCreateException('Cannot create directory: ' . $url, 0, $exception);
             }
         }
