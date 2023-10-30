@@ -1115,6 +1115,7 @@ class App extends Data {
                 if(
                     file_exists($ramdisk_url) &&
                     array_key_exists(sha1($ramdisk_url), $mtime) &&
+                    file_exists($mtime[sha1($ramdisk_url)]) &&
                     filemtime($ramdisk_url) === filemtime($mtime[sha1($ramdisk_url)])
                 ){
                     require_once $ramdisk_url;
