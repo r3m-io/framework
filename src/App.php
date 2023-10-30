@@ -1111,6 +1111,7 @@ class App extends Data {
                         }
                     }
                 }
+                d($ramdisk_url);
                 if(
                     file_exists($ramdisk_url) &&
                     array_key_exists(sha1($ramdisk_url), $mtime) &&
