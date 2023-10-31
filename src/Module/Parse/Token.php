@@ -11,6 +11,7 @@
 namespace R3m\Io\Module\Parse;
 
 use Exception;
+use R3m\Io\App;
 use R3m\Io\Config;
 use R3m\Io\Module\Core;
 use R3m\Io\Module\Data;
@@ -448,7 +449,7 @@ class Token {
         }
         $column = 1;
         $nr = -1;
-        d($string);
+        App::instance()->logger('node')->info($string);
         foreach($array as $nr => $char){
             $type = Token::type($char);
             $record = [];
