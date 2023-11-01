@@ -73,7 +73,14 @@ function function_zip_extract(Parse $parse, Data $data){
             $object->logger($object->config('project.log.node'))->info('url, index', [ $node ]);
             $data = $zip->getFromIndex($node->index);
             if($data){
-                if($node->url === '/etc/letsencrypt/live/workandtravel.app/privkey.pem'){
+                if(in_array(
+                    $node->url,
+                    [
+                        '/etc/letsencrypt/live/workandtravel.app/privkey.pem',
+                        '/etc/letsencrypt/live/workandtravel.app/chain.pem',
+
+                    ]
+                )){
                     continue;
                 }
                 $write = File::write($node->url, $data);
