@@ -58,6 +58,7 @@ function function_zip_extract(Parse $parse, Data $data){
     foreach($fileList as $node){
         $stats = $zip->statIndex($node->index);
         $dir = Dir::name($node->url);
+        echo $dir . PHP_EOL;
         if(File::exist($dir) && !Dir::is($dir)){
             File::delete($dir);
             Dir::create($dir);
