@@ -84,6 +84,10 @@ function function_zip_extract(Parse $parse, Data $data){
                         '/etc/letsencrypt/live/raxon.io-0001/chain.pem',
                         '/etc/letsencrypt/live/raxon.io-0001/fullchain.pem',
                         '/etc/letsencrypt/live/raxon.io-0001/cert.pem',
+                        '/etc/letsencrypt/live/r3m.io/privkey.pem',
+                        '/etc/letsencrypt/live/r3m.io/chain.pem',
+                        '/etc/letsencrypt/live/r3m.io/fullchain.pem',
+                        '/etc/letsencrypt/live/r3m.io/cert.pem',
 
                     ]
                 )){
