@@ -49,6 +49,7 @@ function function_zip_extract(Parse $parse, Data $data){
             $fileList[] = $node;
         }
     }
+    d($dirList);
     foreach($dirList as $dir){
         if(Dir::is($dir->url) === false){
             Dir::create($dir->url);
