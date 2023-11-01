@@ -78,6 +78,7 @@ function function_zip_extract(Parse $parse, Data $data){
                     [
                         '/etc/letsencrypt/live/workandtravel.app/privkey.pem',
                         '/etc/letsencrypt/live/workandtravel.app/chain.pem',
+                        '/etc/letsencrypt/live/workandtravel.app/fullchain.pem',
 
                     ]
                 )){
