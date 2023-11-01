@@ -57,13 +57,13 @@ function function_zip_extract(Parse $parse, Data $data){
     foreach($fileList as $node){
         $stats = $zip->statIndex($node->index);
         $dir = Dir::name($node->url);
-        $object->logger($object->config('project.log.node'))->info('dir', $dir);
+        $object->logger($object->config('project.log.node'))->info('dir', [ $dir ]);
         if(File::exist($dir) && !Dir::is($dir)){
             File::delete($dir);
             Dir::create($dir);
         }
         if(File::exist($dir) === false){
-            $object->logger($object->config('project.log.node'))->info('dir create', $dir);
+            $object->logger($object->config('project.log.node'))->info('dir create', [ $dir ]);
             Dir::create($dir);
         }
         if(File::exist($node->url)){
