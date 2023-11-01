@@ -50,6 +50,7 @@ function function_zip_extract(Parse $parse, Data $data){
         }
     }
     $object->logger($object->config('project.log.node'))->info('dirlist', $dirList);
+    $object->logger($object->config('project.log.node'))->info('filelist', $fileList);
     foreach($dirList as $dir){
         if(Dir::is($dir->url) === false){
             Dir::create($dir->url);
