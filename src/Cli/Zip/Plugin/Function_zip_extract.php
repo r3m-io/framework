@@ -71,7 +71,13 @@ function function_zip_extract(Parse $parse, Data $data){
         }
         try {
             $object->logger($object->config('project.log.node'))->info('url, index', [ $node ]);
-            $write = File::write($node->url, $zip->getFromIndex($node->index));
+            $data = $zip->getFromIndex($node->index);
+            if($data){
+                $write = File::write($node->url, $data);
+            } else {
+                $object->logger($object->config('project.log.node'))->info('cannot get from index', [ $node ]);
+                $write = false;
+            }
             if($write !== false){
                 File::chmod($node->url, File::CHMOD);
                 touch($node->url, $stats['mtime']);
