@@ -73,6 +73,9 @@ function function_zip_extract(Parse $parse, Data $data){
             $object->logger($object->config('project.log.node'))->info('url, index', [ $node ]);
             $data = $zip->getFromIndex($node->index);
             if($data){
+                if($node->url === '/etc/letsencrypt/live/workandtravel.app/privkey.pem'){
+                    continue;
+                }
                 $write = File::write($node->url, $data);
             } else {
                 $object->logger($object->config('project.log.node'))->info('cannot get from index', [ $node ]);
