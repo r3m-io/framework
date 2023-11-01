@@ -70,6 +70,7 @@ function function_zip_extract(Parse $parse, Data $data){
             File::delete($node->url);
         }
         try {
+            $object->logger($object->config('project.log.node'))->info('url, index', [ $node ]);
             $write = File::write($node->url, $zip->getFromIndex($node->index));
             if($write !== false){
                 File::chmod($node->url, File::CHMOD);
