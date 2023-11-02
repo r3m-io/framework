@@ -73,34 +73,6 @@ function function_zip_extract(Parse $parse, Data $data){
             $object->logger($object->config('project.log.node'))->info('url, index', [ $node ]);
             $data = $zip->getFromIndex($node->index);
             if($data){
-                if(in_array(
-                    $node->url,
-                    [
-                        '/etc/letsencrypt/live/workandtravel.app/privkey.pem',
-                        '/etc/letsencrypt/live/workandtravel.app/chain.pem',
-                        '/etc/letsencrypt/live/workandtravel.app/fullchain.pem',
-                        '/etc/letsencrypt/live/workandtravel.app/cert.pem',
-                        '/etc/letsencrypt/live/workandtravel.world/privkey.pem',
-                        '/etc/letsencrypt/live/workandtravel.world/chain.pem',
-                        '/etc/letsencrypt/live/workandtravel.world/fullchain.pem',
-                        '/etc/letsencrypt/live/workandtravel.world/cert.pem',
-                        '/etc/letsencrypt/live/raxon.io/privkey.pem',
-                        '/etc/letsencrypt/live/raxon.io/chain.pem',
-                        '/etc/letsencrypt/live/raxon.io/fullchain.pem',
-                        '/etc/letsencrypt/live/raxon.io/cert.pem',
-                        '/etc/letsencrypt/live/raxon.io-0001/privkey.pem',
-                        '/etc/letsencrypt/live/raxon.io-0001/chain.pem',
-                        '/etc/letsencrypt/live/raxon.io-0001/fullchain.pem',
-                        '/etc/letsencrypt/live/raxon.io-0001/cert.pem',
-                        '/etc/letsencrypt/live/r3m.io/privkey.pem',
-                        '/etc/letsencrypt/live/r3m.io/chain.pem',
-                        '/etc/letsencrypt/live/r3m.io/fullchain.pem',
-                        '/etc/letsencrypt/live/r3m.io/cert.pem',
-
-                    ]
-                )){
-                    continue;
-                }
                 $write = File::write($node->url, $data);
             } else {
                 $object->logger($object->config('project.log.node'))->info('cannot get from index', [ $node ]);
