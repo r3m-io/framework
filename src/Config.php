@@ -267,21 +267,29 @@ class Config extends Data {
         $config = $object->data(App::CONFIG);
         $volume_url = $config->data(Config::DATA_PROJECT_DIR_ROOT) . 'Volume' . $config->data('extension.json');
         $volume = $object->data_read($volume_url);
-        ddd($config->data());
         if($volume){
             $config->data(Config::DATA_PROJECT_VOLUME, $volume->data('volume'));
             $key = Config::DATA_PROJECT_DIR_BACKUP;
             $value = $volume->data('volume.dir.backup');
-            $config->data($key, $value);
+            if($value){
+                $config->data($key, $value);
+            }
+
             $key = Config::DATA_PROJECT_DIR_DATA;
             $value = $volume->data('volume.dir.data');
-            $config->data($key, $value);
+            if($value){
+                $config->data($key, $value);
+            }
             $key = Config::DATA_PROJECT_DIR_MOUNT;
             $value = $volume->data('volume.dir.mount');
-            $config->data($key, $value);
+            if($value){
+                $config->data($key, $value);
+            }
             $key = Config::DATA_PROJECT_DIR_NODE;
             $value = $volume->data('volume.dir.node');
-            $config->data($key, $value);
+            if($value){
+                $config->data($key, $value);
+            }
         }
     }
 
