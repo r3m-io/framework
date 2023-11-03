@@ -53,9 +53,7 @@ class Host {
                 $object->config('ds')
             );
             $sentence = ltrim($sentence, $object->config('ds'));
-            $value =
-                $object->config('project.dir.root') .
-                $object->config(Config::DICTIONARY . '.' . Config::HOST) .
+            $value = $object->config('project.dir.host') .
                 $object->config('ds') .
                 $sentence;
         } else {
@@ -69,9 +67,7 @@ class Host {
                 $object->config('ds')
             );
             $sentence = ltrim($sentence, $object->config('ds'));
-            $value =
-                $object->config('project.dir.root') .
-                $object->config(Config::DICTIONARY . '.' . Config::HOST) .
+            $value = $object->config('project.dir.host') .
                 $object->config('ds') .
                 $sentence;
         }
