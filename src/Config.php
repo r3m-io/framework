@@ -202,6 +202,8 @@ class Config extends Data {
     const DATA_PROJECT_DIR_COMPONENT =  Config::DATA_PROJECT_DIR . '.' . 'component';
     const DATA_PROJECT_DIR_VALIDATOR =  Config::DATA_PROJECT_DIR . '.' . 'validator';
 
+    const DATA_PROJECT_VOLUME = 'project.volume';
+
     const DATA_CONTROLLER = 'controller';
     const DATA_CONTROLLER_CLASS = 'controller.class';
     const DATA_CONTROLLER_NAME = 'controller.name';
@@ -256,17 +258,30 @@ class Config extends Data {
         $this->data(Config::POSIX_ID, $id);
     }
 
-    /**
-     * @throws ObjectException
-     */
-    public static function configure(App $object){
+    public function volume(App $object){
         $config = $object->data(App::CONFIG);
         $volume_url = $config->data(Config::DATA_PROJECT_DIR_ROOT) . 'Volume' . $config->data('extension.json');
         $volume = $object->data_read($volume_url);
         if($volume){
-            $config->data('project.volume', $volume->data('volume'));
+            $config->data(Config::DATA_PROJECT_VOLUME, $volume->data('volume'));
+            $key = Config::DATA_PROJECT_DIR_BACKUP;
+            $value = $volume->data('volume.dir.backup');
+            d($key);
+            ddd($value);
         }
-        $url = $config->data(Config::DATA_PROJECT_DIR_DATA) . 'App' . $config->data('ds') . Config::CONFIG;
+    }
+
+    /**
+     * @throws ObjectException
+     */
+    public static function configure(App $object){
+        Config::volume($object);
+        $config = $object->data(App::CONFIG);
+        if($config->data('project.volume.dir.data')){
+            $url = $config->data('project.volume.dir.data') . 'App' . $config->data('ds') . Config::CONFIG;
+        } else {
+            $url = $config->data(Config::DATA_PROJECT_DIR_DATA) . 'App' . $config->data('ds') . Config::CONFIG;
+        }
         if(File::exist($url)){
             $config->data('app.config.url', $url);
             $config->data('app.config.dir', Dir::name($url));
