@@ -263,7 +263,7 @@ class Config extends Data {
         $config = $object->data(App::CONFIG);
         $volume_url = $config->data(Config::DATA_PROJECT_DIR_ROOT) . 'Volume' . $config->data('extension.json');
         $start = microtime(true);
-        $volume = $object->data_read($volume_url);
+        $volume = $object->parse_read($volume_url);
         $duration = (microtime(true) - $start) * 1000;
         d($duration . ' ms');
         ddd($volume);
