@@ -274,9 +274,38 @@ class Config extends Data {
             if($value){
                 $config->data($key, $value);
             }
-
+            $key = Config::DATA_PROJECT_DIR_COMPONENT;
+            $value = $volume->data('volume.dir.component');
+            if($value){
+                $config->data($key, $value);
+            }
+            $key = Config::DATA_PROJECT_DIR_CLI;
+            $value = $volume->data('volume.dir.cli');
+            if($value){
+                $config->data($key, $value);
+            }
             $key = Config::DATA_PROJECT_DIR_DATA;
             $value = $volume->data('volume.dir.data');
+            if($value){
+                $config->data($key, $value);
+            }
+            $key = Config::DATA_PROJECT_DIR_EVENT;
+            $value = $volume->data('volume.dir.event');
+            if($value){
+                $config->data($key, $value);
+            }
+            $key = Config::DATA_PROJECT_DIR_HOST;
+            $value = $volume->data('volume.dir.host');
+            if($value){
+                $config->data($key, $value);
+            }
+            $key = Config::DATA_PROJECT_DIR_LOG;
+            $value = $volume->data('volume.dir.log');
+            if($value){
+                $config->data($key, $value);
+            }
+            $key = Config::DATA_PROJECT_DIR_MIDDLEWARE;
+            $value = $volume->data('volume.dir.middleware');
             if($value){
                 $config->data($key, $value);
             }
@@ -287,6 +316,26 @@ class Config extends Data {
             }
             $key = Config::DATA_PROJECT_DIR_NODE;
             $value = $volume->data('volume.dir.node');
+            if($value){
+                $config->data($key, $value);
+            }
+            $key = Config::DATA_PROJECT_DIR_OUTPUT_FILTER;
+            $value = $volume->data('volume.dir.output.filter');
+            if($value){
+                $config->data($key, $value);
+            }
+            $key = Config::DATA_PROJECT_DIR_PACKAGE;
+            $value = $volume->data('volume.dir.package');
+            if($value){
+                $config->data($key, $value);
+            }
+            $key = Config::DATA_PROJECT_DIR_PUBLIC;
+            $value = $volume->data('volume.dir.public');
+            if($value){
+                $config->data($key, $value);
+            }
+            $key = Config::DATA_PROJECT_DIR_VALIDATOR;
+            $value = $volume->data('volume.dir.validator');
             if($value){
                 $config->data($key, $value);
             }
@@ -313,6 +362,7 @@ class Config extends Data {
             $read = Core::object(File::read($url));
             $config->data(Core::object_merge($config->data(), $read));
         }
+        ddd($config->data());
     }
 
     /**
