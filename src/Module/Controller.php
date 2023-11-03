@@ -598,9 +598,8 @@ class Controller {
             $controller_dir_public .= $config->data(Config::DATA_CONTROLLER_TITLE) . $config->data('ds');
             $config->data(Config::DATA_CONTROLLER_DIR_PUBLIC, $controller_dir_public);
         }
-        $root = $config->data(Config::DATA_CONTROLLER_DIR_ROOT);
+        $root = $config->data(Config::DATA_PROJECT_DIR_HOST);
         $host = $config->data(Config::DATA_HOST_DIR_ROOT);
-        d($host);
         $explode = explode($config->data('ds'), $host);
         array_pop($explode);
         array_pop($explode);
