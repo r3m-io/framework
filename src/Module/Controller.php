@@ -600,24 +600,18 @@ class Controller {
         }
         $root = $config->data(Config::DATA_PROJECT_DIR_HOST);
         $host = $config->data(Config::DATA_HOST_DIR_ROOT);
-//        $explode = explode($config->data('ds'), $host);
-//        array_pop($explode);
-//        array_pop($explode);
-//        $host = implode($config->data('ds'), $explode);
         if($host && $root){
             $explode = explode($root, $host, 2);
             if(array_key_exists(1, $explode)){
                 $explode = explode($config->data('ds'), $explode[1]);
-                ddd($explode);
-                if(array_key_exists(1, $explode)){
-                    $extension = strtolower($explode[1]);
-                    $domain = Host::domain();
-                    $subdomain = Host::subdomain();
-                    if($subdomain){
-                        $config->data(Config::DATA_ROUTE_PREFIX, $subdomain . '-' . $domain . '-' . $extension);
-                    } else {
-                        $config->data(Config::DATA_ROUTE_PREFIX, $domain . '-' . $extension);
-                    }
+                array_pop($explode);
+                $extension = array_pop($explode);
+                $domain = Host::domain();
+                $subdomain = Host::subdomain();
+                if($subdomain){
+                    $config->data(Config::DATA_ROUTE_PREFIX, $subdomain . '-' . $domain . '-' . $extension);
+                } else {
+                    $config->data(Config::DATA_ROUTE_PREFIX, $domain . '-' . $extension);
                 }
             }
         }
