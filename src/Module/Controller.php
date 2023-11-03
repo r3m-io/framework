@@ -605,7 +605,7 @@ class Controller {
 //        array_pop($explode);
 //        $host = implode($config->data('ds'), $explode);
         if($host){
-            $explode = explode($host, $root, 2);
+            $explode = explode($root, $host, 2);
             ddd($explode);
             if(array_key_exists(1, $explode)){
                 $explode = explode($config->data('ds'), $explode[1]);
