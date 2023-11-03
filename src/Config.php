@@ -262,11 +262,7 @@ class Config extends Data {
     public static function configure(App $object){
         $config = $object->data(App::CONFIG);
         $volume_url = $config->data(Config::DATA_PROJECT_DIR_ROOT) . 'Volume' . $config->data('extension.json');
-        $start = microtime(true);
-        $volume = $object->parse_read($volume_url);
-        $duration = (microtime(true) - $start) * 1000;
-        d($duration . ' ms');
-        ddd($volume);
+        $volume = $object->data_read($volume_url);
         $url = $config->data(Config::DATA_PROJECT_DIR_DATA) . 'App' . $config->data('ds') . Config::CONFIG;
         if(File::exist($url)){
             $config->data('app.config.url', $url);
@@ -276,6 +272,7 @@ class Config extends Data {
             $read = Core::object(File::read($url));
             $config->data(Core::object_merge($config->data(), $read));
         }
+        ddd($config->data());
 
     }
 
