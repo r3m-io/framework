@@ -264,7 +264,7 @@ class Config extends Data {
         $volume_url = $config->data(Config::DATA_PROJECT_DIR_ROOT) . 'Volume' . $config->data('extension.json');
         $volume = $object->data_read($volume_url);
         if($volume){
-            $config->data('project.volume', $volume);
+            $config->data('project.volume', $volume->data());
         }
         $url = $config->data(Config::DATA_PROJECT_DIR_DATA) . 'App' . $config->data('ds') . Config::CONFIG;
         if(File::exist($url)){
