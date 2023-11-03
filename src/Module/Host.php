@@ -54,7 +54,6 @@ class Host {
             );
             $sentence = ltrim($sentence, $object->config('ds'));
             $value = $object->config('project.dir.host') .
-                $object->config('ds') .
                 $sentence;
         } else {
             $sentence = Core::ucfirst_sentence(
@@ -68,7 +67,6 @@ class Host {
             );
             $sentence = ltrim($sentence, $object->config('ds'));
             $value = $object->config('project.dir.host') .
-                $object->config('ds') .
                 $sentence;
         }
         $object->config($key, $value);
