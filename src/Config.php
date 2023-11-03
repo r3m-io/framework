@@ -270,6 +270,8 @@ class Config extends Data {
             $read = Core::object(File::read($url));
             $config->data(Core::object_merge($config->data(), $read));
         }
+        $volume_url = $config->data(Config::DATA_PROJECT_DIR_ROOT) . 'Volume' . $config->data('extension.json');
+        ddd($volume_url);
     }
 
     /**
