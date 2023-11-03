@@ -598,6 +598,7 @@ class Controller {
             $controller_dir_public .= $config->data(Config::DATA_CONTROLLER_TITLE) . $config->data('ds');
             $config->data(Config::DATA_CONTROLLER_DIR_PUBLIC, $controller_dir_public);
         }
+        //need route current
         $root = $config->data(Config::DATA_PROJECT_DIR_HOST);
         $host = $config->data(Config::DATA_HOST_DIR_ROOT);
         if($host && $root){
