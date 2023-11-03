@@ -271,7 +271,8 @@ class Config extends Data {
             $config->data(Core::object_merge($config->data(), $read));
         }
         $volume_url = $config->data(Config::DATA_PROJECT_DIR_ROOT) . 'Volume' . $config->data('extension.json');
-        ddd($volume_url);
+        $volume = $object->data_read($volume_url);
+        ddd($volume);
     }
 
     /**
