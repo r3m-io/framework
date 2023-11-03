@@ -229,6 +229,7 @@ class Config extends Data {
     const DATA_ROUTE_PREFIX = Config::DATA_ROUTE . '.' . 'prefix';
 
     const POSIX_ID = 'posix.id';
+
     /**
      * @throws ObjectException
      */
@@ -258,7 +259,11 @@ class Config extends Data {
         $this->data(Config::POSIX_ID, $id);
     }
 
-    public function volume(App $object){
+    /**
+     * @throws ObjectException
+     */
+    public static function volume(App $object): void
+    {
         $config = $object->data(App::CONFIG);
         $volume_url = $config->data(Config::DATA_PROJECT_DIR_ROOT) . 'Volume' . $config->data('extension.json');
         $volume = $object->data_read($volume_url);
@@ -274,7 +279,8 @@ class Config extends Data {
     /**
      * @throws ObjectException
      */
-    public static function configure(App $object){
+    public static function configure(App $object): void
+    {
         Config::volume($object);
         $config = $object->data(App::CONFIG);
         if($config->data('project.volume.dir.data')){
