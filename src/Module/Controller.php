@@ -600,17 +600,12 @@ class Controller {
         }
         $root = $config->data(Config::DATA_CONTROLLER_DIR_ROOT);
         $host = $config->data(Config::DATA_HOST_DIR_ROOT);
-        d($root);
-        d($host);
         $explode = explode($config->data('ds'), $host);
         array_pop($explode);
         array_pop($explode);
         $host = implode($config->data('ds'), $explode);
-        d($host);
-        d($root);
         if($host){
             $explode = explode($host, $root, 2);
-            d($explode);
             if(array_key_exists(1, $explode)){
                 $explode = explode($config->data('ds'), $explode[1]);
                 if(array_key_exists(1, $explode)){
