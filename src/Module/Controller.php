@@ -600,6 +600,7 @@ class Controller {
         }
         $root = $config->data(Config::DATA_PROJECT_DIR_HOST);
         $host = $config->data(Config::DATA_HOST_DIR_ROOT);
+        d($host);
         $explode = explode($config->data('ds'), $host);
         array_pop($explode);
         array_pop($explode);
