@@ -18,6 +18,5 @@ function function_route_prefix(Parse $parse, Data $data, $prefix=null){
     if($prefix !== null){
         $object->config(Config::DATA_ROUTE_PREFIX, $prefix);
     }
-    ddd($object->config());
     return $object->config(Config::DATA_ROUTE_PREFIX);
 }
