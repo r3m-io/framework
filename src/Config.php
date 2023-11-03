@@ -261,11 +261,24 @@ class Config extends Data {
 
     /**
      * @throws ObjectException
+     * @throws Exception
      */
     public static function volume(App $object): void
     {
         $config = $object->data(App::CONFIG);
+        $volume_url_production = $config->data(Config::DATA_PROJECT_DIR_ROOT) . 'Volume.Production.' . $config->data('extension.json');
+        $volume_url_staging = $config->data(Config::DATA_PROJECT_DIR_ROOT) . 'Volume.Staging.' . $config->data('extension.json');
+        $volume_url_development = $config->data(Config::DATA_PROJECT_DIR_ROOT) . 'Volume.Development.' . $config->data('extension.json');
         $volume_url = $config->data(Config::DATA_PROJECT_DIR_ROOT) . 'Volume' . $config->data('extension.json');
+        if(File::exist($volume_url_production)){
+            $volume_url = $volume_url_production;
+        }
+        elseif(File::exist($volume_url_staging)){
+            $volume_url = $volume_url_staging;
+        }
+        elseif(File::exist($volume_url_development)){
+            $volume_url = $volume_url_development;
+        }
         $volume = $object->data_read($volume_url);
         if($volume){
             $config->data(Config::DATA_PROJECT_VOLUME, $volume->data('volume'));
