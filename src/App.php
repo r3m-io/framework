@@ -304,7 +304,7 @@ class App extends Data {
                     }
                     if (in_array('configure', $methods, true)) {
                         $functions[] = 'configure';
-                        ddd($route);
+                        d($route);
                         $route->controller::configure($object);
                     }
                     // @deprecated since Middleware
