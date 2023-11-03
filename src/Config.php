@@ -264,8 +264,8 @@ class Config extends Data {
         $volume_url = $config->data(Config::DATA_PROJECT_DIR_ROOT) . 'Volume' . $config->data('extension.json');
         $start = microtime(true);
         $volume = $object->data_read($volume_url);
-        $duration = microtime(true) - $start;
-        d($duration * 1000 . ' ms');
+        $duration = (microtime(true) - $start) * 1000;
+        d($duration . ' ms');
         ddd($volume);
         $url = $config->data(Config::DATA_PROJECT_DIR_DATA) . 'App' . $config->data('ds') . Config::CONFIG;
         if(File::exist($url)){
