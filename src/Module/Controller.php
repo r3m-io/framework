@@ -604,11 +604,11 @@ class Controller {
 //        array_pop($explode);
 //        array_pop($explode);
 //        $host = implode($config->data('ds'), $explode);
-        if($host){
+        if($host && $root){
             $explode = explode($root, $host, 2);
-            ddd($explode);
             if(array_key_exists(1, $explode)){
                 $explode = explode($config->data('ds'), $explode[1]);
+                ddd($explode);
                 if(array_key_exists(1, $explode)){
                     $extension = strtolower($explode[1]);
                     $domain = Host::domain();
