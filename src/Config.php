@@ -375,7 +375,6 @@ class Config extends Data {
             $read = Core::object(File::read($url));
             $config->data(Core::object_merge($config->data(), $read));
         }
-        ddd($config->data());
     }
 
     /**
