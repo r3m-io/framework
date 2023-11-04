@@ -63,7 +63,7 @@ class Domain {
         $object->config($key, $value);
         $key = 'domain.dir.cache';
         $value =
-            Dir::name($object->config('framework.dir.cache'), 2) .
+            $object->config('framework.dir.temp') .
             $object->config(Config::DICTIONARY . '.' . Config::DOMAIN) .
             $object->config('ds');
         $object->config($key, $value);

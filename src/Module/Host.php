@@ -82,7 +82,7 @@ class Host {
         $object->config($key, $value);
         $key = 'host.dir.cache';
         $value =
-            Dir::name($object->config('framework.dir.cache'), 2) .
+            $object->config('framework.dir.temp') .
             $object->config(Config::DICTIONARY . '.' . Config::HOST) .
             $object->config('ds');
         $object->config($key, $value);
