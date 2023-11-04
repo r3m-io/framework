@@ -160,6 +160,8 @@ class App extends Data {
         Handler::request_configure($object);
         App::configure($object);
         Route::configure($object);
+        ddd($object->config());
+
         $route = false;
         $logger = $object->config('project.log.name');
         try {
