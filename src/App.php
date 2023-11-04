@@ -19,6 +19,7 @@ use R3m\Io\Module\Core;
 use R3m\Io\Module\Data;
 use R3m\Io\Module\Database;
 use R3m\Io\Module\Dir;
+use R3m\Io\Module\Domain;
 use R3m\Io\Module\Event;
 use R3m\Io\Module\File;
 use R3m\Io\Module\FileRequest;
@@ -96,6 +97,7 @@ class App extends Data {
         require_once __DIR__ . '/Error.php';
         Config::configure($this);
         Host::configure($this);
+        Domain::configure($this);
         Logger::configure($this);
         Event::configure($this);
         Middleware::configure($this);

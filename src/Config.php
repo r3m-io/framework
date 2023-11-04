@@ -44,6 +44,9 @@ class Config extends Data {
     const PUBLIC = 'public';
     const VALUE_PUBLIC = 'Public';
 
+    const DOMAIN = 'domain';
+    const VALUE_DOMAIN = 'Domain';
+
     const HOST = 'host';
     const VALUE_HOST = 'Host';
 
@@ -195,6 +198,7 @@ class Config extends Data {
     const DATA_PROJECT_DIR_CLI =  Config::DATA_PROJECT_DIR . '.' . 'cli';
     const DATA_PROJECT_DIR_PUBLIC =  Config::DATA_PROJECT_DIR . '.' . 'public';
     const DATA_PROJECT_DIR_HOST =  Config::DATA_PROJECT_DIR . '.' . 'host';
+    const DATA_PROJECT_DIR_DOMAIN =  Config::DATA_PROJECT_DIR . '.' . 'domain';
     const DATA_PROJECT_DIR_PLUGIN =  Config::DATA_PROJECT_DIR . '.' . 'plugin';
     const DATA_PROJECT_DIR_FUNCTION =  Config::DATA_PROJECT_DIR . '.' . 'function';
     const DATA_PROJECT_DIR_LOG =  Config::DATA_PROJECT_DIR . '.' . 'log';
@@ -309,6 +313,11 @@ class Config extends Data {
             }
             $key = Config::DATA_PROJECT_DIR_HOST;
             $value = $volume->data('volume.dir.host');
+            if($value){
+                $config->data($key, $value);
+            }
+            $key = Config::DATA_PROJECT_DIR_DOMAIN;
+            $value = $volume->data('volume.dir.domain');
             if($value){
                 $config->data($key, $value);
             }
@@ -520,6 +529,10 @@ class Config extends Data {
         $value = Config::VALUE_HOST;
         $this->data($key, $value);
 
+        $key = Config::DICTIONARY . '.' . Config::DOMAIN;
+        $value = Config::VALUE_DOMAIN;
+        $this->data($key, $value);
+
         $key = Config::DICTIONARY . '.' . Config::LOG;
         $value = Config::VALUE_LOG;
         $this->data($key, $value);
@@ -713,6 +726,14 @@ class Config extends Data {
         $value =
             $this->data(Config::DATA_PROJECT_DIR_ROOT) .
             $this->data(Config::DICTIONARY . '.' . Config::HOST) .
+            $this->data(Config::DS)
+        ;
+        $this->data($key, $value);
+
+        $key = Config::DATA_PROJECT_DIR_DOMAIN;
+        $value =
+            $this->data(Config::DATA_PROJECT_DIR_ROOT) .
+            $this->data(Config::DICTIONARY . '.' . Config::DOMAIN) .
             $this->data(Config::DS)
         ;
         $this->data($key, $value);

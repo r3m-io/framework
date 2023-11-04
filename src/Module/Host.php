@@ -19,9 +19,13 @@ class Host {
     const SCHEME_HTTP = 'http';
     const SCHEME_HTTPS = 'https';
 
-    public static function configure(App $object){
+    /**
+     * @throws \Exception
+     */
+    public static function configure(App $object): bool
+    {
         if(defined('IS_CLI')){
-            return $object;
+            return false;
         }
         $key = 'host.url';
         $value = Host::url();
@@ -100,10 +104,11 @@ class Host {
             $object->config(Config::DICTIONARY . '.' . Config::VIEW) .
             $object->config('ds');
         $object->config($key, $value);
-        return $object;
+        return true;
     }
 
-    public static function url($include_scheme = true){
+    public static function url($include_scheme = true): string
+    {
         if(isset($_SERVER['HTTP_HOST'])){
             $domain = $_SERVER['HTTP_HOST'];
         }
@@ -124,7 +129,8 @@ class Host {
         return $host;
     }
 
-    public static function domain($host=''){
+    public static function domain($host=''): bool|string|null
+    {
         if(empty($host)){
             if(isset($_SERVER['HTTP_HOST'])){
                 $host = $_SERVER['HTTP_HOST'];
@@ -141,7 +147,8 @@ class Host {
         return false;
     }
 
-    public static function subdomain($host=''){
+    public static function subdomain($host=''): bool|string
+    {
         if(empty($host)){
             if(isset($_SERVER['HTTP_HOST'])){
                 $host = $_SERVER['HTTP_HOST'];
@@ -159,10 +166,11 @@ class Host {
         return false;
     }
 
-    public static function port($host=''){
+    public static function port($host=''): bool|int
+    {
         if(empty($host)){
             if(isset($_SERVER['SERVER_PORT'])) {
-                return $_SERVER['SERVER_PORT'];
+                return (int) $_SERVER['SERVER_PORT'];
             }
             if(isset($_SERVER['HTTP_HOST'])){
                 $host = $_SERVER['HTTP_HOST'];
@@ -175,12 +183,13 @@ class Host {
         if(count($explode) >= 2){
             $string = array_pop($explode);
             $test = explode('?', $string);
-            return $test[0];
+            return (int) $test[0];
         }
         return false;
     }
 
-    public static function extension($host=''){
+    public static function extension($host=''): bool|string
+    {
         if(empty($host)){
             if(isset($_SERVER['HTTP_HOST'])){
                 $host = $_SERVER['HTTP_HOST'];
@@ -201,7 +210,8 @@ class Host {
         return false;
     }
 
-    public static function remove_port($url=''){
+    public static function remove_port($url=''): string
+    {
         $explode = explode(':', $url, 3);
         if(isset($explode[2])){
             array_pop($explode);
@@ -210,7 +220,8 @@ class Host {
         return '';
     }
 
-    public static function remove_scheme($url=''){
+    public static function remove_scheme($url=''): string
+    {
         $explode = explode('://', $url, 2);
         if(isset($explode[1])){
             if(substr($explode[1], -1, 1) == '/'){
@@ -221,7 +232,8 @@ class Host {
         return '';
     }
 
-    public static function scheme(){
+    public static function scheme(): string
+    {
         $scheme = Host::SCHEME_HTTP;
         if(!empty($_SERVER['REQUEST_SCHEME'])){
             $scheme = $_SERVER['REQUEST_SCHEME'];
@@ -233,7 +245,8 @@ class Host {
         return $scheme;
     }
 
-    public static function isIp4Address(){
+    public static function isIp4Address(): bool
+    {
         $subdomain = Host::subdomain();
         $domain = Host::domain();
         $extension = Host::extension();
