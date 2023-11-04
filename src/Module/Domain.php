@@ -17,6 +17,11 @@ class Domain {
     const SCHEME_HTTP = 'http';
     const SCHEME_HTTPS = 'https';
 
+    const PORT_DEFAULT = [
+        80,
+        443
+    ];
+
     /**
      * @throws \Exception
      */
@@ -31,7 +36,6 @@ class Domain {
         $subdomain = Host::subdomain();
         $port = Host::port();
         $key = 'domain.dir.root';
-        //add port if not default.
 
         $object->logger($object->config('project.log.system'))->info('port: ' . $port);
 
@@ -60,30 +64,45 @@ class Domain {
             $object->config('domain.dir.root') .
             $object->config(Config::DICTIONARY . '.' . Config::DATA) .
             $object->config('ds');
+        if(!in_array($port, $object->config('server.default.port'))){
+            $value .= $port . $object->config('ds');
+        }
         $object->config($key, $value);
         $key = 'domain.dir.cache';
         $value =
             $object->config('framework.dir.temp') .
             $object->config(Config::DICTIONARY . '.' . Config::DOMAIN) .
             $object->config('ds');
+        if(!in_array($port, $object->config('server.default.port'))){
+            $value .= $port . $object->config('ds');
+        }
         $object->config($key, $value);
         $key = 'domain.dir.public';
         $value =
             $object->config('domain.dir.root') .
             $object->config(Config::DICTIONARY . '.' . Config::PUBLIC) .
             $object->config('ds');
+        if(!in_array($port, $object->config('server.default.port'))){
+            $value .= $port . $object->config('ds');
+        }
         $object->config($key, $value);
         $key = 'domain.dir.source';
         $value =
             $object->config('domain.dir.root') .
             $object->config(Config::DICTIONARY . '.' . Config::SOURCE) .
             $object->config('ds');
+        if(!in_array($port, $object->config('server.default.port'))){
+            $value .= $port . $object->config('ds');
+        }
         $object->config($key, $value);
         $key = 'domain.dir.view';
         $value =
             $object->config('domain.dir.root') .
             $object->config(Config::DICTIONARY . '.' . Config::VIEW) .
             $object->config('ds');
+        if(!in_array($port, $object->config('server.default.port'))){
+            $value .= $port . $object->config('ds');
+        }
         $object->config($key, $value);
         return true;
     }

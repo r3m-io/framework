@@ -79,30 +79,45 @@ class Host {
             $object->config('host.dir.root') .
             $object->config(Config::DICTIONARY . '.' . Config::DATA) .
             $object->config('ds');
+        if(!in_array($port, $object->config('server.default.port'))){
+            $value .= $port . $object->config('ds');
+        }
         $object->config($key, $value);
         $key = 'host.dir.cache';
         $value =
             $object->config('framework.dir.temp') .
             $object->config(Config::DICTIONARY . '.' . Config::HOST) .
             $object->config('ds');
+        if(!in_array($port, $object->config('server.default.port'))){
+            $value .= $port . $object->config('ds');
+        }
         $object->config($key, $value);
         $key = 'host.dir.public';
         $value =
             $object->config('host.dir.root') .
             $object->config(Config::DICTIONARY . '.' . Config::PUBLIC) .
             $object->config('ds');
+        if(!in_array($port, $object->config('server.default.port'))){
+            $value .= $port . $object->config('ds');
+        }
         $object->config($key, $value);
         $key = 'host.dir.source';
         $value =
             $object->config('host.dir.root') .
             $object->config(Config::DICTIONARY . '.' . Config::SOURCE) .
             $object->config('ds');
+        if(!in_array($port, $object->config('server.default.port'))){
+            $value .= $port . $object->config('ds');
+        }
         $object->config($key, $value);
         $key = 'host.dir.view';
         $value =
             $object->config('host.dir.root') .
             $object->config(Config::DICTIONARY . '.' . Config::VIEW) .
             $object->config('ds');
+        if(!in_array($port, $object->config('server.default.port'))){
+            $value .= $port . $object->config('ds');
+        }
         $object->config($key, $value);
         return true;
     }
