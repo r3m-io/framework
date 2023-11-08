@@ -308,7 +308,7 @@ class Autoload {
      */
     public function load($load): bool
     {
-        Logger::debug('Autoload loader: ', [ $load ], 'debug'); //found miss slow
+//        Logger::debug('Autoload loader: ', [ $load ], 'debug'); //found miss slow
         $file = $this->locate($load);
         if (!empty($file)) {
             require_once $file;
