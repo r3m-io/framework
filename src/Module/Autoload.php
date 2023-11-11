@@ -57,7 +57,6 @@ class Autoload {
             foreach($prefix as $record){
                 $parameters = Core::object($record, 'array');
                 $parameters = Config::parameters($object, $parameters);
-                d($parameters);
                 if(
                     array_key_exists('prefix', $parameters) &&
                     array_key_exists('directory', $parameters) &&
