@@ -593,7 +593,8 @@ class Autoload {
          * need fast logger writing to autoload log which should be in tmp ?
          */
 
-        ddd($object->config());
+        var_dump($object->config());
+        die;
 
         if($this->environment() == 'development' || !empty($this->expose())){
             if(empty($this->expose())){
