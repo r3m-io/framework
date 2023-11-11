@@ -308,7 +308,7 @@ class Autoload {
      */
     public function load($load): bool
     {
-//        Logger::debug('Autoload loader: ', [ $load ], 'debug'); //found miss slow
+//        Logger::debug('Autoload loader: ', [ $load ], 'debug'); //found miss slow and fatal crash (push the button)
         $file = $this->locate($load);
         if (!empty($file)) {
             require_once $file;
@@ -589,6 +589,12 @@ class Autoload {
             }
 
         }
+        /**
+         * need fast logger writing to autoload log which should be in tmp ?
+         */
+
+        ddd($object->config());
+
         if($this->environment() == 'development' || !empty($this->expose())){
             if(empty($this->expose())){
                 Logger::debug('Autoload prefixList: ', [ $prefixList ]);
