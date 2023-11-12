@@ -593,9 +593,26 @@ class Autoload {
          * need fast logger writing to autoload log which should be in tmp ?
          */
 
-        var_dump($object->config());
-        die;
+        //json objects.
 
+        $data = new Data();
+        $data->set('Autoload.load', $load);
+        $data->set('Autoload.fileList', $fileList);
+        $data->set('Autoload.prefixList', $prefixList);
+        $data->set('Autoload.environment', $this->environment());
+        $data->set('Autoload.expose', $this->expose());
+        $data->set('Autoload.time', microtime(true));
+
+        File::append(
+            $object->config('ramdisk.url') .
+            $object->config('posix.id') .
+            $object->config('ds') .
+            'Autoload' .
+            $object->config('ds') .
+            'Autoload.log',
+            Core::object($data->data(),Core::OBJECT_JSON)
+        );
+        //we might comment the environment / expose, where did we use expose ?
         if($this->environment() == 'development' || !empty($this->expose())){
             if(empty($this->expose())){
                 Logger::debug('Autoload prefixList: ', [ $prefixList ]);
