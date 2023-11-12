@@ -382,7 +382,6 @@ class Autoload {
             $load = $item['directory'] . $item['file'];
             $load_directory = dirname($load);
             $load = basename($load) . '.' . Autoload::EXT_PHP;
-
             $load_compile = Autoload::name_reducer(
                 $object,
                 $load,
@@ -390,13 +389,9 @@ class Autoload {
                 $object->config('cache.parse.url.name_separator'),
                 $object->config('cache.parse.url.name_pop_or_shift')
             );
-            if($load_compile === 'Node.php'){
-//                $debug = debug_backtrace(true);
-                d($item);
-                d($load);
-//                ddd($debug);
+            if(str_contains($load_compile, '_')){
+                $data[] = $object->config('autoload.cache.compile') . $load_compile;
             }
-            $data[] = $object->config('autoload.cache.compile') . $load_compile .
             $load = Autoload::name_reducer(
                 $object,
                 $load,
