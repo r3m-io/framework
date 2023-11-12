@@ -390,7 +390,6 @@ class Autoload {
                 $object->config('cache.parse.url.name_pop_or_shift')
             );
             $data[] = $object->config('autoload.cache.compile') . $load_compile;
-            d($data);
             $load = Autoload::name_reducer(
                 $object,
                 $load,
