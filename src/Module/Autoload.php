@@ -393,7 +393,7 @@ class Autoload {
             if($load_compile === 'Node.php'){
 //                $debug = debug_backtrace(true);
                 d($item);
-                ddd($load);
+                d($load);
 //                ddd($debug);
             }
             $data[] = $object->config('autoload.cache.compile') . $load_compile .
