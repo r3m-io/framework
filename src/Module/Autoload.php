@@ -391,8 +391,10 @@ class Autoload {
                 $object->config('cache.parse.url.name_pop_or_shift')
             );
             if($load_compile === 'Node.php'){
-                $debug = debug_backtrace(true);
-                ddd($debug);
+//                $debug = debug_backtrace(true);
+                d($item);
+                ddd($load);
+//                ddd($debug);
             }
             $data[] = $object->config('autoload.cache.compile') . $load_compile .
             $load = Autoload::name_reducer(
