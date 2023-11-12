@@ -32,6 +32,8 @@ class Autoload {
     const EXT_CLASS_PHP = 'class.php';
     const EXT_TRAIT_PHP = 'trait.php';
 
+    const TYPE_ERROR = 'error';
+
     protected $expose;
     protected $read;
     protected $fileList;
@@ -597,6 +599,7 @@ class Autoload {
 
         $data = new Data();
         $data->set('Autoload.load', $load);
+        $data->set('Autoload.type', Autoload::TYPE_ERROR);
         $data->set('Autoload.fileList', $fileList);
         $data->set('Autoload.prefixList', $prefixList);
         $data->set('Autoload.environment', $this->environment());
