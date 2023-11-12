@@ -461,6 +461,12 @@ class Autoload {
         $prefixList = $this->getPrefixList();
         $fileList = [];
         $object = $this->object();
+        $dir_temp = $object->config('ramdisk.url') .
+            $object->config('posix.id') .
+            $object->config('ds') .
+            'Autoload' .
+            $object->config('ds');
+        Dir::create($dir_temp, DIR::CHMOD);
         if(!empty($prefixList)){
             foreach($prefixList as $nr => $item){
                 if(empty($item['prefix'])){
@@ -510,6 +516,7 @@ class Autoload {
                             if(substr($file, 0, 5) == '[---]'){
                                 continue;
                             }
+                            File::append($dir_temp . 'Exist.log', 'exist: ' . file_exists($file) . ': ' . $file . PHP_EOL);
                             if(file_exists($file)){
                                 if(
                                     empty($object->config('ramdisk.is.disabled')) &&
@@ -607,12 +614,7 @@ class Autoload {
         $data->set('Autoload.environment', $this->environment());
         $data->set('Autoload.expose', $this->expose());
         $data->set('Autoload.time', microtime(true));
-        $dir_temp = $object->config('ramdisk.url') .
-        $object->config('posix.id') .
-        $object->config('ds') .
-        'Autoload' .
-        $object->config('ds');
-        Dir::create($dir_temp, DIR::CHMOD);
+
         File::append(
             $dir_temp .
             'Autoload.log',
