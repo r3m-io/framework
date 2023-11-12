@@ -605,13 +605,14 @@ class Autoload {
         $data->set('Autoload.environment', $this->environment());
         $data->set('Autoload.expose', $this->expose());
         $data->set('Autoload.time', microtime(true));
-
+        $dir_temp = $object->config('ramdisk.url') .
+        $object->config('posix.id') .
+        $object->config('ds') .
+        'Autoload' .
+        $object->config('ds');
+        Dir::create($dir_temp, DIR::CHMOD);
         File::append(
-            $object->config('ramdisk.url') .
-            $object->config('posix.id') .
-            $object->config('ds') .
-            'Autoload' .
-            $object->config('ds') .
+            $dir_temp .
             'Autoload.log',
             Core::object($data->data(),Core::OBJECT_JSON)
         );
