@@ -10,7 +10,6 @@
  */
 namespace R3m\Io\Module;
 
-use R3m\Io\Exception\FileWriteException;
 use stdClass;
 
 use R3m\Io\App;
@@ -25,6 +24,7 @@ use Exception;
 
 use R3m\Io\Exception\LocateException;
 use R3m\Io\Exception\ObjectException;
+use R3m\Io\Exception\FileWriteException;
 
 class Event extends Main {
 

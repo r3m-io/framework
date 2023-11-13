@@ -11,15 +11,13 @@
 namespace R3m\Io\Cli\Init\Controller;
 
 use R3m\Io\App;
-use R3m\Io\Exception\ObjectException;
+
 use R3m\Io\Module\Controller;
 use R3m\Io\Module\Event;
 
 use Exception;
 
-use R3m\Io\Exception\LocateException;
-use R3m\Io\Exception\UrlEmptyException;
-use R3m\Io\Exception\UrlNotExistException;
+use R3m\Io\Exception\ObjectException;
 
 class Init extends Controller {
     const DIR = __DIR__;
@@ -28,6 +26,7 @@ class Init extends Controller {
 
     /**
      * @throws ObjectException
+     * @throws Exception
      */
     public static function run(App $object){
         Event::trigger($object, 'cli.init.run', [
