@@ -95,7 +95,6 @@ class App extends Data {
         App::is_cli();
         require_once __DIR__ . '/Debug.php';
         require_once __DIR__ . '/Error.php';
-        ddd('test');
         Config::configure($this);
         Logger::configure($this);
         Host::configure($this);
