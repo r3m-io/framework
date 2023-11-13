@@ -182,7 +182,6 @@ class Event extends Main {
     {
         $start = microtime(true);
         $event = new Event($object);
-        ddd($event->role_system());
         $limit = $object->config('event.chunk_size') ?? Event::CHUNK_SIZE;
         $count = $event->count(
             Event::OBJECT,
