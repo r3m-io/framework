@@ -45,7 +45,7 @@
           "recursive": true
         },
         {
-          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Data/Event/",
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Event/",
           "to" : "{{config('project.dir.event')}}",
           "recursive": true
         }
