@@ -28,11 +28,11 @@ class   Init extends Controller {
      * @throws ObjectException
      * @throws Exception
      */
-    public static function run(App $object){
+    public static function run(App $object): void
+    {
         Event::trigger($object, 'cli.init.run', [
             'flags' => App::flags($object),
             'options' => App::options($object)
         ]);
-        return null;
     }
 }
