@@ -45,7 +45,7 @@
           "recursive": true
         },
         {
-          "from" : "{{config('framwork.dir.source')}}Event/",
+          "from" : "{{config('framework.dir.source')}}Event/",
           "to" : "{{config('project.dir.event')}}",
           "recursive": true
         }
