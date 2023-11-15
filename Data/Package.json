@@ -45,7 +45,7 @@
           "recursive": true
         },
         {
-          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Event/",
+          "from" : "{{config('framwork.dir.source')}}Event/",
           "to" : "{{config('project.dir.event')}}",
           "recursive": true
         }
@@ -128,6 +128,11 @@
         {
           "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Data/Node/",
           "to" : "{{config('project.dir.data')}}Node/",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Event/",
+          "to" : "{{config('project.dir.event')}}",
           "recursive": true
         }
       ],
