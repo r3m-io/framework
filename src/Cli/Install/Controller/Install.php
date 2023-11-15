@@ -172,38 +172,40 @@ class Install extends Controller {
                             }
                             $dir = new Dir();
                             $read = $dir->read($copy->from, true);
-                            foreach($read as $file){
-                                if($file->type === Dir::TYPE){
-                                    $create = str_replace($copy->from, $copy->to, $file->url);
-                                    Dir::create($create, Dir::CHMOD);
-                                    if($object->config(Config::POSIX_ID) === 0){
-                                        $command = 'chown www-data:www-data ' . $create;
-                                        exec($command);
-                                    }
-                                    if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
-                                        $command = 'chmod 777 ' . $create;
-                                        exec($command);
-                                    }
-                                }
-                            }
-                            foreach($read as $file){
-                                if($file->type === File::TYPE){
-                                    $to = str_replace($copy->from, $copy->to, $file->url);
-                                    if(
-                                        !File::exist($to) ||
-                                        property_exists($options, 'force')
-                                    ){
-                                        if(property_exists($options, 'force')){
-                                            File::delete($to);
-                                        }
-                                        File::copy($file->url, $to);
+                            if(is_array($read)){
+                                foreach($read as $file){
+                                    if($file->type === Dir::TYPE){
+                                        $create = str_replace($copy->from, $copy->to, $file->url);
+                                        Dir::create($create, Dir::CHMOD);
                                         if($object->config(Config::POSIX_ID) === 0){
-                                            $command = 'chown www-data:www-data ' . $to;
+                                            $command = 'chown www-data:www-data ' . $create;
                                             exec($command);
                                         }
                                         if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
-                                            $command = 'chmod 666 ' . $to;
+                                            $command = 'chmod 777 ' . $create;
                                             exec($command);
+                                        }
+                                    }
+                                }
+                                foreach($read as $file){
+                                    if($file->type === File::TYPE){
+                                        $to = str_replace($copy->from, $copy->to, $file->url);
+                                        if(
+                                            !File::exist($to) ||
+                                            property_exists($options, 'force')
+                                        ){
+                                            if(property_exists($options, 'force')){
+                                                File::delete($to);
+                                            }
+                                            File::copy($file->url, $to);
+                                            if($object->config(Config::POSIX_ID) === 0){
+                                                $command = 'chown www-data:www-data ' . $to;
+                                                exec($command);
+                                            }
+                                            if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
+                                                $command = 'chmod 666 ' . $to;
+                                                exec($command);
+                                            }
                                         }
                                     }
                                 }
