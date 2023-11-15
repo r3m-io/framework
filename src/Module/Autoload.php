@@ -516,7 +516,7 @@ class Autoload {
                             if(substr($file, 0, 5) == '[---]'){
                                 continue;
                             }
-                            File::append($dir_temp . 'Exist.log', 'exist: ' . file_exists($file) . ': ' . $file . PHP_EOL);
+//                            File::append($dir_temp . 'Exist.log', 'exist: ' . file_exists($file) . ': ' . $file . PHP_EOL);
                             if(file_exists($file)){
                                 if(
                                     empty($object->config('ramdisk.is.disabled')) &&
@@ -618,7 +618,7 @@ class Autoload {
         File::append(
             $dir_temp .
             'Autoload.log',
-            Core::object($data->data(),Core::OBJECT_JSON)
+            json_encode($data->data(),JSON_PRETTY_PRINT)
         );
         //we might comment the environment / expose, where did we use expose ?
         if($this->environment() == 'development' || !empty($this->expose())){

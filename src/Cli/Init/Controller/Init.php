@@ -19,7 +19,7 @@ use Exception;
 
 use R3m\Io\Exception\ObjectException;
 
-class Init extends Controller {
+class   Init extends Controller {
     const DIR = __DIR__;
     const NAME = 'Init';
     const INFO = '{{binary()}} init                           | Init events with flags / options';
