@@ -485,7 +485,7 @@ class Autoload {
                 } elseif($is_data === false) {
                     File::append(
                         $url_prefix,
-                        $load . PHP_EOL
+                        'prefix: ' . $item['prefix'] . ', ' . 'directory: ' . $item['directory'] . ', load: ' . $load . PHP_EOL
                     );
                     $tmp = explode('.', $load);
                     if(count($tmp) >= 2){
