@@ -306,6 +306,11 @@ class Config extends Data {
             if($value){
                 $config->data($key, $value);
             }
+            $key = Config::DATA_PROJECT_DIR_DOMAIN;
+            $value = $volume->data('volume.dir.domain');
+            if($value){
+                $config->data($key, $value);
+            }
             $key = Config::DATA_PROJECT_DIR_EVENT;
             $value = $volume->data('volume.dir.event');
             if($value){
@@ -313,11 +318,6 @@ class Config extends Data {
             }
             $key = Config::DATA_PROJECT_DIR_HOST;
             $value = $volume->data('volume.dir.host');
-            if($value){
-                $config->data($key, $value);
-            }
-            $key = Config::DATA_PROJECT_DIR_DOMAIN;
-            $value = $volume->data('volume.dir.domain');
             if($value){
                 $config->data($key, $value);
             }
@@ -351,8 +351,8 @@ class Config extends Data {
             if($value){
                 $config->data($key, $value);
             }
-            $key = Config::DATA_PROJECT_DIR_PUBLIC;
-            $value = $volume->data('volume.dir.public');
+            $key = Config::DATA_PROJECT_DIR_SOURCE;
+            $value = $volume->data('volume.dir.source');
             if($value){
                 $config->data($key, $value);
             }
