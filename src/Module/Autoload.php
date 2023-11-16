@@ -466,12 +466,7 @@ class Autoload {
             $object->config('ds') .
             'Autoload' .
             $object->config('ds');
-        $url_prefix = $dir_temp . 'Prefix' . $object->config('extension.log');
         Dir::create($dir_temp, DIR::CHMOD);
-        File::append(
-            $url_prefix,
-            json_encode($prefixList, JSON_PRETTY_PRINT). PHP_EOL
-        );
         if(!empty($prefixList)){
             foreach($prefixList as $nr => $item){
                 if(empty($item['prefix'])){
@@ -491,24 +486,7 @@ class Autoload {
                         array_pop($tmp);
                     }
                     $item['file'] = implode('.', $tmp);
-                    File::append(
-                        $url_prefix,
-                        'prefix: ' . $item['prefix'] . ', ' . 'directory: ' . $item['directory'] . ', load: ' . $load . PHP_EOL
-                    );
                 }
-                /*
-                elseif(strpos($load, 'R3m\Io\Module\Compile') === 0){
-                    $tmp = explode('.', $load);
-                    if(count($tmp) >= 2){
-                        array_pop($tmp);
-                    }
-                    $item['file'] = implode('.', $tmp);
-                    File::append(
-                        $url_prefix,
-                        'prefix: ' . $item['prefix'] . ', ' . 'directory: ' . $item['directory'] . ', load: ' . $load . PHP_EOL
-                    );
-                }
-                */
                 elseif($is_data === false) {
 
                     continue; //changed @ 2023-11-16
@@ -659,9 +637,7 @@ class Autoload {
         //we might comment the environment / expose, where did we use expose ?
         if($this->environment() == 'development' || !empty($this->expose())){
             if(empty($this->expose())){
-                Logger::debug('Autoload prefixList: ', [ $prefixList ]);
-                Logger::debug('Autoload error: ', [ $fileList ]);
-                throw new LocateException('Autoload error, cannot load (' . $load .') class.', Autoload::exception_filelist($fileList));
+                throw new LocateException('Autoload error, cannot load (' . $load .') class. (see ' . $dir_temp . 'Autoload.log' . ')', Autoload::exception_filelist($fileList));
             }
             $object = new stdClass();
             $object->load = $load;
