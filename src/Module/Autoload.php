@@ -427,6 +427,7 @@ class Autoload {
         $data[] = $item['directory'] . $item['baseName'] . '.' . Autoload::EXT_PHP;
         $this->fileList[$item['baseName']][] = $data;
         $result = array();
+        ddd($data);
         foreach($data as $nr => $file){
             if($file === '[---]'){
                 $file = $file . $nr;
@@ -450,7 +451,6 @@ class Autoload {
         flock($resource, LOCK_UN);
         fclose($resource);
         */
-        ddd($result);
         return $result;
     }
 
