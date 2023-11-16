@@ -482,7 +482,16 @@ class Autoload {
                     trim(substr($load, strlen($item['prefix'])),'\\');
                     $item['file'] =
                     str_replace('\\', DIRECTORY_SEPARATOR, $item['file']);
-                } elseif($is_data === false) {
+                }
+                elseif(strpos($load, 'R3m\Io\Module\Compile') === 0){
+                    $tmp = explode('.', $load);
+                    if(count($tmp) >= 2){
+                        array_pop($tmp);
+                    }
+                    $item['file'] = implode('.', $tmp);
+                }
+                elseif($is_data === false) {
+
                     continue; //changed @ 2023-11-16
                     /*
                     File::append(
@@ -493,7 +502,7 @@ class Autoload {
                     if(count($tmp) >= 2){
                         array_pop($tmp);
                     }
-                    $item['file'] = implode('.',$tmp);
+                    $item['file'] = implode('.', $tmp);
                     */
                 } else {
                     continue;
