@@ -468,6 +468,10 @@ class Autoload {
             $object->config('ds');
         $url_prefix = $dir_temp . 'Prefix' . $object->config('extension.log');
         Dir::create($dir_temp, DIR::CHMOD);
+        File::append(
+            $url_prefix,
+            json_encode($prefixList, JSON_PRETTY_PRINT). PHP_EOL
+        );
         if(!empty($prefixList)){
             foreach($prefixList as $nr => $item){
                 if(empty($item['prefix'])){
