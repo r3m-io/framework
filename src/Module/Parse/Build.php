@@ -1102,6 +1102,7 @@ class Build {
             if(empty($dir)){
                 throw new Exception('Cache dir empty in Build');
             }
+            ddd($dir);
             $autoload = $this->object()->data(App::NAMESPACE . '.' . Autoload::NAME . '.' . App::R3M);
             if($autoload) {
                 $prefixList = $autoload->getPrefixList();
