@@ -483,6 +483,8 @@ class Autoload {
                     $item['file'] =
                     str_replace('\\', DIRECTORY_SEPARATOR, $item['file']);
                 } elseif($is_data === false) {
+                    continue; //changed @ 2023-11-16
+                    /*
                     File::append(
                         $url_prefix,
                         'prefix: ' . $item['prefix'] . ', ' . 'directory: ' . $item['directory'] . ', load: ' . $load . PHP_EOL
@@ -492,7 +494,7 @@ class Autoload {
                         array_pop($tmp);
                     }
                     $item['file'] = implode('.',$tmp);
-
+                    */
                 } else {
                     continue;
                 }
