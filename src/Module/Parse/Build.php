@@ -996,7 +996,7 @@ class Build {
         $config = $this->object()->data(App::CONFIG);
         $this->storage()->data('placeholder.use', '// R3M-IO-' . Core::uuid());
         $namespace = $config->data('parse.prefix');
-        ddd($namespace);
+        ddd(Config::parameters($this->object(), [ $namespace ]));
         $this->storage()->data('namespace', $namespace);
         $key = $this->storage()->data('key');
         $name = '';
