@@ -433,24 +433,6 @@ class Autoload {
             }
             $result[$file] = $file;
         }
-        /*
-        $data = json_encode($result, JSON_PRETTY_PRINT) . PHP_EOL;
-        $url = '/Application/Log/Autoload.log';
-        $resource = @fopen($url, 'a');
-        if($resource === false){
-            return $result;
-        }
-        flock($resource, LOCK_EX);
-        for ($written = 0; $written < strlen($data); $written += $fwrite) {
-            $fwrite = fwrite($resource, substr($data, $written));
-            if ($fwrite === false) {
-                break;
-            }
-        }
-        flock($resource, LOCK_UN);
-        fclose($resource);
-        */
-        ddd($result);
         return $result;
     }
 
