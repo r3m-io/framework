@@ -450,6 +450,7 @@ class Autoload {
         flock($resource, LOCK_UN);
         fclose($resource);
         */
+        ddd($result);
         return $result;
     }
 
