@@ -491,6 +491,10 @@ class Autoload {
                         array_pop($tmp);
                     }
                     $item['file'] = implode('.', $tmp);
+                    File::append(
+                        $url_prefix,
+                        'prefix: ' . $item['prefix'] . ', ' . 'directory: ' . $item['directory'] . ', load: ' . $load . PHP_EOL
+                    );
                 }
                 /*
                 elseif(strpos($load, 'R3m\Io\Module\Compile') === 0){
