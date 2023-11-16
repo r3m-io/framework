@@ -486,7 +486,13 @@ class Autoload {
                     trim(substr($load, strlen($item['prefix'])),'\\');
                     $item['file'] =
                     str_replace('\\', DIRECTORY_SEPARATOR, $item['file']);
+                    $tmp = explode('.', $item['file']);
+                    if(count($tmp) >= 2){
+                        array_pop($tmp);
+                    }
+                    $item['file'] = implode('.', $tmp);
                 }
+                /*
                 elseif(strpos($load, 'R3m\Io\Module\Compile') === 0){
                     $tmp = explode('.', $load);
                     if(count($tmp) >= 2){
@@ -498,6 +504,7 @@ class Autoload {
                         'prefix: ' . $item['prefix'] . ', ' . 'directory: ' . $item['directory'] . ', load: ' . $load . PHP_EOL
                     );
                 }
+                */
                 elseif($is_data === false) {
 
                     continue; //changed @ 2023-11-16
