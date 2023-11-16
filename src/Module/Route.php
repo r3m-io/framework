@@ -740,7 +740,7 @@ class Route extends Data {
                 $controller = explode(':', $route->controller);
                 if(array_key_exists(1, $controller)) {
                     $function = array_pop($controller);
-                    $route->controller = implode('\\', $controller);
+                    $route->controller = str_replace('.', '_', implode('\\', $controller));
                     $function = str_replace('.', '_', $function);
                     $route->function = $function;
                 }
