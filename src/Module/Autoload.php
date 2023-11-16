@@ -490,7 +490,7 @@ class Autoload {
                     $item['file'] = implode('.',$tmp);
                     File::append(
                         $url_prefix,
-                        '[' . implode(', ', $item) . ']'
+                        '["' . implode('", "', $item) . '"]' . PHP_EOL
                     );
                 } else {
                     continue;
