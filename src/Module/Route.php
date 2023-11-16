@@ -400,7 +400,7 @@ class Route extends Data {
             $test_count = count($test);
             if($test_count > 1){
                 $string_count = $test[0];
-                $select->deep = substr_count($string_count, '/');
+//                $select->deep = substr_count($string_count, '/');
                 $select->attribute = explode('/', $test[0]);
                 if(end($select->attribute) === ''){
                     array_pop($select->attribute);
@@ -735,11 +735,22 @@ class Route extends Data {
 
     public static function controller($route){
         if(property_exists($route, 'controller')){
-            $controller = explode('.', $route->controller);
-            if(array_key_exists(1, $controller)) {
-                $function = array_pop($controller);
-                $route->controller = implode('\\', $controller);
-                $route->function = $function;
+            $is_double_colon = str_contains($route->controller, ':');
+            if($is_double_colon){
+                $controller = explode(':', $route->controller);
+                if(array_key_exists(1, $controller)) {
+                    $function = array_pop($controller);
+                    $route->controller = implode('\\', $controller);
+                    $function = str_replace('.', '_', $function);
+                    $route->function = $function;
+                }
+            } else {
+                $controller = explode('.', $route->controller);
+                if(array_key_exists(1, $controller)) {
+                    $function = array_pop($controller);
+                    $route->controller = implode('\\', $controller);
+                    $route->function = $function;
+                }
             }
         }
         return $route;
