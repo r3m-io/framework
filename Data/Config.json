@@ -222,6 +222,7 @@
         }
     },
     "parse": {
+        "prefix": "R3m\\Io\\Module\\{{config('dictionary.compile')}}",
         "read": {
             "parser": "{{R3M}}",
             "row_mismatch": 1,

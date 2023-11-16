@@ -995,7 +995,8 @@ class Build {
     {
         $config = $this->object()->data(App::CONFIG);
         $this->storage()->data('placeholder.use', '// R3M-IO-' . Core::uuid());
-        $namespace = 'R3m\\Io\\Module\\' .  $config->data('dictionary.compile');
+        $namespace = $config->data('parse.prefix');
+        ddd($namespace);
         $this->storage()->data('namespace', $namespace);
         $key = $this->storage()->data('key');
         $name = '';
