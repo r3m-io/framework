@@ -466,6 +466,7 @@ class Autoload {
             $object->config('ds') .
             'Autoload' .
             $object->config('ds');
+        $url_prefix = $dir_temp . 'Prefix' . $object->config('extension.log');
         Dir::create($dir_temp, DIR::CHMOD);
         if(!empty($prefixList)){
             foreach($prefixList as $nr => $item){
@@ -487,6 +488,10 @@ class Autoload {
                         array_pop($tmp);
                     }
                     $item['file'] = implode('.',$tmp);
+                    File::append(
+                        $url_prefix,
+                        '[' . implode(', ', $item) . ']'
+                    );
                 } else {
                     continue;
                 }
