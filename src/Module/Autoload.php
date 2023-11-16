@@ -483,15 +483,16 @@ class Autoload {
                     $item['file'] =
                     str_replace('\\', DIRECTORY_SEPARATOR, $item['file']);
                 } elseif($is_data === false) {
+                    File::append(
+                        $url_prefix,
+                        $load . PHP_EOL
+                    );
                     $tmp = explode('.', $load);
                     if(count($tmp) >= 2){
                         array_pop($tmp);
                     }
                     $item['file'] = implode('.',$tmp);
-                    File::append(
-                        $url_prefix,
-                        '["' . implode('", "', $item) . '"]' . PHP_EOL
-                    );
+
                 } else {
                     continue;
                 }
