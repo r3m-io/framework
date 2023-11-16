@@ -1103,12 +1103,11 @@ class Build {
             if(empty($dir)){
                 throw new Exception('Cache dir empty in Build');
             }
-            ddd($dir);
             $autoload = $this->object()->data(App::NAMESPACE . '.' . Autoload::NAME . '.' . App::R3M);
             if($autoload) {
                 $prefixList = $autoload->getPrefixList();
                 $autoload->unregister();
-                $autoload->addPrefix($config->data('dictionary.compile'),  $dir);
+                $autoload->addPrefix($config->data('parse.prefix'),  $dir);
                 foreach ($prefixList as $nr => $record){
                     if(
                         array_key_exists('prefix', $record) &&
