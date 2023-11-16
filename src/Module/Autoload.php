@@ -417,8 +417,12 @@ class Autoload {
         ){
             $data[] = $this->read->autoload->{$caller}->{$item['load']};
         }
+        $item['file_dot'] = str_replace('_', '.', $item['file']);
+        $data[] = $item['directory'] . $item['file_dot'] . DIRECTORY_SEPARATOR . $item['file_dot'] . '.' . Autoload::EXT_PHP;
         $data[] = $item['directory'] . $item['file'] . DIRECTORY_SEPARATOR . $item['file'] . '.' . Autoload::EXT_PHP;
+        $data[] = $item['directory'] . $item['file_dot'] . DIRECTORY_SEPARATOR . $item['baseName'] . '.' . Autoload::EXT_PHP;
         $data[] = $item['directory'] . $item['file'] . DIRECTORY_SEPARATOR . $item['baseName'] . '.' . Autoload::EXT_PHP;
+        $data[] = $item['directory'] . $item['file_dot'] . '.' . Autoload::EXT_PHP;
         $data[] = $item['directory'] . $item['file'] . '.' . Autoload::EXT_PHP;
         $data[] = $item['directory'] . $item['baseName'] . '.' . Autoload::EXT_PHP;
         $this->fileList[$item['baseName']][] = $data;
