@@ -137,7 +137,6 @@ class FileRequest {
             $explode = explode('-', $name, 3);
             $count = count($explode);
             if($count > 1){
-                $extension = $explode[$count - 1];
                 $explode[$count - 1] = 'local';
                 $name = implode('-', $explode);
                 $fileRequest->{$name} = $node;
@@ -202,55 +201,35 @@ class FileRequest {
         $subdomain = Host::subdomain();
         $domain = Host::domain();
         $extension = Host::extension();
-        $config = $object->data(App::CONFIG);
         FileRequest::local($object);
-        $fileRequest = $object->config('server.fileRequest');
+        if($subdomain){
+            $fileRequest = $object->config('server.fileRequest.' .
+                $subdomain .
+                '-' .
+                $domain .
+                '-' .
+                $extension
+            );
+        } else {
+            $fileRequest = $object->config('server.fileRequest.' .
+                $domain .
+                '-' .
+                $extension
+            );
+        }
         ddd($fileRequest);
         Config::contentType($object);
         if(empty($fileRequest)){
             $location = FileRequest::location($object, $dir);
             ddd($location);
         } else {
-            $config_mtime = false;
-            $config_url = $object->config('project.dir.data') . 'Config' . $object->config('extension.json');
-            $cache_dir = $object->config('framework.dir.temp') .
-                $object->config(Config::POSIX_ID) .
-                $object->config('ds')
-            ;
-            $cache_url = $cache_dir .
-                'FileRequest' .
-                $object->config('extension.json')
-            ;
-            if(File::exist($config_url)){
-                $config_mtime = File::mtime($config_url);
-            }
-            if(File::exist($cache_url)){
-                $cache_mtime = File::mtime($cache_url);
-                if($cache_mtime === $config_mtime){
-                    //read cache_url
-                    $data = $object->data_read($cache_url);
-                } else {
-                    //write cache_url
-                    $parse = new Parse($object);
-                    $fileRequest = $parse->compile($fileRequest, $object->data());
-                    $data = new Data($fileRequest);
-                    $data->write($cache_url);
-                    File::touch($cache_url, $config_mtime);
-                }
-            } else {
-                //write cache_url
-                $parse = new Parse($object);
-                $fileRequest = $parse->compile($fileRequest, $object->data());
-                Dir::create($cache_dir, Dir::CHMOD);
-                $data = new Data($fileRequest);
-                $data->write($cache_url);
-                File::touch($cache_url, $config_mtime);
-            }
+
             if($subdomain){
                 $attribute = $subdomain . '-' . $domain . '-' . $extension . '.location';
             } else {
                 $attribute = $domain . '-' . $extension. '.location';
             }
+            /*
             $location = $data->get($attribute);
             if(empty($location)){
                 $location = $data->get('location');
@@ -258,6 +237,7 @@ class FileRequest {
             if(empty($location)){
                 $location = FileRequest::location($object, $dir);
             }
+            */
         }
         $ram_dir = false;
         $ram_url = false;
@@ -351,12 +331,12 @@ class FileRequest {
                         $object->logger($logger)->info('HTTP/1.0 415 Unsupported Media Type', [ $file, $file_extension]);
                     }
                     Handler::header('HTTP/1.0 415 Unsupported Media Type', 415);
-                    if($config->data('framework.environment') === Config::MODE_DEVELOPMENT){
+                    if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
                         $json = [];
                         $json['message'] = 'HTTP/1.0 415 Unsupported Media Type';
                         $json['file'] = $file;
                         $json['extension'] = $file_extension;
-                        $json['available'] = $config->data('contentType');
+                        $json['available'] = $object->config('contentType');
                         echo Core::object($json, Core::OBJECT_JSON);
                     }
                     exit();
@@ -505,7 +485,7 @@ class FileRequest {
             $object->logger($logger)->error('File doesn\'t exists', [ $url ]);
         }
         Handler::header('HTTP/1.0 404 Not Found', 404);
-        if($config->data('framework.environment') === Config::MODE_DEVELOPMENT){
+        if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
             if(is_array($location)){
                 foreach ($location as $key => $value){
                     $location[$key] .= $file;
@@ -516,46 +496,46 @@ class FileRequest {
             if(
                 in_array(
                     $extension,
-                    $config->get('error.extension.tpl')
+                    $object->config('error.extension.tpl')
                 )
             ){
-                if($config->data('server.http.error.404')){
+                if($object->config('server.http.error.404')){
                     //let's parse this tpl
                     $data = new Data();
                     $data->set('file', $file);
                     $data->set('extension', $extension);
                     $data->set('location', $location);
-                    $contentType = $config->data('contentType.' . $extension);
+                    $contentType = $object->config('contentType.' . $extension);
                     $data->set('contentType', $contentType);
                     $parse = new Parse($object, $data);
-                    $compile = $parse->compile(File::read($parse->compile($config->data('server.http.error.404'), $data->get())), $data->get());
+                    $compile = $parse->compile(File::read($parse->compile($object->config('server.http.error.404'), $data->get())), $data->get());
                     echo $compile;
                 }
             }
             elseif(
                 in_array(
                     $extension,
-                    $config->get('error.extension.text')
+                    $object->config('error.extension.text')
                 )
             ){
-                if($config->data('server.http.error.404')){
+                if($object->config('server.http.error.404')){
                     echo "HTTP/1.0 404 Not Found: " . $file . PHP_EOL;
                 }
             }
             elseif(
                 in_array(
                     $extension,
-                    $config->get('error.extension.js')
+                    $object->config('error.extension.js')
                 )
             ){
-                if($config->data('server.http.error.404')){
+                if($object->config('server.http.error.404')){
                     echo 'console.error("HTTP/1.0 404 Not Found",  "' . $file . '");';
                 }
             }
             elseif(
                 in_array(
                     $extension,
-                    $config->get('error.extension.json')
+                    $object->config('error.extension.json')
                 )
             ){
                 $contentType = 'application/json';
@@ -573,5 +553,4 @@ class FileRequest {
         }
         exit();
     }
-
 }

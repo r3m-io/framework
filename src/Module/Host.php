@@ -170,7 +170,7 @@ class Host {
         $explode = explode('.', $host);
         if(count($explode) >= 2){
             array_pop($explode);
-            return array_pop($explode);
+            return strtolower(array_pop($explode));
         }
         return false;
     }
@@ -189,7 +189,7 @@ class Host {
         if(count($explode) > 2){
             array_pop($explode);
             array_pop($explode);
-            return implode('.', $explode);
+            return strtolower(implode('.', $explode));
         }
         return false;
     }
@@ -233,7 +233,7 @@ class Host {
         $host = implode(':', $host);
         $explode = explode('.', $host);
         if(count($explode) > 1){
-            return array_pop($explode);
+            return strtolower(array_pop($explode));
         }
         return false;
     }
