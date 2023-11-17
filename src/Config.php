@@ -236,6 +236,7 @@ class Config extends Data {
 
     /**
      * @throws ObjectException
+     * @throws Exception
      */
     public function __construct($config=[]){
         if(
