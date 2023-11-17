@@ -322,6 +322,7 @@ class FileRequest {
             }
         }
         $is_ram_url = false;
+        ddd($location);
         foreach($location as $url){
             if(substr($url, -1, 1) !== $object->config('ds')){
                 $url .= $object->config('ds');
