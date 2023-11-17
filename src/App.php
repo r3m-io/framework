@@ -257,7 +257,6 @@ class App extends Data {
                         return Response::output($object, $response);
                     } else {
                         $extension = File::extension($route->url);
-                        Config::contentType($object);
                         $contentType = $object->config('contentType.' . strtolower($extension));
                         if ($contentType) {
                             $response = new Response(
@@ -298,7 +297,6 @@ class App extends Data {
                         ]);
                         return Response::output($object, $response);
                     }
-                    Config::contentType($object);
                     $functions = [];
                     if (in_array('controller', $methods, true)) {
                         $functions[] = 'controller';

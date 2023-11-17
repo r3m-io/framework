@@ -218,7 +218,6 @@ class FileRequest {
             );
         }
         ddd($fileRequest);
-        Config::contentType($object);
         if(empty($fileRequest)){
             $location = FileRequest::location($object, $dir);
             ddd($location);

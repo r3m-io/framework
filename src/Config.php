@@ -850,22 +850,4 @@ class Config extends Data {
         $value = $this->data(Config::DICTIONARY . '.' . Config::ENVIRONMENT);
         $this->data($key, $value);
     }
-
-    /**
-     * @throws ObjectException
-     * @throws FileWriteException
-     */
-    public static function contentType(App $object){
-        $contentType = $object->config('contentType');
-        if(
-            is_string($contentType) &&
-            substr($contentType, 0, 2) === '{{' &&
-            substr($contentType, -2, 2) === '}}'
-        ){
-            $parse = new Parse($object);
-            $contentType = $parse->compile($contentType, $object->data());
-            $object->config('contentType', $contentType);
-        }
-        return $object->config('contentType');
-    }
 }
