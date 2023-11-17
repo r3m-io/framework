@@ -205,10 +205,10 @@ class FileRequest {
         $config = $object->data(App::CONFIG);
         FileRequest::local($object);
         $fileRequest = $object->config('server.fileRequest');
-        ddd($fileRequest);
         Config::contentType($object);
         if(empty($fileRequest)){
             $location = FileRequest::location($object, $dir);
+            ddd($location);
         } else {
             $config_mtime = false;
             $config_url = $object->config('project.dir.data') . 'Config' . $object->config('extension.json');
