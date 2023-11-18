@@ -22,7 +22,11 @@ class Sort extends Data {
         return new Sort($list);
     }
 
-    public function with($sort=[], $options=[]){
+    /**
+     * @throws Exception
+     */
+    public function with($sort=[], $options=[]): mixed
+    {
         if(array_key_exists('output', $options)){
             $output = $options['output'];
         } else {
