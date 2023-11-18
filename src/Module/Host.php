@@ -410,7 +410,7 @@ class Host {
                         'filter' => [
                             'name' => $name
                         ],
-                        'ttl' => Cache::TEN_MINUTES,
+                        'ttl' => Cache::ONE_MINUTE,
                         'ramdisk' => true
                     ]
                 );
@@ -458,7 +458,7 @@ class Host {
                         'filter' => [
                             'name' => $name
                         ],
-                        'ttl' => Cache::TEN_MINUTES,
+                        'ttl' => Cache::ONE_MINUTE,
                         'ramdisk' => true
                     ]
                 );
