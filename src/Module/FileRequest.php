@@ -205,17 +205,14 @@ class FileRequest {
         if (empty($file_extension)) {
             return false;
         }
+        ddd($object->config());
+
         $subdomain = Host::subdomain();
         $domain = Host::domain();
         $extension = Host::extension();
-        $node = new Node($object);
-        if($subdomain){
-            $source = $subdomain . '.' . $domain . '.' . $extension;
-        } else {
-            $source = $domain . '.' . $extension;
-        }
-        $map = FileRequest::map($object, $node, $source);
-        $host = FileRequest::host($object, $node, $source, $map);
+//        $node = new Node($object);
+
+
 
         if(
             !empty($host) &&
