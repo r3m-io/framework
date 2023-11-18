@@ -222,6 +222,8 @@ class FileRequest {
             'ttl' => Cache::ONE_MINUTE,
         ]);
 
+        ddd($cache_key);
+
 
         if($subdomain){
             $map = $node->record(
