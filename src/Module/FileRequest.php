@@ -399,6 +399,7 @@ class FileRequest {
         ){
             $location = $host['node']->location;
         } else {
+            d($dir);
             $location = FileRequest::location($object, $dir);
         }
         ddd($location);
