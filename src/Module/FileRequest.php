@@ -205,24 +205,8 @@ class FileRequest {
         if (empty($file_extension)) {
             return false;
         }
-        ddd($object->config());
-
-        $subdomain = Host::subdomain();
-        $domain = Host::domain();
-        $extension = Host::extension();
-//        $node = new Node($object);
-
-
-
-        if(
-            !empty($host) &&
-            array_key_exists('node', $host) &&
-            property_exists($host['node'], 'location') &&
-            !empty($host['node']->location) &&
-            is_array($host['node']->location)
-        ){
-            $location = $host['node']->location;
-        } else {
+        $location = $object->config('host.location');
+        if (empty($location)) {
             d($dir);
             $location = FileRequest::location($object, $dir);
         }
