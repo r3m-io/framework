@@ -13,7 +13,7 @@ namespace R3m\Io\Module;
 use R3m\Io\App;
 use R3m\Io\Config;
 
-use R3m\Io\System\HostMapper;
+use R3m\Io\System\Node;
 
 use Exception;
 
@@ -204,21 +204,60 @@ class FileRequest {
         $subdomain = Host::subdomain();
         $domain = Host::domain();
         $extension = Host::extension();
-        $host_mapper = new HostMapper($object);
-        $response = $host_mapper->record(
-            HostMapper::OBJECT,
-            $host_mapper->role_system(),
-            [
-                'sort' => [
-                    'source' => 'ASC',
-                    'destination' => 'ASC'
-                ],
-                'filter' => [
-                    'source' => $subdomain . '.' . $domain . '.' . $extension,
-                ],
-                'ramdisk' => true
-            ]
-        );
+        $node = new Node($object);
+        $host = false;
+        if($subdomain){
+            $response = $node->record(
+                'System.Host.Mapper',
+                $node->role_system(),
+                [
+                    'sort' => [
+                        'source' => 'ASC',
+                        'destination' => 'ASC'
+                    ],
+                    'filter' => [
+                        'source' => $subdomain . '.' . $domain . '.' . $extension,
+                    ],
+                    'ramdisk' => true
+                ]
+            );
+        } else {
+            $response = $node->record(
+                'System.Host.Mapper',
+                $node->role_system(),
+                [
+                    'sort' => [
+                        'source' => 'ASC',
+                        'destination' => 'ASC'
+                    ],
+                    'filter' => [
+                        'source' => $domain . '.' . $extension,
+                    ],
+                    'ramdisk' => true
+                ]
+            );
+        }
+        if(
+            array_key_exists('node', $response) &&
+            array_key_exists('destination', $response['node'])
+        ){
+            $host = $response['node']['destination'];
+            $response = $node->record(
+                'System.Host',
+                $node->role_system(),
+                [
+                    'sort' => [
+                        'source' => 'ASC',
+                        'destination' => 'ASC'
+                    ],
+                    'filter' => [
+                        'source' => $domain . '.' . $extension,
+                    ],
+                    'ramdisk' => true
+                ]
+            );
+        }
+
         ddd($response);
 
 

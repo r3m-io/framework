@@ -28,13 +28,11 @@ use R3m\Io\Exception\LocateException;
 use R3m\Io\Exception\ObjectException;
 use R3m\Io\Exception\FileWriteException;
 
-class HostMapper extends Main {
+class Node extends Main {
 
     use Data;
     use Role;
 
-    const NAME = 'HostMapper';
-    const OBJECT = 'System.Host.Mapper';
     const LIST = 'list';
     const RECORD = 'record';
 
