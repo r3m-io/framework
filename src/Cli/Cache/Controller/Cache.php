@@ -208,6 +208,10 @@ class Cache extends Controller {
                                                 }
                                             }
                                             File::write($url_cache, Core::object($read, Core::OBJECT_JSON));
+                                            $command = 'chmod 640 ' . $url_cache;
+                                            exec($command);
+                                            $command = 'chown www-data:www-data ' . $url_cache;
+                                            exec($command);
                                         }
                                     }
                                 }
