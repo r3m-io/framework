@@ -51,6 +51,8 @@ class Domain {
         $map = Host::map($object, $node, $name);
         $host = Host::get($object, $node, $name, $map);
 
+        ddd($object->config());
+
         if(array_key_exists('node', $map)){
             $object->config('host.map', $map['node']);
         }
