@@ -204,13 +204,8 @@ class FileRequest {
         $subdomain = Host::subdomain();
         $domain = Host::domain();
         $extension = Host::extension();
-
         $host_mapper = new HostMapper($object);
-
-        $page = 1;
-        $limit = 1000;
-
-        $response = $host_mapper->list(
+        $response = $host_mapper->record(
             HostMapper::OBJECT,
             $host_mapper->role_system(),
             [
@@ -218,8 +213,9 @@ class FileRequest {
                     'source' => 'ASC',
                     'destination' => 'ASC'
                 ],
-                'page' => $page,
-                'limit' => $limit,
+                'filter' => [
+                    'source' => $subdomain . '.' . $domain . '.' . $extension,
+                ],
                 'ramdisk' => true
             ]
         );
