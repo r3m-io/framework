@@ -210,6 +210,7 @@ class FileRequest {
             d($dir);
             $location = FileRequest::location($object, $dir);
         } else{
+            $location = Config::parameters($object, $location);
             ddd($location);
         }
         d($object->config());
