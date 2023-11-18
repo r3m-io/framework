@@ -51,6 +51,8 @@ class Domain {
         $map = Host::map($object, $node, $name);
         $host = Host::get($object, $node, $name, $map);
 
+        ddd($object->config());
+
         ddd($host);
 
         if(empty($subdomain)){

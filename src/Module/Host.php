@@ -361,7 +361,9 @@ class Host {
             }
 
         }
-        $object->config('host.map', $map);
+        if(array_key_exists('node', $map)){
+            $object->config('host.map', $map['node']);
+        }
         return $map;
     }
 
@@ -472,7 +474,9 @@ class Host {
                 );
             }
         }
-        $object->config('host', Core::object_merge($object->config('host'), $host));
+        if(array_key_exists('node', $host)){
+            $object->config('host', Core::object_merge($object->config('host'), $host['node']));
+        }
         return $host;
     }
 }
