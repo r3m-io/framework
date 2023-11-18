@@ -221,16 +221,14 @@ class FileRequest {
             ]),
             'ttl' => Cache::ONE_MINUTE,
         ]);
-        $map = Core::object(
-            Cache::read(
-                $object,
-                [
-                    'key' => $cache_key,
-                    'ttl' => Cache::INF,
-                ]
-            ),
-            Core::OBJECT_OBJECT
+        $map = Cache::read(
+            $object,
+            [
+                'key' => $cache_key,
+                'ttl' => Cache::INF,
+            ]
         );
+        d($map);
         if(!$map){
             $map = $node->record(
                 'System.Host.Mapper',
