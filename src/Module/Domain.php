@@ -57,11 +57,6 @@ class Domain {
         if(array_key_exists('node', $host)){
             $object->config('host', Core::object_merge($object->config('host'), $host['node']));
         }
-
-        ddd($object->config());
-
-        ddd($host);
-
         if(empty($subdomain)){
             $sentence = strtolower($object->config('host.domain')) .
                 '.' .
