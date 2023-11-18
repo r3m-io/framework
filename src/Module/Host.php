@@ -306,19 +306,23 @@ class Host {
      * @throws Exception
      */
     public static function map(App $object, Node $node, $name){
+        $ttl = $object->config('host.default.ttl.' . $object->config('framework.environment'));
+        if(!$ttl){
+            $ttl = Cache::ONE_MINUTE;
+        }
         $cache_key = Cache::key($object, [
             'name' => Cache::name($object, [
                 'type' => Cache::FILE,
                 'extension' => $object->config('extension.json'),
                 'name' => 'Host.Mapper.' . $name,
             ]),
-            'ttl' => Cache::ONE_MINUTE,
+            'ttl' => $ttl,
         ]);
         $map = Cache::read(
             $object,
             [
                 'key' => $cache_key,
-                'ttl' => Cache::ONE_MINUTE,
+                'ttl' => $ttl,
             ]
         );
         if($map === 'false'){
@@ -338,7 +342,7 @@ class Host {
                     'filter' => [
                         'source' => $name
                     ],
-                    'ttl' => Cache::TEN_MINUTES,
+                    'ttl' => $ttl,
                     'ramdisk' => true
                 ]
             );
@@ -372,6 +376,10 @@ class Host {
      */
     public static function get(App $object, Node $node, $name, $map=[]){
         $host = false;
+        $ttl = $object->config('host.default.ttl.' . $object->config('framework.environment'));
+        if(!$ttl){
+            $ttl = Cache::ONE_MINUTE;
+        }
         if(empty($name)){
             return false;
         }
@@ -388,13 +396,13 @@ class Host {
                     'extension' => $object->config('extension.json'),
                     'name' => 'Host.' . $name,
                 ]),
-                'ttl' => Cache::ONE_MINUTE,
+                'ttl' => $ttl,
             ]);
             $host = Cache::read(
                 $object,
                 [
                     'key' => $cache_key,
-                    'ttl' => Cache::ONE_MINUTE,
+                    'ttl' => $ttl,
                 ]
             );
             if ($host) {
@@ -410,7 +418,7 @@ class Host {
                         'filter' => [
                             'name' => $name
                         ],
-                        'ttl' => Cache::ONE_MINUTE,
+                        'ttl' => $ttl,
                         'ramdisk' => true
                     ]
                 );
@@ -436,13 +444,13 @@ class Host {
                     'extension' => $object->config('extension.json'),
                     'name' => 'Host.' . $name,
                 ]),
-                'ttl' => Cache::ONE_MINUTE,
+                'ttl' => $ttl,
             ]);
             $host = Cache::read(
                 $object,
                 [
                     'key' => $cache_key,
-                    'ttl' => Cache::ONE_MINUTE,
+                    'ttl' => $ttl,
                 ]
             );
             if ($host) {
@@ -458,7 +466,7 @@ class Host {
                         'filter' => [
                             'name' => $name
                         ],
-                        'ttl' => Cache::ONE_MINUTE,
+                        'ttl' => $ttl,
                         'ramdisk' => true
                     ]
                 );
