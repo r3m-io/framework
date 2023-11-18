@@ -207,7 +207,7 @@ class FileRequest {
         $node = new Node($object);
         $host = false;
         if($subdomain){
-            $response = $node->record(
+            $map = $node->record(
                 'System.Host.Mapper',
                 $node->role_system(),
                 [
@@ -222,7 +222,7 @@ class FileRequest {
                 ]
             );
         } else {
-            $response = $node->record(
+            $map = $node->record(
                 'System.Host.Mapper',
                 $node->role_system(),
                 [
@@ -238,27 +238,27 @@ class FileRequest {
             );
         }
         if(
-            array_key_exists('node', $response) &&
-            array_key_exists('destination', $response['node'])
+            array_key_exists('node', $map) &&
+            array_key_exists('destination', $map['node'])
         ){
-            $host = $response['node']['destination'];
-            $response = $node->record(
+            $name = $map['node']['destination'];
+            $host = $node->record(
                 'System.Host',
                 $node->role_system(),
                 [
                     'sort' => [
-                        'source' => 'ASC',
-                        'destination' => 'ASC'
+                        'name' => 'ASC',
                     ],
                     'filter' => [
-                        'source' => $domain . '.' . $extension,
+                        'name' => $name,
                     ],
                     'ramdisk' => true
                 ]
             );
+            ddd($host);
         }
 
-        ddd($response);
+
 
 
 
