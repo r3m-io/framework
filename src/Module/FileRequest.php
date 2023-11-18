@@ -209,6 +209,8 @@ class FileRequest {
         if (empty($location)) {
             d($dir);
             $location = FileRequest::location($object, $dir);
+        } else{
+            ddd($location);
         }
         ddd($location);
         $ram_dir = false;
