@@ -44,12 +44,12 @@ class Domain {
 
         $node = new Node($object);
         if($subdomain){
-            $source = $subdomain . '.' . $domain . '.' . $extension;
+            $name = $subdomain . '.' . $domain . '.' . $extension;
         } else {
-            $source = $domain . '.' . $extension;
+            $name = $domain . '.' . $extension;
         }
-        $map = Host::map($object, $node, $source);
-        $host = Host::get($object, $node, $source, $map);
+        $map = Host::map($object, $node, $name);
+        $host = Host::get($object, $node, $name, $map);
 
         ddd($host);
 

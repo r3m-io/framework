@@ -305,12 +305,12 @@ class Host {
      * @throws FileWriteException
      * @throws Exception
      */
-    public static function map(App $object, Node $node, $source){
+    public static function map(App $object, Node $node, $name){
         $cache_key = Cache::key($object, [
             'name' => Cache::name($object, [
                 'type' => Cache::FILE,
                 'extension' => $object->config('extension.json'),
-                'name' => 'Host.Mapper.' . $source,
+                'name' => 'Host.Mapper.' . $name,
             ]),
             'ttl' => Cache::ONE_MINUTE,
         ]);
@@ -336,7 +336,7 @@ class Host {
                         'destination' => 'ASC'
                     ],
                     'filter' => [
-                        'source' => $source
+                        'source' => $name
                     ],
                     'ttl' => Cache::TEN_MINUTES,
                     'ramdisk' => true
