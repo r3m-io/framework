@@ -206,6 +206,7 @@ class FileRequest {
         $extension = Host::extension();
         $node = new Node($object);
         $host = false;
+        $start = microtime(true);
         if($subdomain){
             $map = $node->record(
                 'System.Host.Mapper',
@@ -237,7 +238,6 @@ class FileRequest {
                 ]
             );
         }
-        d($map);
         if(
             array_key_exists('node', $map) &&
             property_exists($map['node'], 'destination')
@@ -256,6 +256,8 @@ class FileRequest {
                     'ramdisk' => true
                 ]
             );
+            $duration = microtime(true) - $start;
+            d($duration * 1000);
             ddd($host);
         }
 
