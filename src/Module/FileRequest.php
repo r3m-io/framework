@@ -217,8 +217,9 @@ class FileRequest {
                         'destination' => 'ASC'
                     ],
                     'filter' => [
-                        'source' => $subdomain . '.' . $domain . '.' . $extension,
+                        'source' => $subdomain . '.' . $domain . '.' . $extension
                     ],
+                    'ttl' => Cache::TEN_MINUTES,
                     'ramdisk' => true
                 ]
             );
@@ -232,8 +233,9 @@ class FileRequest {
                         'destination' => 'ASC'
                     ],
                     'filter' => [
-                        'source' => $domain . '.' . $extension,
+                        'source' => $domain . '.' . $extension
                     ],
+                    'ttl' => Cache::TEN_MINUTES,
                     'ramdisk' => true
                 ]
             );
@@ -251,8 +253,9 @@ class FileRequest {
                         'name' => 'ASC',
                     ],
                     'filter' => [
-                        'name' => $name,
+                        'name' => $name
                     ],
+                    'ttl' => Cache::TEN_MINUTES,
                     'ramdisk' => true
                 ]
             );
