@@ -103,6 +103,19 @@ class Domain {
             $value = $value_with_port;
         }
         $object->config($key, $value);
+        $key = 'domain.dir.ramdisk';
+        $value =
+            $object->config('ramdisk.url') .
+            $object->config(Config::DICTIONARY . '.' . Config::DOMAIN) .
+            $object->config('ds');
+        $value_with_port = $value;
+        if(!in_array($port, $object->config('server.default.port'))){
+            $value_with_port .= $port . $object->config('ds');
+        }
+        if(File::exist($value_with_port)){
+            $value = $value_with_port;
+        }
+        $object->config($key, $value);
         $key = 'domain.dir.public';
         $value =
             $object->config('domain.dir.root') .
