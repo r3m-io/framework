@@ -106,6 +106,8 @@ class Domain {
         $key = 'domain.dir.ramdisk';
         $value =
             $object->config('ramdisk.url') .
+            $object->config('posix.id') .
+            $object->config('ds') .
             $object->config(Config::DICTIONARY . '.' . Config::DOMAIN) .
             $object->config('ds');
         $value_with_port = $value;
