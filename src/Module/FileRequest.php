@@ -33,7 +33,7 @@ class FileRequest {
      * @throws FileWriteException
      * @throws Exception
      */
-    private static function map(App $object, Node $node, $source){
+    public static function map(App $object, Node $node, $source){
         $cache_key = Cache::key($object, [
             'name' => Cache::name($object, [
                 'type' => Cache::FILE,

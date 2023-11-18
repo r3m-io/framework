@@ -12,6 +12,7 @@ namespace R3m\Io\Module;
 
 use R3m\Io\App;
 use R3m\Io\Config;
+use R3m\Io\System\Node;
 
 class Domain {
     const SCHEME_HTTP = 'http';
@@ -34,10 +35,23 @@ class Domain {
         $value = Host::url();
         $object->config($key, $value);
         $subdomain = Host::subdomain();
+        $domain = Host::domain();
+        $extension = Host::extension();
         $port = Host::port();
         $key = 'domain.dir.root';
 
         $object->logger($object->config('project.log.system'))->info('port: ' . $port);
+
+        $node = new Node($object);
+        if($subdomain){
+            $source = $subdomain . '.' . $domain . '.' . $extension;
+        } else {
+            $source = $domain . '.' . $extension;
+        }
+        $map = FileRequest::map($object, $node, $source);
+        ddd($map);
+//        $host = FileRequest::host($object, $node, $source, $map);
+
 
         if(empty($subdomain)){
             $sentence = strtolower($object->config('host.domain')) .
