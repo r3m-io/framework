@@ -228,8 +228,7 @@ class FileRequest {
                 'ttl' => Cache::INF,
             ]
         );
-        $map = Core::object($map, Core::OBJECT_OBJECT);
-        d($map);
+        $map = (array) Core::object($map, Core::OBJECT_OBJECT);
         if(!$map){
             $map = $node->record(
                 'System.Host.Mapper',
