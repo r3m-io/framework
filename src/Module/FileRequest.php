@@ -13,11 +13,12 @@ namespace R3m\Io\Module;
 use R3m\Io\App;
 use R3m\Io\Config;
 
-use R3m\Io\Module\Parse\Token;
+use R3m\Io\System\HostMapper;
 
 use Exception;
 
 use R3m\Io\Exception\LocateException;
+
 
 class FileRequest {
     const REQUEST = 'Request';
@@ -125,6 +126,7 @@ class FileRequest {
         return $location;
     }
 
+    /*
     public static function local(App $object){
         $fileRequest = $object->config('server.fileRequest');
         if(empty($fileRequest)){
@@ -143,6 +145,7 @@ class FileRequest {
             }
         }
     }
+    */
 
     /**
      * @throws LocateException
@@ -201,7 +204,31 @@ class FileRequest {
         $subdomain = Host::subdomain();
         $domain = Host::domain();
         $extension = Host::extension();
-        FileRequest::local($object);
+
+        $host_mapper = new HostMapper($object);
+
+        $page = 1;
+        $limit = 1000;
+
+        $response = $host_mapper->list(
+            HostMapper::OBJECT,
+            $host_mapper->role_system(),
+            [
+                'sort' => [
+                    'action' => 'ASC',
+                    'options.priority' => 'ASC'
+                ],
+                'page' => $page,
+                'limit' => $limit,
+                'ramdisk' => true
+            ]
+        );
+        ddd($response);
+
+
+
+
+//        FileRequest::local($object);
         if($subdomain){
             $fileRequest = $object->config('server.fileRequest.' .
                 $subdomain .
