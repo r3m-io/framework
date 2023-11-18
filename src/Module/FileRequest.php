@@ -382,7 +382,6 @@ class FileRequest {
         $domain = Host::domain();
         $extension = Host::extension();
         $node = new Node($object);
-        $start = microtime(true);
         if($subdomain){
             $source = $subdomain . '.' . $domain . '.' . $extension;
         } else {
@@ -391,53 +390,18 @@ class FileRequest {
         $map = FileRequest::map($object, $node, $source);
         $host = FileRequest::host($object, $node, $source, $map);
 
-        $duration = microtime(true) - $start;
-        d($duration * 1000);
-        ddd($host);
-
-
-
-
-
-
-
-//        FileRequest::local($object);
-        if($subdomain){
-            $fileRequest = $object->config('server.fileRequest.' .
-                $subdomain .
-                '-' .
-                $domain .
-                '-' .
-                $extension
-            );
+        if(
+            !empty($host) &&
+            array_key_exists('node', $host) &&
+            property_exists($host['node'], 'location') &&
+            !empty($host['node']->location) &&
+            is_array($host['node']->location)
+        ){
+            $location = $host['node']->location;
         } else {
-            $fileRequest = $object->config('server.fileRequest.' .
-                $domain .
-                '-' .
-                $extension
-            );
-        }
-        ddd($fileRequest);
-        if(empty($fileRequest)){
             $location = FileRequest::location($object, $dir);
-            ddd($location);
-        } else {
-
-            if($subdomain){
-                $attribute = $subdomain . '-' . $domain . '-' . $extension . '.location';
-            } else {
-                $attribute = $domain . '-' . $extension. '.location';
-            }
-            /*
-            $location = $data->get($attribute);
-            if(empty($location)){
-                $location = $data->get('location');
-            }
-            if(empty($location)){
-                $location = FileRequest::location($object, $dir);
-            }
-            */
         }
+        ddd($location);
         $ram_dir = false;
         $ram_url = false;
         $ram_maxsize = false;
