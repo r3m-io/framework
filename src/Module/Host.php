@@ -308,7 +308,7 @@ class Host {
     public static function map(App $object, Node $node, $name){
         $ttl = $object->config('host.default.ttl.' . $object->config('framework.environment'));
         if(!$ttl){
-            $ttl = Cache::ONE_MINUTE;
+            $ttl = Cache::TEN_MINUTES;
         }
         $cache_key = Cache::key($object, [
             'name' => Cache::name($object, [
@@ -377,9 +377,8 @@ class Host {
     public static function get(App $object, Node $node, $name, $map=[]){
         $host = false;
         $ttl = $object->config('host.default.ttl.' . $object->config('framework.environment'));
-        d($ttl);
         if(!$ttl){
-            $ttl = Cache::ONE_MINUTE;
+            $ttl = Cache::TEN_MINUTES;
         }
         if(empty($name)){
             return false;
