@@ -49,6 +49,9 @@ class FileRequest {
                 'ttl' => Cache::ONE_MINUTE,
             ]
         );
+        if($map === false){
+            return [];
+        }
         if($map){
             $map = (array) Core::object($map, Core::OBJECT_OBJECT);
         } else {
@@ -67,13 +70,24 @@ class FileRequest {
                     'ramdisk' => true
                 ]
             );
-            Cache::write(
-                $object,
-                [
-                    'key' => $cache_key,
-                    'data' => Core::object($map, Core::OBJECT_JSON)
-                ]
-            );
+            if(empty($map)){
+                Cache::write(
+                    $object,
+                    [
+                        'key' => $cache_key,
+                        'data' => false
+                    ]
+                );
+            } else {
+                Cache::write(
+                    $object,
+                    [
+                        'key' => $cache_key,
+                        'data' => Core::object($map, Core::OBJECT_JSON)
+                    ]
+                );
+            }
+
         }
         return $map;
     }
