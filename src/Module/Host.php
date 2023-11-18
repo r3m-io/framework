@@ -361,6 +361,7 @@ class Host {
             }
 
         }
+        $object->config('host.map', $map);
         return $map;
     }
 
@@ -471,6 +472,7 @@ class Host {
                 );
             }
         }
+        $object->config('host', Core::object_merge($object->config('host'), $host));
         return $host;
     }
 }
