@@ -215,8 +215,8 @@ class FileRequest {
             $host_mapper->role_system(),
             [
                 'sort' => [
-                    'action' => 'ASC',
-                    'options.priority' => 'ASC'
+                    'source' => 'ASC',
+                    'destination' => 'ASC'
                 ],
                 'page' => $page,
                 'limit' => $limit,
