@@ -377,6 +377,7 @@ class Host {
     public static function get(App $object, Node $node, $name, $map=[]){
         $host = false;
         $ttl = $object->config('host.default.ttl.' . $object->config('framework.environment'));
+        d($ttl);
         if(!$ttl){
             $ttl = Cache::ONE_MINUTE;
         }
