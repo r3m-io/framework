@@ -49,9 +49,9 @@ class Domain {
             $source = $domain . '.' . $extension;
         }
         $map = Host::map($object, $node, $source);
-        ddd($map);
         $host = Host::get($object, $node, $source, $map);
 
+        ddd($host);
 
         if(empty($subdomain)){
             $sentence = strtolower($object->config('host.domain')) .
