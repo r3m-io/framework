@@ -104,7 +104,8 @@ class Cache {
     /**
      * @throws Exception
      */
-    public static function name(App $object, $options=[]){
+    public static function name(App $object, $options=[]): ?string
+    {
         if(!array_key_exists('type', $options)){
             return null;
         }
@@ -302,7 +303,11 @@ class Cache {
         return $key;
     }
 
-    public static function read(App $object, $options=[]){
+    /**
+     * @throws Exception
+     */
+    public static function read(App $object, $options=[]): mixed
+    {
         if(!array_key_exists('key', $options)){
             return null;
         }
@@ -340,6 +345,7 @@ class Cache {
     /**
      * @throws DirectoryCreateException
      * @throws FileWriteException
+     * @throws Exception
      */
     public static function write(App $object, $options=[]): ?int
     {
@@ -365,6 +371,9 @@ class Cache {
         return null;
     }
 
+    /**
+     * @throws Exception
+     */
     public static function delete(App $object, $options=[]): bool
     {
         if(!array_key_exists('key', $options)){
