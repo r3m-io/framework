@@ -240,9 +240,9 @@ class FileRequest {
         ddd($map);
         if(
             array_key_exists('node', $map) &&
-            array_key_exists('destination', $map['node'])
+            property_exists($map['node'], 'destination')
         ){
-            $name = $map['node']['destination'];
+            $name = $map['node']->destination;
             $host = $node->record(
                 'System.Host',
                 $node->role_system(),
