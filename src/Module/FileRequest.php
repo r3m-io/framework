@@ -225,7 +225,7 @@ class FileRequest {
             $object,
             [
                 'key' => $cache_key,
-                'ttl' => Cache::INF,
+                'ttl' => Cache::ONE_MINUTE,
             ]
         );
         $map = (array) Core::object($map, Core::OBJECT_OBJECT);
@@ -253,26 +253,54 @@ class FileRequest {
                 ]
             );
         }
-        ddd($map);
         if(
             array_key_exists('node', $map) &&
             property_exists($map['node'], 'destination')
         ){
             $name = $map['node']->destination;
-            $host = $node->record(
-                'System.Host',
-                $node->role_system(),
+
+            $cache_key = Cache::key($object, [
+                'name' => Cache::name($object, [
+                    'type' => Cache::FILE,
+                    'extension' => $object->config('extension.json'),
+                    'name' => 'Host.' . $name,
+                ]),
+                'ttl' => Cache::ONE_MINUTE,
+            ]);
+
+            $host = Cache::read(
+                $object,
                 [
-                    'sort' => [
-                        'name' => 'ASC',
-                    ],
-                    'filter' => [
-                        'name' => $name
-                    ],
-                    'ttl' => Cache::TEN_MINUTES,
-                    'ramdisk' => true
+                    'key' => $cache_key,
+                    'ttl' => Cache::INF,
                 ]
             );
+            if(!$host){
+                $host = $node->record(
+                    'System.Host',
+                    $node->role_system(),
+                    [
+                        'sort' => [
+                            'name' => 'ASC',
+                        ],
+                        'filter' => [
+                            'name' => $name
+                        ],
+                        'ttl' => Cache::TEN_MINUTES,
+                        'ramdisk' => true
+                    ]
+                );
+                Cache::write(
+                    $object,
+                    [
+                        'key' => $cache_key,
+                        'data' => Core::object($host, Core::OBJECT_JSON)
+                    ]
+                );
+            }
+
+
+
             $duration = microtime(true) - $start;
             d($duration * 1000);
             ddd($host);
