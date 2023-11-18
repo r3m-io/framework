@@ -51,6 +51,13 @@ class Domain {
         $map = Host::map($object, $node, $name);
         $host = Host::get($object, $node, $name, $map);
 
+        if(array_key_exists('node', $map)){
+            $object->config('host.map', $map['node']);
+        }
+        if(array_key_exists('node', $host)){
+            $object->config('host', Core::object_merge($object->config('host'), $host['node']));
+        }
+
         ddd($object->config());
 
         ddd($host);
