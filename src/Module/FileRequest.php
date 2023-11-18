@@ -15,6 +15,10 @@ use R3m\Io\Config;
 
 use R3m\Io\System\Node;
 
+use R3m\Io\Exception\DirectoryCreateException;
+use R3m\Io\Exception\FileWriteException;
+use R3m\Io\Exception\ObjectException;
+
 use Exception;
 
 use R3m\Io\Exception\LocateException;
@@ -22,6 +26,165 @@ use R3m\Io\Exception\LocateException;
 
 class FileRequest {
     const REQUEST = 'Request';
+
+    /**
+     * @throws ObjectException
+     * @throws DirectoryCreateException
+     * @throws FileWriteException
+     * @throws Exception
+     */
+    private static function map(App $object, Node $node, $source){
+        $cache_key = Cache::key($object, [
+            'name' => Cache::name($object, [
+                'type' => Cache::FILE,
+                'extension' => $object->config('extension.json'),
+                'name' => 'Host.Mapper.' . $source,
+            ]),
+            'ttl' => Cache::ONE_MINUTE,
+        ]);
+        $map = Cache::read(
+            $object,
+            [
+                'key' => $cache_key,
+                'ttl' => Cache::ONE_MINUTE,
+            ]
+        );
+        if($map){
+            $map = (array) Core::object($map, Core::OBJECT_OBJECT);
+        } else {
+            $map = $node->record(
+                'System.Host.Mapper',
+                $node->role_system(),
+                [
+                    'sort' => [
+                        'source' => 'ASC',
+                        'destination' => 'ASC'
+                    ],
+                    'filter' => [
+                        'source' => $source
+                    ],
+                    'ttl' => Cache::TEN_MINUTES,
+                    'ramdisk' => true
+                ]
+            );
+            Cache::write(
+                $object,
+                [
+                    'key' => $cache_key,
+                    'data' => Core::object($map, Core::OBJECT_JSON)
+                ]
+            );
+        }
+        return $map;
+    }
+
+    /**
+     * @throws ObjectException
+     * @throws DirectoryCreateException
+     * @throws FileWriteException
+     * @throws Exception
+     */
+    private static function host(App $object, Node $node, $source, $map=[]){
+        $host = false;
+        if(
+            empty($map) ||
+            (
+                array_key_exists('node', $map) &&
+                empty($map['node'])
+            )
+        ) {
+            $name = $source;
+            $cache_key = Cache::key($object, [
+                'name' => Cache::name($object, [
+                    'type' => Cache::FILE,
+                    'extension' => $object->config('extension.json'),
+                    'name' => 'Host.' . $name,
+                ]),
+                'ttl' => Cache::ONE_MINUTE,
+            ]);
+            $host = Cache::read(
+                $object,
+                [
+                    'key' => $cache_key,
+                    'ttl' => Cache::ONE_MINUTE,
+                ]
+            );
+            if ($host) {
+                $host = (array) Core::object($host, Core::OBJECT_OBJECT);
+            } else {
+                $host = $node->record(
+                    'System.Host',
+                    $node->role_system(),
+                    [
+                        'sort' => [
+                            'name' => 'ASC',
+                        ],
+                        'filter' => [
+                            'name' => $name
+                        ],
+                        'ttl' => Cache::TEN_MINUTES,
+                        'ramdisk' => true
+                    ]
+                );
+                Cache::write(
+                    $object,
+                    [
+                        'key' => $cache_key,
+                        'data' => Core::object($host, Core::OBJECT_JSON)
+                    ]
+                );
+            }
+        }
+        elseif(
+            array_key_exists('node', $map) &&
+            !empty($map['node']) &&
+            property_exists($map['node'], 'destination') &&
+            !empty($map['node']->destination)
+        ) {
+            $name = $map['node']->destination;
+            $cache_key = Cache::key($object, [
+                'name' => Cache::name($object, [
+                    'type' => Cache::FILE,
+                    'extension' => $object->config('extension.json'),
+                    'name' => 'Host.' . $name,
+                ]),
+                'ttl' => Cache::ONE_MINUTE,
+            ]);
+            $host = Cache::read(
+                $object,
+                [
+                    'key' => $cache_key,
+                    'ttl' => Cache::ONE_MINUTE,
+                ]
+            );
+            if ($host) {
+                $host = (array) Core::object($host, Core::OBJECT_OBJECT);
+            } else {
+                $host = $node->record(
+                    'System.Host',
+                    $node->role_system(),
+                    [
+                        'sort' => [
+                            'name' => 'ASC',
+                        ],
+                        'filter' => [
+                            'name' => $name
+                        ],
+                        'ttl' => Cache::TEN_MINUTES,
+                        'ramdisk' => true
+                    ]
+                );
+                Cache::write(
+                    $object,
+                    [
+                        'key' => $cache_key,
+                        'data' => Core::object($host, Core::OBJECT_JSON)
+                    ]
+                );
+            }
+        }
+        return $host;
+    }
 
     private static function location(App $object, $dir): array
     {
@@ -205,106 +368,19 @@ class FileRequest {
         $domain = Host::domain();
         $extension = Host::extension();
         $node = new Node($object);
-        $host = false;
         $start = microtime(true);
-
         if($subdomain){
             $source = $subdomain . '.' . $domain . '.' . $extension;
         } else {
             $source = $domain . '.' . $extension;
         }
-        $cache_key = Cache::key($object, [
-            'name' => Cache::name($object, [
-                'type' => Cache::FILE,
-                'extension' => $object->config('extension.json'),
-                'name' => 'Host.Mapper.' . $source,
-            ]),
-            'ttl' => Cache::ONE_MINUTE,
-        ]);
-        $map = Cache::read(
-            $object,
-            [
-                'key' => $cache_key,
-                'ttl' => Cache::ONE_MINUTE,
-            ]
-        );
-        $map = (array) Core::object($map, Core::OBJECT_OBJECT);
-        if(!$map){
-            $map = $node->record(
-                'System.Host.Mapper',
-                $node->role_system(),
-                [
-                    'sort' => [
-                        'source' => 'ASC',
-                        'destination' => 'ASC'
-                    ],
-                    'filter' => [
-                        'source' => $source
-                    ],
-                    'ttl' => Cache::TEN_MINUTES,
-                    'ramdisk' => true
-                ]
-            );
-            Cache::write(
-                $object,
-                [
-                    'key' => $cache_key,
-                    'data' => Core::object($map, Core::OBJECT_JSON)
-                ]
-            );
-        }
-        if(
-            array_key_exists('node', $map) &&
-            property_exists($map['node'], 'destination')
-        ){
-            $name = $map['node']->destination;
+        $map = FileRequest::map($object, $node, $source);
+        $host = FileRequest::host($object, $node, $source, $map);
 
-            $cache_key = Cache::key($object, [
-                'name' => Cache::name($object, [
-                    'type' => Cache::FILE,
-                    'extension' => $object->config('extension.json'),
-                    'name' => 'Host.' . $name,
-                ]),
-                'ttl' => Cache::ONE_MINUTE,
-            ]);
+        $duration = microtime(true) - $start;
+        d($duration * 1000);
+        ddd($host);
 
-            $host = Cache::read(
-                $object,
-                [
-                    'key' => $cache_key,
-                    'ttl' => Cache::INF,
-                ]
-            );
-            if(!$host){
-                $host = $node->record(
-                    'System.Host',
-                    $node->role_system(),
-                    [
-                        'sort' => [
-                            'name' => 'ASC',
-                        ],
-                        'filter' => [
-                            'name' => $name
-                        ],
-                        'ttl' => Cache::TEN_MINUTES,
-                        'ramdisk' => true
-                    ]
-                );
-                Cache::write(
-                    $object,
-                    [
-                        'key' => $cache_key,
-                        'data' => Core::object($host, Core::OBJECT_JSON)
-                    ]
-                );
-            }
-
-
-
-            $duration = microtime(true) - $start;
-            d($duration * 1000);
-            ddd($host);
-        }
 
 
 
