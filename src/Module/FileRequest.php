@@ -75,7 +75,7 @@ class FileRequest {
                     $object,
                     [
                         'key' => $cache_key,
-                        'data' => false
+                        'data' => 'false'
                     ]
                 );
             } else {
