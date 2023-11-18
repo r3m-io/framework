@@ -49,7 +49,7 @@ class FileRequest {
                 'ttl' => Cache::ONE_MINUTE,
             ]
         );
-        if($map === false){
+        if($map === 'false'){
             return [];
         }
         if($map){
