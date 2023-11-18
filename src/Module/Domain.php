@@ -39,9 +39,6 @@ class Domain {
         $extension = Host::extension();
         $port = Host::port();
         $key = 'domain.dir.root';
-
-        $object->logger($object->config('project.log.system'))->info('port: ' . $port);
-
         $node = new Node($object);
         if($subdomain){
             $name = $subdomain . '.' . $domain . '.' . $extension;
