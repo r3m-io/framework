@@ -212,6 +212,7 @@ class FileRequest {
         } else{
             ddd($location);
         }
+        d($object->config());
         ddd($location);
         $ram_dir = false;
         $ram_url = false;
