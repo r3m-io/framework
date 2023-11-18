@@ -221,10 +221,16 @@ class FileRequest {
             ]),
             'ttl' => Cache::ONE_MINUTE,
         ]);
-        $map = Cache::read($object, [
-            'key' => $cache_key,
-            'ttl' => Cache::INF,
-        ]);
+        $map = Core::object(
+            Cache::read(
+                $object,
+                [
+                    'key' => $cache_key,
+                    'ttl' => Cache::INF,
+                ]
+            ),
+            Core::OBJECT_OBJECT
+        );
         if(!$map){
             $map = $node->record(
                 'System.Host.Mapper',
@@ -239,6 +245,13 @@ class FileRequest {
                     ],
                     'ttl' => Cache::TEN_MINUTES,
                     'ramdisk' => true
+                ]
+            );
+            Cache::write(
+                $object,
+                [
+                    'key' => $cache_key,
+                    'data' => Core::object($map, Core::OBJECT_JSON)
                 ]
             );
         }
