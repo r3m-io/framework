@@ -48,9 +48,9 @@ class Domain {
         } else {
             $source = $domain . '.' . $extension;
         }
-        $map = FileRequest::map($object, $node, $source);
+        $map = Host::map($object, $node, $source);
         ddd($map);
-//        $host = FileRequest::host($object, $node, $source, $map);
+        $host = Host::get($object, $node, $source, $map);
 
 
         if(empty($subdomain)){
