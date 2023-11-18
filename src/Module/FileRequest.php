@@ -209,23 +209,23 @@ class FileRequest {
         $start = microtime(true);
 
         if($subdomain){
-            $map = $subdomain . '.' . $domain . '.' . $extension;
+            $source = $subdomain . '.' . $domain . '.' . $extension;
         } else {
-            $map = $domain . '.' . $extension;
+            $source = $domain . '.' . $extension;
         }
         $cache_key = Cache::key($object, [
             'name' => Cache::name($object, [
                 'type' => Cache::FILE,
-                'extension' => $object->config('extension.map'),
-                'name' => 'Host.Mapper.' . $map,
+                'extension' => $object->config('extension.json'),
+                'name' => 'Host.Mapper.' . $source,
             ]),
             'ttl' => Cache::ONE_MINUTE,
         ]);
-
-        ddd($cache_key);
-
-
-        if($subdomain){
+        $map = Cache::read($object, [
+            'key' => $cache_key,
+            'ttl' => Cache::INF,
+        ]);
+        if(!$map){
             $map = $node->record(
                 'System.Host.Mapper',
                 $node->role_system(),
@@ -235,29 +235,14 @@ class FileRequest {
                         'destination' => 'ASC'
                     ],
                     'filter' => [
-                        'source' => $subdomain . '.' . $domain . '.' . $extension
-                    ],
-                    'ttl' => Cache::TEN_MINUTES,
-                    'ramdisk' => true
-                ]
-            );
-        } else {
-            $map = $node->record(
-                'System.Host.Mapper',
-                $node->role_system(),
-                [
-                    'sort' => [
-                        'source' => 'ASC',
-                        'destination' => 'ASC'
-                    ],
-                    'filter' => [
-                        'source' => $domain . '.' . $extension
+                        'source' => $source
                     ],
                     'ttl' => Cache::TEN_MINUTES,
                     'ramdisk' => true
                 ]
             );
         }
+        ddd($map);
         if(
             array_key_exists('node', $map) &&
             property_exists($map['node'], 'destination')
