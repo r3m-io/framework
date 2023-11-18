@@ -190,11 +190,9 @@ class Sort extends Data {
                             }
                             $attr = substr($attr, 1);
                             $result[$attr][] = $node;
-                        }
-                        else {
+                        } else {
                             $result[''][] = $node;
                         }
-
                         $sortable_1 = $record;
                         break;
                     }
