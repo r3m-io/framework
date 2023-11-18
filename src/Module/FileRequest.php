@@ -123,7 +123,6 @@ class FileRequest {
                     'ttl' => Cache::ONE_MINUTE,
                 ]
             );
-            d($host);
             if ($host) {
                 $host = (array) Core::object($host, Core::OBJECT_OBJECT);
             } else {
