@@ -22,6 +22,7 @@ use R3m\Io\Exception\ObjectException;
 class Cache {
 
     const ROUTE = 'route';
+    const FILE = 'file';
     const REQUEST = 'request';
     const SESSION = 'session';
     const OBJECT = 'object';
@@ -111,6 +112,18 @@ class Cache {
             return null;
         }
         switch($options['type']){
+            case Cache::FILE:
+                if(!array_key_exists('name', $options)){
+                    return null;
+                }
+                return
+                    Autoload::name_reducer(
+                        $object,
+                        $options['name'],
+                        $object->config('cache.cache.url.name_length'),
+                        $object->config('cache.cache.url.name_separator'),
+                        $object->config('cache.cache.url.name_pop_or_shift')
+                    ) .  $options['extension'];
             case Cache::ROUTE:
                 $current = $object->route()->current();
                 $request = $current->request->data();

@@ -207,6 +207,22 @@ class FileRequest {
         $node = new Node($object);
         $host = false;
         $start = microtime(true);
+
+        if($subdomain){
+            $map = $subdomain . '.' . $domain . '.' . $extension;
+        } else {
+            $map = $domain . '.' . $extension;
+        }
+        $cache_key = Cache::key($object, [
+            'name' => Cache::name($object, [
+                'type' => Cache::FILE,
+                'extension' => $object->config('extension.map'),
+                'name' => 'Host.Mapper.' . $map,
+            ]),
+            'ttl' => Cache::ONE_MINUTE,
+        ]);
+
+
         if($subdomain){
             $map = $node->record(
                 'System.Host.Mapper',
