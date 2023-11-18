@@ -218,19 +218,19 @@ class FileRequest {
             array_unshift($view_2, $controller);
         }
         array_unshift($view_2, 'View');
-        $location[] = $object->config('host.dir.root') .
+        $location[] = $object->config('domain.dir.root') .
             rtrim(implode($object->config('ds'), $view), '/') .
             $object->config('ds')
         ;
-        $location[] = $object->config('host.dir.root') .
+        $location[] = $object->config('domain.dir.root') .
             rtrim(implode($object->config('ds'), $view_2), '/') .
             $object->config('ds')
         ;
-        $location[] = $object->config('host.dir.root') .
+        $location[] = $object->config('domain.dir.root') .
             rtrim(implode($object->config('ds'), $explode), '/') .
             $object->config('ds')
         ;
-        $location[] = $object->config('host.dir.root') .
+        $location[] = $object->config('domain.dir.root') .
             $dir .
             'Public' .
             $object->config('ds')
@@ -249,7 +249,7 @@ class FileRequest {
         }
         $type_swap = $dir_swap . '/' . $type;
         if ($type) {
-            $location[] = $object->config('host.dir.root') .
+            $location[] = $object->config('domain.dir.root') .
                 $dir_type .
                 'Public' .
                 $object->config('ds') .
@@ -257,7 +257,7 @@ class FileRequest {
                 $object->config('ds')
             ;
         }
-        $location[] = $object->config('host.dir.root') .
+        $location[] = $object->config('domain.dir.root') .
             'View' .
             $object->config('ds') .
             $dir .
@@ -265,7 +265,7 @@ class FileRequest {
             $object->config('ds')
         ;
         if ($type) {
-            $location[] = $object->config('host.dir.root') .
+            $location[] = $object->config('domain.dir.root') .
                 'View' .
                 $object->config('ds') .
                 $dir_type .
@@ -279,14 +279,14 @@ class FileRequest {
             $dir_type_swap &&
             $type_swap
         ){
-            $location[] = $object->config('host.dir.root') .
+            $location[] = $object->config('domain.dir.root') .
                 $dir_type_swap .
                 'Public' .
                 $object->config('ds') .
                 $type_swap .
                 $object->config('ds')
             ;
-            $location[] = $object->config('host.dir.root') .
+            $location[] = $object->config('domain.dir.root') .
                 'View' .
                 $object->config('ds') .
                 $dir_type_swap .
@@ -296,7 +296,7 @@ class FileRequest {
                 $object->config('ds')
             ;
         }
-        $location[] = $object->config('host.dir.public') .
+        $location[] = $object->config('domain.dir.public') .
             $dir;
         $location[] = $object->config('project.dir.public') .
             $dir;
