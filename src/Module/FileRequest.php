@@ -237,7 +237,7 @@ class FileRequest {
                 ]
             );
         }
-        ddd($map);
+        d($map);
         if(
             array_key_exists('node', $map) &&
             property_exists($map['node'], 'destination')
