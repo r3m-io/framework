@@ -248,7 +248,7 @@ class Cache {
             $options['route'] === true
         ){
             //per route cache
-             $current = $object->route()->current();
+            $current = $object->route()->current();
             $request = $current->request->data();
             $list = [];
             if(array_key_exists('expose', $options)){
