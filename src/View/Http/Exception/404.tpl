@@ -62,7 +62,7 @@ config('framework.environment') === 'development'
     {{/if}}
 </section><section name="trace">
     <label>Trace: </label><br>
-    <table>
+    <table class="trace">
         {{for.each($exception.trace as $nr => $trace)}}
         <tr class="trace">
             <td class="tab">&nbsp;</td>
