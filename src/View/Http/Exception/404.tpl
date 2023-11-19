@@ -28,7 +28,7 @@ config('framework.environment') === 'development'
 )}}
 <section name="location">
     <label>Locations: </label><br>
-    <table class="location>
+    <table class="location">
         {{for.each($exception.location as $location_nr => $location_value)}}
         <tr class="list">
             <td colspan="4">
