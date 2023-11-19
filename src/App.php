@@ -443,13 +443,27 @@ class App extends Data {
                     return '';
                 } else {
                     Controller::configure($object, __CLASS__); //initialize plugin directories
-                    $dir = [];
-                    $dir[] = $object->config('domain.dir.view');
-                    $dir[] = $object->config('framework.dir.view');
+                    $location = [];
+                    $location[] = $object->config('domain.dir.view') .
+                        'Http' .
+                        $object->config('ds') .
+                        'Exception' .
+                        $object->config('ds') .
+                        $code .
+                        $object->config('extension.tpl')
+                    ;
+                    $location[] = $object->config('framework.dir.view') .
+                        'Http' .
+                        $object->config('ds') .
+                        'Exception' .
+                        $object->config('ds') .
+                        $code .
+                        $object->config('extension.tpl')
+                    ;
 
 
 
-                    ddd($dir);
+                    ddd($location);
 
                     $url = $object->config('host.http.error.500'); //@todo through configere::parameters
                     $parse = new Module\Parse($object, $object->data());
