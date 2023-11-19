@@ -32,7 +32,7 @@ config('framework.environment') === 'development'
         {{for.each($exception.location as $location_nr => $location_value)}}
         <tr class="list">
             <td colspan="4">
-                {{$location_value}}
+                <span>{{$location_value}}</span>
             </td>
         </tr>
         {{/for.each}}
