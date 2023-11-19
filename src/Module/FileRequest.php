@@ -205,11 +205,8 @@ class FileRequest {
         if (empty($file_extension)) {
             return false;
         }
-        $location = FileRequest::location($object, $dir);
-        d($location);
         $location = $object->config('host.file.request');
         if (empty($location)) {
-            d($dir);
             $location = FileRequest::location($object, $dir);
         } else{
             $location = Config::parameters($object, $location);
@@ -255,8 +252,8 @@ class FileRequest {
                 $object->config('ds')
             ;
             $ram_url = $ram_dir;
-            if($subdomain){
-                $ram_url .= $subdomain . '_';
+            if($object->config('host.subdomain')){
+                $ram_url .= $object->config('host.subdomain') . '_';
             }
             if(
                 $object->config('cache.fileRequest.url.directory_length') &&
