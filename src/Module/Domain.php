@@ -39,20 +39,6 @@ class Domain {
         $extension = Host::extension();
         $port = Host::port();
         $key = 'domain.dir.root';
-        $node = new Node($object);
-        if($subdomain){
-            $name = $subdomain . '.' . $domain . '.' . $extension;
-        } else {
-            $name = $domain . '.' . $extension;
-        }
-        $map = Host::map($object, $node, $name);
-        $host = Host::get($object, $node, $name, $map);
-        if(array_key_exists('node', $map)){
-            $object->config('host.map', $map['node']);
-        }
-        if(array_key_exists('node', $host)){
-            $object->config('host', Core::object_merge($object->config('host'), $host['node']));
-        }
         ddd($object->config('host'));
         if(empty($subdomain)){
             $sentence = strtolower($object->config('host.domain')) .
