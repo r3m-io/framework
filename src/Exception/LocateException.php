@@ -27,7 +27,6 @@ class LocateException extends Exception {
         $this->setLocation($location);
         $this->setObject($object);
         $debug = debug_backtrace(true);
-        ddd($debug);
         parent::__construct($message, $code, $previous);
     }
 
