@@ -263,9 +263,9 @@ class FileRequest {
                 $object->config('cache.fileRequest.url.name_separator') &&
                 $object->config('cache.fileRequest.url.name_pop_or_shift')
             ){
-                $ram_url .= $domain .
+                $ram_url .= $object->config('host.domain') .
                     '_' .
-                    $extension .
+                    $object->config('host.extension') .
                     '_' .
                     Autoload::name_reducer(
                         $object,
