@@ -51,7 +51,7 @@ tr.selected {
 }
 td.line {
     background: {{$background.td.line}};
-    padding-left: 10px;
+    text-align: center;
     width: 75px;
 }
 tr.selected td.line {
