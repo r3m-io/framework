@@ -69,6 +69,13 @@ class LocateException extends Exception {
             ddd($string);
             return $string;
         } else {
+            $string = parent::__toString();
+            $location = $this->getLocation();
+            $string .= PHP_EOL . 'Locations: ' . PHP_EOL;
+            foreach($location as $value){
+                $string .= $value . PHP_EOL;
+            }
+            return $string;
             $object = $this->object();
             ddd($object);
             if ($object) {
