@@ -128,7 +128,7 @@ class Domain {
             $value = $value_with_port;
         }
         $object->config($key, $value);
-        dd($object->config());
+        ddd($object->config());
         return true;
     }
 }
