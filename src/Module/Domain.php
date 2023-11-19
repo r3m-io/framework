@@ -128,7 +128,6 @@ class Domain {
             }
         }
         $object->config($key, $value);
-        ddd($object->config());
         return true;
     }
 }
