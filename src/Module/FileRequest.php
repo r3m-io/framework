@@ -205,7 +205,7 @@ class FileRequest {
         if (empty($file_extension)) {
             return false;
         }
-        $location = $object->config('host.location');
+        $location = $object->config('host.file.request');
         if (empty($location)) {
             d($dir);
             $location = FileRequest::location($object, $dir);
