@@ -84,9 +84,9 @@ class Domain {
         $value_with_port = $value;
         if(!in_array($port, $object->config('server.default.port'))){
             $value_with_port .= $port . $object->config('ds');
-        }
-        if(File::exist($value_with_port)){
-            $value = $value_with_port;
+            if(File::exist($value_with_port)){
+                $value = $value_with_port;
+            }
         }
         $object->config($key, $value);
         $key = 'domain.dir.public';
@@ -97,9 +97,9 @@ class Domain {
         $value_with_port = $value;
         if(!in_array($port, $object->config('server.default.port'))){
             $value_with_port .= $port . $object->config('ds');
-        }
-        if(File::exist($value_with_port)){
-            $value = $value_with_port;
+            if(File::exist($value_with_port)){
+                $value = $value_with_port;
+            }
         }
         $object->config($key, $value);
         $key = 'domain.dir.source';
@@ -110,9 +110,9 @@ class Domain {
         $value_with_port = $value;
         if(!in_array($port, $object->config('server.default.port'))){
             $value_with_port .= $port . $object->config('ds');
-        }
-        if(File::exist($value_with_port)){
-            $value = $value_with_port;
+            if(File::exist($value_with_port)){
+                $value = $value_with_port;
+            }
         }
         $object->config($key, $value);
         $key = 'domain.dir.view';
@@ -123,9 +123,9 @@ class Domain {
         $value_with_port = $value;
         if(!in_array($port, $object->config('server.default.port'))){
             $value_with_port .= $port . $object->config('ds');
-        }
-        if(File::exist($value_with_port)){
-            $value = $value_with_port;
+            if(File::exist($value_with_port)){
+                $value = $value_with_port;
+            }
         }
         $object->config($key, $value);
         ddd($object->config());
