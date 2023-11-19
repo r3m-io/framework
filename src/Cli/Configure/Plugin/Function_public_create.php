@@ -146,6 +146,9 @@ function function_public_create(Parse $parse, Data $data, $public_html=''){
         Core::execute($object, 'chown www-data:www-data ' . $public_html . ' -R');
     }
     $read->data('server.public', $public_html);
+    $explode = explode($object->config('ds'), trim($public_html, $object->config('ds')));
+    $directory_public = array_pop($explode);
+    $read->data('server.directory_public', [ $directory_public ]);
     try {
         $write = File::write($url, Core::object($read->data(), Core::OBJECT_JSON));
         $response = 'Bytes written: ' . $write . PHP_EOL;

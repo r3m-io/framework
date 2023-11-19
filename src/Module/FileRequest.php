@@ -213,6 +213,16 @@ class FileRequest {
             $location = FileRequest::location($object, $dir);
         } else{
             $location = Config::parameters($object, $location);
+            $directory_public = $object->config('server.directory_public');
+            foreach($location as $nr => $url){
+                foreach($directory_public as $public){
+                    if(stristr($url, '/' . $public . '/') !== false){
+                        $location[$nr] = $url . $dir;
+                        continue 2;
+                    }
+                }
+                unset($location[$nr]);
+            }
         }
         d($object->config());
         ddd($location);
