@@ -142,7 +142,7 @@ class Validate {
                                 }
                             }
                             if($is_found === false){
-                                throw new LocateException('validator (' . $function . ') not found.', $url_list);
+                                throw new LocateException($object,'validator (' . $function . ') not found.', $url_list);
                             }
                         }
                     }

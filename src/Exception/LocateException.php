@@ -23,8 +23,9 @@ class LocateException extends Exception {
     protected $object;
     protected $location;
 
-    public function __construct($message = "", $location=[], $code = 0, Throwable $previous = null) {
+    public function __construct(App $object, $message = "", $location=[], $code = 0, Throwable $previous = null) {
         $this->setLocation($location);
+        $this->setObject($object);
         parent::__construct($message, $code, $previous);
     }
 
