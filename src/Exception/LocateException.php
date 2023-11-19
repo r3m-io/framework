@@ -73,6 +73,7 @@ class LocateException extends Exception {
             $object = $this->object();
             if ($object) {
                 $object->config('exception.locate', '{{config(\'project.dir.host\')}}{{string.uppercase.first(host.subdomain())}}/{{string.uppercase.first(host.domain())}}/{{string.uppercase.first(host.extension())}}/View/Exception/Locate.tpl');
+                /*
                 $object->set('exception.message', $this->getMessage());
                 $object->set('exception.code', $this->getCode());
                 $object->set('exception.file', $this->getFile());
@@ -80,6 +81,7 @@ class LocateException extends Exception {
                 $object->set('exception.previous', $this->getPrevious());
                 $object->set('exception.location', $this->getLocation());
                 $parse = new Parse($object, $object->data());
+                */
                 return $object->config('exception.locate');
                 /*
                 $url = $parse->compile($object->config('exception.locate'), $object->data());
