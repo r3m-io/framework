@@ -26,7 +26,6 @@ class LocateException extends Exception {
     public function __construct(App $object, $message = "", $location=[], $code = 0, Throwable $previous = null) {
         $this->setLocation($location);
         $this->setObject($object);
-        ddd('here');
         parent::__construct($message, $code, $previous);
     }
 
@@ -70,6 +69,7 @@ class LocateException extends Exception {
             return $string;
         } else {
             $object = $this->object();
+            ddd($object);
             if ($object) {
                 $object->config('exception.locate', '{{config(\'project.dir.host\')}}{{string.uppercase.first(host.subdomain())}}/{{string.uppercase.first(host.domain())}}/{{string.uppercase.first(host.extension())}}/View/Exception/Locate.tpl');
                 $object->set('exception.message', $this->getMessage());
