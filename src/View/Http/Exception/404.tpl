@@ -1,67 +1,14 @@
 {{R3M}}
 <html>
 <head>
-    <title>HTTP/1.0 501 Not Implemented: {{$exception.file}}</title>
+    <title>HTTP/1.0 404 Not Found: {{$exception.file}}</title>
     <style>
-        body, html, section {
-            margin: 0;
-            padding: 0;
-        }
-        section[name="header"] {
-            background: rgba(200, 0, 0, 1);
-            width: 100%;
-        }
-        section[name="header"] h3 {
-            display: inline-block;
-            padding: 0;
-            margin: 10px;
-            color: rgba(255, 255, 255, 1);
-        }
-        section[name="message"] {
-            background: rgba(225, 225, 225, 1);
-            width: 100%;
-        }
-        section[name="message"] h3 {
-            display: inline-block;
-            padding: 0;
-            margin: 10px;
-            color: rgba(0, 0, 0, 1);
-        }
-        label {
-            font-weight: bold;
-            margin-left: 10px;
-        }
-        table {
-            width: 100%:
-            margin-left: 10px;
-        }
-        tr.trace td {
-            padding: 10px;
-        }
-        tr.selected {
-            background: rgba(225, 225, 225, 1);
-            font-weight: bold;
-        }
-        td.line {
-            background: rgba(235, 235, 235, 1);
-        }
-        tr.selected td.line {
-            font-weight: bold;
-        }
-        td.tab {
-            width: 20px;
-        }
-        td.function {
-            font-weight: bold;
-        }
-        td.class {
-            font-weight: bold;
-        }
+        {{require(config('framework.dir.view') + 'Http/Head/Style.css')}}
     </style>
 </head>
 <body>
 <section name="header">
-    <h3>HTTP/1.0 501 Not Implemented:</h3>
+    <h3>HTTP/1.0 500 Internal server error:</h3>
 </section><section name="message">
     <h3>{{$exception.message}}</h3>
 </section><section name="detail">
@@ -73,7 +20,27 @@
     <span>{{$exception.line}}</span><br>
     <label>Code: </label>
     <span>{{$exception.code}}</span><br>
-</section><section name="source">
+</section>
+{{if(
+!is.empty($exception.location) &&
+is.array($exception.location) &&
+config('framework.environment') === 'development'
+)}}
+<section name="location">
+    <label>Locations: </label><br>
+    <table>
+        {{for.each($exception.location as $location_nr => $location_value)}}
+        <tr class="list">
+            <td colspan="4">
+                {{$location_value}}
+            </td>
+        </tr>
+        {{/for.each}}
+    </table>
+</section>
+{{/if}}
+{{if(config('framework.environment') === 'development')}}
+<section name="source">
     <label>Source: </label><br>
     {{$source = file.read($exception.file)}}
     {{if($source)}}
@@ -129,5 +96,6 @@
         {{/for.each}}
     </table>
 </section>
+{{/if}}
 </body>
 </html>

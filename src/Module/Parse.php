@@ -444,6 +444,7 @@ class Parse {
                 $string = literal::apply($storage, $string);
             }
             $string = Parse::replace_raw($string);
+            $string = str_replace('/*{{R3M}}*/', '{R3M}', $string); //css files
             $string = str_replace('{{ R3M }}', '{R3M}', $string);
             $string = str_replace('{{R3M}}', '{R3M}', $string);
             $explode = explode('{R3M}', $string, 2);
