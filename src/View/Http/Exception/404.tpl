@@ -3,7 +3,7 @@
 <head>
     <title>HTTP/1.0 404 Not Found: {{$exception.file}}</title>
     <style>
-        {{require(config('framework.dir.view') + 'Http/Head/Style.css')}}
+        {{require(config('framework.dir.view') + 'Http/Head/Style.rcss')}}
     </style>
 </head>
 <body>
