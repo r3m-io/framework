@@ -5,6 +5,7 @@
 {{$background.td.line = 'rgba(235, 235, 235, 1)'}}
 {{$color.message = 'rgba(0, 0, 0, 1)'}}
 {{$color.header = 'rgba(255, 255, 255, 1)'}}
+{{$border.color.location = 'rgba(60, 255, 60, 1)'}}
 body, html, section {
     margin: 0;
     padding: 0;
@@ -38,6 +39,9 @@ table {
 }
 table.location {
     margin-left: 10px;
+}
+table.location tr.list {
+    border-bottom-color: {{$border.color.location}};
 }
 tr.trace td {
     padding: 10px;
