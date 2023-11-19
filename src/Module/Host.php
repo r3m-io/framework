@@ -88,9 +88,9 @@ class Host {
         $value_with_port = $value;
         if(!in_array($port, $object->config('server.default.port'))){
             $value_with_port .= $port . $object->config('ds');
-        }
-        if(File::exist($value_with_port)){
-            $value = $value_with_port;
+            if(File::exist($value_with_port)){
+                $value = $value_with_port;
+            }
         }
         $object->config($key, $value);
         $key = 'host.dir.cache';
@@ -107,10 +107,11 @@ class Host {
         $value_with_port = $value;
         if(!in_array($port, $object->config('server.default.port'))){
             $value_with_port .= $port . $object->config('ds');
+            if(File::exist($value_with_port)){
+                $value = $value_with_port;
+            }
         }
-        if(File::exist($value_with_port)){
-            $value = $value_with_port;
-        }
+
         $object->config($key, $value);
         $key = 'host.dir.source';
         $value =
@@ -120,9 +121,9 @@ class Host {
         $value_with_port = $value;
         if(!in_array($port, $object->config('server.default.port'))){
             $value_with_port .= $port . $object->config('ds');
-        }
-        if(File::exist($value_with_port)){
-            $value = $value_with_port;
+            if(File::exist($value_with_port)){
+                $value = $value_with_port;
+            }
         }
         $object->config($key, $value);
         $key = 'host.dir.view';
@@ -133,9 +134,9 @@ class Host {
         $value_with_port = $value;
         if(!in_array($port, $object->config('server.default.port'))){
             $value_with_port .= $port . $object->config('ds');
-        }
-        if(File::exist($value_with_port)){
-            $value = $value_with_port;
+            if(File::exist($value_with_port)){
+                $value = $value_with_port;
+            }
         }
         $object->config($key, $value);
         $node = new Node($object);
