@@ -492,7 +492,7 @@ class Host {
                 !empty($host['node']->file->request) &&
                 is_array($host['node']->file->request)
             ){
-                $host->file->request = Config::parameters($object, $host->file->request);
+                $host['node']->file->request = Config::parameters($object, $host['node']->file->request);
             }
             return $host['node'];
         }
