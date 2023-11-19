@@ -36,7 +36,7 @@ label {
 table {
     width: 100%;
 }
-section table {
+section table:first-child {
     margin-left: 10px;
 }
 tr.trace td {
