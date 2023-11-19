@@ -138,6 +138,16 @@ class Host {
             $value = $value_with_port;
         }
         $object->config($key, $value);
+        $node = new Node($object);
+        if($object->config('host.subdomain')){
+            $name = $object->config('host.subdomain') . '.' . $object->config('host.domain') . '.' . $object->config('host.extension');
+        } else {
+            $name = $object->config('host.domain') . '.' . $object->config('host.extension');
+        }
+        $map = Host::map($object, $node, $name);
+        $host = Host::get($object, $node, $name, $map);
+        $object->config('host.map', $map);
+        $object->config('host', Core::object_merge($object->config('host'), $host));
         return true;
     }
 
@@ -326,7 +336,7 @@ class Host {
             ]
         );
         if($map === 'false'){
-            return [];
+            return false;
         }
         if($map){
             $map = (array) Core::object($map, Core::OBJECT_OBJECT);
@@ -365,7 +375,10 @@ class Host {
             }
 
         }
-        return $map;
+        if(array_key_exists('node', $map)){
+            return $map['node'];
+        }
+        return false;
     }
 
     /**
@@ -374,7 +387,7 @@ class Host {
      * @throws FileWriteException
      * @throws Exception
      */
-    public static function get(App $object, Node $node, $name, $map=[]){
+    public static function get(App $object, Node $node, $name, $map=false){
         $host = false;
         $ttl = $object->config('host.default.ttl.' . $object->config('framework.environment'));
         if(!$ttl){
@@ -383,13 +396,7 @@ class Host {
         if(empty($name)){
             return false;
         }
-        if(
-            empty($map) ||
-            (
-                array_key_exists('node', $map) &&
-                empty($map['node'])
-            )
-        ) {
+        if(empty($map)) {
             $cache_key = Cache::key($object, [
                 'name' => Cache::name($object, [
                     'type' => Cache::FILE,
@@ -432,12 +439,11 @@ class Host {
             }
         }
         elseif(
-            array_key_exists('node', $map) &&
-            !empty($map['node']) &&
-            property_exists($map['node'], 'destination') &&
-            !empty($map['node']->destination)
+            !empty($map) &&
+            property_exists($map, 'destination') &&
+            !empty($map->destination)
         ) {
-            $name = $map['node']->destination;
+            $name = $map->destination;
             $cache_key = Cache::key($object, [
                 'name' => Cache::name($object, [
                     'type' => Cache::FILE,
@@ -479,6 +485,9 @@ class Host {
                 );
             }
         }
-        return $host;
+        if(array_key_exists('node', $host)){
+            return $host['node'];
+        }
+        return false;
     }
 }
