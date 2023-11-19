@@ -28,7 +28,7 @@ config('framework.environment') === 'development'
 )}}
 <section name="location">
     <label>Locations: </label><br>
-    <table>
+    <table class="location>
         {{for.each($exception.location as $location_nr => $location_value)}}
         <tr class="list">
             <td colspan="4">
@@ -45,7 +45,7 @@ config('framework.environment') === 'development'
     {{$source = file.read($exception.file)}}
     {{if($source)}}
     {{$read = explode("\n", $source)}}
-    <table>
+    <table class="source">
         {{for($i=$exception.line - 3 - 1; $i <= $exception.line + 3 - 1; $i++)}}
         {{$row = $read[$i]}}
         {{$row_nr = $i + 1}}
