@@ -12,9 +12,5 @@ use R3m\Io\Module\Parse;
 use R3m\Io\Module\Data;
 
 function function_debug_backtrace(Parse $parse, Data $data, $options=true){
-    $trace = debug_backtrace($options);
-    foreach($trace as $nr => $record){
-        unset($trace[$nr]['object']);
-    }
-    return $trace;
+    return debug_backtrace($options);
 }

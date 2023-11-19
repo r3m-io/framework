@@ -179,7 +179,7 @@ class App extends Data {
                         $response = new Response(
                             App::exception_to_json($exception),
                             Response::TYPE_JSON,
-                            Response::STATUS_ERROR
+                            Response::STATUS_NOT_IMPLEMENTED
                         );
                         Event::trigger($object, 'app.run.route.error', [
                             'route' => false,
@@ -289,7 +289,7 @@ class App extends Data {
                         $response = new Response(
                             App::exception_to_json($exception),
                             Response::TYPE_JSON,
-                            Response::STATUS_ERROR
+                            Response::STATUS_NOT_IMPLEMENTED
                         );
                         Event::trigger($object, 'app.run.route.file', [
                             'route' => $route,
@@ -329,7 +329,7 @@ class App extends Data {
                             'request',
                             $request
                         );
-                        $object->logger(App::LOGGER_NAME)->info(
+                        $object->logger($logger)->info(
                             'Controller (' .
                             $route->controller .
                             ') function (' .
@@ -356,7 +356,7 @@ class App extends Data {
                         }
                         */
                     } else {
-                        $object->logger(App::LOGGER_NAME)->error(
+                        $object->logger($logger)->error(
                             'Controller (' .
                             $route->controller .
                             ') function (' .
@@ -373,7 +373,7 @@ class App extends Data {
                         $response = new Response(
                             App::exception_to_json($exception),
                             Response::TYPE_JSON,
-                            Response::STATUS_ERROR
+                            Response::STATUS_NOT_IMPLEMENTED
                         );
                         Event::trigger($object, 'app.run.route.controller', [
                             'route' => $route,
@@ -413,9 +413,13 @@ class App extends Data {
         }
         catch (Exception | LocateException $exception) {
             try {
+                $code = $exception->getCode();
+                if(empty($code)){
+                    $code = Response::STATUS_NOT_IMPLEMENTED;
+                }
                 if($object->data(App::CONTENT_TYPE) === App::CONTENT_TYPE_JSON){
                     if(!headers_sent()){
-                        header('Status: 500');
+                        header('Status: ' . $code);
                         header('Content-Type: application/json');
                     }
                     if($logger){
@@ -439,6 +443,15 @@ class App extends Data {
                     return '';
                 } else {
                     Controller::configure($object, __CLASS__); //initialize plugin directories
+                    $dir = [];
+                    $dir[] = $object->config('domain.dir.view');
+                    $dir[] = $object->config('framework.dir.view');
+
+
+
+                    ddd($dir);
+
+                    $url = $object->config('host.http.error.500'); //@todo through configere::parameters
                     $parse = new Module\Parse($object, $object->data());
                     $url = $object->config('server.http.error.500');
                     $url = $parse->compile($url, $object->data());
