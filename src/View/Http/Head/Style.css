@@ -40,7 +40,7 @@ table {
 table.location {
     margin-left: 10px;
 }
-table.location tr.list {
+table.location tr.list td {
     border-bottom: 1px solid {{$border.color.location}};
 }
 tr.trace td {
