@@ -23,6 +23,9 @@ class LocateException extends Exception {
 
     public function __construct($message = "", $location=[], $code = 0, Throwable $previous = null) {
         $this->setLocation($location);
+        if($code === 0){
+            $code = 404;
+        }
         parent::__construct($message, $code, $previous);
     }
 
