@@ -61,23 +61,33 @@ class LocateException extends Exception {
     {
         $object = $this->object();
         if($object){
-            $object->config('exception.locate', '{{config(\'project.dir.host\')}}{{string.uppercase.first(host.subdomain())}}/{{string.uppercase.first(host.domain())}}/{{string.uppercase.first(host.extension())}}/View/Exception/Locate.tpl');
-            $object->set('exception.message', $this->getMessage());
-            $object->set('exception.code', $this->getCode());
-            $object->set('exception.file', $this->getFile());
-            $object->set('exception.line', $this->getLine());
-            $object->set('exception.line', $this->getLine());
-            $object->set('exception.previous', $this->getPrevious());
-            $object->set('exception.location', $this->getLocation());
-            $parse = new Parse($object, $object->data());
-            $url = $parse->compile($object->config('exception.locate'), $object->data());
-            ddd($url);
-            if(File::exist($url)){
-                $object->logger('FileRequest')->exception('Locate', [ $url ]);
-                $read = File::read($url);
-                return $parse->compile($read, $object->data());
+            if(App::is_cli()){
+                $string = parent::__toString();
+                $location = $this->getLocation();
+                $string .= PHP_EOL . 'Locations: ' . PHP_EOL;
+                foreach($location as $value){
+                    $string .= $value . PHP_EOL;
+                }
+                return $string;
             } else {
-                throw new Exception('Exception file (' . $url . ') not found...');
+                $object->config('exception.locate', '{{config(\'project.dir.host\')}}{{string.uppercase.first(host.subdomain())}}/{{string.uppercase.first(host.domain())}}/{{string.uppercase.first(host.extension())}}/View/Exception/Locate.tpl');
+                $object->set('exception.message', $this->getMessage());
+                $object->set('exception.code', $this->getCode());
+                $object->set('exception.file', $this->getFile());
+                $object->set('exception.line', $this->getLine());
+                $object->set('exception.line', $this->getLine());
+                $object->set('exception.previous', $this->getPrevious());
+                $object->set('exception.location', $this->getLocation());
+                $parse = new Parse($object, $object->data());
+                $url = $parse->compile($object->config('exception.locate'), $object->data());
+                ddd($url);
+                if(File::exist($url)){
+                    $object->logger('FileRequest')->exception('Locate', [ $url ]);
+                    $read = File::read($url);
+                    return $parse->compile($read, $object->data());
+                } else {
+                    throw new Exception('Exception file (' . $url . ') not found...');
+                }
             }
         } else {
             $string = parent::__toString();
@@ -95,7 +105,6 @@ class LocateException extends Exception {
                 $output[] = $string;
                 $output[] = '</pre>';
             }
-
             return implode(PHP_EOL, $output);
         }
     }
