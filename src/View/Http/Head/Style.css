@@ -41,7 +41,7 @@ table.location {
     margin-left: 10px;
 }
 table.location tr.list {
-    border-bottom-color: {{$border.color.location}};
+    border-bottom: 1px solid {{$border.color.location}};
 }
 tr.trace td {
     padding: 10px;
