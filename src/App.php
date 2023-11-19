@@ -460,21 +460,23 @@ class App extends Data {
                         $code .
                         $object->config('extension.tpl')
                     ;
-
-
-
-                    ddd($location);
-
-                    $url = $object->config('host.http.error.500'); //@todo through configere::parameters
-                    $parse = new Module\Parse($object, $object->data());
-                    $url = $object->config('server.http.error.500');
-                    $url = $parse->compile($url, $object->data());
-                    if(!headers_sent()){
-                        header('Status: 500');
+                    $is_url = false;
+                    foreach($location as $nr => $url){
+                        if(File::exist($url)){
+                            $is_url = $url;
+                            break;
+                        }
                     }
-                    if(File::exist($url)){
+                    if($is_url === false){
+                        Event::trigger($object, 'app.route.exception', [
+                            'route' => $route,
+                            'exception' => $exception
+                        ]);
+                        echo $exception;
+                        return null;
+                    } else {
                         $parse = new Module\Parse($object, $object->data());
-                        $read = File::read($url);
+                        $read = File::read($is_url);
                         $data = [];
                         $data['exception'] = Core::object_array($exception);
                         $data['exception']['className'] = get_class($exception);
@@ -484,12 +486,6 @@ class App extends Data {
                             'exception' => $exception
                         ]);
                         return $parse->compile($read, $data);
-                    } else {
-                        Event::trigger($object, 'app.route.exception', [
-                            'route' => $route,
-                            'exception' => $exception
-                        ]);
-                        echo $exception;
                     }
                 }
             } catch (ObjectException $exception){
