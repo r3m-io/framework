@@ -138,7 +138,7 @@ class View {
             foreach($list as $nr => $file){
                 $result[] = $file;
             }
-            throw new LocateException($object, 'Cannot find view file', $result, 1);
+            throw new LocateException('Cannot find view file', $result, 1);
         }
         return $url;
     }

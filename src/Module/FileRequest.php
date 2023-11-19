@@ -472,7 +472,7 @@ class FileRequest {
                     $location[$key] .= $file;
                 }
             }
-            throw new LocateException($object, 'Cannot find location for file...', $location);
+            throw new LocateException('Cannot find location for file...', $location);
         } else {
             if(
                 in_array(
