@@ -70,6 +70,7 @@ class LocateException extends Exception {
             ddd($string);
             return $string;
         } else {
+            $object = $this->object();
             if ($object) {
                 $object->config('exception.locate', '{{config(\'project.dir.host\')}}{{string.uppercase.first(host.subdomain())}}/{{string.uppercase.first(host.domain())}}/{{string.uppercase.first(host.extension())}}/View/Exception/Locate.tpl');
                 $object->set('exception.message', $this->getMessage());
