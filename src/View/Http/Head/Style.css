@@ -51,6 +51,7 @@ tr.selected {
 }
 td.line {
     background: {{$background.td.line}};
+    max-width: 75px;
 }
 tr.selected td.line {
     font-weight: bold;
