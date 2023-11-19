@@ -39,7 +39,6 @@ class Domain {
         $extension = Host::extension();
         $port = Host::port();
         $key = 'domain.dir.root';
-        ddd($object->config('host'));
         if(empty($subdomain)){
             $sentence = strtolower($object->config('host.domain')) .
                 '.' .
@@ -140,6 +139,7 @@ class Domain {
             $value = $value_with_port;
         }
         $object->config($key, $value);
+        dd($object->config());
         return true;
     }
 }

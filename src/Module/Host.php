@@ -486,14 +486,6 @@ class Host {
             }
         }
         if(array_key_exists('node', $host)){
-            if(
-                property_exists($host['node'], 'file') &&
-                property_exists($host['node']->file, 'request') &&
-                !empty($host['node']->file->request) &&
-                is_array($host['node']->file->request)
-            ){
-                $host['node']->file->request = Config::parameters($object, $host['node']->file->request);
-            }
             return $host['node'];
         }
         return false;
