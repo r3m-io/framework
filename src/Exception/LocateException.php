@@ -66,6 +66,7 @@ class LocateException extends Exception {
             foreach($location as $value){
                 $string .= $value . PHP_EOL;
             }
+            ddd($string);
             return $string;
         } else {
             $object = $this->object();
