@@ -70,15 +70,6 @@ class LocateException extends Exception {
             ddd($string);
             return $string;
         } else {
-            $string = parent::__toString();
-            $location = $this->getLocation();
-            $string .= PHP_EOL . 'Locations: ' . PHP_EOL;
-            foreach($location as $value){
-                $string .= $value . PHP_EOL;
-            }
-            return $string;
-            $object = $this->object();
-            ddd($object);
             if ($object) {
                 $object->config('exception.locate', '{{config(\'project.dir.host\')}}{{string.uppercase.first(host.subdomain())}}/{{string.uppercase.first(host.domain())}}/{{string.uppercase.first(host.extension())}}/View/Exception/Locate.tpl');
                 $object->set('exception.message', $this->getMessage());
@@ -88,8 +79,10 @@ class LocateException extends Exception {
                 $object->set('exception.previous', $this->getPrevious());
                 $object->set('exception.location', $this->getLocation());
                 $parse = new Parse($object, $object->data());
+                return $object->config('exception.locate');
+                /*
                 $url = $parse->compile($object->config('exception.locate'), $object->data());
-                ddd($url);
+
                 if (File::exist($url)) {
                     $object->logger('FileRequest')->exception('Locate', [$url]);
                     $read = File::read($url);
@@ -97,6 +90,7 @@ class LocateException extends Exception {
                 } else {
                     throw new Exception('Exception file (' . $url . ') not found...');
                 }
+                */
             } else {
                 throw new Exception('Exception object is empty...');
             }
