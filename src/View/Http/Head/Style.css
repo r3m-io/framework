@@ -1,27 +1,33 @@
 /*{{R3M}}*/
+{{$background.header = 'rgba(200, 0, 0, 1)'}}
+{{$background.message = 'rgba(225, 225, 225, 1)'}}
+{{$background.tr.selected = 'rgba(225, 225, 225, 1)'}}
+{{$background.td.line = 'rgba(235, 235, 235, 1)'}}
+{{$color.message = 'rgba(0, 0, 0, 1)'}}
+{{$color.header = 'rgba(255, 255, 255, 1)'}}
 body, html, section {
     margin: 0;
     padding: 0;
 }
 section[name="header"] {
-    background: rgba(200, 0, 0, 1);
+    background: {{$background.header}};
     width: 100%;
 }
 section[name="header"] h3 {
     display: inline-block;
     padding: 0;
     margin: 10px;
-    color: rgba(255, 255, 255, 1);
+    color: {{$color.header}};
 }
 section[name="message"] {
-    background: rgba(225, 225, 225, 1);
+    background: {{$background.message}};
     width: 100%;
 }
 section[name="message"] h3 {
     display: inline-block;
     padding: 0;
     margin: 10px;
-    color: rgba(0, 0, 0, 1);
+    color: {{$color.message}};
 }
 label {
     font-weight: bold;
@@ -35,11 +41,11 @@ tr.trace td {
     padding: 10px;
 }
 tr.selected {
-    background: rgba(225, 225, 225, 1);
+    background: {{$background.tr.selected}};
     font-weight: bold;
 }
 td.line {
-    background: rgba(235, 235, 235, 1);
+    background: {{$background.td.line}};
 }
 tr.selected td.line {
     font-weight: bold;
