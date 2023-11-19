@@ -8,7 +8,7 @@
 </head>
 <body>
 <section name="header">
-    <h3>HTTP/1.0 500 Internal server error:</h3>
+    <h3>HTTP/1.0 404 Not Found:</h3>
 </section><section name="message">
     <h3>{{$exception.message}}</h3>
 </section><section name="detail">
