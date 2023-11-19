@@ -75,7 +75,6 @@ class LocateException extends Exception {
                 $object->set('exception.code', $this->getCode());
                 $object->set('exception.file', $this->getFile());
                 $object->set('exception.line', $this->getLine());
-                $object->set('exception.line', $this->getLine());
                 $object->set('exception.previous', $this->getPrevious());
                 $object->set('exception.location', $this->getLocation());
                 $parse = new Parse($object, $object->data());
