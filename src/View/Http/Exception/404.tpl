@@ -65,15 +65,12 @@ config('framework.environment') === 'development'
     <table class="trace">
         {{for.each($exception.trace as $nr => $trace)}}
         <tr class="trace">
-            <td class="tab">&nbsp;</td>
             <td class="title">File: {{$trace.file}} (<b>{{$trace.line}}</b>)</td>
         </tr>
         <tr class="trace">
-            <td class="tab">&nbsp;</td>
             <td class="class">Class: {{$trace.class}}</td>
         </tr>
         <tr class="trace">
-            <td class="tab">&nbsp;</td>
             <td class="function">Function: {{$trace.function}}</td>
         </tr>
         <tr class="trace-source">
