@@ -37,7 +37,6 @@ table {
     width: 100%;
 }
 table.source,
-table.trace,
 table.location {
     margin-left: 10px;
 }
