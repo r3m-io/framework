@@ -475,6 +475,7 @@ class App extends Data {
                         echo $exception;
                         return null;
                     } else {
+                        ddd($object->config('host'));
                         $parse = new Module\Parse($object, $object->data());
                         $read = File::read($is_url);
                         $data = [];
