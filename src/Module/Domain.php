@@ -34,29 +34,18 @@ class Domain {
         $key = 'domain.url';
         $value = Host::url();
         $object->config($key, $value);
-        $subdomain = Host::subdomain();
-        $domain = Host::domain();
-        $extension = Host::extension();
         $port = Host::port();
         $key = 'domain.dir.root';
-        if(empty($subdomain)){
-            $sentence = strtolower($object->config('host.domain')) .
-                '.' .
-                strtolower($object->config('host.extension')) .
-                $object->config('ds')
-            ;
-            $value = $object->config('project.dir.domain') .
-                $sentence;
-        } else {
-            $sentence = strtolower($object->config('host.subdomain')) .
-                '.' .
-                strtolower($object->config('host.domain')) .
-                '.' .
-                strtolower($object->config('host.extension')) .
-                $object->config('ds')
-            ;
-            $value = $object->config('project.dir.domain') .
-                $sentence;
+        $value = $object->config('project.dir.domain') .
+            $object->config('host.name') .
+            $object->config('ds')
+        ;
+        $value_with_port = $value;
+        if(!in_array($port, $object->config('server.default.port'))){
+            $value_with_port .= $port . $object->config('ds');
+        }
+        if(File::exist($value_with_port)){
+            $value = $value_with_port;
         }
         $object->config($key, $value);
         $key = 'domain.dir.data';
