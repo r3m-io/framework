@@ -65,6 +65,7 @@ class Database {
      */
     public static function connect(App $object, $config, $connection=[]): EntityManager
     {
+        $connection = Core::object($connection, CORE::OBJECT_ARRAY);
         if(!empty($connection['logging'])){
             $logger = new Logger(Database::LOGGER_DOCTRINE);
             $logger->pushHandler(new StreamHandler($object->config('project.dir.log') . 'sql.log', Logger::DEBUG));
