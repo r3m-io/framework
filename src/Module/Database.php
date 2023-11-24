@@ -65,14 +65,17 @@ class Database {
      */
     public static function connect(App $object, $config, $connection=[]): EntityManager
     {
-        $connection = Core::object($connection, CORE::OBJECT_ARRAY);
+        $connection = Core::object($connection, CORE::OBJECT_OBJECT);
         $parameters = [];
         $parameters[] = $connection;
         $parameters = Config::parameters($object, $parameters);
         if(array_key_exists(0, $parameters)){
             $connection = $parameters[0];
         }
-        if(!empty($connection['logging'])){
+        if (
+            property_exists($connection, 'logging') &&
+            !empty($connection->logging)
+        ){
             $logger = new Logger(Database::LOGGER_DOCTRINE);
             $logger->pushHandler(new StreamHandler($object->config('project.dir.log') . 'sql.log', Logger::DEBUG));
             $logger->pushProcessor(new PsrLogMessageProcessor(null, true));
@@ -81,24 +84,24 @@ class Database {
             $config->setMiddlewares([new Logging\Middleware($logger)]);
         }
         if(
-            array_key_exists('driver', $connection) &&
-            $connection['driver'] === 'pdo_sqlite' &&
-            array_key_exists('path', $connection) &&
-            !File::exist($connection['path'])
+            property_exists($connection, 'driver') &&
+            $connection->driver === 'pdo_sqlite' &&
+            property_exists($connection, 'path') &&
+            !File::exist($connection->path)
         ){
-            $dir = Dir::name($connection['path']);
+            $dir = Dir::name($connection->path);
             Dir::create($dir, Dir::CHMOD);
-            File::write($connection['path'], '');
+            File::write($connection->path, '');
             if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
                 exec('chmod 777 ' . $dir);
-                exec('chmod 666 ' . $connection['path']);
+                exec('chmod 666 ' . $connection->path);
                 exec('chown www-data:www-data ' . $dir);
-                exec('chown www-data:www-data ' . $connection['path']);
+                exec('chown www-data:www-data ' . $connection->path);
             } else {
                 exec('chmod 750 ' . $dir);
-                exec('chmod 640 ' . $connection['path']);
+                exec('chmod 640 ' . $connection->path);
                 exec('chown www-data:www-data ' . $dir);
-                exec('chown www-data:www-data ' . $connection['path']);
+                exec('chown www-data:www-data ' . $connection->path);
             }
         }
         $connection = DriverManager::getConnection($connection, $config, new EventManager());
