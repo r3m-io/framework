@@ -193,7 +193,7 @@ $classes = $entityManager->getMetadataFactory()->getAllMetadata();
 $schemaTool->createSchema($classes);
          */
 
-        $metadata = $em->getClassMetadata('Entity\\Event');
+        $metadata = $em->getClassMetadata(Entity\\Event::class);
 
         $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($em);
         // you can drop the table like this if necessary
