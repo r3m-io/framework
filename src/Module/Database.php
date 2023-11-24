@@ -106,6 +106,7 @@ class Database {
                 exec('chown www-data:www-data ' . $connection->path);
             }
         }
+        $connection = Core::object($connection, CORE::OBJECT_ARRAY);
         $connection = DriverManager::getConnection($connection, $config, new EventManager());
         return EntityManager::create($connection, $config);
     }
