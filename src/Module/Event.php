@@ -182,6 +182,7 @@ class Event extends Main {
     public static function configure(App $object): void
     {
         $config = Database::config($object);
+        $config->addEntityNamespace('', 'Entity');
         $connection = $object->config('doctrine.system');
         $em = Database::connect($object, $config, $connection);
 //        $em->getConnection()->getSchemaManager()->createDatabase($connection->database);
