@@ -386,6 +386,7 @@ class Config extends Data {
         } else {
             $url = $config->data(Config::DATA_PROJECT_DIR_DATA) . 'App' . $config->data('ds') . Config::CONFIG;
         }
+        $url = false; //we need doctrine here to the config sqlite file
         if(File::exist($url)){
             $config->data('app.config.url', $url);
             $config->data('app.config.dir', Dir::name($url));

@@ -8,6 +8,7 @@
 		"php": ">=8.0",
 		"ext-mbstring": "*",
 		"ext-json": "*",
+		"ext-pdo": "*",
 		"ext-posix": "*",
 		"ext-zend-opcache": "*",
 		"ext-openssl": "*",
@@ -18,7 +19,7 @@
 		"r3m_io/event": "*",
 		"r3m_io/node": "*",
 		"monolog/monolog" : "^2.2",
-		"defuse/php-encryption": "^2.3"
+		"defuse/php-encryption": "^2.3",
     },
 	"license" : "MIT",
 	"authors" : [{
