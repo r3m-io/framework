@@ -185,7 +185,7 @@ class Event extends Main {
         $connection = $object->config('doctrine.system');
         $em = Database::connect($object, $config, $connection);
 //        $em->getConnection()->getSchemaManager()->createDatabase($connection->database);
-//        $em->getConnection()->getSchemaManager()->createDatabase($connection->database);
+        $em->getConnection()->getSchemaManager()->createTable('test');
         ddd($em->getConnection()->getSchemaManager()->listTables());
 
 
