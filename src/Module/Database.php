@@ -66,11 +66,13 @@ class Database {
     public static function connect(App $object, $config, $connection=[]): EntityManager
     {
         $connection = Core::object($connection, CORE::OBJECT_OBJECT);
-        $parameters = [];
-        $parameters[] = $connection;
-        $parameters = Config::parameters($object, $parameters);
-        if(array_key_exists(0, $parameters)){
-            $connection = $parameters[0];
+        if(property_exists($connection, 'path')){
+            $parameters = [];
+            $parameters[] = $connection->path;
+            $parameters = Config::parameters($object, $parameters);
+            if(array_key_exists(0, $parameters)){
+                $connection->path = $parameters[0];
+            }
         }
         if (
             property_exists($connection, 'logging') &&
