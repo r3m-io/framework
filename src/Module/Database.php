@@ -74,6 +74,27 @@ class Database {
             $logger->info('Logger initialised.');
             $config->setMiddlewares([new Logging\Middleware($logger)]);
         }
+        if(
+            array_key_exists('driver', $connection) &&
+            $connection['driver'] === 'pdo_sqlite' &&
+            array_key_exists('path', $connection) &&
+            !File::exist($connection['path'])
+        ){
+            $dir = Dir::name($connection['path']);
+            Dir::create($dir, Dir::CHMOD);
+            File::write($connection['path'], '');
+            if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
+                exec('chmod 777 ' . $dir);
+                exec('chmod 666 ' . $connection['path']);
+                exec('chown www-data:www-data ' . $dir);
+                exec('chown www-data:www-data ' . $connection['path']);
+            } else {
+                exec('chmod 750 ' . $dir);
+                exec('chmod 640 ' . $connection['path']);
+                exec('chown www-data:www-data ' . $dir);
+                exec('chown www-data:www-data ' . $connection['path']);
+            }
+        }
         $connection = DriverManager::getConnection($connection, $config, new EventManager());
         return EntityManager::create($connection, $config);
     }
