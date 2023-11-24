@@ -89,11 +89,13 @@ class Database {
             property_exists($connection, 'driver') &&
             $connection->driver === 'pdo_sqlite' &&
             property_exists($connection, 'path') &&
-            !File::exist($connection->path)
+            File::exist($connection->path)
         ){
             $dir = Dir::name($connection->path);
             Dir::create($dir, Dir::CHMOD);
-            File::write($connection->path, '');
+            File::delete($connection->path);
+            $command = 'sqlite3 ' . $connection->path . ' "VACUUM;"';
+            exec($command);
             if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
                 exec('chmod 777 ' . $dir);
                 exec('chmod 666 ' . $connection->path);
