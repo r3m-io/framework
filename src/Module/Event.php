@@ -185,7 +185,23 @@ class Event extends Main {
         $connection = $object->config('doctrine.system');
         $em = Database::connect($object, $config, $connection);
 //        $em->getConnection()->getSchemaManager()->createDatabase($connection->database);
-        $em->getConnection()->getSchemaManager()->createTable('test');
+//        $em->getConnection()->getSchemaManager()->createTable('test');
+
+        /*
+$schemaTool = new \Doctrine\ORM\Tools\SchemaTool($entityManager);
+$classes = $entityManager->getMetadataFactory()->getAllMetadata();
+$schemaTool->createSchema($classes);
+         */
+
+        $metadata = $em->getClassMetadata('Event');
+
+        $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($em);
+        // you can drop the table like this if necessary
+        $schemaTool->dropSchema(array($metadata));
+        $schemaTool->createSchema(array($metadata));
+
+        d(array($metadata));
+
         ddd($em->getConnection()->getSchemaManager()->listTables());
 
 
