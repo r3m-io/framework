@@ -13,7 +13,6 @@ namespace R3m\Io\Module;
 use Doctrine\Common\EventManager;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
-use PDO;
 
 use Monolog\Processor\PsrLogMessageProcessor;
 use Monolog\Handler\StreamHandler;
@@ -29,82 +28,58 @@ use R3m\Io\App;
 use R3m\Io\Config;
 
 use Exception;
-use PDOException;
 
 use R3m\Io\Exception\ObjectException;
 use R3m\Io\Exception\FileWriteException;
 
-use Doctrine\ORM\ORMException;
-use Doctrine\ORM\Exception\ORMException as ORMException2;
-
 class Database {
     const NAMESPACE = __NAMESPACE__;
     const NAME = 'Database';
-    const FETCH = PDO::FETCH_OBJ;
 
     const LOGGER_DOCTRINE = 'Doctrine';
 
     /**
      * @throws Exception
      */
-    public static function connect($object, $environment=null){
-        $config = $object->data(App::CONFIG);
-        if(empty($environment)){
-            $environment = $config->data(Config::DATA_FRAMEWORK_ENVIRONMENT);
+    public static function config(App $object){
+        $paths = $object->config('doctrine.paths');
+        $paths = Config::parameters($object, $paths);
+        $parameters = [];
+        $parameters[] = $object->config('doctrine.proxy.dir');
+        $parameters = Config::parameters($object, $parameters);
+        if(array_key_exists(0, $parameters)){
+            $proxyDir = $parameters[0];
         }
-        $data = $config->data(Config::DATA_PDO . '.' . $environment);
-        if(empty($data)){
-            throw new Exception('Config data missing for environment (' . $environment .')');
+        if(empty($paths)){
+            return false;
         }
-        $username = $config->data(Config::DATA_PDO . '.' . $environment . '.' . 'user');
-        $password = $config->data(Config::DATA_PDO . '.' . $environment . '.' . 'password');
-        $options = $config->data(Config::DATA_PDO . '.' . $environment . '.' . 'options');
-        $driver = $config->data(Config::DATA_PDO . '.' . $environment . '.' . 'driver');
-        $dbname = $config->data(Config::DATA_PDO . '.' . $environment . '.' . 'dbname');
-        $host = $config->data(Config::DATA_PDO . '.' . $environment . '.' . 'host');
-        switch($driver){
-            case 'pdo_mysql' :
-                    $dsn = 'mysql:dbname=' . $dbname . ';host=' . $host;
-            break;
-            default:
-                throw new Exception('driver undefined');
+        if(empty($proxyDir)){
+            return false;
         }
-        $pdo = null;
-        if(empty($username) && empty($password) && empty($options)){
-            //sqlite
-            try {
-                $pdo = new PDO($dsn);
-            } catch (PDOException $e) {
-                echo 'Connection failed: ' . $e->getMessage();
-            }
-        }
-        elseif(empty($options)){
-            try {
-                $pdo = new PDO($dsn, $username, $password);
-            } catch (PDOException $e) {
-                echo 'Connection failed: ' . $e->getMessage();
-                exit;
-            }
-        } else {
-            try {
-                $pdo = new PDO($dsn, $username, $password, $options);
-            } catch (PDOException $e) {
-                echo 'Connection failed: ' . $e->getMessage();
-                exit;
-            }
-        }
-        // fix LIMIT 0, 1000
-        $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, FALSE);
-        return $pdo;
+        $cache = null;
+        return ORMSetup::createAnnotationMetadataConfiguration($paths, false, $proxyDir, $cache);
     }
 
     /**
-     * @throws ObjectException
-     * @throws ORMException2
-     * @throws ORMException
-     * @throws \Doctrine\DBAL\Exception
-     * @throws FileWriteException
      * @throws Exception
+     */
+    public static function connect(App $object, $config, $connection=[]): EntityManager
+    {
+        if(!empty($connection['logging'])){
+            $logger = new Logger(Database::LOGGER_DOCTRINE);
+            $logger->pushHandler(new StreamHandler($object->config('project.dir.log') . 'sql.log', Logger::DEBUG));
+            $logger->pushProcessor(new PsrLogMessageProcessor(null, true));
+            $object->logger($logger->getName(), $logger);
+            $logger->info('Logger initialised.');
+            $config->setMiddlewares([new Logging\Middleware($logger)]);
+        }
+        $connection = DriverManager::getConnection($connection, $config, new EventManager());
+        return EntityManager::create($connection, $config);
+    }
+
+
+    /**
+     * @deprecated use Database::config && Database::connect
      */
     public static function entityManager(App $object, $options=[]): ?EntityManager
     {

@@ -10,6 +10,7 @@
  */
 namespace R3m\Io\Module;
 
+use R3m\Io\Config;
 use stdClass;
 
 use R3m\Io\App;
@@ -180,6 +181,14 @@ class Event extends Main {
      */
     public static function configure(App $object): void
     {
+        $config = Database::config($object);
+        $connection = $object->config('doctrine.system');
+        $em = Database::connect($object, $config, $connection);
+
+        ddd($em->getConnection()->getSchemaManager()->listTables());
+
+
+
         return;
         $start = microtime(true);
         $event = new Event($object);

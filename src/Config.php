@@ -394,19 +394,6 @@ class Config extends Data {
             $read = Core::object(File::read($url));
             $config->data(Core::object_merge($config->data(), $read));
         }
-        /*
-        $paths = array(__DIR__ . '/Entity');
-        $config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration($paths);
-        $db = $object->config('')
-        # set up configuration parameters for doctrine.
-        # Make sure you have installed the php7.0-sqlite package.
-        $connectionParams = array(
-            'driver' => 'pdo_sqlite',
-            'path'   => __DIR__ . '/data/my-database.db',
-        );
-
-        $entityManager = \Doctrine\ORM\EntityManager::create($connectionParams, $config);
-        */
     }
 
     /**
