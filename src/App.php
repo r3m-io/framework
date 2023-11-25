@@ -655,7 +655,6 @@ class App extends Data {
             $name = $this->config('project.log.name');
         }
         if(empty($name)){
-            ddd($this->config());
             throw new Exception('PLease configure project.log.name or provide a name');
         }
         $name = ucfirst($name);

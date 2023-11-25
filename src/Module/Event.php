@@ -18,8 +18,10 @@ use R3m\Io\App;
 use R3m\Io\Module\Data as Storage;
 use R3m\Io\Module\Template\Main;
 
-use R3m\Io\Node\Trait\Data;
-use R3m\Io\Node\Trait\Role;
+use R3m\Io\Node\Trait\Node;
+
+//use R3m\Io\Node\Trait\Data;
+//use R3m\Io\Node\Trait\Role;
 
 use Exception;
 
@@ -29,8 +31,8 @@ use R3m\Io\Exception\FileWriteException;
 
 class Event extends Main {
 
-    use Data;
-    use Role;
+    //use Data;
+    //use Role;
 
     const NAME = 'Event';
     const OBJECT = 'System.Event';
@@ -181,10 +183,29 @@ class Event extends Main {
      */
     public static function configure(App $object): void
     {
-        $config = Database::config($object);
-        $config->addEntityNamespace('', 'Entity');
+
+        /*
+        $response = $event->list(
+            Event::OBJECT,
+            $event->role_system(),
+            [
+                'sort' => [
+                    'action' => 'ASC',
+                    'options.priority' => 'ASC'
+                ],
+                'page' => $page,
+                'limit' => $limit,
+                'ramdisk' => true
+            ]
+        );
+        */
+
+
+
+//        $config = Database::config($object);
+//        $config->addEntityNamespace('', 'Entity');
         $connection = $object->config('doctrine.system');
-        $em = Database::connect($object, $config, $connection);
+//        $em = Database::connect($object, $config, $connection);
 //        $em->getConnection()->getSchemaManager()->createDatabase($connection->database);
 //        $em->getConnection()->getSchemaManager()->createTable('test');
 
@@ -194,22 +215,23 @@ $classes = $entityManager->getMetadataFactory()->getAllMetadata();
 $schemaTool->createSchema($classes);
          */
 
-        $event = new \Entity\Event();
+//        $event = new \Entity\Event();
 
-        $metadata = $em->getClassMetadata($event::class);
+//        $metadata = $em->getClassMetadata($event::class);
 
-        $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($em);
+//        $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($em);
         // you can drop the table like this if necessary
-        $schemaTool->dropSchema(array($metadata));
-        $schemaTool->createSchema(array($metadata));
+//        $schemaTool->dropSchema(array($metadata));
+//        $schemaTool->createSchema(array($metadata));
 
-        d(array($metadata));
+//        d(array($metadata));
 
-        ddd($em->getConnection()->getSchemaManager()->listTables());
+//        ddd($em->getConnection()->getSchemaManager()->listTables());
 
 
 
         return;
+        /*
         $start = microtime(true);
         $event = new Event($object);
         $limit = $object->config('event.chunk_size') ?? Event::CHUNK_SIZE;
@@ -263,5 +285,6 @@ $schemaTool->createSchema($classes);
                 $object->logger($object->config('project.log.name'))->info('Event::configure (msec)', [$duration * 1000]);
             }
         }
+        */
     }
 }
