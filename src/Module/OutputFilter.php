@@ -17,8 +17,8 @@ use R3m\Io\App;
 use R3m\Io\Module\Data as Storage;
 use R3m\Io\Module\Template\Main;
 
-use R3m\Io\Node\Trait\Data;
-use R3m\Io\Node\Trait\Role;
+//use R3m\Io\Node\Trait\Data;
+//use R3m\Io\Node\Trait\Role;
 
 use Exception;
 
@@ -28,8 +28,8 @@ use R3m\Io\Exception\ObjectException;
 
 class OutputFilter extends Main {
 
-    use Data;
-    use Role;
+//    use Data;
+//    use Role;
 
     const NAME = 'OutputFilter';
     const OBJECT = 'OutputFilter';
@@ -198,6 +198,7 @@ class OutputFilter extends Main {
     public static function configure(App $object): void
     {
         return;
+        /*
         $outputFilter = new OutputFilter($object);
         $limit = $object->config('output.filter.chunk_size') ?? OutputFilter::CHUNK_SIZE;
         $count = $outputFilter->count(
@@ -233,5 +234,6 @@ class OutputFilter extends Main {
                 ]);
             }
         }
+        */
     }
 }
