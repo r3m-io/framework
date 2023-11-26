@@ -194,7 +194,8 @@ class Event extends Main {
                     'action' => 'ASC',
                     'options.priority' => 'ASC'
                 ],
-                'limit' => '*',
+                'limit' => 20,
+                'page' => 2,
                 'ramdisk' => true
             ]
         );
