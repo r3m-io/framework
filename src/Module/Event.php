@@ -19,6 +19,7 @@ use R3m\Io\Module\Data as Storage;
 use R3m\Io\Module\Template\Main;
 
 use R3m\Io\Node\Trait\Node;
+use R3m\Io\Node\Trait\Role;
 
 //use R3m\Io\Node\Trait\Data;
 //use R3m\Io\Node\Trait\Role;
@@ -32,7 +33,8 @@ use R3m\Io\Exception\FileWriteException;
 class Event extends Main {
 
     //use Data;
-    //use Role;
+    use Role;
+    use Node;
 
     const NAME = 'Event';
     const OBJECT = 'System.Event';
@@ -183,6 +185,21 @@ class Event extends Main {
      */
     public static function configure(App $object): void
     {
+        $event = new Event($object);
+        $list = $event->list(
+            Event::OBJECT,
+            $event->role_system(),
+            [
+                'sort' => [
+                    'action' => 'ASC',
+                    'options.priority' => 'ASC'
+                ],
+                'limit' => '*',
+                'ramdisk' => true
+            ]
+        );
+        ddd($list);
+
 
         /*
         $response = $event->list(
@@ -204,7 +221,7 @@ class Event extends Main {
 
 //        $config = Database::config($object);
 //        $config->addEntityNamespace('', 'Entity');
-        $connection = $object->config('doctrine.system');
+//        $connection = $object->config('doctrine.system');
 //        $em = Database::connect($object, $config, $connection);
 //        $em->getConnection()->getSchemaManager()->createDatabase($connection->database);
 //        $em->getConnection()->getSchemaManager()->createTable('test');
