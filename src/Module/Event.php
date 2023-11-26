@@ -194,9 +194,7 @@ class Event extends Main {
                     'action' => 'ASC',
                     'options.priority' => 'ASC'
                 ],
-                'filter' => [
-                    'uuid' => 'b6990f58-c067-466a-889b-e180f513ffef'
-                ],
+                'where' => 'uuid === "b6990f58-c067-466a-889b-e180f513ffef"',
                 'limit' => 1,
                 'page' => 1,
                 'ramdisk' => true
