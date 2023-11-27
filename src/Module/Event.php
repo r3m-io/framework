@@ -184,17 +184,6 @@ class Event extends Main {
     public static function configure(App $object): void
     {
         $event = new Event($object);
-        $record = $event->read(
-            Event::OBJECT,
-            $event->role_system(),
-            [
-                'uuid' => 'b6990f58-c067-466a-889b-e180f513ffef',
-                'ramdisk' => true
-            ]
-        );
-        ddd($record);
-
-
         $list = $event->list(
             Event::OBJECT,
             $event->role_system(),
@@ -203,9 +192,7 @@ class Event extends Main {
                     'action' => 'ASC',
                     'options.priority' => 'ASC'
                 ],
-                'where' => 'uuid === "b6990f58-c067-466a-889b-e180f513ffef"',
-                'limit' => 1,
-                'page' => 1,
+                'limit' => '*',
                 'ramdisk' => true
             ]
         );
