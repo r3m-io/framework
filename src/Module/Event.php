@@ -184,15 +184,11 @@ class Event extends Main {
     public static function configure(App $object): void
     {
         $event = new Event($object);
-        $record = $event->record(
+        $record = $event->read(
             Event::OBJECT,
             $event->role_system(),
             [
-                'sort' => [
-                    'action' => 'ASC',
-                    'options.priority' => 'ASC'
-                ],
-                'where' => 'uuid === "b6990f58-c067-466a-889b-e180f513ffef"',
+                'uuid' => 'b6990f58-c067-466a-889b-e180f513ffef',
                 'ramdisk' => true
             ]
         );
