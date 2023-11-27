@@ -37,7 +37,6 @@ class Event extends Main {
 
     const NAME = 'Event';
     const OBJECT = 'System.Event';
-    const CHUNK_SIZE = 4096;
 
     const LIST = 'list';
     const RECORD = 'record';
@@ -185,6 +184,21 @@ class Event extends Main {
     public static function configure(App $object): void
     {
         $event = new Event($object);
+        $record = $event->record(
+            Event::OBJECT,
+            $event->role_system(),
+            [
+                'sort' => [
+                    'action' => 'ASC',
+                    'options.priority' => 'ASC'
+                ],
+                'where' => 'uuid === "b6990f58-c067-466a-889b-e180f513ffef"',
+                'ramdisk' => true
+            ]
+        );
+        ddd($record);
+
+
         $list = $event->list(
             Event::OBJECT,
             $event->role_system(),
