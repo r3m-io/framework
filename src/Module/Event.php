@@ -184,7 +184,7 @@ class Event extends Main {
     public static function configure(App $object): void
     {
         $event = new Event($object);
-        $list = $event->list(
+        $response = $event->list(
             Event::OBJECT,
             $event->role_system(),
             [
@@ -196,110 +196,11 @@ class Event extends Main {
                 'ramdisk' => true
             ]
         );
-        ddd($list);
-
-
-        /*
-        $response = $event->list(
-            Event::OBJECT,
-            $event->role_system(),
-            [
-                'sort' => [
-                    'action' => 'ASC',
-                    'options.priority' => 'ASC'
-                ],
-                'page' => $page,
-                'limit' => $limit,
-                'ramdisk' => true
-            ]
-        );
-        */
-
-
-
-//        $config = Database::config($object);
-//        $config->addEntityNamespace('', 'Entity');
-//        $connection = $object->config('doctrine.system');
-//        $em = Database::connect($object, $config, $connection);
-//        $em->getConnection()->getSchemaManager()->createDatabase($connection->database);
-//        $em->getConnection()->getSchemaManager()->createTable('test');
-
-        /*
-$schemaTool = new \Doctrine\ORM\Tools\SchemaTool($entityManager);
-$classes = $entityManager->getMetadataFactory()->getAllMetadata();
-$schemaTool->createSchema($classes);
-         */
-
-//        $event = new \Entity\Event();
-
-//        $metadata = $em->getClassMetadata($event::class);
-
-//        $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($em);
-        // you can drop the table like this if necessary
-//        $schemaTool->dropSchema(array($metadata));
-//        $schemaTool->createSchema(array($metadata));
-
-//        d(array($metadata));
-
-//        ddd($em->getConnection()->getSchemaManager()->listTables());
-
-
-
-        return;
-        /*
-        $start = microtime(true);
-        $event = new Event($object);
-        $limit = $object->config('event.chunk_size') ?? Event::CHUNK_SIZE;
-        $count = $event->count(
-            Event::OBJECT,
-            $event->role_system(),
-            [
-                'sort' => [
-                    'action' => 'ASC',
-                    'options.priority' => 'ASC'
-                ]
-            ]
-        );
-        if($count === 0 || $limit === 0){
-            return;
+        if(
+            $response &&
+            array_key_exists('list', $response)
+        ){
+            Event::on($object, $response['list']);
         }
-        $page_max = ceil($count / $limit);
-        for($page = 1; $page <= $page_max; $page++){
-            $response = $event->list(
-                Event::OBJECT,
-                $event->role_system(),
-                [
-                    'sort' => [
-                        'action' => 'ASC',
-                        'options.priority' => 'ASC'
-                    ],
-                    'page' => $page,
-                    'limit' => $limit,
-                    'ramdisk' => true
-                ]
-            );
-            if(
-                $response &&
-                array_key_exists('list', $response)
-            ){
-                Event::on($object, $response['list']);
-            }
-        }
-        $duration = microtime(true) - $start;
-        if($object->config('project.log.node')){
-            if($duration >= 1){
-                $object->logger($object->config('project.log.node'))->info('Event::configure (sec)', [$duration]);
-            } else {
-                $object->logger($object->config('project.log.node'))->info('Event::configure (msec)', [$duration * 1000]);
-            }
-        }
-        elseif($object->config('project.log.name')){
-            if($duration >= 1){
-                $object->logger($object->config('project.log.name'))->info('Event::configure (sec)', [$duration]);
-            } else {
-                $object->logger($object->config('project.log.name'))->info('Event::configure (msec)', [$duration * 1000]);
-            }
-        }
-        */
     }
 }
