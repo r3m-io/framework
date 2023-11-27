@@ -18,7 +18,7 @@ use R3m\Io\App;
 use R3m\Io\Module\Data as Storage;
 use R3m\Io\Module\Template\Main;
 
-use R3m\Io\Node\Trait\Node;
+use R3m\Io\Node\Trait\Data;
 use R3m\Io\Node\Trait\Role;
 
 //use R3m\Io\Node\Trait\Data;
@@ -32,9 +32,8 @@ use R3m\Io\Exception\FileWriteException;
 
 class Event extends Main {
 
-    //use Data;
+    use Data;
     use Role;
-    use Node;
 
     const NAME = 'Event';
     const OBJECT = 'System.Event';
