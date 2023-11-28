@@ -1,4 +1,4 @@
-x<?php
+<?php
 /**
  * @author          Remco van der Velde
  * @since           2020-09-18
@@ -29,10 +29,6 @@ function validate_is_unique_json(App $object, $string='', $field='', $argument='
     }
     $url = false;
     $list = null;
-    d($original_uuid);
-    d($string);
-    d($field);
-    d($argument);
     if(property_exists($argument, 'url')){
         $url = $argument->url;
         $parameters =[];
