@@ -750,7 +750,10 @@ class App extends Data {
                     }
                     elseif(str_contains($parameter, '[') && str_contains($parameter, ']')){
                         $explode = explode('[', $parameter);
-                        ddd($explode);
+                        for($i = 0; $i < count($explode); $i++){
+                            $explode[$i] = str_replace(']', '', $explode[$i]);
+                        }
+                        throw Exception('Not implented yet...');
                     }
                     $value = $tmp[1];
                     if(is_numeric($value)){
