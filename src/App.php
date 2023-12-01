@@ -757,6 +757,43 @@ class App extends Data {
                         $parameter = array_shift($explode);
                         $count--;
                         $is_continue = false;
+                        $value = $tmp[1];
+                        if(is_numeric($value)){
+                            $value = $value + 0;
+                        } else {
+                            switch($value){
+                                case 'true':
+                                    $value = true;
+                                    break;
+                                case 'false':
+                                    $value = false;
+                                    break;
+                                case 'null':
+                                    $value = null;
+                                    break;
+                                case '[]':
+                                    $value = [];
+                                    break;
+                                case '{}':
+                                    $value = (object) [];
+                                    break;
+                                case '\true':
+                                    $value = 'true';
+                                    break;
+                                case '\false':
+                                    $value = 'false';
+                                    break;
+                                case '\null':
+                                    $value = 'null';
+                                    break;
+                                case '\[]':
+                                    $value = '[]';
+                                    break;
+                                case '\{}':
+                                    $value = '{}';
+                                    break;
+                            }
+                        }
                         switch($count){
                             case 2:
                                 $get = Core::object_get($parameter, $options);
