@@ -795,6 +795,78 @@ class App extends Data {
                             }
                         }
                         switch($count){
+                            case 10:
+                                $get = Core::object_get($parameter, $options);
+                                if(!is_array($get)){
+                                    $get = [];
+                                }
+                                $get[$explode[0]][$explode[1]][$explode[2]][$explode[3]][$explode[4]][$explode[5]][$explode[6]][$explode[7]][$explode[8]][$explode[9]] = $value;
+                                Core::object_set($parameter, $get, $options, 'child');
+                                $is_continue = true;
+                                break;
+                            case 9:
+                                $get = Core::object_get($parameter, $options);
+                                if(!is_array($get)){
+                                    $get = [];
+                                }
+                                $get[$explode[0]][$explode[1]][$explode[2]][$explode[3]][$explode[4]][$explode[5]][$explode[6]][$explode[7]][$explode[8]] = $value;
+                                Core::object_set($parameter, $get, $options, 'child');
+                                $is_continue = true;
+                                break;
+                            case 8:
+                                $get = Core::object_get($parameter, $options);
+                                if(!is_array($get)){
+                                    $get = [];
+                                }
+                                $get[$explode[0]][$explode[1]][$explode[2]][$explode[3]][$explode[4]][$explode[5]][$explode[6]][$explode[7]] = $value;
+                                Core::object_set($parameter, $get, $options, 'child');
+                                $is_continue = true;
+                                break;
+                            case 7:
+                                $get = Core::object_get($parameter, $options);
+                                if(!is_array($get)){
+                                    $get = [];
+                                }
+                                $get[$explode[0]][$explode[1]][$explode[2]][$explode[3]][$explode[4]][$explode[5]][$explode[6]] = $value;
+                                Core::object_set($parameter, $get, $options, 'child');
+                                $is_continue = true;
+                                break;
+                            case 6:
+                                $get = Core::object_get($parameter, $options);
+                                if(!is_array($get)){
+                                    $get = [];
+                                }
+                                $get[$explode[0]][$explode[1]][$explode[2]][$explode[3]][$explode[4]][$explode[5]] = $value;
+                                Core::object_set($parameter, $get, $options, 'child');
+                                $is_continue = true;
+                                break;
+                            case 5:
+                                $get = Core::object_get($parameter, $options);
+                                if(!is_array($get)){
+                                    $get = [];
+                                }
+                                $get[$explode[0]][$explode[1]][$explode[2]][$explode[3]][$explode[4]] = $value;
+                                Core::object_set($parameter, $get, $options, 'child');
+                                $is_continue = true;
+                                break;
+                            case 4:
+                                $get = Core::object_get($parameter, $options);
+                                if(!is_array($get)){
+                                    $get = [];
+                                }
+                                $get[$explode[0]][$explode[1]][$explode[2]][$explode[3]] = $value;
+                                Core::object_set($parameter, $get, $options, 'child');
+                                $is_continue = true;
+                                break;
+                            case 3:
+                                $get = Core::object_get($parameter, $options);
+                                if(!is_array($get)){
+                                    $get = [];
+                                }
+                                $get[$explode[0]][$explode[1]][$explode[2]] = $value;
+                                Core::object_set($parameter, $get, $options, 'child');
+                                $is_continue = true;
+                                break;
                             case 2:
                                 $get = Core::object_get($parameter, $options);
                                 if(!is_array($get)){
