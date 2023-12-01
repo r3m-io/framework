@@ -100,7 +100,6 @@ class Sort extends Data {
                                 $result[$value][] = $node;
                             }
                             elseif(is_object($node)){
-
                                 $result[$value][] = $node;
                             }
                         }
@@ -139,6 +138,7 @@ class Sort extends Data {
                     }
 
                 } else {
+                    ddd($attribute);
                     if($attribute === 'uuid'){
                         usort($result, array($this,"uuid_compare_descending"));
                     } else {
