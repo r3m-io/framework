@@ -488,6 +488,7 @@ class Token {
                 $testvalue = false;
                 if($next !== null && $next_next !== null){
                     $test_value = $record['value'] . $token[$next]['value'] . $token[$next_next]['value'];
+                    d($test_value);
                     if(
                         in_array(
                             strtolower($test_value),
@@ -762,14 +763,13 @@ class Token {
         $token = Token::group($token, $options);
         $token = Token::cast($token);
         $token = Token::method($token);
-        $data = new Data();
-
         if(
             $object &&
             $object->config('ramdisk.parse.tree') &&
             $url &&
             array_key_exists('url', $options)
         ){
+            $data = new Data();
             $data->set('string', $string);
             $data->set('token', $token);
             $data->set('url', $options['url']);
