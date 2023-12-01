@@ -748,6 +748,10 @@ class App extends Data {
                         $parameter = substr($parameter, 0, -2);
                         $is_array = true;
                     }
+                    elseif(str_contains($parameter, '[') && str_contains($parameter, ']')){
+                        $explode = explode('[', $parameter);
+                        ddd($explode);
+                    }
                     $value = $tmp[1];
                     if(is_numeric($value)){
                         $value = $value + 0;
