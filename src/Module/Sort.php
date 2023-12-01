@@ -39,10 +39,10 @@ class Sort extends Data {
                         $result[$record['uuid']] = $record;
                     }
                     elseif(
-                        is_array($record) &&
-                        array_key_exists('uuid', $record)
+                        is_object($record) &&
+                        property_exists($record, 'uuid')
                     ){
-                        $result[$record['uuid']] = $record;
+                        $result[$record->uuid] = $record;
                     }
                 }
                 $list = $result;
