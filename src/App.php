@@ -753,7 +753,7 @@ class App extends Data {
                         for($i = 0; $i < count($explode); $i++){
                             $explode[$i] = str_replace(']', '', $explode[$i]);
                         }
-                        throw Exception('Not implented yet...');
+                        throw Exception('Not implemented yet...');
                     }
                     $value = $tmp[1];
                     if(is_numeric($value)){
