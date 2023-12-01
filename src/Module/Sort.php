@@ -422,10 +422,10 @@ class Sort extends Data {
             if($hex === $match){
                 continue;
             }
-            if($hex > $match){
+            if($hex < $match){
                 return 1;
             }
-            elseif($hex < $match){
+            elseif($hex > $match){
                 return -1;
             }
         }
