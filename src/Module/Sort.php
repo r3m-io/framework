@@ -140,7 +140,6 @@ class Sort extends Data {
                 } else {
                     if($attribute === 'uuid'){
                         usort($result, array($this,"uuid_compare_descending"));
-                        ddd($result);
                     } else {
                         krsort($result, $flags);
                     }
