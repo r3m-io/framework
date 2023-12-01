@@ -750,10 +750,36 @@ class App extends Data {
                     }
                     elseif(str_contains($parameter, '[') && str_contains($parameter, ']')){
                         $explode = explode('[', $parameter);
-                        for($i = 0; $i < count($explode); $i++){
+                        $count = count($explode);
+                        for($i = 0; $i <$count; $i++){
                             $explode[$i] = str_replace(']', '', $explode[$i]);
                         }
-                        throw new Exception('Not implemented yet...');
+                        $parameter = array_shift($explode);
+                        $count--;
+                        $is_continue = false;
+                        switch($count){
+                            case 2:
+                                $get = Core::object_get($parameter, $options);
+                                if(!is_array($get)){
+                                    $get = [];
+                                }
+                                $get[$explode[0]][$explode[1]] = $value;
+                                Core::object_set($parameter, $get, $options, 'child');
+                                $is_continue = true;
+                                break;
+                            case 1:
+                                $get = Core::object_get($parameter, $options);
+                                if(!is_array($get)){
+                                    $get = [];
+                                }
+                                $get[$explode[0]] = $value;
+                                Core::object_set($parameter, $get, $options, 'child');
+                                $is_continue = true;
+                                break;
+                        }
+                        if($is_continue){
+                            continue;
+                        }
                     }
                     $value = $tmp[1];
                     if(is_numeric($value)){
