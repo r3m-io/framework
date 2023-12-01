@@ -485,7 +485,6 @@ class Host {
                 );
             }
         }
-        ddd($host);
         if(array_key_exists('node', $host)){
             return $host['node'];
         }
