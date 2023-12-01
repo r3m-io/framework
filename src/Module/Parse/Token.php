@@ -488,7 +488,6 @@ class Token {
                 $testvalue = false;
                 if($next !== null && $next_next !== null){
                     $test_value = $record['value'] . $token[$next]['value'] . $token[$next_next]['value'];
-                    d($test_value);
                     if(
                         in_array(
                             strtolower($test_value),
