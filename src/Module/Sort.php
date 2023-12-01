@@ -16,6 +16,38 @@ class Sort extends Data {
 
     public static function list($list): Sort
     {
+        $need_uuid = false;
+        if(is_array($list)){
+            foreach($list as $nr => $record) {
+                if (
+                    is_numeric($nr) &&
+                    $need_uuid === false
+                ) {
+                    $need_uuid = true;
+                    break;
+                } else {
+                    break;
+                }
+            }
+            if($need_uuid){
+                $result = [];
+                foreach($list as $nr => $record) {
+                    if(
+                        is_array($record) &&
+                        array_key_exists('uuid', $record)
+                    ){
+                        $result[$record['uuid']] = $record;
+                    }
+                    elseif(
+                        is_array($record) &&
+                        array_key_exists('uuid', $record)
+                    ){
+                        $result[$record['uuid']] = $record;
+                    }
+                }
+                $list = $result;
+            }
+        }
         return new Sort($list);
     }
 
