@@ -111,7 +111,6 @@ class Host {
                 $value = $value_with_port;
             }
         }
-
         $object->config($key, $value);
         $key = 'host.dir.source';
         $value =
@@ -336,6 +335,7 @@ class Host {
                 'ttl' => $ttl,
             ]
         );
+        ddd($map);
         if($map === 'false'){
             return false;
         }
