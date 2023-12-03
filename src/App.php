@@ -92,7 +92,7 @@ class App extends Data {
         $this->data(App::EVENT, new Data());
         $this->data(App::MIDDLEWARE, new Data());
         $this->data(App::OUTPUTFILTER, new Data());
-        $this->config('time.start', microtime());
+        $this->config('time.start', microtime(true));
         App::is_cli();
         require_once __DIR__ . '/Debug.php';
         require_once __DIR__ . '/Error.php';
