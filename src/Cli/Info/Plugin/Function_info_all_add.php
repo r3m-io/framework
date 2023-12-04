@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 use R3m\Io\Module\Parse;
 use R3m\Io\Module\Data;
