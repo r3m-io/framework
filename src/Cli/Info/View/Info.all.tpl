@@ -9,6 +9,7 @@ Welcome to R3m.io                             {{terminal.color('blue')}}(c) Remc
 {{$route = data.sort($route, [
 'info' => 'ASC'
 ])}}
+{{dd($route)}}
 {{for.each($route as $nr => $record)}}
 {{if(is.array($record.info))}}
 {{$info = implode("\n", $record.info)}}
