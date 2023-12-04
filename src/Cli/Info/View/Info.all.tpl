@@ -1,9 +1,9 @@
 {{R3M}}
 {{$route = route.export()}}
-{{dd($route)}}
 {{$route = data.filter($route, [
 'method' => 'CLI'
 ])}}
+{{dd($route)}}
 {{$route = info_all_add($route)}}
 Welcome to R3m.io                             {{terminal.color('blue')}}(c) Remco van der Velde {{terminal.color('green')}}({{config('framework.version')}}){{terminal.color('reset')}}
 
