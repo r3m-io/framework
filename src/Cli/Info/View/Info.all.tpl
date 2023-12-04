@@ -1,5 +1,6 @@
 {{R3M}}
 {{$route = route.export()}}
+{{dd($route)}}
 {{$route = data.filter($route, [
 'method' => 'CLI'
 ])}}
