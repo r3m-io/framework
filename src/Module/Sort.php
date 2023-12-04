@@ -22,6 +22,14 @@ class Sort extends Data {
                 if (
                     is_numeric($nr) &&
                     $need_uuid === false
+                    (
+                        is_array($record) &&
+                        array_key_exists('uuid', $record)
+                    ) ||
+                    (
+                        is_object($record) &&
+                        property_exists($record, 'uuid')
+                    )
                 ) {
                     $need_uuid = true;
                     break;
