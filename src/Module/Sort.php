@@ -16,46 +16,6 @@ class Sort extends Data {
 
     public static function list($list): Sort
     {
-        $need_uuid = false;
-        if(is_array($list)){
-            foreach($list as $nr => $record) {
-                if (
-                    is_numeric($nr) &&
-                    $need_uuid === false &&
-                    (
-                        is_array($record) &&
-                        array_key_exists('uuid', $record)
-                    ) ||
-                    (
-                        is_object($record) &&
-                        property_exists($record, 'uuid')
-                    )
-                ) {
-                    $need_uuid = true;
-                    break;
-                } else {
-                    break;
-                }
-            }
-            if($need_uuid){
-                $result = [];
-                foreach($list as $nr => $record) {
-                    if(
-                        is_array($record) &&
-                        array_key_exists('uuid', $record)
-                    ){
-                        $result[$record['uuid']] = $record;
-                    }
-                    elseif(
-                        is_object($record) &&
-                        property_exists($record, 'uuid')
-                    ){
-                        $result[$record->uuid] = $record;
-                    }
-                }
-                $list = $result;
-            }
-        }
         return new Sort($list);
     }
 
@@ -79,12 +39,38 @@ class Sort extends Data {
         } else {
             $key_reset = false;
         }
+        if(array_key_exists('index', $options)){
+            $index = $options['index'];
+        } else {
+            $index = false;
+        }
         if(array_key_exists('flags', $options)){
             $flags = $options['flags'];
         } else {
             $flags = SORT_NATURAL;
         }
         $list = $this->data();
+        if($index){
+            //re-index moment
+            if(is_array($list)){
+                $result = [];
+                foreach($list as $nr => $record) {
+                    if(
+                        is_array($record) &&
+                        array_key_exists('uuid', $record)
+                    ){
+                        $result[$record['uuid']] = $record;
+                    }
+                    elseif(
+                        is_object($record) &&
+                        property_exists($record, 'uuid')
+                    ){
+                        $result[$record->uuid] = $record;
+                    }
+                }
+                $list = $result;
+            }
+        }
         if(
             is_array($list) || 
             is_object($list)
