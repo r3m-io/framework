@@ -21,7 +21,7 @@ class Sort extends Data {
             foreach($list as $nr => $record) {
                 if (
                     is_numeric($nr) &&
-                    $need_uuid === false
+                    $need_uuid === false &&
                     (
                         is_array($record) &&
                         array_key_exists('uuid', $record)
