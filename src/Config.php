@@ -390,9 +390,9 @@ class Config extends Data {
     public static function configure(App $object): void
     {
         Config::volume($object);
-        /*
-        $config = $object->data(App::CONFIG);
 
+        $config = $object->data(App::CONFIG);
+        /*
         $node = new Node($object);
         $class = 'System.Config';
         $options = [
