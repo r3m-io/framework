@@ -17,6 +17,8 @@ use R3m\Io\Module\File;
 use R3m\Io\Module\Parse;
 use R3m\Io\Module\Parse\Token;
 
+use R3m\Io\Node\Model\Node;
+
 use Exception;
 
 use R3m\Io\Exception\ObjectException;
@@ -381,6 +383,18 @@ class Config extends Data {
     {
         Config::volume($object);
         $config = $object->data(App::CONFIG);
+
+        $node = new Node($object);
+        $class = 'System.Config';
+        $options = [
+            'relation' => true,
+            'ramdisk' => true
+        ];
+        $response = $node->list($class, $node->role_system(), $options);
+        ddd($response);
+
+
+
         if($config->data('project.volume.dir.data')){
             $url = $config->data('project.volume.dir.data') . 'App' . $config->data('ds') . Config::CONFIG;
         } else {
