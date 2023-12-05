@@ -131,15 +131,15 @@ class Sort extends Data {
                                 }
                                 $list[$uuid] = $record;
                             }
-                        } else {
+                        }
+                        elseif(is_object($record)) {
                             if(property_exists($record, 'uuid')){
                                 $list[$record->uuid] = $record;
                             } else {
                                 while(true){
                                     $uuid = Core::uuid();
                                     if(
-                                        !array_key_exists($uuid, $list) &&
-                                        is_object($record)
+                                        !array_key_exists($uuid, $list)
                                     ){
                                         $record->uuid = $uuid;
                                         break;
