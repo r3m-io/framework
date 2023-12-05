@@ -379,9 +379,17 @@ class Config extends Data {
     /**
      * @throws ObjectException
      */
-    public static function configure(App $object): void
+    public static function prepare(App $object): void
     {
         Config::volume($object);
+    }
+
+    /**
+     * @throws ObjectException
+     */
+    public static function configure(App $object): void
+    {
+//        Config::volume($object);
         $config = $object->data(App::CONFIG);
 
         $node = new Node($object);
