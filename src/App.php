@@ -96,9 +96,10 @@ class App extends Data {
         App::is_cli();
         require_once __DIR__ . '/Debug.php';
         require_once __DIR__ . '/Error.php';
-        Config::prepare($this);
-        Autoload::configure($this);
-        Autoload::ramdisk_configure($this);
+//        Config::prepare($this);
+        //need to load autoload before "config::configure" so we can use output filters on them
+//        Autoload::configure($this);
+//        Autoload::ramdisk_configure($this);
         Config::configure($this);
         Logger::configure($this);
         Host::configure($this);
@@ -106,7 +107,8 @@ class App extends Data {
         Event::configure($this);
         Middleware::configure($this);
         OutputFilter::configure($this);
-
+        Autoload::configure($this);
+        Autoload::ramdisk_configure($this);
     }
 
     /**

@@ -381,7 +381,7 @@ class Config extends Data {
      */
     public static function prepare(App $object): void
     {
-        Config::volume($object);
+//        Config::volume($object);
     }
 
     /**
@@ -389,7 +389,8 @@ class Config extends Data {
      */
     public static function configure(App $object): void
     {
-//        Config::volume($object);
+        Config::volume($object);
+        /*
         $config = $object->data(App::CONFIG);
 
         $node = new Node($object);
@@ -400,9 +401,7 @@ class Config extends Data {
         ];
         $response = $node->list($class, $node->role_system(), $options);
         ddd($response);
-
-
-
+        */
         if($config->data('project.volume.dir.data')){
             $url = $config->data('project.volume.dir.data') . 'App' . $config->data('ds') . Config::CONFIG;
         } else {
