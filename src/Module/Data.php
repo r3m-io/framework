@@ -237,6 +237,8 @@ class Data {
                 if($select->has($option_key) === false){
                     continue;
                 }
+                d($option_key);
+                d(%$option_value);
                 if($select->get($option_key) === $option_value){
                     $find[] = $value;
                 }
