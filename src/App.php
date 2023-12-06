@@ -97,13 +97,21 @@ class App extends Data {
         require_once __DIR__ . '/Debug.php';
         require_once __DIR__ . '/Error.php';
         Config::configure($this);
+        d((microtime(true) - $object->config('time.start')) * 1000);
         Logger::configure($this);
+        d((microtime(true) - $object->config('time.start')) * 1000);
         Host::configure($this);
+        d((microtime(true) - $object->config('time.start')) * 1000);
         Domain::configure($this);
+        d((microtime(true) - $object->config('time.start')) * 1000);
         Event::configure($this);
+        d((microtime(true) - $object->config('time.start')) * 1000);
         Middleware::configure($this);
+        d((microtime(true) - $object->config('time.start')) * 1000);
         OutputFilter::configure($this);
+        d((microtime(true) - $object->config('time.start')) * 1000);
         Autoload::configure($this);
+        d((microtime(true) - $object->config('time.start')) * 1000);
         Autoload::ramdisk_configure($this);
     }
 
@@ -160,7 +168,9 @@ class App extends Data {
      */
     public static function run(App $object): mixed
     {
+        d((microtime(true) - $object->config('time.start')) * 1000);
         Handler::request_configure($object);
+        d((microtime(true) - $object->config('time.start')) * 1000);
         App::configure($object);
         ddd((microtime(true) - $object->config('time.start')) * 1000);
         Route::configure($object);
