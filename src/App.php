@@ -32,6 +32,7 @@ use R3m\Io\Module\OutputFilter;
 use R3m\Io\Module\Parse;
 use R3m\Io\Module\Response;
 use R3m\Io\Module\Route;
+use R3m\Io\Module\Route2;
 use R3m\Io\Module\Server;
 
 use Psr\Log\LoggerInterface;
