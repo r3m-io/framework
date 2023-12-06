@@ -386,13 +386,12 @@ class Config extends Data {
 
     /**
      * @throws ObjectException
+     * @throws Exception
      */
     public static function configure(App $object): void
     {
         Config::volume($object);
-
         $config = $object->data(App::CONFIG);
-
         $node = new Node($object);
         $class = 'System.Config';
         $options = [
@@ -400,7 +399,10 @@ class Config extends Data {
             'ramdisk' => true
         ];
         $response = $node->record($class, $node->role_system(), $options);
-        if($response && array_key_exists($response['node'])){
+        if(
+            $response &&
+            array_key_exists($response['node'])
+        ){
             $config->data(Core::object_merge($config->data(), $response['node']));
         }
         /*
