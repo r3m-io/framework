@@ -210,6 +210,9 @@ class Data {
         return $options;
     }
 
+    /**
+     * @throws Exception
+     */
     public function select($attribute='', $criteria=[]): array
     {
         $find = [];
