@@ -127,6 +127,7 @@ class Event extends Main {
         $events = $object->get(App::EVENT)->select(Event::NAME, [
             'action' => $action
         ]);
+        ddd($events);
         if(empty($events)){
             return null;
         }
@@ -196,7 +197,6 @@ class Event extends Main {
                 'ramdisk' => true
             ]
         );
-        ddd($response);
         if(
             $response &&
             array_key_exists('list', $response)
