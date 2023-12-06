@@ -220,6 +220,8 @@ class Data {
             return $find;
         }
         $data = $this->get($attribute);
+        d($attribute);
+        d($data);
         if(empty($data)){
             return $find;
         }

@@ -127,8 +127,6 @@ class Event extends Main {
      * @throws Exception
      */
     public static function trigger(App $object, $action, $options=[]){
-        d($action);
-        d($options);
         $events = $object->get(App::EVENT)->select(Event::OBJECT, [
             'action' => $action
         ]);
