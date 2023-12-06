@@ -400,6 +400,10 @@ class Config extends Data {
             'ramdisk' => true
         ];
         $response = $node->record($class, $node->role_system(), $options);
+        if($response && array_key_exists($response['node'])){
+            $config->data(Core::object_merge($config->data(), $response['node']));
+        }
+        /*
         ddd($response);
 
         if($config->data('project.volume.dir.data')){
@@ -415,6 +419,7 @@ class Config extends Data {
             $read = Core::object(File::read($url));
             $config->data(Core::object_merge($config->data(), $read));
         }
+        */
     }
 
     /**
