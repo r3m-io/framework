@@ -399,7 +399,7 @@ class Config extends Data {
             'relation' => true,
             'ramdisk' => true
         ];
-        $response = $node->list($class, $node->role_system(), $options);
+        $response = $node->record($class, $node->role_system(), $options);
         ddd($response);
 
         if($config->data('project.volume.dir.data')){
