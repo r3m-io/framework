@@ -163,10 +163,10 @@ class App extends Data {
     {
         Handler::request_configure($object);
         App::configure($object);
-        d((microtime(true) - $object->config('time.start')) * 1000);
-        Route2::configure($object);
-//        Route::configure($object);
-        ddd((microtime(true) - $object->config('time.start')) * 1000);
+//        d((microtime(true) - $object->config('time.start')) * 1000);
+//        Route2::configure($object);
+        Route::configure($object);
+//        ddd((microtime(true) - $object->config('time.start')) * 1000);
         $route = false;
         $logger = $object->config('project.log.name');
         try {
