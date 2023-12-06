@@ -130,7 +130,7 @@ class Event extends Main {
         $events = $object->get(App::EVENT)->select(Event::OBJECT, [
             'action' => $action
         ]);
-        ddd($events);
+        d($events);
         if(empty($events)){
             return null;
         }
