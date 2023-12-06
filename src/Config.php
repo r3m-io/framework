@@ -27,7 +27,7 @@ use R3m\Io\Exception\FileWriteException;
 class Config extends Data {
     const DIR = __DIR__ . '/';
     const NAME = 'Config';
-    const NODE_CLASS = 'System.Config';
+    const OBJECT = 'System.Config';
 
     const MODE_DEVELOPMENT = 'development';
     const MODE_PRODUCTION = 'production';
@@ -394,7 +394,7 @@ class Config extends Data {
         Config::volume($object);
         $config = $object->data(App::CONFIG);
         $node = new Node($object);
-        $class = Config::NODE_CLASS;
+        $class = Config::OBJECT;
         $options = [
             'relation' => true,
             'ramdisk' => true
