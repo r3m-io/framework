@@ -238,7 +238,7 @@ class Data {
                     continue;
                 }
                 d($option_key);
-                d(%$option_value);
+                d($option_value);
                 if($select->get($option_key) === $option_value){
                     $find[] = $value;
                 }
