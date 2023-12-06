@@ -410,9 +410,6 @@ class Config extends Data {
         $config->data('app.config.dir', $dir);
         $config->data('app.route.url', $config->data('app.config.dir') . 'Route' . $config->data('extension.json'));
         $config->data('app.secret.url', $config->data('app.config.dir') . 'Secret' . $config->data('extension.json'));
-
-        ddd((microtime(true) - $object->config('time.start')) * 1000);
-
         /*
 
         if($config->data('project.volume.dir.data')){
