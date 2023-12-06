@@ -133,7 +133,6 @@ class Event extends Main {
         if(empty($events)){
             return null;
         }
-        d($events);
         if(is_array($events)){
             foreach($events as $event){
                 if(is_object($event)) {
@@ -162,6 +161,7 @@ class Event extends Main {
                             ){
                                 $event = new Storage($event);
                                 try {
+                                    d($route);
                                     $route->controller::{$route->function}($object, $event, $options);
                                 }
                                 catch (LocateException $exception){
