@@ -399,6 +399,13 @@ class Config extends Data {
             'ramdisk' => true
         ];
         $response = $node->record($class, $node->role_system(), $options);
+
+        $dir = $config->data('project.volume.dir.data') . 'App' . $config->data('ds');
+        $config->data('app.config.dir', $dir);
+        $config->data('app.route.url', $config->data('app.config.dir') . 'Route' . $config->data('extension.json'));
+        $config->data('app.secret.url', $config->data('app.config.dir') . 'Secret' . $config->data('extension.json'));
+
+        /*
         if(
             $response &&
             array_key_exists('node', $response)
@@ -411,15 +418,14 @@ class Config extends Data {
             $url = $config->data(Config::DATA_PROJECT_DIR_DATA) . 'App' . $config->data('ds') . Config::CONFIG;
         }
         if(File::exist($url)){
-            /*
             $config->data('app.config.url', $url);
             $config->data('app.config.dir', Dir::name($url));
             $config->data('app.route.url', $config->data('app.config.dir') . 'Route' . $config->data('extension.json'));
             $config->data('app.secret.url', $config->data('app.config.dir') . 'Secret' . $config->data('extension.json'));
-            */
             $read = Core::object(File::read($url));
             $config->data(Core::object_merge($config->data(), $read));
         }
+        */
     }
 
     /**
