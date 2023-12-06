@@ -39,23 +39,25 @@ class Logger {
                     $is = $record->is;
                 }
                 if(
-                    property_exists($record, 'class') &&
-                    !empty($record->class) &&
-                    is_string($record->class)
+                    property_exists($record, 'options') &&
+                    is_object($record->options) &&
+                    property_exists($record->options, 'class') &&
+                    !empty($record->options->class) &&
+                    is_string($record->options->class)
                 ){
                     if(
-                        property_exists($record, 'parameters') &&
-                        !empty($record->parameters) &&
-                        is_array($record->parameters)
+                        property_exists($record->options, 'parameters') &&
+                        !empty($record->options->parameters) &&
+                        is_array($record->options->parameters)
                     ){
                         //use constants in config & replace them here
-                        $parameters = $record->parameters;
+                        $parameters = $record->options->parameters;
                         $parameters = Config::parameters($object, $parameters);
                     } else {
                         $parameters = [];
                         $parameters[] = $name;
                     }
-                    $logger = new $record->class(...$parameters);
+                    $logger = new $record->options->class(...$parameters);
                     if(
                         property_exists($record, 'handler') &&
                         !empty($record->handler) &&
@@ -63,45 +65,49 @@ class Logger {
                     ){
                         foreach($record->handler as $handler){
                             if(
-                                property_exists($handler, 'class') &&
-                                !empty($handler->class) &&
-                                is_string($handler->class)
+                                property_exists($handler, 'options') &&
+                                is_object($handler->options) &&
+                                property_exists($handler->options, 'class') &&
+                                !empty($handler->options->class) &&
+                                is_string($handler->options->class)
                             ){
                                 if(
-                                    property_exists($handler, 'parameters') &&
-                                    !empty($handler->parameters) &&
-                                    is_array($handler->parameters)
+                                    property_exists($handler->options, 'parameters') &&
+                                    !empty($handler->options->parameters) &&
+                                    is_array($handler->options->parameters)
                                 ){
                                     //use constants in config & replace them here
-                                    $parameters = $handler->parameters;
+                                    $parameters = $handler->options->parameters;
                                     $parameters = Config::parameters($object, $parameters);
                                 } else {
                                     $parameters = [];
                                 }
-                                $push = new $handler->class(...$parameters);
+                                $push = new $handler->options->class(...$parameters);
                                 if(
                                     property_exists($handler, 'formatter') &&
                                     !empty($handler->formatter) &&
                                     is_object($handler->formatter)
                                 ){
                                     if(
-                                        property_exists($handler->formatter, 'class') &&
-                                        !empty($handler->formatter->class) &&
-                                        is_string($handler->formatter->class)
+                                        property_exists($handler->formatter, 'options') &&
+                                        is_object($handler->formatter->options) &&
+                                        property_exists($handler->formatter->options, 'class') &&
+                                        !empty($handler->formatter->options->class) &&
+                                        is_string($handler->formatter->options->class)
                                     ){
                                         if(
-                                            property_exists($handler->formatter, 'parameters') &&
-                                            !empty($handler->formatter->parameters) &&
-                                            is_array($handler->formatter->parameters)
+                                            property_exists($handler->formatter->options, 'parameters') &&
+                                            !empty($handler->formatter->options->parameters) &&
+                                            is_array($handler->formatter->options->parameters)
                                         ){
                                             //use constants in config & replace them here
-                                            $parameters = $handler->formatter->parameters;
+                                            $parameters = $handler->formatter->options->parameters;
                                             $parameters = Config::parameters($object, $parameters);
                                         } else {
                                             $parameters = [];
                                         }
                                         if(method_exists($push, 'setFormatter')){
-                                            $formatter = new $handler->formatter->class(...$parameters);
+                                            $formatter = new $handler->formatter->options->class(...$parameters);
                                             $push->setFormatter($formatter);
                                         }
                                     }
@@ -126,22 +132,24 @@ class Logger {
                     ){
                         foreach($record->processor as $processor){
                             if(
-                                property_exists($processor, 'class') &&
-                                !empty($processor->class) &&
-                                is_string($processor->class)
+                                property_exists($processor, 'options') &&
+                                is_object($processor->options) &&
+                                property_exists($processor->options, 'class') &&
+                                !empty($processor->options->class) &&
+                                is_string($processor->options->class)
                             ){
                                 if(
-                                    property_exists($processor, 'parameters') &&
-                                    !empty($processor->parameters) &&
-                                    is_array($processor->parameters)
+                                    property_exists($processor->options, 'parameters') &&
+                                    !empty($processor->options->parameters) &&
+                                    is_array($processor->options->parameters)
                                 ){
                                     //use constants in config & replace them here
-                                    $parameters = $processor->parameters;
+                                    $parameters = $processor->options->parameters;
                                     $parameters = Config::parameters($object, $parameters);
                                 } else {
                                     $parameters = [];
                                 }
-                                $push = new $processor->class(...$parameters);
+                                $push = new $processor->options->class(...$parameters);
                                 if(method_exists($logger, 'pushProcessor')){
                                     $logger->pushProcessor($push);
                                 }
