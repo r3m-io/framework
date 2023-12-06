@@ -392,6 +392,7 @@ class Config extends Data {
     {
         Config::volume($object);
         $config = $object->data(App::CONFIG);
+        /*
         $node = new Node($object);
         $class = 'System.Config';
         $options = [
@@ -412,7 +413,7 @@ class Config extends Data {
 
         ddd((microtime(true) - $object->config('time.start')) * 1000);
 
-        /*
+        */
 
         if($config->data('project.volume.dir.data')){
             $url = $config->data('project.volume.dir.data') . 'App' . $config->data('ds') . Config::CONFIG;
@@ -427,7 +428,7 @@ class Config extends Data {
             $read = Core::object(File::read($url));
             $config->data(Core::object_merge($config->data(), $read));
         }
-        */
+        ddd((microtime(true) - $object->config('time.start')) * 1000);
     }
 
     /**
