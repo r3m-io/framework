@@ -405,9 +405,6 @@ class Config extends Data {
         ){
             $config->data(Core::object_merge($config->data(), $response['node']));
         }
-        /*
-        ddd($response);
-
         if($config->data('project.volume.dir.data')){
             $url = $config->data('project.volume.dir.data') . 'App' . $config->data('ds') . Config::CONFIG;
         } else {
@@ -421,7 +418,6 @@ class Config extends Data {
             $read = Core::object(File::read($url));
             $config->data(Core::object_merge($config->data(), $read));
         }
-        */
     }
 
     /**
