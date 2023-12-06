@@ -401,7 +401,7 @@ class Config extends Data {
         $response = $node->record($class, $node->role_system(), $options);
         if(
             $response &&
-            array_key_exists($response['node'])
+            array_key_exists('node', $response)
         ){
             $config->data(Core::object_merge($config->data(), $response['node']));
         }
