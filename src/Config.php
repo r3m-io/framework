@@ -392,7 +392,7 @@ class Config extends Data {
         Config::volume($object);
 
         $config = $object->data(App::CONFIG);
-
+        /*
         $node = new Node($object);
         $class = 'System.Config';
         $options = [
@@ -401,7 +401,7 @@ class Config extends Data {
         ];
         $response = $node->list($class, $node->role_system(), $options);
         ddd($response);
-
+        */
         if($config->data('project.volume.dir.data')){
             $url = $config->data('project.volume.dir.data') . 'App' . $config->data('ds') . Config::CONFIG;
         } else {
