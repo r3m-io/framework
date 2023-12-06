@@ -45,9 +45,12 @@ class Event extends Main {
         $this->object($object);
     }
 
+    /**
+     * @throws Exception
+     */
     public static function on(App $object, $data, $options=[]): void
     {
-        $list = $object->get(App::EVENT)->get(Event::NAME);
+        $list = $object->get(App::EVENT)->get(Event::OBJECT);
         if(empty($list)){
             $list = [];
         }
@@ -58,7 +61,7 @@ class Event extends Main {
         } else {
             $list[] = $data;
         }
-        $object->get(App::EVENT)->set(Event::NAME, $list);
+        $object->get(App::EVENT)->set(Event::OBJECT, $list);
     }
 
     public static function off(App $object, $action, $options=[]){
