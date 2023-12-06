@@ -399,19 +399,19 @@ class Config extends Data {
             'ramdisk' => true
         ];
         $response = $node->record($class, $node->role_system(), $options);
-
-        $dir = $config->data('project.volume.dir.data') . 'App' . $config->data('ds');
-        $config->data('app.config.dir', $dir);
-        $config->data('app.route.url', $config->data('app.config.dir') . 'Route' . $config->data('extension.json'));
-        $config->data('app.secret.url', $config->data('app.config.dir') . 'Secret' . $config->data('extension.json'));
-
-        /*
         if(
             $response &&
             array_key_exists('node', $response)
         ){
             $config->data(Core::object_merge($config->data(), $response['node']));
         }
+        $dir = $config->data('project.volume.dir.data') . 'App' . $config->data('ds');
+        $config->data('app.config.dir', $dir);
+        $config->data('app.route.url', $config->data('app.config.dir') . 'Route' . $config->data('extension.json'));
+        $config->data('app.secret.url', $config->data('app.config.dir') . 'Secret' . $config->data('extension.json'));
+
+        /*
+
         if($config->data('project.volume.dir.data')){
             $url = $config->data('project.volume.dir.data') . 'App' . $config->data('ds') . Config::CONFIG;
         } else {
