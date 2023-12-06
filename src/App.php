@@ -98,6 +98,7 @@ class App extends Data {
         require_once __DIR__ . '/Error.php';
 //        Config::prepare($this);
         //need to load autoload before "config::configure" so we can use output filters on them
+        //moved output filter to framework, chicken & egg problem
 //        Autoload::configure($this);
 //        Autoload::ramdisk_configure($this);
         Config::configure($this);
