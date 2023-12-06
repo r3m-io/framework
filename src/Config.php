@@ -27,6 +27,7 @@ use R3m\Io\Exception\FileWriteException;
 class Config extends Data {
     const DIR = __DIR__ . '/';
     const NAME = 'Config';
+    const NODE_CLASS = 'System.Config';
 
     const MODE_DEVELOPMENT = 'development';
     const MODE_PRODUCTION = 'production';
@@ -392,9 +393,8 @@ class Config extends Data {
     {
         Config::volume($object);
         $config = $object->data(App::CONFIG);
-        /*
         $node = new Node($object);
-        $class = 'System.Config';
+        $class = Config::NODE_CLASS;
         $options = [
             'relation' => true,
             'ramdisk' => true
@@ -413,7 +413,7 @@ class Config extends Data {
 
         ddd((microtime(true) - $object->config('time.start')) * 1000);
 
-        */
+        /*
 
         if($config->data('project.volume.dir.data')){
             $url = $config->data('project.volume.dir.data') . 'App' . $config->data('ds') . Config::CONFIG;
@@ -429,6 +429,7 @@ class Config extends Data {
             $config->data(Core::object_merge($config->data(), $read));
         }
         ddd((microtime(true) - $object->config('time.start')) * 1000);
+        */
     }
 
     /**
