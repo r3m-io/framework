@@ -26,47 +26,57 @@ function function_ramdisk_clear(Parse $parse, Data $data){
     $class = 'System.Config.Ramdisk';
     $node = new \R3m\Io\Node\Model\Node($object);
 
-    $config = $node->record($class, $node->role_system(),[]);
-    ddd($config);
-    /*
-    $config_url = $object->config('app.config.url');
-    $config = $object->data_read($config_url);
-    if($config){
-        $size = $config->get('ramdisk.size');
-        $url = $config->get('ramdisk.url');
-        $name = $config->get('ramdisk.name');
+    $record = $node->record($class, $node->role_system(),[]);
+    if(!$record){
+        throw new Exception('RamDisk not configured...');
+    }
+    if(!property_exists($record['node'], 'uuid')){
+        throw new Exception('RamDisk not configured...');
+    }
+    $size = 0;
+    if(property_exists($record['node'], 'size')){
+        $size = $record['node']->size;
+    }
+    if(property_exists($record['node'], 'url')){
+        $url = $record['node']->url;
         $command = 'umount ' . $url;
         Core::execute($object, $command);
         Dir::remove($url);
-        $name = Core::uuid();
-        $url = $object->config('framework.dir.temp') . $name . $object->config('ds');
-        Dir::create($url, Dir::CHMOD);
-        $command = 'mount -t tmpfs -o size=' . $size . ' ' . $name .' ' . $url;
-        Core::execute($object, $command);
-        $command = 'chown www-data:www-data ' . $object->config('framework.dir.temp');
-        Core::execute($object, $command);
-        $command = 'chown www-data:www-data ' . $url;
-        Core::execute($object, $command);
-        $config->set('ramdisk.size', $size);
-        $config->set('ramdisk.url', $url);
-        $config->set('ramdisk.name', $name);
-        $config->write($config_url);
-        $dir = new Dir();
-        $read = $dir->read($object->config('framework.dir.temp'));
-        if(is_array($read)){
-            foreach ($read as $file){
-                if(
-                    $file->type === Dir::TYPE &&
-                    $file->name !== $name &&
-                    Core::is_uuid($file->name)
-                ){
-                    Dir::remove($file->url);
-                    echo 'Removed: ' . $file->url . PHP_EOL;
-                }
+    }
+    $options = $object->options();
+    ddd($options);
+
+    $name = Core::uuid();
+    $url = $object->config('framework.dir.temp') . $name . $object->config('ds');
+    Dir::create($url, Dir::CHMOD);
+    $command = 'mount -t tmpfs -o size=' . $size . ' ' . $name .' ' . $url;
+    Core::execute($object, $command);
+    $command = 'chown www-data:www-data ' . $object->config('framework.dir.temp');
+    Core::execute($object, $command);
+    $command = 'chown www-data:www-data ' . $url;
+    Core::execute($object, $command);
+
+    $node->patch($class, $node->role_system(), [
+        'uuid' => $record['node']->uuid,
+        'size' => $size,
+        'url' => $url,
+        'name' => $name
+    ]);
+
+    $dir = new Dir();
+    $read = $dir->read($object->config('framework.dir.temp'));
+    if(is_array($read)){
+        foreach ($read as $file){
+            if(
+                $file->type === Dir::TYPE &&
+                $file->name !== $name &&
+                Core::is_uuid($file->name)
+            ){
+                Dir::remove($file->url);
+                echo 'Removed: ' . $file->url . PHP_EOL;
             }
         }
     }
-    */
     $command = 'mount | tail -n 1';
     Core::execute($object, $command, $output);
     echo $output . PHP_EOL;
