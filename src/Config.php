@@ -396,9 +396,9 @@ class Config extends Data {
         $class = Config::OBJECT;
         $options = [
             'relation' => true,
-            'ramdisk' => true
+            'ramdisk' => true,
+            'ramdisk_dir' => $object->config('framework.dir.cache') . $object->config('posix.id') . $object->config('ds'),
         ];
-        d($object->config());
         $response = $node->record($class, $node->role_system(), $options);
         if(
             $response &&
