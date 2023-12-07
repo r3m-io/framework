@@ -398,7 +398,7 @@ class Config extends Data {
             'relation' => true,
             'ramdisk' => true
         ];
-        ddd($object->config());
+        d($object->config());
         $response = $node->record($class, $node->role_system(), $options);
         if(
             $response &&
