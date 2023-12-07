@@ -6,5 +6,5 @@ use R3m\Io\Config;
 
 function function_server_url(Parse $parse, Data $data, $name=''){
     $object = $parse->object();
-    return $object->config('server.url.' . $name . '.' . $object->config('framework.environment'));
+    dd($object->config('server.url.' . $name . '.' . $object->config('framework.environment')));
 }
