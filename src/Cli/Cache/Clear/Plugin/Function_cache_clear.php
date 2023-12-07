@@ -15,7 +15,7 @@ function function_cache_clear(Parse $parse, Data $data){
     $read = $dir->read($temp_dir, true);
     $parse = new Parse($object);
     if(
-        $object->config('ramdisk.url') &&
+        $object->config('ramdisk.size') &&
         empty($object->config(Config::POSIX_ID))
     ){
         $command = \R3m\Io\Cli\Cache\Controller\Cache::RAMDISK_CLEAR_COMMAND;
