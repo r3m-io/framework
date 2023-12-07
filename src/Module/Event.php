@@ -186,7 +186,6 @@ class Event extends Main {
      */
     public static function configure(App $object): void
     {
-        d((microtime(true) - $object->config('time.start')) * 1000);
         $event = new Event($object);
         $response = $event->list(
             Event::OBJECT,
@@ -206,6 +205,5 @@ class Event extends Main {
         ){
             Event::on($object, $response['list']);
         }
-        d((microtime(true) - $object->config('time.start')) * 1000);
     }
 }
