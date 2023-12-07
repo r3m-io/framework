@@ -15,7 +15,11 @@ use R3m\Io\App;
 
 class Server {
 
-    public static function url(App $object, $name=''){
+    /**
+     * @throws Exception
+     */
+    public static function url(App $object, $name=''): ?string
+    {
         $name = str_replace('.', '-', $name);
         return $object->config('server.url.' . $name . '.' . $object->config('framework.environment'));
     }
@@ -23,7 +27,8 @@ class Server {
     /**
      * @throws Exception
      */
-    public static function cors(App $object){
+    public static function cors(App $object): void
+    {
         $logger = $object->config(' project.log.security');
         if(!$logger){
             $logger = $object->config(' project.log.name');
@@ -35,8 +40,8 @@ class Server {
                 $object->logger($logger)->debug('HTTP_ORIGIN: ', [ $origin]);
             }
             if(Server::cors_is_allowed($object, $origin)){
-                $allow_credentials = $object->config('server.cors.allow_credentials');
-                if($allow_credentials === true){
+                $allow_credential = $object->config('server.cors.allow_credential');
+                if($allow_credential === true){
                     header('Access-Control-Allow-Credentials: true');
                 }
                 header("Access-Control-Allow-Origin: {$origin}");
@@ -49,18 +54,18 @@ class Server {
             array_key_exists('REQUEST_METHOD', $_SERVER) &&
             $_SERVER['REQUEST_METHOD'] === 'OPTIONS'
         ) {
-            $allow_credentials = $object->config('server.cors.allow_credentials');
-            if($allow_credentials === true){
+            $allow_credential = $object->config('server.cors.allow_credential');
+            if($allow_credential === true){
                 header('Access-Control-Allow-Credentials: true');
             }
-            $methods = $object->config('server.cors.methods');
+            $methods = $object->config('server.cors.method');
             if(
                 $methods &&
                 is_array($methods)
             ){
                 header('Access-Control-Allow-Methods: ' . implode(', ', $methods));
             }
-            $allow = $object->config('server.cors.headers.allow');
+            $allow = $object->config('server.cors.header.allow');
             if(
                 $allow &&
                 is_array($allow)
@@ -69,7 +74,7 @@ class Server {
             } else {
                 header('Access-Control-Allow-Headers: Origin, Cache-Control, Content-Type, Authorization, X-Requested-With');
             }
-            $expose = $object->config('server.cors.headers.expose');
+            $expose = $object->config('server.cors.header.expose');
             if(
                 $expose &&
                 is_array($expose)
@@ -121,7 +126,7 @@ class Server {
         } else {
             return false;
         }
-        $host_list = $object->config('server.cors.domains');
+        $host_list = $object->config('server.cors.domain');
         if(is_array($host_list)){
             foreach($host_list as $host){
                 $explode = explode('.', $host);
