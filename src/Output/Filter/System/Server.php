@@ -22,14 +22,16 @@ class Server extends Controller {
                     array_key_exists('name', $record) &&
                     array_key_exists('options', $record)
                 ){
-                    $result[strtolower($record['name'])] = $record['options'];
+                    $name = str_replace('.', '-', strtolower($record['name']));
+                    $result[$name] = $record['options'];
                 }
                 elseif(
                     is_object($record) &&
                     property_exists($record, 'name') &&
                     property_exists($record, 'options')
                 ){
-                    $result[strtolower($record->name)] = $record->options;
+                    $name = str_replace('.', '-', strtolower($record->name));
+                    $result[strtolower($name)] = $record->options;
                 }
             }
         }
