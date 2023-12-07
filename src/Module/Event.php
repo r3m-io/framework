@@ -205,5 +205,6 @@ class Event extends Main {
         ){
             Event::on($object, $response['list']);
         }
+        ddd((microtime(true) - $object->config('time.start')) * 1000);
     }
 }
