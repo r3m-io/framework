@@ -392,24 +392,24 @@ class Config extends Data {
     public static function configure(App $object): void
     {
         Config::volume($object);
-        $config = $object->data(App::CONFIG);
         $node = new Node($object);
         $class = Config::OBJECT;
         $options = [
             'relation' => true,
             'ramdisk' => true
         ];
+        ddd($object->config());
         $response = $node->record($class, $node->role_system(), $options);
         if(
             $response &&
             array_key_exists('node', $response)
         ){
-            $config->data(Core::object_merge($config->data(), $response['node']));
+            $object->config(Core::object_merge($object->config(), $response['node']));
         }
-        $dir = $config->data('project.volume.dir.data') . 'App' . $config->data('ds');
-        $config->data('app.config.dir', $dir);
-        $config->data('app.route.url', $config->data('app.config.dir') . 'Route' . $config->data('extension.json'));
-        $config->data('app.secret.url', $config->data('app.config.dir') . 'Secret' . $config->data('extension.json'));
+        $dir = $object->config('project.volume.dir.data') . 'App' . $object->config('ds');
+        $object->config('app.config.dir', $dir);
+        $object->config('app.route.url', $object->config('app.config.dir') . 'Route' . $object->config('extension.json'));
+        $object->config('app.secret.url', $object->config('app.config.dir') . 'Secret' . $object->config('extension.json'));
         /*
 
         if($config->data('project.volume.dir.data')){
