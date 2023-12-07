@@ -1031,11 +1031,7 @@ class Route2 extends Data {
      */
     public static function configure(App $object): void
     {
-
-        ddd($object->config());
-
         $host = strtolower($object->config('host.name'));
-
         $node = new Node($object);
         $response = $node->list(
             Route2::OBJECT,
