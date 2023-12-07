@@ -13,6 +13,9 @@ namespace R3m\Io\Module;
 use Exception;
 
 class Sort extends Data {
+    const ASC = 'ASC';
+    const DESC = 'DESC';
+
 
     public static function list($list): Sort
     {
@@ -59,7 +62,7 @@ class Sort extends Data {
                     return [];
                 }
                 $attribute = false;
-                $sortable_1 = 'ASC';
+                $sortable_1 = Sort::ASC;
                 foreach($list as $uuid => $node){
                     foreach($sort as $attribute => $record){
                         $value = $this->data($uuid . '.' . $attribute);
@@ -98,7 +101,7 @@ class Sort extends Data {
                     }
                 }
                 unset($sort[$attribute]);                
-                if(strtolower($sortable_1) == 'asc'){
+                if(strtoupper($sortable_1) === Sort::ASC){
                     if($attribute === 'uuid'){
                         usort($result, array($this,"uuid_compare_ascending"));
                     } else {
@@ -158,8 +161,8 @@ class Sort extends Data {
                     return [];
                 }
                 $attribute = false;
-                $sortable_1 = 'ASC';
-                $sortable_2 = 'ASC';
+                $sortable_1 = Sort::ASC;
+                $sortable_2 = Sort::ASC;
                 foreach($list as $uuid => $node){
                     foreach($sort as $attribute => $record){
                         $value = $this->data($uuid . '.' . $attribute);
@@ -231,13 +234,13 @@ class Sort extends Data {
                         }
                     }
                     unset($sort[$attribute]);
-                    if(strtolower($sortable_1) == 'asc'){
+                    if(strtoupper($sortable_1) === Sort::ASC){
                         ksort($result, $flags);
                     } else {
                         krsort($result, $flags);
                     }                
                     foreach($result as $key => $list){
-                        if(strtolower($sortable_2) == 'asc'){
+                        if(strtoupper($sortable_2) === Sort::ASC){
                             ksort($list, $flags);
                         } else {
                             krsort($list, $flags);
