@@ -145,7 +145,6 @@ class Host {
             $name = $object->config('host.domain') . '.' . $object->config('host.extension');
         }
         $map = Host::map($object, $node, $name);
-        ddd($map);
         $host = Host::get($object, $node, $name, $map);
         $object->config('host.map', $map);
         $object->config('host', Core::object_merge($object->config('host'), $host));
