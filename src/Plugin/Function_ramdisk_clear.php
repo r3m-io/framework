@@ -8,6 +8,8 @@
  * @changeLog
  *     -            all
  */
+use R3m\Io\App;
+
 use R3m\Io\Module\Parse;
 use R3m\Io\Module\Core;
 use R3m\Io\Module\Data;
@@ -43,7 +45,7 @@ function function_ramdisk_clear(Parse $parse, Data $data){
         Core::execute($object, $command);
         Dir::remove($url);
     }
-    $options = $object->options();
+    $options = App::options($object);
     ddd($options);
 
     $name = Core::uuid();
