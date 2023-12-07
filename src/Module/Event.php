@@ -186,6 +186,7 @@ class Event extends Main {
      */
     public static function configure(App $object): void
     {
+        ddd((microtime(true) - $object->config('time.start')) * 1000);
         $event = new Event($object);
         $response = $event->list(
             Event::OBJECT,
