@@ -165,7 +165,7 @@ class App extends Data {
         App::configure($object);
 //        d((microtime(true) - $object->config('time.start')) * 1000);
         Route::configure($object);
-        Route2::configure($object);
+//        Route2::configure($object);
 //        ddd((microtime(true) - $object->config('time.start')) * 1000);
         $route = false;
         $logger = $object->config('project.log.name');
