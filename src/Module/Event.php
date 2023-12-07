@@ -161,7 +161,6 @@ class Event extends Main {
                             ){
                                 $event = new Storage($event);
                                 try {
-                                    d($route);
                                     $route->controller::{$route->function}($object, $event, $options);
                                 }
                                 catch (LocateException $exception){

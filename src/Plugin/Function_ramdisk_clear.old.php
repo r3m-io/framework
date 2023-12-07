@@ -23,12 +23,6 @@ function function_ramdisk_clear(Parse $parse, Data $data){
     if (!empty($id)){
         throw new Exception('RamDisk clear can only be run by root...');
     }
-    $class = 'System.Config.Ramdisk';
-    $node = new R3m\Io\Node\Model\Node();
-
-    $config = $node->record($class, $node->role_system(),[]);
-    ddd($config);
-    /*
     $config_url = $object->config('app.config.url');
     $config = $object->data_read($config_url);
     if($config){
@@ -66,7 +60,6 @@ function function_ramdisk_clear(Parse $parse, Data $data){
             }
         }
     }
-    */
     $command = 'mount | tail -n 1';
     Core::execute($object, $command, $output);
     echo $output . PHP_EOL;
