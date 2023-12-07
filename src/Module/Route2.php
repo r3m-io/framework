@@ -1034,11 +1034,16 @@ class Route2 extends Data {
 
         ddd($object->config());
 
+        $host = strtolower($object->config('host.name'));
+
         $node = new Node($object);
         $response = $node->list(
             Route2::OBJECT,
             $node->role_system(),
             [
+                'filter' => [
+                    'host' => $host,
+                ],
                 'sort' => [
                     'options.priority' => 'ASC',
                     'name' => 'ASC',
