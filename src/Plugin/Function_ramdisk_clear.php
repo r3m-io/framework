@@ -45,9 +45,6 @@ function function_ramdisk_clear(Parse $parse, Data $data){
         Core::execute($object, $command);
         Dir::remove($url);
     }
-    $options = App::options($object);
-    ddd($options);
-
     $name = Core::uuid();
     $url = $object->config('framework.dir.temp') . $name . $object->config('ds');
     Dir::create($url, Dir::CHMOD);
