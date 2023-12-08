@@ -1288,7 +1288,9 @@ class Route extends Data {
                 $item = new stdClass();
                 $item->path = $path . '/';
                 $item->controller = 'R3m.Io.Cli.' . $control . '.Controller.' . $control . '.run';
-                $item->language = 'en';
+                $item->request = (object) [
+                    'language' => 'en'
+                ];
                 $item->method = [
                     "CLI"
                 ];
