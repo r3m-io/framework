@@ -228,12 +228,6 @@ class Route extends Data {
         } else {
             $route =  $object->data(App::ROUTE);
             $request = $route->data(Route::SELECT_WILDCARD);
-            ddd($request);
-            $select = new stdClass();
-            $select->method = Handler::method();
-            $select->host = $object->config('host.name');
-            $request = Route::selectWildcard($object, $select);
-
             return $route->current($request);
         }
         return false;
