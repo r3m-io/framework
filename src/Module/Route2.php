@@ -1032,42 +1032,35 @@ class Route2 extends Data {
     public static function configure(App $object): void
     {
         $route = new Route();
-//        $data->url($url);
-//        $data->cache_url($cache_url);
         $object->data(App::ROUTE, $route);
-        Route::framework($object);
         $host = strtolower($object->config('host.name'));
-        $node = new Node($object);
-        $response = $node->list(
-            Route2::OBJECT,
-            $node->role_system(),
-            [
-                'filter' => [
-                    'host' => $host,
-                ],
-                'sort' => [
-                    'options.priority' => 'ASC',
-                    'name' => 'ASC',
-                ],
-                'limit' => '*',
-                'ramdisk' => true,
-                'output' => [
+        if(empty($host)){
+            Route::framework($object);
+        } else {
+            $node = new Node($object);
+            $response = $node->list(
+                Route2::OBJECT,
+                $node->role_system(),
+                [
                     'filter' => [
-                        "R3m:Io:Output:Filter:System:Route:list"
+                        'host' => $host,
+                    ],
+                    'sort' => [
+                        'options.priority' => 'ASC',
+                        'name' => 'ASC',
+                    ],
+                    'limit' => '*',
+                    'ramdisk' => true,
+                    'output' => [
+                        'filter' => [
+                            "R3m:Io:Output:Filter:System:Route:list"
+                        ]
                     ]
-                ]
 
-            ]
-        );
-        if(
-            $response &&
-            array_key_exists('list', $response)
-        ) {
-            if(is_object($response['list'])){
-                $data = Core::object_merge($route->data(), $response['list']);
-                $route = new Route($data);
-                $object->data(App::ROUTE, $route);
-            }
+                ]
+            );
+            $route->data($response['list']);
+            $object->data(App::ROUTE, $route);
         }
     }
 
