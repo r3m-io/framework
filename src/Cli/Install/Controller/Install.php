@@ -102,7 +102,7 @@ class Install extends Controller {
                             if(property_exists($import, 'host')){
                                 $record = $node->record(
                                     $class,
-                                    $node->system_role(),
+                                    $node->role_system(),
                                     [
                                         'filter' => [
                                             'name' => [
@@ -119,7 +119,7 @@ class Install extends Controller {
                             } else {
                                 $record = $node->record(
                                     $class,
-                                    $node->system_role(),
+                                    $node->role_system(),
                                     [
                                         'filter' => [
                                             'name' => [
