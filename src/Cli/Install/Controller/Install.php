@@ -130,9 +130,27 @@ class Install extends Controller {
                                     ]
                                 );
                             }
-
-
-                            ddd($record);
+                            if(!$record){
+                                $node->create(
+                                    $class,
+                                    $node->role_system(),
+                                    $import,
+                                    []
+                                );
+                            }
+                            elseif(
+                                property_exists($options, 'force') &&
+                                property_exists($record, 'uuid')
+                            ){
+                                $import->uuid = $record->uuid;
+                                $put = $node->put(
+                                    $class,
+                                    $node->role_system(),
+                                    $import,
+                                    []
+                                );
+                                ddd($put);
+                            }
                         }
                     }
 
