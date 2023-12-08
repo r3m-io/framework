@@ -19,6 +19,7 @@ use R3m\Io\Module\Dir;
  * @throws Exception
  */
 function function_ramdisk_clear(Parse $parse, Data $data){
+    echo 'test';
     /*
     $object = $parse->object();
     $object->config('ramdisk.is.disabled', true);
