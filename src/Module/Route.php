@@ -1007,6 +1007,35 @@ class Route extends Data {
         $host = strtolower($object->config('host.name'));
         if(empty($host)){
             Route::framework($object);
+            $node = new Node($object);
+            $response = $node->list(
+                Route::OBJECT,
+                $node->role_system(),
+                [
+                    'filter' => [
+                        'method' => 'CLI',
+                    ],
+                    'sort' => [
+                        'options.priority' => 'ASC',
+                        'name' => 'ASC',
+                    ],
+                    'limit' => '*',
+                    'ramdisk' => true,
+                    'output' => [
+                        'filter' => [
+                            "R3m:Io:Output:Filter:System:Route:list"
+                        ]
+                    ]
+
+                ]
+            );
+            ddd($response);
+            foreach($response['list'] as $name => $record){
+                $record = Route::item_path($object, $record);
+                $record = Route::item_deep($object, $record);
+            }
+            $route->data(Core::object_merge($route->data(), $response['list']));
+            $object->data(App::ROUTE, $route);
         } else {
             $node = new Node($object);
             $response = $node->list(
