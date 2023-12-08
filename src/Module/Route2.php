@@ -1059,8 +1059,10 @@ class Route2 extends Data {
             array_key_exists('list', $response)
         ) {
             $route = $object->data(App::ROUTE);
-            ddd($response);
-            $object->data(App::ROUTE, $response['list']);
+            if(is_object($response['list'])){
+                $route = Core::object_merge($route, $response['list']);
+            }
+            $object->data(App::ROUTE, $route);
         }
 
 
