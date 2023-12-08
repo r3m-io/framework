@@ -20,6 +20,8 @@ use R3m\Io\Module\Event;
 use R3m\Io\Module\File;
 use R3m\Io\Module\Parse;
 
+use R3m\Io\Node\Model\Node;
+
 use Exception;
 
 use R3m\Io\Exception\LocateException;
@@ -87,8 +89,30 @@ class Install extends Controller {
             $package->has('route') &&
             is_array($package->get('route'))
         ){
-            foreach($package->get('route') as $route){
-                if(File::exist($route)){
+            foreach($package->get('route') as $url_route){
+                if(File::exist($url_route)){
+                    $node = new Node();
+                    $class = 'System.Route';
+                    $read = $object->data_read($url_route);
+                    if($read){
+                        foreach($read->data($class) as $import){
+                            $record = $node->record(
+                                $class,
+                                $node->system_role(),
+                                [
+                                    'filter' => [
+                                        'name' => [
+                                            'operator' => '===',
+                                            'value' => $import->name
+                                        ]
+                                    ]
+                                ]);
+                            ddd($record);
+                        }
+                    }
+
+
+                    /*
                     $command = '{{binary()}} configure route resource "' . $route . '"';
                     $parse = new Parse($object, $object->data());
                     $command = $parse->compile($command, $object->data());
@@ -101,6 +125,7 @@ class Install extends Controller {
                             echo $error;
                         }
                     }
+                    */
                 }
             }
         }
