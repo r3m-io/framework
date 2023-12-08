@@ -1059,7 +1059,7 @@ class Route2 extends Data {
             array_key_exists('list', $response)
         ) {
             $route = $object->data(App::ROUTE);
-            d($route);
+            ddd($response);
             $object->data(App::ROUTE, $response['list']);
         }
 
