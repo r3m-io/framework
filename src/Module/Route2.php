@@ -1059,6 +1059,10 @@ class Route2 extends Data {
 
                 ]
             );
+            foreach($response['list'] as $name => $record){
+                $record = Route::item_path($object, $record);
+                $record = Route::item_deep($object, $record);
+            }
             $route->data($response['list']);
             $object->data(App::ROUTE, $route);
         }
