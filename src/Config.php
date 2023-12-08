@@ -395,7 +395,7 @@ class Config extends Data {
         $node = new Node($object);
         $class = Config::OBJECT;
         $is_dir_create = false;
-        if(!Dir::is($object->config('framework.dir.cache')){
+        if(!Dir::is($object->config('framework.dir.cache'))){
             Dir::create($object->config('framework.dir.cache'), Dir::CHMOD);
             if($object->config('posix.id') === 0){
                 $command = 'chown www-data:www-data ' . $object->config('framework.dir.cache');
