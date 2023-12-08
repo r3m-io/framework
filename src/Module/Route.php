@@ -876,53 +876,16 @@ class Route extends Data {
 
     private static function is_match_by_host($object, $route, $select): bool
     {
-        d($route);
-        ddd($select);
         if(!property_exists($route, 'host')){
             return true;
         }
         if(!is_string($route->host)){
             return false;
         }
-
-
-        $allowed_host = [];
-        $allowed_host_wildcard = [];
-        $disallowed_host = [];
-        foreach($route->host as $host){
-            $type = false;
-            if(
-                substr($host, 0, 1) === '!' ||
-                substr($host, 0, 1) === '*'
-            ){
-                $type = substr($host, 0, 1);
-                $host = substr($host, 1);
-            }
-            if($type === '!'){
-                $disallowed_host[] = $host;
-                continue;
-            }
-            $allowed_host[] = $host;
-            $explode = explode('.', $host);
-            if($type === '*' && count($explode) > 2){
-                $explode[0] = '';
-                $allowed_host_wildcard[] = implode('.', $explode);
-            }
-
-        }
-        $host = reset($select->host);
-        if(in_array($host, $disallowed_host)){
+        if(!is_string($select->host)){
             return false;
         }
-        if(in_array($host, $allowed_host)){
-            return true;
-        }
-        $explode = explode('.', $host);
-        if(count($explode) > 2){
-            $explode[0] = '';
-            $host = implode('.', $explode);
-        }
-        if(in_array($host, $allowed_host_wildcard)){
+        if($select->host === $route->host){
             return true;
         }
         return false;
