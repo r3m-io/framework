@@ -394,6 +394,15 @@ class Config extends Data {
         Config::volume($object);
         $node = new Node($object);
         $class = Config::OBJECT;
+        $is_dir_create = false;
+        if(!Dir::is($object->config('framework.dir.cache')){
+            Dir::create($object->config('framework.dir.cache'), Dir::CHMOD);
+            if($object->config('posix.id') === 0){
+                $command = 'chown www-data:www-data ' . $object->config('framework.dir.cache');
+                exec($command);
+                $is_dir_create = true;
+            }
+        }
         $options = [
             'relation' => true,
             'ramdisk' => true,
@@ -410,6 +419,10 @@ class Config extends Data {
         $object->config('app.config.dir', $dir);
         $object->config('app.route.url', $object->config('app.config.dir') . 'Route' . $object->config('extension.json'));
         $object->config('app.secret.url', $object->config('app.config.dir') . 'Secret' . $object->config('extension.json'));
+        if($is_dir_create && $object->config('framework.environment') === Config::MODE_DEVELOPMENT){
+            $command = 'chmod 777 ' . $object->config('framework.dir.cache');
+            exec($command);
+        }
         /*
 
         if($config->data('project.volume.dir.data')){
