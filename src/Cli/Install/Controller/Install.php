@@ -202,6 +202,7 @@ class Install extends Controller {
                             );
                         }
                         if(!$record){
+                            unset($import->uuid);
                             $node->create(
                                 $class,
                                 $node->role_system(),
@@ -216,7 +217,7 @@ class Install extends Controller {
                             property_exists($record['node'], 'uuid')
                         ){
                             $import->uuid = $record['node']->uuid;
-                            $put = $node->put(
+                            $node->put(
                                 $class,
                                 $node->role_system(),
                                 $import,
