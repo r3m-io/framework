@@ -1278,7 +1278,7 @@ class Route extends Data {
     public static function framework($object){
         $route = $object->data(App::ROUTE);
         $default_route = $object->config('framework.default.route');
-        $priority = 500;
+        $priority = 1000;
         if(is_array($default_route) || is_object($default_route)){
             foreach($default_route as $record){
                 $path = strtolower($record);
