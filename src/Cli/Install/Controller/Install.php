@@ -100,17 +100,39 @@ class Install extends Controller {
                             if(!property_exists($import, 'name')){
                                 continue;
                             }
-                            $record = $node->record(
-                                $class,
-                                $node->system_role(),
-                                [
-                                    'filter' => [
-                                        'name' => [
-                                            'operator' => '===',
-                                            'value' => $import->name
+                            if(property_exists($import, 'host')){
+                                $record = $node->record(
+                                    $class,
+                                    $node->system_role(),
+                                    [
+                                        'filter' => [
+                                            'name' => [
+                                                'operator' => '===',
+                                                'value' => $import->name
+                                            ],
+                                            'host' => [
+                                                'operator' => '===',
+                                                'value' => $import->host
+                                            ]
                                         ]
                                     ]
-                                ]);
+                                );
+                            } else {
+                                $record = $node->record(
+                                    $class,
+                                    $node->system_role(),
+                                    [
+                                        'filter' => [
+                                            'name' => [
+                                                'operator' => '===',
+                                                'value' => $import->name
+                                            ]
+                                        ]
+                                    ]
+                                );
+                            }
+
+
                             ddd($record);
                         }
                     }
