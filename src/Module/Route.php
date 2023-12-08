@@ -1275,9 +1275,10 @@ class Route extends Data {
         }
     }
 
-    private static function framework($object){
+    public static function framework($object){
         $route = $object->data(App::ROUTE);
         $default_route = $object->config('framework.default.route');
+        $priority = 500;
         if(is_array($default_route) || is_object($default_route)){
             foreach($default_route as $record){
                 $path = strtolower($record);
@@ -1292,6 +1293,7 @@ class Route extends Data {
                     "CLI"
                 ];
                 $item->deep = 1;
+                $item->priority = $priority;
                 $route->data($attribute, $item);
             }
         }
