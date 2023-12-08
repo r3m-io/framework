@@ -96,6 +96,9 @@ class Install extends Controller {
                     $read = $object->data_read($url_route);
                     if($read){
                         foreach($read->data($class) as $import){
+                            if(!property_exists($import, 'name')){
+                                continue;
+                            }
                             $record = $node->record(
                                 $class,
                                 $node->system_role(),
