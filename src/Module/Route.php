@@ -227,19 +227,7 @@ class Route extends Data {
         } else {
             $select = new stdClass();
             $select->method = Handler::method();
-            $select->host = [];
-            $subdomain = Host::subdomain();
-            if($subdomain){
-                $select->host[] = $subdomain . '.' . Host::domain() . '.' . Host::extension();
-            } else {
-                $domain = Host::domain();
-                if($domain){
-                    $select->host[] = Host::domain() . '.' . Host::extension();
-                } else {
-                    $select->host[] = 'localhost';
-                }
-            }
-            $select->host = array_unique($select->host);
+            $select->host = $object->config('host.name');
             $request = Route::selectWildcard($object, $select);
             $route =  $object->data(App::ROUTE);
             return $route->current($request);
@@ -973,7 +961,6 @@ class Route extends Data {
         if($is_match === false){
             return $is_match;
         }
-        $route = Route::add_localhost($object, $route);
         $is_match = Route::is_match_by_host($object, $route, $select);
         if($is_match === false){
             return $is_match;
@@ -987,7 +974,6 @@ class Route extends Data {
         if($is_match === false){
             return $is_match;
         }
-        $route = Route::add_localhost($object, $route);
         $is_match = Route::is_match_by_host($object, $route, $select);
         if($is_match === false){
             return $is_match;
