@@ -95,7 +95,6 @@ class Install extends Controller {
                     $class = 'System.Route';
                     $read = $object->data_read($url_route);
                     if($read){
-                        ddd($read);
                         foreach($read->data($class) as $import){
                             if(!property_exists($import, 'name')){
                                 continue;
