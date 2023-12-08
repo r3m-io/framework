@@ -23,6 +23,7 @@ use R3m\Io\Exception\FileWriteException;
 class Route extends Data {
     const NAMESPACE = __NAMESPACE__;
     const NAME = 'Route';
+    const OBJECT = 'System.Route';
     const SELECT = 'Route_select';
     const SELECT_DEFAULT = 'info';
 
@@ -1009,7 +1010,7 @@ class Route extends Data {
         } else {
             $node = new Node($object);
             $response = $node->list(
-                Route2::OBJECT,
+                Route::OBJECT,
                 $node->role_system(),
                 [
                     'filter' => [
