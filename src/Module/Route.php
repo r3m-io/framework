@@ -14,6 +14,8 @@ use stdClass;
 use R3m\Io\App;
 use R3m\Io\Config;
 
+use R3m\Io\Node\Model\Node;
+
 use Exception;
 
 use R3m\Io\Exception\ObjectException;
