@@ -1031,8 +1031,11 @@ class Route2 extends Data {
      */
     public static function configure(App $object): void
     {
-        $route = new Route();
-        $object->data(App::ROUTE, $route);
+        $route = $object->data(App::ROUTE);
+        if(!$route){
+            $route = new Route();
+            $object->data(App::ROUTE, $route);
+        }
         $host = strtolower($object->config('host.name'));
         if(empty($host)){
             Route::framework($object);
@@ -1063,7 +1066,7 @@ class Route2 extends Data {
                 $record = Route::item_path($object, $record);
                 $record = Route::item_deep($object, $record);
             }
-            $route->data($response['list']);
+            $route->data(Core::object_merge($route->data(), $response['list']));
             $object->data(App::ROUTE, $route);
         }
     }
