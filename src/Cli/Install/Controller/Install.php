@@ -151,26 +151,9 @@ class Install extends Controller {
                                     $import,
                                     []
                                 );
-                                ddd($put);
                             }
                         }
                     }
-
-
-                    /*
-                    $command = '{{binary()}} configure route resource "' . $route . '"';
-                    $parse = new Parse($object, $object->data());
-                    $command = $parse->compile($command, $object->data());
-                    Core::execute($object, $command, $output, $error);
-                    if($output){
-                        echo $output;
-                    }
-                    if($error){
-                        if(stristr($error, RouteExistException::MESSAGE) === false) {
-                            echo $error;
-                        }
-                    }
-                    */
                 }
             }
         }
@@ -179,16 +162,67 @@ class Install extends Controller {
             is_string($package->get('route'))
         ){
             if(File::exist($package->get('route'))){
-                $command = '{{binary()}} configure route resource "' . $package->get('route') . '"';
-                $parse = new Parse($object, $object->data());
-                $command = $parse->compile($command, $object->data());
-                Core::execute($object, $command, $output, $error);
-                if($output){
-                    echo $output;
-                }
-                if($error){
-                    if(stristr($error, RouteExistException::MESSAGE) === false) {
-                        echo $error;
+                $node = new Node($object);
+                $class = 'System.Route';
+                $read = $object->data_read($package->get('route'));
+                if($read){
+                    foreach($read->data($class) as $import){
+                        if(!property_exists($import, 'name')){
+                            continue;
+                        }
+                        if(property_exists($import, 'host')){
+                            $record = $node->record(
+                                $class,
+                                $node->role_system(),
+                                [
+                                    'filter' => [
+                                        'name' => [
+                                            'operator' => '===',
+                                            'value' => $import->name
+                                        ],
+                                        'host' => [
+                                            'operator' => '===',
+                                            'value' => $import->host
+                                        ]
+                                    ]
+                                ]
+                            );
+                        } else {
+                            $record = $node->record(
+                                $class,
+                                $node->role_system(),
+                                [
+                                    'filter' => [
+                                        'name' => [
+                                            'operator' => '===',
+                                            'value' => $import->name
+                                        ]
+                                    ]
+                                ]
+                            );
+                        }
+                        if(!$record){
+                            $node->create(
+                                $class,
+                                $node->role_system(),
+                                $import,
+                                []
+                            );
+                        }
+                        elseif(
+                            property_exists($options, 'force') &&
+                            is_array($record) &&
+                            array_key_exists('node', $record) &&
+                            property_exists($record['node'], 'uuid')
+                        ){
+                            $import->uuid = $record['node']->uuid;
+                            $put = $node->put(
+                                $class,
+                                $node->role_system(),
+                                $import,
+                                []
+                            );
+                        }
                     }
                 }
             }
