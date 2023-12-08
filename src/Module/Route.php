@@ -873,14 +873,15 @@ class Route extends Data {
 
     private static function is_match_by_host($object, $route, $select): bool
     {
+        d($route);
+        ddd($select);
         if(!property_exists($route, 'host')){
             return true;
         }
         if(!is_string($route->host)){
             return false;
         }
-        d($route);
-        ddd($select);
+
 
         $allowed_host = [];
         $allowed_host_wildcard = [];
