@@ -1031,10 +1031,10 @@ class Route2 extends Data {
      */
     public static function configure(App $object): void
     {
-        $data = new Route();
+        $route = new Route();
 //        $data->url($url);
 //        $data->cache_url($cache_url);
-        $object->data(App::ROUTE, $data);
+        $object->data(App::ROUTE, $route);
         Route::framework($object);
         $host = strtolower($object->config('host.name'));
         $node = new Node($object);
@@ -1063,11 +1063,12 @@ class Route2 extends Data {
             $response &&
             array_key_exists('list', $response)
         ) {
-            $route = $object->data(App::ROUTE);
             if(is_object($response['list'])){
-                $route = Core::object_merge($route->data(), $response['list']);
+                $data = Core::object_merge($route->data(), $response['list']);
+                $route = new Route($data);
+                $object->data(App::ROUTE, $route);
             }
-            $object->data(App::ROUTE, $route);
+
         }
 
 
