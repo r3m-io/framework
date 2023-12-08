@@ -91,7 +91,7 @@ class Install extends Controller {
         ){
             foreach($package->get('route') as $url_route){
                 if(File::exist($url_route)){
-                    $node = new Node();
+                    $node = new Node($object);
                     $class = 'System.Route';
                     $read = $object->data_read($url_route);
                     if($read){
