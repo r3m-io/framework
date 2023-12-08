@@ -1048,11 +1048,12 @@ class Route2 extends Data {
                 'ramdisk' => true
             ]
         );
-        ddd($response);
         if(
             $response &&
             array_key_exists('list', $response)
         ) {
+            $route = $object->data(App::ROUTE);
+            d($route);
             $object->data(App::ROUTE, $response['list']);
         }
 
