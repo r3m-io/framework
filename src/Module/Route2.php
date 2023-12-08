@@ -1045,7 +1045,13 @@ class Route2 extends Data {
                     'name' => 'ASC',
                 ],
                 'limit' => '*',
-                'ramdisk' => true
+                'ramdisk' => true,
+                'output' => [
+                    'filter' => [
+                        "R3m:Io:Output:Filter:System:Route:list"
+                    ]
+                ]
+
             ]
         );
         if(
