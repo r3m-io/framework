@@ -140,9 +140,11 @@ class Install extends Controller {
                             }
                             elseif(
                                 property_exists($options, 'force') &&
-                                property_exists($record, 'uuid')
+                                is_array($record) &&
+                                array_key_exists('node', $record) &&
+                                property_exists($record['node'], 'uuid')
                             ){
-                                $import->uuid = $record->uuid;
+                                $import->uuid = $record['node']->uuid;
                                 $put = $node->put(
                                     $class,
                                     $node->role_system(),
