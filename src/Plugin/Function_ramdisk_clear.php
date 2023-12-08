@@ -19,6 +19,7 @@ use R3m\Io\Module\Dir;
  * @throws Exception
  */
 function function_ramdisk_clear(Parse $parse, Data $data){
+    /*
     $object = $parse->object();
     $object->config('ramdisk.is.disabled', true);
     $id = posix_geteuid();
@@ -79,5 +80,6 @@ function function_ramdisk_clear(Parse $parse, Data $data){
     $command = 'mount | tail -n 1';
     Core::execute($object, $command, $output);
     echo $output . PHP_EOL;
+    */
 
 }
