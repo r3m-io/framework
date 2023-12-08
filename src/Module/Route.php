@@ -996,54 +996,45 @@ class Route extends Data {
      * @throws ObjectException
      * @throws Exception
      */
-    public static function configure(App $object){
-        $config = $object->data(App::CONFIG);
-        $url = $config->data('app.route.url');
-        if(empty($config->data(Config::DATA_PROJECT_ROUTE_URL))){
-            $config->data(Config::DATA_PROJECT_ROUTE_URL, $url);
+    public static function configure(App $object): void
+    {
+        $route = $object->data(App::ROUTE);
+        if(!$route){
+            $route = new Route();
+            $object->data(App::ROUTE, $route);
         }
-        $url = $config->data(Config::DATA_PROJECT_ROUTE_URL);
-        $cache_url = $config->data('framework.dir.temp') .
-            $config->data(Config::POSIX_ID) .
-            $config->data('ds') .
-            Route::NAME .
-            $config->data('ds') .
-            $config->data(Config::DATA_PROJECT_ROUTE_FILENAME)
-        ;
-        if(
-            $object->config('ramdisk.url') &&
-            empty($object->config('ramdisk.is.disabled'))
-        ){
-            $cache_url = $object->config('ramdisk.url') .
-                $config->data(Config::POSIX_ID) .
-                $config->data('ds') .
-                Route::NAME .
-                $config->data('ds') .
-                $config->data(Config::DATA_PROJECT_ROUTE_FILENAME)
-            ;
-        }
-        $cache = Route::cache_read($object, $url, $cache_url);
-        $cache = Route::cache_invalidate($object, $cache);
-        if(empty($cache)){
-            if(File::exist($url)){
-                $read = File::read($url);
-                $data = new Route(Core::object($read));
-                $data->url($url);
-                $data->cache_url($cache_url);
-                $object->data(App::ROUTE, $data);
-                Route::load($object);
-                Route::framework($object);
-                Route::cache_write($object);
-            } else {
-                $data = new Route();
-                $data->url($url);
-                $data->cache_url($cache_url);
-                $object->data(App::ROUTE, $data);
-                Route::load($object);
-                Route::framework($object);
-            }
+        $host = strtolower($object->config('host.name'));
+        if(empty($host)){
+            Route::framework($object);
         } else {
-            $object->data(App::ROUTE, $cache);
+            $node = new Node($object);
+            $response = $node->list(
+                Route2::OBJECT,
+                $node->role_system(),
+                [
+                    'filter' => [
+                        'host' => $host,
+                    ],
+                    'sort' => [
+                        'options.priority' => 'ASC',
+                        'name' => 'ASC',
+                    ],
+                    'limit' => '*',
+                    'ramdisk' => true,
+                    'output' => [
+                        'filter' => [
+                            "R3m:Io:Output:Filter:System:Route:list"
+                        ]
+                    ]
+
+                ]
+            );
+            foreach($response['list'] as $name => $record){
+                $record = Route::item_path($object, $record);
+                $record = Route::item_deep($object, $record);
+            }
+            $route->data($response['list']);
+            $object->data(App::ROUTE, $route);
         }
     }
 

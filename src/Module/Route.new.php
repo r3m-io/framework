@@ -1066,7 +1066,7 @@ class Route2 extends Data {
                 $record = Route::item_path($object, $record);
                 $record = Route::item_deep($object, $record);
             }
-            $route->data(Core::object_merge($route->data(), $response['list']));
+            $route->data($response['list']);
             $object->data(App::ROUTE, $route);
         }
     }
