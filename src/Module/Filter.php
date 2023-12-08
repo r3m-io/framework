@@ -109,7 +109,6 @@ class Filter extends Data {
             }
             foreach($list as $uuid => $node){
                 $data = new Data($node);
-                d($where);
                 foreach($where as $attribute => $record){
                     if(
                         is_array($record) &&
