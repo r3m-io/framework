@@ -375,7 +375,10 @@ class Host {
             }
 
         }
-        if(array_key_exists('node', $map)){
+        if(
+            is_array($map) &&
+            array_key_exists('node', $map)
+        ){
             return $map['node'];
         }
         return false;
