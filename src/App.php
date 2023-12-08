@@ -164,7 +164,7 @@ class App extends Data {
         Handler::request_configure($object);
         App::configure($object);
 //        d((microtime(true) - $object->config('time.start')) * 1000);
-//        Route::configure($object);
+        Route::configure($object);
         Route2::configure($object);
 //        ddd((microtime(true) - $object->config('time.start')) * 1000);
         $route = false;
