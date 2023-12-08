@@ -523,7 +523,6 @@ class Route extends Data {
         $route =  $object->data(App::ROUTE);
         $match = false;
         $data = $route->data();
-        d($data);
         if(empty($data)){
             return $select;
         }
@@ -1202,7 +1201,7 @@ class Route extends Data {
         return $byte;
     }
 
-    private static function item_path($object, $item){
+    public static function item_path($object, $item){
         if(!property_exists($item, 'path')){
             return $item;
         }
@@ -1215,7 +1214,7 @@ class Route extends Data {
         return $item;
     }
 
-    private static function item_deep($object, $item){
+    public static function item_deep($object, $item){
         if(!property_exists($item, 'path')){
             $item->deep = 0;
             return $item;
