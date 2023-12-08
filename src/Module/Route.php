@@ -523,6 +523,7 @@ class Route extends Data {
         $route =  $object->data(App::ROUTE);
         $match = false;
         $data = $route->data();
+        d($data);
         if(empty($data)){
             return $select;
         }
