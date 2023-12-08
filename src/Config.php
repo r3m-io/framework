@@ -419,7 +419,10 @@ class Config extends Data {
         $object->config('app.config.dir', $dir);
         $object->config('app.route.url', $object->config('app.config.dir') . 'Route' . $object->config('extension.json'));
         $object->config('app.secret.url', $object->config('app.config.dir') . 'Secret' . $object->config('extension.json'));
-        if($is_dir_create && $object->config('framework.environment') === Config::MODE_DEVELOPMENT){
+        if(
+            $is_dir_create &&
+            $object->config('framework.environment') === Config::MODE_DEVELOPMENT
+        ){
             $command = 'chmod 777 ' . $object->config('framework.dir.cache');
             exec($command);
         }
