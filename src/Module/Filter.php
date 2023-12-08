@@ -495,7 +495,10 @@ class Filter extends Data {
                                 if(
                                     is_scalar($record['value'])
                                 ){
-                                    if(is_array($value)){
+                                    if($record['value'] === ''){
+                                        break;
+                                    }
+                                    elseif(is_array($value)){
                                         foreach($value  as $value_key => $value_value){
                                             if(
                                                 is_string($value_value) &&
@@ -534,7 +537,10 @@ class Filter extends Data {
                                 if(
                                     is_scalar($record['value'])
                                 ){
-                                    if(is_array($value)){
+                                    if($record['value'] === ''){
+                                        break;
+                                    }
+                                    elseif(is_array($value)){
                                         foreach($value  as $value_key => $value_value){
                                             if(is_string($value_value) && is_string($record['value'])){
                                                 if(stristr($value_value, $record['value']) === false) {
@@ -569,7 +575,10 @@ class Filter extends Data {
                                 if(
                                     is_string($record['value'])
                                 ){
-                                    if(
+                                    if($record['value'] === ''){
+                                        break;
+                                    }
+                                    elseif(
                                         is_string($value) &&
                                         stristr(
                                             substr(
@@ -585,7 +594,10 @@ class Filter extends Data {
                                 }
                                 elseif(is_array($value)){
                                     foreach($value as $value_key => $value_value){
-                                        if(
+                                        if($value_value === ''){
+                                            continue;
+                                        }
+                                        elseif(
                                             is_string($value_value) &&
                                             stristr(
                                                 substr(
@@ -606,7 +618,10 @@ class Filter extends Data {
                                 if(
                                     is_string($record['value'])
                                 ){
-                                    if(
+                                    if($record['value'] === ''){
+                                        break;
+                                    }
+                                    elseif(
                                         is_string($value) &&
                                         stristr(
                                             substr(
@@ -621,7 +636,10 @@ class Filter extends Data {
                                     }
                                     elseif(is_array($value)){
                                         foreach($value as $value_key => $value_value){
-                                            if(
+                                            if($value_value === ''){
+                                                continue;
+                                            }
+                                            elseif(
                                                 is_string($value_value) &&
                                                 stristr(
                                                     substr(
@@ -643,9 +661,15 @@ class Filter extends Data {
                                 if(
                                     is_string($record['value'])
                                 ){
+                                    if($record['value'] === ''){
+                                        break;
+                                    }
                                     $length = strlen($record['value']);
                                     if(is_array($value)){
                                         foreach($value as $value_key => $value_value){
+                                            if($value_value === ''){
+                                                continue;
+                                            }
                                             $start = strlen($value_value) - $length;
                                             if(
                                                 stristr(
@@ -684,9 +708,15 @@ class Filter extends Data {
                                 if(
                                     is_string($record['value'])
                                 ){
+                                    if($record['value'] === ''){
+                                        break;
+                                    }
                                     $length = strlen($record['value']);
                                     if(is_array($value)){
                                         foreach($value as $value_key => $value_value){
+                                            if($value_value === ''){
+                                                continue;
+                                            }
                                             $start = strlen($value_value) - $length;
                                             if(
                                                 stristr(
