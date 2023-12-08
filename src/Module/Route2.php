@@ -1067,8 +1067,8 @@ class Route2 extends Data {
                 $data = Core::object_merge($route->data(), $response['list']);
                 $route = new Route($data);
                 $object->data(App::ROUTE, $route);
+                ddd($route);
             }
-
         }
 
 
