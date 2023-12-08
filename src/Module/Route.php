@@ -420,19 +420,7 @@ class Route extends Data {
                 array_pop($select->attribute);
             }
             $select->method = Handler::method();
-            $select->host = [];
-            $subdomain = Host::subdomain();
-            if($subdomain){
-                $select->host[] = $subdomain . '.' . Host::domain() . '.' . Host::extension();
-            } else {
-                $domain = Host::domain();
-                if($domain){
-                    $select->host[] = Host::domain() . '.' . Host::extension();
-                } else {
-                    $select->host[] = 'localhost';
-                }
-            }
-            $select->host = array_unique($select->host);
+            $select->host = strtolower($object->config('host.name'));
             $request = Route::route_select($object, $select);
             $route =  $object->data(App::ROUTE);
             Route::add_request($object, $request);
@@ -888,9 +876,12 @@ class Route extends Data {
         if(!property_exists($route, 'host')){
             return true;
         }
-        if(!is_array($route->host)){
+        if(!is_string($route->host)){
             return false;
         }
+        d($route);
+        ddd($select);
+
         $allowed_host = [];
         $allowed_host_wildcard = [];
         $disallowed_host = [];
