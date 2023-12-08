@@ -28,6 +28,7 @@ class Route extends Data {
     const OBJECT = 'System.Route';
     const SELECT = 'Route_select';
     const SELECT_DEFAULT = 'info';
+    const SELECT_WILDCARD = '*';
 
     private $current;
     private $url;
@@ -225,11 +226,14 @@ class Route extends Data {
         if(defined('IS_CLI')){
 
         } else {
+            $route =  $object->data(App::ROUTE);
+            $request = $route->data(Route::SELECT_WILDCARD);
+            ddd($request);
             $select = new stdClass();
             $select->method = Handler::method();
             $select->host = $object->config('host.name');
             $request = Route::selectWildcard($object, $select);
-            $route =  $object->data(App::ROUTE);
+
             return $route->current($request);
         }
         return false;
