@@ -341,8 +341,8 @@ class App extends Data {
                             $route->function .
                             ') triggered.'
                         );
-                        ddd($route);
                         $result = $route->controller::{$route->function}($object);
+                        ddd($result);
                         Event::trigger($object, 'app.run.route.controller', [
                             'route' => $route,
                             'response' => $result
