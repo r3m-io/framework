@@ -294,7 +294,7 @@ class Cache {
             //add session
             $key['session'] = $object->session();
         }
-        ddd($key);
+        d($key);
         $key = $options['ttl'] .
             $object->config('ds') .
             sha1(Core::object($key, Core::OBJECT_JSON_LINE)) .
