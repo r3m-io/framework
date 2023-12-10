@@ -92,7 +92,7 @@ class Install extends Controller {
             foreach($package->get('route') as $url_route){
                 if(File::exist($url_route)){
                     $node = new Node($object);
-                    $class = File::basename($url_route);;
+                    $class = File::basename($url_route, $object->config('extension.json'));
                     $read = $object->data_read($url_route);
                     if($read){
                         ddd($class);
@@ -164,7 +164,7 @@ class Install extends Controller {
         ){
             if(File::exist($package->get('route'))){
                 $node = new Node($object);
-                $class = File::basename($package->get('route'));
+                $class = File::basename($url_route, $object->config('extension.json'));
                 $read = $object->data_read($package->get('route'));
                 if($read){
                     foreach($read->data($class) as $import){
