@@ -164,7 +164,7 @@ class Install extends Controller {
         ){
             if(File::exist($package->get('route'))){
                 $node = new Node($object);
-                $class = File::basename($url_route, $object->config('extension.json'));
+                $class = File::basename($package->get('route'), $object->config('extension.json'));
                 $read = $object->data_read($package->get('route'));
                 if($read){
                     foreach($read->data($class) as $import){
