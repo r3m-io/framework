@@ -494,6 +494,7 @@ class Host {
                 );
             }
         }
+        d($host);
         if(
             is_array($host) &&
             array_key_exists('node', $host)
