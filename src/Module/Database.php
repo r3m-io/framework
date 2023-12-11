@@ -136,7 +136,7 @@ class Database {
         }
         d($name);
         d($environment);
-        ddd($object->config('doctrine'));
+        d($object->config('doctrine'));
         $connection = $object->config('doctrine.' . $name . '.' . $environment);
         if(!empty($connection)){
             $connection = (array) $connection;
