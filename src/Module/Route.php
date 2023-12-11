@@ -1028,7 +1028,10 @@ class Route extends Data {
                 $node->role_system(),
                 [
                     'filter' => [
-                        'host' => $host,
+                        'host' => [
+                            'value' => $host,
+                            'operator' => '==='
+                        ]
                     ],
                     'sort' => [
                         'options.priority' => 'ASC',
@@ -1044,6 +1047,7 @@ class Route extends Data {
 
                 ]
             );
+            d($response);
             foreach($response['list'] as $name => $record){
                 $record = Route::item_path($object, $record);
                 $record = Route::item_deep($object, $record);
