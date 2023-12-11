@@ -1828,7 +1828,7 @@ class Core
                         }
                         if(
                             is_array($object) &&
-                            array_key_exists($object, $property)
+                            array_key_exists($property, $object)
                         ){
                             $object = $object[$property];
                             if($need_next_change){
