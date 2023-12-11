@@ -991,6 +991,7 @@ class Route extends Data {
             $object->data(App::ROUTE, $route);
         }
         $host = strtolower($object->config('host.name'));
+        d($host);
         if(empty($host)){
             Route::framework($object);
             $node = new Node($object);
