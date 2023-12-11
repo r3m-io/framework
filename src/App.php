@@ -100,13 +100,19 @@ class App extends Data {
         Config::configure($this);
         Logger::configure($this);
         $this->logger($this->config('project.log.system'))->info('time.start', [ $this->config('time.start') ]);
-        $this->logger($this->config('project.log.system'))->info('pre.host', [ (microtime(true) - $this->config('time.start')) * 1000 ]);
+        $this->logger($this->config('project.log.system'))->info('measurement 0001', [ (microtime(true) - $this->config('time.start')) * 1000 ]);
         Host::configure($this);
+        $this->logger($this->config('project.log.system'))->info('measurement 0002', [ (microtime(true) - $this->config('time.start')) * 1000 ]);
         Domain::configure($this);
+        $this->logger($this->config('project.log.system'))->info('measurement 0003', [ (microtime(true) - $this->config('time.start')) * 1000 ]);
         Event::configure($this);
+        $this->logger($this->config('project.log.system'))->info('measurement 0004', [ (microtime(true) - $this->config('time.start')) * 1000 ]);
         Middleware::configure($this);
+        $this->logger($this->config('project.log.system'))->info('measurement 0005', [ (microtime(true) - $this->config('time.start')) * 1000 ]);
         OutputFilter::configure($this);
+        $this->logger($this->config('project.log.system'))->info('measurement 0006', [ (microtime(true) - $this->config('time.start')) * 1000 ]);
         Autoload::configure($this);
+        $this->logger($this->config('project.log.system'))->info('measurement 0007', [ (microtime(true) - $this->config('time.start')) * 1000 ]);
         Autoload::ramdisk_configure($this);
     }
 
@@ -163,18 +169,21 @@ class App extends Data {
      */
     public static function run(App $object): mixed
     {
+        $object->logger($object->config('project.log.system'))->info('measurement 0008', [ (microtime(true) - $object->config('time.start')) * 1000 ]);
         Handler::request_configure($object);
+        $object->logger($object->config('project.log.system'))->info('measurement 0009', [ (microtime(true) - $object->config('time.start')) * 1000 ]);
         App::configure($object);
-//        d((microtime(true) - $object->config('time.start')) * 1000);
-//        Route::configure($object);
+        $object->logger($object->config('project.log.system'))->info('measurement 0010', [ (microtime(true) - $object->config('time.start')) * 1000 ]);
         Route::configure($object);
-//        ddd((microtime(true) - $object->config('time.start')) * 1000);
+        $object->logger($object->config('project.log.system'))->info('measurement 0011', [ (microtime(true) - $object->config('time.start')) * 1000 ]);
         $route = false;
         $logger = $object->config('project.log.name');
         try {
             $file = FileRequest::get($object);
             if ($file === false) {
+                $object->logger($object->config('project.log.system'))->info('measurement 0012', [ (microtime(true) - $object->config('time.start')) * 1000 ]);
                 $route = Route::request($object);
+                $object->logger($object->config('project.log.system'))->info('measurement 0013', [ (microtime(true) - $object->config('time.start')) * 1000 ]);
                 if ($route === false) {
                     if ($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
                         if($logger){
