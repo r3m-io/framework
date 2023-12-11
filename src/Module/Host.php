@@ -429,7 +429,10 @@ class Host {
                             'name' => 'ASC',
                         ],
                         'filter' => [
-                            'name' => $name
+                            'name' => [
+                                'value' => $name,
+                                'operator' => '=='
+                            ]
                         ],
                         'ttl' => $ttl,
                         'ramdisk' => true
@@ -479,7 +482,7 @@ class Host {
                         'filter' => [
                             'name' => [
                                 'value' => $name,
-                                'operator' => '==='
+                                'operator' => '=='
                             ]
                         ],
                         'ttl' => $ttl,
