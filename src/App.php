@@ -99,6 +99,8 @@ class App extends Data {
         require_once __DIR__ . '/Error.php';
         Config::configure($this);
         Logger::configure($this);
+        $this->logger($this->config('project.log.system'))->info('time.start', [ $this->config('time.start') ]);
+        $this->logger($this->config('project.log.system'))->info('pre.host', [ (microtime(true) - $this->config('time.start')) * 1000 ]);
         Host::configure($this);
         Domain::configure($this);
         Event::configure($this);
