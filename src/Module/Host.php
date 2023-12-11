@@ -447,7 +447,6 @@ class Host {
                     ]
                 );
             }
-            ddd($host);
         }
         elseif(
             !empty($map) &&
@@ -498,8 +497,6 @@ class Host {
                     ]
                 );
             }
-            d($name);
-            ddd($host);
         }
         if(
             is_array($host) &&
