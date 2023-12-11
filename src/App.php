@@ -187,10 +187,6 @@ class App extends Data {
             if ($file === false) {
                 $object->logger($object->config('project.log.system'))->info('measurement 0014', [ (microtime(true) - $object->config('time.start')) * 1000 ]);
                 $route = Route::request($object);
-                d($object->request());
-                d($object->data(App::ROUTE));
-                d($object->config('host'));
-                d($route);
                 $object->logger($object->config('project.log.system'))->info('measurement 0015', [ (microtime(true) - $object->config('time.start')) * 1000 ]);
                 if ($route === false) {
                     if ($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
