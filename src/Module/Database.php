@@ -115,7 +115,7 @@ class Database {
 
 
     /**
-     * @deprecated use Database::config && Database::connect
+     * @throws Exception
      */
     public static function entityManager(App $object, $options=[]): ?EntityManager
     {
@@ -134,10 +134,7 @@ class Database {
         if(!empty($entityManager)){
             return $entityManager;
         }
-        d($name);
-        d($environment);
-        d($object->config('doctrine'));
-        $connection = $object->config('doctrine.' . $name . '.' . $environment);
+        $connection = $object->config('doctrine.environment.' . $name . '.' . $environment);
         if(!empty($connection)){
             $connection = (array) $connection;
             if(empty($connection)){
