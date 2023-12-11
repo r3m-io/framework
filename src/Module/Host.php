@@ -351,7 +351,10 @@ class Host {
                         'destination' => 'ASC'
                     ],
                     'filter' => [
-                        'source' => $name
+                        'source' => [
+                            'value' => $name,
+                            'operator' => '==='
+                        ]
                     ],
                     'ttl' => $ttl,
                     'ramdisk' => true
