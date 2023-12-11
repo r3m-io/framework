@@ -488,6 +488,7 @@ class Host {
                 );
             }
         }
+        d($map);
         d($host);
         if(
             is_array($host) &&
