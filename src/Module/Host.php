@@ -402,6 +402,7 @@ class Host {
         if(empty($name)){
             return false;
         }
+        $name = Controller::name($name);
         if(empty($map)) {
             $cache_key = Cache::key($object, [
                 'name' => Cache::name($object, [
@@ -431,7 +432,7 @@ class Host {
                         'filter' => [
                             'name' => [
                                 'value' => $name,
-                                'operator' => '=='
+                                'operator' => '==='
                             ]
                         ],
                         'ttl' => $ttl,
@@ -482,7 +483,7 @@ class Host {
                         'filter' => [
                             'name' => [
                                 'value' => $name,
-                                'operator' => '=='
+                                'operator' => '==='
                             ]
                         ],
                         'ttl' => $ttl,
