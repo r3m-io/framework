@@ -188,6 +188,7 @@ class App extends Data {
                 $object->logger($object->config('project.log.system'))->info('measurement 0014', [ (microtime(true) - $object->config('time.start')) * 1000 ]);
                 $route = Route::request($object);
                 d($object->request());
+                d($object->data(App::ROUTE));
                 d($object->config('host'));
                 ddd($route);
                 $object->logger($object->config('project.log.system'))->info('measurement 0015', [ (microtime(true) - $object->config('time.start')) * 1000 ]);
