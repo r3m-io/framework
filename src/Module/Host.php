@@ -494,6 +494,7 @@ class Host {
                     ]
                 );
             }
+            d($name);
             ddd($host);
         }
         if(
