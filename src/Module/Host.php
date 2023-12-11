@@ -454,7 +454,7 @@ class Host {
             property_exists($map, 'destination') &&
             !empty($map->destination)
         ) {
-            $name = $map->destination;
+            $name = Controller::name($map->destination);
             $cache_key = Cache::key($object, [
                 'name' => Cache::name($object, [
                     'type' => Cache::FILE,
