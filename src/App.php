@@ -190,7 +190,7 @@ class App extends Data {
                 d($object->request());
                 d($object->data(App::ROUTE));
                 d($object->config('host'));
-                ddd($route);
+                d($route);
                 $object->logger($object->config('project.log.system'))->info('measurement 0015', [ (microtime(true) - $object->config('time.start')) * 1000 ]);
                 if ($route === false) {
                     if ($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
