@@ -443,6 +443,7 @@ class Host {
                     ]
                 );
             }
+            ddd($host);
         }
         elseif(
             !empty($map) &&
@@ -493,8 +494,8 @@ class Host {
                     ]
                 );
             }
+            ddd($host);
         }
-        d($host);
         if(
             is_array($host) &&
             array_key_exists('node', $host)
