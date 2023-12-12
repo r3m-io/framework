@@ -331,13 +331,15 @@ class App extends Data {
                             'request',
                             $request
                         );
-                        $object->logger($logger)->info(
-                            'Controller (' .
-                            $route->controller .
-                            ') function (' .
-                            $route->function .
-                            ') triggered.'
-                        );
+                        if($logger){
+                            $object->logger($logger)->info(
+                                'Controller (' .
+                                $route->controller .
+                                ') function (' .
+                                $route->function .
+                                ') triggered.'
+                            );
+                        }
                         $result = $route->controller::{$route->function}($object);
                         Event::trigger($object, 'app.run.route.controller', [
                             'route' => $route,
@@ -349,13 +351,15 @@ class App extends Data {
                             'response' => $result
                         ]);
                     } else {
-                        $object->logger($logger)->error(
-                            'Controller (' .
-                            $route->controller .
-                            ') function (' .
-                            $route->function .
-                            ') does not exist.'
-                        );
+                        if($logger){
+                            $object->logger($logger)->error(
+                                'Controller (' .
+                                $route->controller .
+                                ') function (' .
+                                $route->function .
+                                ') does not exist.'
+                            );
+                        }
                         $exception = new Exception(
                             'Controller (' .
                             $route->controller .
