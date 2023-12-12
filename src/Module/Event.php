@@ -187,9 +187,13 @@ class Event extends Main {
     public static function configure(App $object): void
     {
         $event = new Event($object);
+        $role_system = $event->role_system();
+        if(!$role_system){
+            return;
+        }
         $response = $event->list(
             Event::OBJECT,
-            $event->role_system(),
+            $role_system,
             [
                 'sort' => [
                     'action' => 'ASC',
