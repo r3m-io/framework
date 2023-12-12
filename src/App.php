@@ -317,7 +317,6 @@ class App extends Data {
                         'route' => $route,
                         'methods' => $methods,
                     ]);
-                    $object->logger($object->config('project.log.system'))->info('measurement 0016', [ (microtime(true) - $object->config('time.start')) * 1000 ]);
                     if (in_array($route->function, $methods, true)) {
                         $functions[] = $route->function;
                         $object->config('controller.function', $route->function);
@@ -339,27 +338,16 @@ class App extends Data {
                             $route->function .
                             ') triggered.'
                         );
-                        $object->logger($object->config('project.log.system'))->info('measurement 0017', [ (microtime(true) - $object->config('time.start')) * 1000 ]);
                         $result = $route->controller::{$route->function}($object);
-                        $object->logger($object->config('project.log.system'))->info('measurement 0018', [ (microtime(true) - $object->config('time.start')) * 1000 ]);
                         Event::trigger($object, 'app.run.route.controller', [
                             'route' => $route,
                             'response' => $result
                         ]);
-//                        $start = microtime(true);
                         $result = OutputFilter::trigger($object, [
                             'route' => $route,
                             'methods' => $methods,
                             'response' => $result
                         ]);
-                        /*
-                        $duration = microtime(true) - $start;
-                        if($duration < 1) {
-                            echo 'Duration: ' . round($duration * 1000, 2) . ' msec ' . PHP_EOL;
-                        } else {
-                            echo 'Duration: ' . round($duration, 2) . ' sec'  . PHP_EOL;
-                        }
-                        */
                     } else {
                         $object->logger($logger)->error(
                             'Controller (' .
