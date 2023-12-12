@@ -412,8 +412,9 @@ class Config extends Data {
         if(!$role_system){
             //first install basic system
             $binary = Core::binary();
+            d($binary);
             if(!empty($binary) && $binary !== 'php'){
-                ddd($binary);
+
                 $command = Core::binary() . ' install r3m_io/node';
                 Core::execute($object, $command, $output);
                 echo $output . PHP_EOL;
