@@ -48,7 +48,8 @@ class Autoload {
      * @throws ObjectException
      * @throws Exception
      */
-    public static function configure(App $object){
+    public static function configure(App $object): void
+    {
         $autoload = new Autoload();
         $autoload->object($object);
         $prefix = $object->config('autoload.prefix');
@@ -137,9 +138,13 @@ class Autoload {
         $object->data(App::AUTOLOAD_R3M, $autoload);        
     }
 
-    public function register($method='load', $prepend=false){
+    public function register($method='load', $prepend=false): bool
+    {
         $object = $this->object();
-        $object->logger($object->config('project.log.name'))->info('Registering autoloader', [$method, $prepend]);
+        $logger = $object->config('project.log.name');
+        if($logger){
+            $object->logger($logger)->info('Registering autoloader', [$method, $prepend]);
+        }
         $functions = spl_autoload_functions();
         if(is_array($functions)){
             foreach($functions as $function){
@@ -152,11 +157,13 @@ class Autoload {
         return spl_autoload_register(array($this, $method), true, $prepend);
     }
 
-    public function unregister($method='load'){
+    public function unregister($method='load'): bool
+    {
         return spl_autoload_unregister(array($this, $method));
     }
 
-    public function priority(){
+    public function priority(): void
+    {
         $functions = spl_autoload_functions();
         foreach($functions as $nr => $function){
             $object = reset($function);
@@ -174,7 +181,8 @@ class Autoload {
         return $this->getObject();
     }
 
-    private function setObject(App $object){
+    private function setObject(App $object): void
+    {
         $this->object = $object;
     }
 
@@ -182,7 +190,8 @@ class Autoload {
         return $this->object;
     }
 
-    private function setEnvironment($environment='production'){
+    private function setEnvironment($environment='production'): void
+    {
         $this->environment = $environment;
     }
 
@@ -197,7 +206,8 @@ class Autoload {
         return $this->getEnvironment();
     }
 
-    public function addPrefix($prefix='', $directory='', $extension=''){
+    public function addPrefix($prefix='', $directory='', $extension=''): void
+    {
         $prefix = trim($prefix, '\\\/'); //.'\\';
         $directory = str_replace('\\\/', DIRECTORY_SEPARATOR, rtrim($directory,'\\\/')) . DIRECTORY_SEPARATOR; //see File::dir()
         $list = $this->getPrefixList();
@@ -245,7 +255,8 @@ class Autoload {
         $this->setPrefixList($list);
     }
 
-    public function prependPrefix($prefix='', $directory='', $extension=''){
+    public function prependPrefix($prefix='', $directory='', $extension=''): void
+    {
         $prefix = trim($prefix, '\\\/'); //.'\\';
         $directory = str_replace('\\\/', DIRECTORY_SEPARATOR, rtrim($directory,'\\\/')) . DIRECTORY_SEPARATOR; //see File::dir()
         $list = $this->getPrefixList();
@@ -297,7 +308,8 @@ class Autoload {
         $this->setPrefixList($prepend);
     }
 
-    private function setPrefixList($list = array()){
+    private function setPrefixList($list = array()): void
+    {
         $this->prefixList = $list;
     }
 
@@ -322,7 +334,8 @@ class Autoload {
     /**
      * @throws Exception
      */
-    public static function name_reducer(App $object, $name='', $length=100, $separator='_', $pop_or_shift='pop'){
+    public static function name_reducer(App $object, $name='', $length=100, $separator='_', $pop_or_shift='pop'): string
+    {
         $name_length = strlen($name);
         if($name_length >= $length){
             $explode = explode($separator, $name);
@@ -684,7 +697,8 @@ class Autoload {
         return $this->cache_dir;
     }
 
-    private function cache($file='', $class=''){
+    private function cache($file='', $class=''): void
+    {
         if(empty($this->read)){
             $dir = $this->cache_dir();
             $url = $dir . Autoload::FILE;
@@ -700,7 +714,8 @@ class Autoload {
         $this->read->autoload->{$caller}->{$class} = (string) $file;
     }
 
-    protected function write($url='', $data=''){
+    protected function write($url='', $data=''): mixed
+    {
         if(posix_geteuid() === 0){
             return false;
         }
@@ -741,7 +756,8 @@ class Autoload {
         }
     }
 
-    private function read($url=''){
+    private function read($url=''): object
+    {
         if(file_exists($url) === false){
             $this->read = new stdClass();
             return $this->read;
@@ -753,7 +769,8 @@ class Autoload {
         return $this->read;
     }
 
-    private function removeExtension($filename='', $extension=array()){
+    private function removeExtension($filename='', $extension=array()): string
+    {
         foreach($extension as $ext){
             $ext = '.' . ltrim($ext, '.');
             $filename = explode($ext, $filename, 2);
@@ -765,7 +782,7 @@ class Autoload {
         return $filename;
     }
 
-    public function expose($expose=null)
+    public function expose($expose=null): bool
     {
         if(!empty($expose) || $expose === false){
             $this->expose = (bool) $expose;
@@ -869,7 +886,8 @@ class Autoload {
         return $is_exclude;
     }
 
-    public static function ramdisk_configure(App $object){
+    public static function ramdisk_configure(App $object): void
+    {
         $function ='ramdisk_load';
         spl_autoload_register(array($object, $function), true, true);
     }
