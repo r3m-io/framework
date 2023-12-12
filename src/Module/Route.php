@@ -1031,7 +1031,8 @@ class Route extends Data {
                 $route->data(Core::object_merge($route->data(), $response['list']));
             }
             $object->data(App::ROUTE, $route);
-        } else {
+        }
+        elseif(!empty($host)) {
             $node = new Node($object);
             $response = $node->list(
                 Route::OBJECT,
