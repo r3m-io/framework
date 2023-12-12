@@ -2567,6 +2567,7 @@ class Core
                 return true;
             }
         }
+        d($domain);
         return false;
     }
 
