@@ -2554,6 +2554,9 @@ class Core
 
     public static function is_cli()
     {
+        if(defined('IS_CLI')){
+            return true;
+        }
         $domain = null;
         if (isset($_SERVER['HTTP_HOST'])) {
             $domain = $_SERVER['HTTP_HOST'];
