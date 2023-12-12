@@ -782,7 +782,7 @@ class Autoload {
         return $filename;
     }
 
-    public function expose($expose=null): bool
+    public function expose($expose=null): ?bool
     {
         if(!empty($expose) || $expose === false){
             $this->expose = (bool) $expose;
