@@ -408,7 +408,12 @@ class Config extends Data {
             'ramdisk' => true,
             'ramdisk_dir' => $object->config('framework.dir.cache') . $object->config('posix.id') . $object->config('ds'),
         ];
-        $response = $node->record($class, $node->role_system(), $options);
+        $role_system = $node->role_system();
+        $response = false;
+        if(!$role_system){
+            ddd('create basic role system (first time)');
+        }
+        $response = $node->record($class, $role_system, $options);
         if(
             $response &&
             array_key_exists('node', $response)
