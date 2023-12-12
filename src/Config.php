@@ -409,9 +409,9 @@ class Config extends Data {
             'ramdisk_dir' => $object->config('framework.dir.cache') . $object->config('posix.id') . $object->config('ds'),
         ];
         $role_system = $node->role_system();
-        $response = false;
         if(!$role_system){
-            ddd('create basic role system (first time)');
+            //first install it
+            return;
         }
         $response = $node->record($class, $role_system, $options);
         if(
@@ -431,23 +431,6 @@ class Config extends Data {
             $command = 'chmod 777 ' . $object->config('framework.dir.cache');
             exec($command);
         }
-        /*
-
-        if($config->data('project.volume.dir.data')){
-            $url = $config->data('project.volume.dir.data') . 'App' . $config->data('ds') . Config::CONFIG;
-        } else {
-            $url = $config->data(Config::DATA_PROJECT_DIR_DATA) . 'App' . $config->data('ds') . Config::CONFIG;
-        }
-        if(File::exist($url)){
-            $config->data('app.config.url', $url);
-            $config->data('app.config.dir', Dir::name($url));
-            $config->data('app.route.url', $config->data('app.config.dir') . 'Route' . $config->data('extension.json'));
-            $config->data('app.secret.url', $config->data('app.config.dir') . 'Secret' . $config->data('extension.json'));
-            $read = Core::object(File::read($url));
-            $config->data(Core::object_merge($config->data(), $read));
-        }
-        ddd((microtime(true) - $object->config('time.start')) * 1000);
-        */
     }
 
     /**
