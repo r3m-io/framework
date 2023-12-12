@@ -660,6 +660,10 @@ class App extends Data {
             $name = $this->config('project.log.name');
         }
         if(empty($name)){
+            $debug = debug_backtrace(true);
+            d($debug[0]['file'] . ' ' . $debug[0]['line']);
+            d($debug[1]['file'] . ' ' . $debug[1]['line']);
+            d($debug[2]['file'] . ' ' . $debug[2]['line']);
             throw new Exception('PLease configure project.log.name or provide a name');
         }
         $name = ucfirst($name);
