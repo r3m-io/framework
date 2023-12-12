@@ -70,8 +70,11 @@ class Core
 
     public static function binary(): string|null
     {
+        if(array_key_exists('SCRIPT_NAME', $_SERVER)) {
+            return $_SERVER['SCRIPT_NAME'];
+        }
+        //looks working with debian 11, not anymore with debian 12
         if (array_key_exists('_', $_SERVER)) {
-            d($_SERVER);
             $dirname = Dir::name($_SERVER['_']);
             return str_replace($dirname, '', $_SERVER['_']);
         }
