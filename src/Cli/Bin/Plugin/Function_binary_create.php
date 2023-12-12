@@ -39,7 +39,7 @@ function function_binary_create(Parse $parse, Data $data, $name=null){
     File::copy($source, $execute);
     $url = \R3m\Io\Cli\Bin\Controller\Bin::TARGET . $name;
     $content = [];
-    $content[] = '#!/bin/sh';
+    $content[] = '#!/bin/bash';
     # added $name as this was a bug in updating the cms
     $content[] = '_=' . $name . ' php ' . $execute . ' "$@"';
     $content = implode(PHP_EOL, $content);
