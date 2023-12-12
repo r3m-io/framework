@@ -411,9 +411,9 @@ class Config extends Data {
         $role_system = $node->role_system();
         if(!$role_system){
             //first install basic system
-            $command = 'php ' . Core::binary() . ' install r3m_io/node';
-            Core::execute($object, $command, $output);
-            echo $output . PHP_EOL;
+//            $command = 'php ' . Core::binary() . ' install r3m_io/node';
+//            Core::execute($object, $command, $output);
+//            echo $output . PHP_EOL;
             return;
         }
         $response = $node->record($class, $role_system, $options);
