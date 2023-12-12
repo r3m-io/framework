@@ -28,11 +28,11 @@
                 "zip"
             ]
         },
-        "major": 0,
-        "minor": 52,
-        "patch": 1003,
-        "version": "0.52.1003",
-        "built": "2023-01-03 21:49:00"
+        "major": 2024,
+        "minor": 1,
+        "patch": 5800,
+        "version": "2024.1.5800",
+        "built": "2023-12-12 17:40:12"
     },
     "contentType": {
         "btree":"text\/plain",
