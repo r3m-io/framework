@@ -37,6 +37,8 @@ function function_binary_create(Parse $parse, Data $data, $name=null){
         File::delete($execute);
     }    
     File::copy($source, $execute);
+    $_ = $object->config(Config::DATA_PROJECT_DIR_BINARY) . \R3m\Io\Cli\Bin\Controller\Bin::BINARY;
+    File::write($_, $name);
     $url = \R3m\Io\Cli\Bin\Controller\Bin::TARGET . $name;
     $content = [];
     $content[] = '#!/bin/bash';

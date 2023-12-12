@@ -28,6 +28,7 @@ class Bin extends Controller {
     const DEFAULT_NAME = 'r3m.io';
     const TARGET = '/usr/bin/';
     const EXE = 'R3m.php';
+    const BINARY = 'Binary';
 
     const INFO = '{{binary()}} bin                            | Creates binary';
 
