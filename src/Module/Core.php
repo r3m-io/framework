@@ -71,7 +71,7 @@ class Core
     public static function binary(): string|null
     {
         if (array_key_exists('_', $_SERVER)) {
-            d($_SERVER['_']);
+            d($_SERVER);
             $dirname = Dir::name($_SERVER['_']);
             return str_replace($dirname, '', $_SERVER['_']);
         }
