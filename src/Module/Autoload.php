@@ -80,7 +80,7 @@ class Autoload {
         }
         if(
             empty($object->config('ramdisk.is.disabled')) &&
-            $object->config('ramdisk.url')
+            !empty($object->config('ramdisk.url'))
         ){
             $cache_dir = $object->config('ramdisk.url') .
                 $object->config(Config::POSIX_ID) .
