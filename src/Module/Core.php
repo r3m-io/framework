@@ -68,8 +68,11 @@ class Core
     const FILE = 'file';
     const PROMPT = 'prompt';
 
-    public static function binary(): string|null
+    public static function binary(App $object): string|null
     {
+        $url_binary = $object->config(Config::DATA_PROJECT_DIR_BINARY) . \R3m\Io\Cli\Bin\Controller\Bin::BINARY;
+
+        ddd($url_binary);
         if(array_key_exists('SCRIPT_NAME', $_SERVER)) {
             return $_SERVER['SCRIPT_NAME'];
         }
