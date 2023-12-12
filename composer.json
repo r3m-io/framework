@@ -16,11 +16,15 @@
 		"ext-pcntl": "*",
 		"ext-zip": "*",
 		"ext-shmop": "*",
+		"r3m_io/autoload": "*",
 		"r3m_io/event": "*",
+		"r3m_io/config": "*",
+		"r3m_io/host": "*",
 		"r3m_io/middleware": "*",
-		"r3m_io/output.filter": "*",
 		"r3m_io/node": "*",
+		"r3m_io/output.filter": "*",
 		"r3m_io/log": "*",
+		"r3m_io/server": "*",
 		"monolog/monolog" : "^2.2",
 		"defuse/php-encryption": "^2.3"
     },
@@ -34,5 +38,6 @@
 		"psr-4" : {
 			"R3m\\Io\\" : "src/"
 		}
-	}
+	},
+	"minimum-stability": "dev"
 }
