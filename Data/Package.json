@@ -310,7 +310,7 @@
         ]
       }
     },
-    "r3m_io/middlware" : {
+    "r3m_io/middleware" : {
       "composer" : "composer require {{$this.#key}}:dev-main",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json}}"
@@ -342,7 +342,7 @@
         ]
       }
     },
-    "r3m_io/output.filter" : {
+    "r3m_io/output_filter" : {
       "composer" : "composer require {{$this.#key}}:dev-main",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json}}"
