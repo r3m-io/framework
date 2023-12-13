@@ -461,16 +461,22 @@ class Autoload {
         $prefixList = $this->getPrefixList();
         $fileList = [];
         $object = $this->object();
-        ddd($object->config());
-//        $dir_temp = $object->config('')
         if($object->config('ramdisk.url')){
             $dir_temp = $object->config('ramdisk.url') .
                 $object->config('posix.id') .
                 $object->config('ds') .
                 'Autoload' .
-                $object->config('ds');
-            Dir::create($dir_temp, DIR::CHMOD);
+                $object->config('ds')
+            ;
+        } else {
+            $dir_temp = $object->config('framework.dir.temp') .
+                $object->config('posix.id') .
+                $object->config('ds') .
+                'Autoload' .
+                $object->config('ds')
+            ;
         }
+        Dir::create($dir_temp, DIR::CHMOD);
         if(!empty($prefixList)){
             foreach($prefixList as $nr => $item){
                 if(empty($item['prefix'])){
