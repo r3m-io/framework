@@ -22,7 +22,7 @@
 		"r3m_io/host": "*",
 		"r3m_io/middleware": "*",
 		"r3m_io/node": "*",
-		"r3m_io/output.filter": "*",
+		"r3m_io/output_filter": "*",
 		"r3m_io/log": "*",
 		"r3m_io/route": "*",
 		"r3m_io/server": "*",
