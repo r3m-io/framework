@@ -76,8 +76,8 @@ class Core
     public static function binary(App $object): string|null
     {
         $url_binary = $object->config(Config::DATA_PROJECT_DIR_BINARY) . \R3m\Io\Cli\Bin\Controller\Bin::BINARY;
-
-        ddd($url_binary);
+        $read = File::read($url_binary);
+        ddd($read);
         return null;
     }
 
