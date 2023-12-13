@@ -246,6 +246,134 @@
         ]
       }
     },
+    "r3m_io/route" : {
+      "composer" : "composer require {{$this.#key}}:dev-main",
+      "route" : [
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json}}"
+      ],
+      "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
+      "copy" : [
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Package/",
+          "to" : "{{config('project.dir.package')}}{{package.dir($this.#parentNode.#key)}}",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Data/Node/",
+          "to" : "{{config('project.dir.data')}}Node/",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Event/",
+          "to" : "{{config('project.dir.event')}}",
+          "recursive": true
+        }
+      ],
+      "command" : [
+        "{{binary()}} {{$this.#key}} setup"
+      ],
+      "update" : {
+        "command" : [
+          "{{binary()}} {{$this.#parentNode.#key}} update"
+        ]
+      }
+    },
+    "r3m_io/autoload" : {
+      "composer" : "composer require {{$this.#key}}:dev-main",
+      "route" : [
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json}}"
+      ],
+      "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
+      "copy" : [
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Package/",
+          "to" : "{{config('project.dir.package')}}{{package.dir($this.#parentNode.#key)}}",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Data/Node/",
+          "to" : "{{config('project.dir.data')}}Node/",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Event/",
+          "to" : "{{config('project.dir.event')}}",
+          "recursive": true
+        }
+      ],
+      "command" : [
+        "{{binary()}} {{$this.#key}} setup"
+      ],
+      "update" : {
+        "command" : [
+          "{{binary()}} {{$this.#parentNode.#key}} update"
+        ]
+      }
+    },
+    "r3m_io/middlware" : {
+      "composer" : "composer require {{$this.#key}}:dev-main",
+      "route" : [
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json}}"
+      ],
+      "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
+      "copy" : [
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Package/",
+          "to" : "{{config('project.dir.package')}}{{package.dir($this.#parentNode.#key)}}",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Data/Node/",
+          "to" : "{{config('project.dir.data')}}Node/",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Event/",
+          "to" : "{{config('project.dir.event')}}",
+          "recursive": true
+        }
+      ],
+      "command" : [
+        "{{binary()}} {{$this.#key}} setup"
+      ],
+      "update" : {
+        "command" : [
+          "{{binary()}} {{$this.#parentNode.#key}} update"
+        ]
+      }
+    },
+    "r3m_io/output.filter" : {
+      "composer" : "composer require {{$this.#key}}:dev-main",
+      "route" : [
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json}}"
+      ],
+      "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
+      "copy" : [
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Package/",
+          "to" : "{{config('project.dir.package')}}{{package.dir($this.#parentNode.#key)}}",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Data/Node/",
+          "to" : "{{config('project.dir.data')}}Node/",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Event/",
+          "to" : "{{config('project.dir.event')}}",
+          "recursive": true
+        }
+      ],
+      "command" : [
+        "{{binary()}} {{$this.#key}} setup"
+      ],
+      "update" : {
+        "command" : [
+          "{{binary()}} {{$this.#parentNode.#key}} update"
+        ]
+      }
+    },
     "r3m_io/priya" : {
         "composer" : "composer require {{$this.#key}}:*",
         "route" : [
