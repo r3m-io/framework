@@ -414,6 +414,7 @@ class Config extends Data {
             $binary = Core::binary($object);
             if($binary){
                 $command =  $binary . ' install r3m_io/node';
+                echo $command . PHP_EOL;
                 Core::execute($object, $command, $output);
                 echo $output . PHP_EOL;
             }
