@@ -32,7 +32,6 @@ use R3m\Io\Module\OutputFilter;
 use R3m\Io\Module\Parse;
 use R3m\Io\Module\Response;
 use R3m\Io\Module\Route;
-use R3m\Io\Module\Route2;
 use R3m\Io\Module\Server;
 
 use Psr\Log\LoggerInterface;
@@ -1059,6 +1058,7 @@ class App extends Data {
     /**
      * @throws ObjectException
      * @throws FileWriteException
+     * @throws Exception
      */
     public function parse_select($url, $select=null, $scope='scope:object'): Data
     {
@@ -1066,7 +1066,10 @@ class App extends Data {
         $data = new Data();
         $data->data($this->data());
         $node = new Data();
-        $this->logger($this->config('project.log.name'))->info(' parse_select: ' . $url, [$select ,$scope]);
+        $logger = $this->config('project.log.name');
+        if($logger){
+            $this->logger($logger)->info(' parse_select: ' . $url, [$select ,$scope]);
+        }
         $node->data(
             Core::object_select(
                 $parse,
