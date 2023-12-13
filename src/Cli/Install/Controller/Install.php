@@ -92,7 +92,10 @@ class Install extends Controller {
             $node->role_system_create('r3m_io/route');
             $node->role_system_create('r3m_io/config');
             $node->role_system_create('r3m_io/event');
-            ddd('end');
+            $node->role_system_create('r3m_io/autoload');
+        }
+        if($package->has('installation')){
+            ddd($package);
         }
         if(
             $package->has('route') &&
@@ -408,6 +411,12 @@ class Install extends Controller {
                 }
             }
         }
+        /*
+        if(
+            $package->has('inst') &&
+            is_array($package->get('copy'))
+        ){
+        */
         $command = '{{binary()}} cache:clear';
         $parse = new Parse($object, $object->data());
         $command = $parse->compile($command, $object->data());
