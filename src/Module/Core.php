@@ -15,7 +15,9 @@ use ReflectionObject;
 use ReflectionProperty;
 
 use Defuse\Crypto\Key;
+
 use R3m\Io\App;
+use R3m\Io\Config;
 
 use Defuse\Crypto\Exception\BadFormatException;
 use Defuse\Crypto\Exception\EnvironmentIsBrokenException;
@@ -68,19 +70,14 @@ class Core
     const FILE = 'file';
     const PROMPT = 'prompt';
 
+    /**
+     * @throws Exception
+     */
     public static function binary(App $object): string|null
     {
         $url_binary = $object->config(Config::DATA_PROJECT_DIR_BINARY) . \R3m\Io\Cli\Bin\Controller\Bin::BINARY;
 
         ddd($url_binary);
-        if(array_key_exists('SCRIPT_NAME', $_SERVER)) {
-            return $_SERVER['SCRIPT_NAME'];
-        }
-        //looks working with debian 11, not anymore with debian 12
-        if (array_key_exists('_', $_SERVER)) {
-            $dirname = Dir::name($_SERVER['_']);
-            return str_replace($dirname, '', $_SERVER['_']);
-        }
         return null;
     }
 
