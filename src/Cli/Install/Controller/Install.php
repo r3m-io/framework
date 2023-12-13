@@ -85,13 +85,18 @@ class Install extends Controller {
                 echo $notification;
             }
         }
+        $node = new Node($object);
+        $role_system = $node->role_system();
+        if(empty($role_system)){
+            ddd('found');
+            //install role system...
+        }
         if(
             $package->has('route') &&
             is_array($package->get('route'))
         ){
             foreach($package->get('route') as $url_route){
                 if(File::exist($url_route)){
-                    $node = new Node($object);
                     $class = Controller::name(File::basename($url_route, $object->config('extension.json')));
                     $read = $object->data_read($url_route);
                     if($read){
