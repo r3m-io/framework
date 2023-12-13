@@ -461,6 +461,8 @@ class Autoload {
         $prefixList = $this->getPrefixList();
         $fileList = [];
         $object = $this->object();
+        ddd($object->config());
+//        $dir_temp = $object->config('')
         if($object->config('ramdisk.url')){
             $dir_temp = $object->config('ramdisk.url') .
                 $object->config('posix.id') .
