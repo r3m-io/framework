@@ -88,8 +88,9 @@ class Install extends Controller {
         $node = new Node($object);
         $role_system = $node->role_system();
         if(empty($role_system)){
-            ddd('found');
             //install role system...
+            $node->role_system_create();
+            ddd('end');
         }
         if(
             $package->has('route') &&
