@@ -91,6 +91,7 @@ class Install extends Controller {
             //install role system...
             $node->role_system_create('r3m_io/route');
             $node->role_system_create('r3m_io/config');
+            $node->role_system_create('r3m_io/event');
             ddd('end');
         }
         if(
