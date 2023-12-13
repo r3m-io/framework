@@ -75,9 +75,11 @@ class Core
      */
     public static function binary(App $object): string|null
     {
-        $url_binary = $object->config(Config::DATA_PROJECT_DIR_BINARY) . \R3m\Io\Cli\Bin\Controller\Bin::BINARY;
-        $read = File::read($url_binary);
-        ddd($read);
+        $url = $object->config(Config::DATA_PROJECT_DIR_BINARY) . \R3m\Io\Cli\Bin\Controller\Bin::BINARY;
+        if(File::exist($url)){
+            $read = trim(File::read($url));
+            return $read;
+        }
         return null;
     }
 
