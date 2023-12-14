@@ -560,7 +560,6 @@ class App extends Data {
      */
     public static function exception_to_cli(App $object, Exception $exception): string
     {
-        ddd($object->config());
         $class = get_class($exception);
         $width = Cli::tput('width');
         $background = '200;0;0';
