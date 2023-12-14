@@ -505,6 +505,7 @@ class Install extends Controller {
             is_array($package->get('command'))
         ){
             foreach($package->get('command') as $command){
+                echo $command . PHP_EOL;
                 Core::execute($object, $command, $output, $notification);
                 if($output){
                     echo $output;
@@ -518,6 +519,7 @@ class Install extends Controller {
             $package->has('command') &&
             is_string($package->get('command'))
         ){
+            echo $package->get('command') . PHP_EOL;
             Core::execute($object, $package->get('command'), $output, $notification);
             if($output){
                 echo $output;
