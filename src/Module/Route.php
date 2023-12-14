@@ -1034,6 +1034,7 @@ class Route extends Data {
                         $response['list'][$name] = $record;
                     }
                 }
+                d($response['list']);
                 $route->data(Core::object_merge($route->data(), $response['list']));
             }
             ddd($route);
