@@ -373,10 +373,13 @@ class Controller {
             }
         }
         if(empty($url)){
-            if($config->data(Config::DATA_FRAMEWORK_ENVIRONMENT) === Config::MODE_DEVELOPMENT){
+            if
+            (empty($config->data(Config::DATA_FRAMEWORK_ENVIRONMENT)) ||
+                $config->data(Config::DATA_FRAMEWORK_ENVIRONMENT) === Config::MODE_DEVELOPMENT
+            ){
                 throw new LocateException('Cannot find view file', $list);
             } else {
-                throw new LocateException('Cannot find view file', $list);
+                throw new LocateException('Cannot find view file');
             }
         }
         return $url;
