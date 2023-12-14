@@ -142,7 +142,7 @@ class Event extends Main {
                         is_array($event->options->command)
                     ){
                         foreach($event->options->command as $command){
-                            $command = str_replace('{{binary()}}', Core::binary(), $command);
+                            $command = str_replace('{{binary()}}', Core::binary($object), $command);
                             Core::execute($object, $command, $output, $notification);
                         }
                     }

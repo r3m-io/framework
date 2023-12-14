@@ -84,6 +84,7 @@ class Data extends Controller {
 
     /**
      * @throws ObjectException
+     * @throws Exception
      */
     public static function restore(App $object): void
     {
@@ -161,7 +162,7 @@ class Data extends Controller {
                                     $object->config('ds')
                                 ;
                                 Dir::create($dir_data, Dir::CHMOD);
-                                $command = Core::binary() . ' zip extract ' . $file->url . ' /';
+                                $command = Core::binary($object) . ' zip extract ' . $file->url . ' /';
 
                                 echo $command . PHP_EOL;
                                 exec($command);
@@ -195,7 +196,7 @@ class Data extends Controller {
                                 ) &&
                                 $file->extension === 'zip'
                             ){
-                                $command = Core::binary() . ' zip extract ' . $file->url . ' /';
+                                $command = Core::binary($object) . ' zip extract ' . $file->url . ' /';
                                 $dir_data = $object->config('project.dir.data') .
                                     File::basename($file->name, $object->config('extension.zip')) .
                                     $object->config('ds')
@@ -231,7 +232,7 @@ class Data extends Controller {
                                 continue;
                             }
                             if($file->extension === 'zip'){
-                                $command = Core::binary() . ' zip extract ' . $file->url . ' /';
+                                $command = Core::binary($object) . ' zip extract ' . $file->url . ' /';
                                 $dir_data = $object->config('project.dir.data') .
                                     File::basename($file->name, $object->config('extension.zip')) .
                                     $object->config('ds')
@@ -274,7 +275,7 @@ class Data extends Controller {
                                 ) &&
                                 $file->extension === 'zip'
                             ){
-                                $command = Core::binary() . ' zip extract ' . $file->url . ' /';
+                                $command = Core::binary($object) . ' zip extract ' . $file->url . ' /';
                                 $dir_data = $object->config('project.dir.data') .
                                     File::basename($file->name, $object->config('extension.zip')) .
                                     $object->config('ds')
@@ -373,7 +374,7 @@ class Data extends Controller {
                             $object->config('extension.zip')
                         ;
                         Dir::create($destination_dir, Dir::CHMOD);
-                        $command = Core::binary() . ' zip archive ' . $file->url . ' ' . $destination_url;
+                        $command = Core::binary($object) . ' zip archive ' . $file->url . ' ' . $destination_url;
                         exec($command);
                         if($object->config(Config::POSIX_ID) === 0) {
                             $command = 'chown www-data:www-data ' . $destination_url;
@@ -399,7 +400,7 @@ class Data extends Controller {
                             $object->config('extension.zip')
                         ;
                         Dir::create($destination_dir, Dir::CHMOD);
-                        $command = Core::binary() . ' zip archive ' . $file->url . ' ' . $destination_url;
+                        $command = Core::binary($object) . ' zip archive ' . $file->url . ' ' . $destination_url;
                         exec($command);
                         if($object->config(Config::POSIX_ID) === 0) {
                             $command = 'chown www-data:www-data ' . $destination_url;
@@ -430,7 +431,7 @@ class Data extends Controller {
                                 $object->config('extension.zip')
                             ;
                             Dir::create($destination_dir, Dir::CHMOD);
-                            $command = Core::binary() . ' zip archive ' . $file->url . ' ' . $destination_url;
+                            $command = Core::binary($object) . ' zip archive ' . $file->url . ' ' . $destination_url;
                             exec($command);
                             if($object->config(Config::POSIX_ID) === 0) {
                                 $command = 'chown www-data:www-data ' . $destination_url;
@@ -450,7 +451,7 @@ class Data extends Controller {
                             $object->config('extension.zip')
                         ;
                         Dir::create($destination_dir, Dir::CHMOD);
-                        $command = Core::binary() . ' zip archive ' . $file->url . ' ' . $destination_url;
+                        $command = Core::binary($object) . ' zip archive ' . $file->url . ' ' . $destination_url;
                         exec($command);
                         if($object->config(Config::POSIX_ID) === 0) {
                             $command = 'chown www-data:www-data ' . $destination_url;

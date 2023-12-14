@@ -83,15 +83,15 @@ function function_host_setup(Parse $parse, Data $data, $host='', $public_html=''
         ]);
         throw $exception;
     }
-    Core::execute($object, Core::binary() . ' configure server admin ' . $email);
-    Core::execute($object, Core::binary() . ' configure site create ' . $host . ' ' . $public_html);
+    Core::execute($object, Core::binary($object) . ' configure server admin ' . $email);
+    Core::execute($object, Core::binary($object) . ' configure site create ' . $host . ' ' . $public_html);
     if(empty($id)) {
-        Core::execute($object, Core::binary() . ' configure host add ' . $ip . ' ' . $host);
+        Core::execute($object, Core::binary($object) . ' configure host add ' . $ip . ' ' . $host);
     }
-    Core::execute($object, Core::binary() . ' configure public create ' . $public_html);
-    Core::execute($object, Core::binary() . ' configure domain add ' . $host);
+    Core::execute($object, Core::binary($object) . ' configure public create ' . $public_html);
+    Core::execute($object, Core::binary($object) . ' configure domain add ' . $host);
     if(empty($id)){
-        Core::execute($object, Core::binary() . ' configure site enable ' . $host);
+        Core::execute($object, Core::binary($object) . ' configure site enable ' . $host);
         Core::execute($object, 'a2enmod rewrite');
         Core::execute($object, 'service apache2 restart');
     }

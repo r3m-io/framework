@@ -499,6 +499,8 @@ class Install extends Controller {
         if($output){
             echo $output;
         }
+        // add to installation, but cannot do it here, node isn't yet installed
+//        $command = '{{binary()}} r3m_io/node create -class=System.Installation -name=' . $key . ' -ctime=' . time() . ' -mtime=' . time();
         echo 'Press ctrl-c to stop the installation...' . PHP_EOL;
         if(
             $package->has('command') &&
