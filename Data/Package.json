@@ -290,7 +290,7 @@
         },
         {
           "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Node/",
-          "to" : "{{config('project.dir.Node')}}",
+          "to" : "{{config('project.dir.node')}}",
           "recursive": true
         },
         {

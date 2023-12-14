@@ -104,7 +104,9 @@ class Install extends Controller {
                     property_exists($copy, 'from') &&
                     property_exists($copy, 'to') &&
                     property_exists($copy, 'recursive') &&
-                    $copy->recursive === true
+                    $copy->recursive === true &&
+                    !empty($copy->from) &&
+                    !empty($copy->to)
                 ){
 //                    $parse = new Parse($object, $object->data());
 //                    $copy->to = $parse->compile($copy->to, $object->data());
