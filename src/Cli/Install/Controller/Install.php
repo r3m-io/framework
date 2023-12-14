@@ -94,6 +94,178 @@ class Install extends Controller {
             $node->role_system_create('r3m_io/event');
             $node->role_system_create('r3m_io/autoload');
         }
+        if(
+            $package->has('copy') &&
+            is_array($package->get('copy'))
+        ){
+            foreach($package->get('copy') as $copy){
+                if(
+                    property_exists($copy, 'from') &&
+                    property_exists($copy, 'to') &&
+                    property_exists($copy, 'recursive') &&
+                    $copy->recursive === true
+                ){
+//                    $parse = new Parse($object, $object->data());
+//                    $copy->to = $parse->compile($copy->to, $object->data());
+                    if(File::exist($copy->from)){
+                        if(Dir::is($copy->from)){
+                            Dir::create($copy->to, Dir::CHMOD);
+                            if($object->config(Config::POSIX_ID) === 0){
+                                $command = 'chown www-data:www-data ' . $copy->to;
+                                exec($command);
+                                if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
+                                    $command = 'chmod 777 ' . $copy->to;
+                                    exec($command);
+                                }
+                                $counter = 0;
+                                if(substr($copy->to,0, 13) === '/Application/'){
+                                    $dir = Dir::name($copy->to);
+                                    $command = 'chown www-data:www-data ' . $dir;
+                                    exec($command);
+                                    if($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
+                                        $command = 'chmod 777 ' . $dir;
+                                        exec($command);
+                                    }
+                                    while($dir !== '/Application/'){
+                                        $dir = Dir::name($dir);
+                                        $command = 'chown www-data:www-data ' . $dir;
+                                        exec($command);
+                                        if($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
+                                            $command = 'chmod 777 ' . $dir;
+                                            exec($command);
+                                        }
+                                        $counter++;
+                                        if($counter > 255){
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            $dir = new Dir();
+                            $read = $dir->read($copy->from, true);
+                            if(is_array($read)){
+                                foreach($read as $file){
+                                    if($file->type === Dir::TYPE){
+                                        $create = str_replace($copy->from, $copy->to, $file->url);
+                                        Dir::create($create, Dir::CHMOD);
+                                        if($object->config(Config::POSIX_ID) === 0){
+                                            $command = 'chown www-data:www-data ' . $create;
+                                            exec($command);
+                                        }
+                                        if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
+                                            $command = 'chmod 777 ' . $create;
+                                            exec($command);
+                                        }
+                                    }
+                                }
+                                foreach($read as $file){
+                                    if($file->type === File::TYPE){
+                                        $to = str_replace($copy->from, $copy->to, $file->url);
+                                        if(
+                                            !File::exist($to) ||
+                                            property_exists($options, 'force')
+                                        ){
+                                            if(property_exists($options, 'force')){
+                                                File::delete($to);
+                                            }
+                                            File::copy($file->url, $to);
+                                            if($object->config(Config::POSIX_ID) === 0){
+                                                $command = 'chown www-data:www-data ' . $to;
+                                                exec($command);
+                                            }
+                                            if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
+                                                $command = 'chmod 666 ' . $to;
+                                                exec($command);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                elseif(
+                    property_exists($copy, 'from') &&
+                    property_exists($copy, 'to')
+                ){
+//                    $parse = new Parse($object, $object->data());
+//                    $copy->to = $parse->compile($copy->to, $object->data());
+                    if(File::exist($copy->from)){
+                        if(Dir::is($copy->from)){
+                            Dir::create($copy->to, Dir::CHMOD);
+                            if($object->config(Config::POSIX_ID) === 0){
+                                $command = 'chown www-data:www-data ' . $copy->to;
+                                exec($command);
+                                if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
+                                    $command = 'chmod 777 ' . $copy->to;
+                                    exec($command);
+                                }
+                                $counter = 0;
+                                if(substr($copy->to,0, 13) === '/Application/'){
+                                    $dir = Dir::name($copy->to);
+                                    $command = 'chown www-data:www-data ' . $dir;
+                                    exec($command);
+                                    if($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
+                                        $command = 'chmod 777 ' . $dir;
+                                        exec($command);
+                                    }
+                                    while($dir !== '/Application/'){
+                                        $dir = Dir::name($dir);
+                                        $command = 'chown www-data:www-data ' . $dir;
+                                        exec($command);
+                                        if($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
+                                            $command = 'chmod 777 ' . $dir;
+                                            exec($command);
+                                        }
+                                        $counter++;
+                                        if($counter > 255){
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            $dir = new Dir();
+                            $read = $dir->read($copy->from, true);
+                            foreach($read as $file){
+                                if($file->type === Dir::TYPE){
+                                    Dir::create($file->url, Dir::CHMOD);
+                                    if($object->config(Config::POSIX_ID) === 0){
+                                        $command = 'chown www-data:www-data ' . $create;
+                                        exec($command);
+                                    }
+                                    if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
+                                        $command = 'chmod 777 ' . $create;
+                                        exec($command);
+                                    }
+                                }
+                            }
+                            foreach($read as $file){
+                                if($file->type === File::TYPE){
+                                    $to = str_replace($copy->from, $copy->to, $file->url);
+                                    if(
+                                        !File::exist($to) ||
+                                        property_exists($options, 'force')
+                                    ){
+                                        if(property_exists($options, 'force')){
+                                            File::delete($to);
+                                        }
+                                        File::copy($file->url, $to);
+                                        if($object->config(Config::POSIX_ID) === 0){
+                                            $command = 'chown www-data:www-data ' . $to;
+                                            exec($command);
+                                        }
+                                        if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
+                                            $command = 'chmod 666 ' . $to;
+                                            exec($command);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
         /*
         if(
             $package->has('import') &&
@@ -311,178 +483,6 @@ class Install extends Controller {
                                 $import,
                                 []
                             );
-                        }
-                    }
-                }
-            }
-        }
-        if(
-            $package->has('copy') &&
-            is_array($package->get('copy'))
-        ){
-            foreach($package->get('copy') as $copy){
-                if(
-                    property_exists($copy, 'from') &&
-                    property_exists($copy, 'to') &&
-                    property_exists($copy, 'recursive') &&
-                    $copy->recursive === true
-                ){
-//                    $parse = new Parse($object, $object->data());
-//                    $copy->to = $parse->compile($copy->to, $object->data());
-                    if(File::exist($copy->from)){
-                        if(Dir::is($copy->from)){
-                            Dir::create($copy->to, Dir::CHMOD);
-                            if($object->config(Config::POSIX_ID) === 0){
-                                $command = 'chown www-data:www-data ' . $copy->to;
-                                exec($command);
-                                if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
-                                    $command = 'chmod 777 ' . $copy->to;
-                                    exec($command);
-                                }
-                                $counter = 0;
-                                if(substr($copy->to,0, 13) === '/Application/'){
-                                    $dir = Dir::name($copy->to);
-                                    $command = 'chown www-data:www-data ' . $dir;
-                                    exec($command);
-                                    if($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
-                                        $command = 'chmod 777 ' . $dir;
-                                        exec($command);
-                                    }
-                                    while($dir !== '/Application/'){
-                                        $dir = Dir::name($dir);
-                                        $command = 'chown www-data:www-data ' . $dir;
-                                        exec($command);
-                                        if($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
-                                            $command = 'chmod 777 ' . $dir;
-                                            exec($command);
-                                        }
-                                        $counter++;
-                                        if($counter > 255){
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                            $dir = new Dir();
-                            $read = $dir->read($copy->from, true);
-                            if(is_array($read)){
-                                foreach($read as $file){
-                                    if($file->type === Dir::TYPE){
-                                        $create = str_replace($copy->from, $copy->to, $file->url);
-                                        Dir::create($create, Dir::CHMOD);
-                                        if($object->config(Config::POSIX_ID) === 0){
-                                            $command = 'chown www-data:www-data ' . $create;
-                                            exec($command);
-                                        }
-                                        if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
-                                            $command = 'chmod 777 ' . $create;
-                                            exec($command);
-                                        }
-                                    }
-                                }
-                                foreach($read as $file){
-                                    if($file->type === File::TYPE){
-                                        $to = str_replace($copy->from, $copy->to, $file->url);
-                                        if(
-                                            !File::exist($to) ||
-                                            property_exists($options, 'force')
-                                        ){
-                                            if(property_exists($options, 'force')){
-                                                File::delete($to);
-                                            }
-                                            File::copy($file->url, $to);
-                                            if($object->config(Config::POSIX_ID) === 0){
-                                                $command = 'chown www-data:www-data ' . $to;
-                                                exec($command);
-                                            }
-                                            if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
-                                                $command = 'chmod 666 ' . $to;
-                                                exec($command);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                elseif(
-                    property_exists($copy, 'from') &&
-                    property_exists($copy, 'to')
-                ){
-//                    $parse = new Parse($object, $object->data());
-//                    $copy->to = $parse->compile($copy->to, $object->data());
-                    if(File::exist($copy->from)){
-                        if(Dir::is($copy->from)){
-                            Dir::create($copy->to, Dir::CHMOD);
-                            if($object->config(Config::POSIX_ID) === 0){
-                                $command = 'chown www-data:www-data ' . $copy->to;
-                                exec($command);
-                                if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
-                                    $command = 'chmod 777 ' . $copy->to;
-                                    exec($command);
-                                }
-                                $counter = 0;
-                                if(substr($copy->to,0, 13) === '/Application/'){
-                                    $dir = Dir::name($copy->to);
-                                    $command = 'chown www-data:www-data ' . $dir;
-                                    exec($command);
-                                    if($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
-                                        $command = 'chmod 777 ' . $dir;
-                                        exec($command);
-                                    }
-                                    while($dir !== '/Application/'){
-                                        $dir = Dir::name($dir);
-                                        $command = 'chown www-data:www-data ' . $dir;
-                                        exec($command);
-                                        if($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
-                                            $command = 'chmod 777 ' . $dir;
-                                            exec($command);
-                                        }
-                                        $counter++;
-                                        if($counter > 255){
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                            $dir = new Dir();
-                            $read = $dir->read($copy->from, true);
-                            foreach($read as $file){
-                                if($file->type === Dir::TYPE){
-                                    Dir::create($file->url, Dir::CHMOD);
-                                    if($object->config(Config::POSIX_ID) === 0){
-                                        $command = 'chown www-data:www-data ' . $create;
-                                        exec($command);
-                                    }
-                                    if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
-                                        $command = 'chmod 777 ' . $create;
-                                        exec($command);
-                                    }
-                                }
-                            }
-                            foreach($read as $file){
-                                if($file->type === File::TYPE){
-                                    $to = str_replace($copy->from, $copy->to, $file->url);
-                                    if(
-                                        !File::exist($to) ||
-                                        property_exists($options, 'force')
-                                    ){
-                                        if(property_exists($options, 'force')){
-                                            File::delete($to);
-                                        }
-                                        File::copy($file->url, $to);
-                                        if($object->config(Config::POSIX_ID) === 0){
-                                            $command = 'chown www-data:www-data ' . $to;
-                                            exec($command);
-                                        }
-                                        if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
-                                            $command = 'chmod 666 ' . $to;
-                                            exec($command);
-                                        }
-                                    }
-                                }
-                            }
                         }
                     }
                 }
