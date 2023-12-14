@@ -575,7 +575,7 @@ class App extends Data {
         $output .= chr(27) . "[0m";
         $output .= PHP_EOL;
         if(
-            empty($object->config('framework.environment')) ||
+            $object->config('framework.environment') === Config::MODE_INIT ||
             $object->config('framework.environment') === Config::MODE_DEVELOPMENT
         ){
             $output .= (string) $exception;

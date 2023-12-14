@@ -29,9 +29,13 @@ class Config extends Data {
     const NAME = 'Config';
     const OBJECT = 'System.Config';
 
+    const MODE_INIT = 'init';
     const MODE_DEVELOPMENT = 'development';
     const MODE_PRODUCTION = 'production';
     const MODE_STAGING = 'staging';
+    const MODE_TEST = 'test';
+    const MODE_REPLICA = 'replica';
+
 
     const DATA = 'data';
     const VALUE_DATA = 'Data';
@@ -84,7 +88,7 @@ class Config extends Data {
     const VALUE_FRAMEWORK = 'r3m/framework';
 
     const ENVIRONMENT = 'environment';
-    const VALUE_ENVIRONMENT = Config::MODE_PRODUCTION;
+    const VALUE_ENVIRONMENT = Config::MODE_INIT;
 
     const FUNCTION = 'function';
     const VALUE_FUNCTION = 'Function';
