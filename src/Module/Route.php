@@ -1027,6 +1027,12 @@ class Route extends Data {
                 foreach($response['list'] as $name => $record){
                     $record = Route::item_path($object, $record);
                     $record = Route::item_deep($object, $record);
+                    if(is_object($response['list'])){
+                        $response['list']->{$name} = $record;
+                    }
+                    elseif(is_array($response['list'])){
+                        $response['list'][$name] = $record;
+                    }
                 }
                 $route->data(Core::object_merge($route->data(), $response['list']));
             }
