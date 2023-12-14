@@ -42,7 +42,7 @@ class Autoload {
     protected $object;
 
     public $prefixList = array();
-    public $environment = 'production';
+    public $environment = 'init';
 
     /**
      * @throws ObjectException
@@ -645,7 +645,11 @@ class Autoload {
             json_encode($data->data(),JSON_PRETTY_PRINT)
         );
         //we might comment the environment / expose, where did we use expose ?
-        if($this->environment() == 'development' || !empty($this->expose())){
+        if(
+            $this->environment() == 'init' ||
+            $this->environment() == 'development' ||
+            !empty($this->expose())
+        ){
             if(empty($this->expose())){
                 throw new LocateException('Autoload error, cannot load (' . $load .') class. (see ' . $dir_temp . 'Autoload.log' . ')', Autoload::exception_filelist($fileList));
             }
