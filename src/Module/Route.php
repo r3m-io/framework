@@ -1022,7 +1022,10 @@ class Route extends Data {
             if(
                 is_array($response) &&
                 array_key_exists('list', $response ) &&
-                is_array($response['list'])
+                (
+                    is_array($response['list']) ||
+                    is_object($response['list'])
+                )
             ){
                 foreach($response['list'] as $name => $record){
                     $record = Route::item_path($object, $record);
@@ -1034,7 +1037,6 @@ class Route extends Data {
                         $response['list'][$name] = $record;
                     }
                 }
-                d($response['list']);
                 $route->data(Core::object_merge($route->data(), $response['list']));
             }
             ddd($route);
