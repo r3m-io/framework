@@ -16,7 +16,7 @@ use R3m\Io\Module\Core;
 function function_array_read(Parse $parse, Data $data, $url=''){
     if(File::exist($url)){
         $read = File::read($url);
-        $read = Core::object($read);
+        $read = Core::object($read, Core::OBJECT_ARRAY);
         return $read;
     } else {
         throw new Exception('Error: url:' . $url . ' not found');
