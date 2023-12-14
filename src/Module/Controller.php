@@ -141,6 +141,7 @@ class Controller {
         $temp = $object->data('template');
         $called = '';
         $url = false;
+        $name = null;
         $list = [];
         if(
             !empty($template) &&
@@ -377,9 +378,9 @@ class Controller {
                 $config->data(Config::DATA_FRAMEWORK_ENVIRONMENT) === Config::MODE_INIT ||
                 $config->data(Config::DATA_FRAMEWORK_ENVIRONMENT) === Config::MODE_DEVELOPMENT
             ){
-                throw new LocateException('Cannot find view file', $list);
+                throw new LocateException('Cannot find view file ('. $name . ')', $list);
             } else {
-                throw new LocateException('Cannot find view file');
+                throw new LocateException('Cannot find view file ('. $name . ')');
             }
         }
         return $url;
