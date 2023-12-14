@@ -1018,7 +1018,6 @@ class Route extends Data {
 
                     ]
                 );
-                ddd($response);
             }
             if(
                 is_array($response) &&
@@ -1031,6 +1030,7 @@ class Route extends Data {
                 }
                 $route->data(Core::object_merge($route->data(), $response['list']));
             }
+            ddd($route);
             $object->data(App::ROUTE, $route);
         }
         elseif(!empty($host)) {
