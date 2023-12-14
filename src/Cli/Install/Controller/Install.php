@@ -94,6 +94,7 @@ class Install extends Controller {
             $node->role_system_create('r3m_io/event');
             $node->role_system_create('r3m_io/autoload');
         }
+        /*
         if(
             $package->has('import') &&
             is_array($package->get('import'))
@@ -170,6 +171,7 @@ class Install extends Controller {
                 }
             }
         }
+        */
         if(
             $package->has('route') &&
             is_array($package->get('route'))
