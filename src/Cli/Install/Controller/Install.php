@@ -217,12 +217,14 @@ class Install extends Controller {
                                 );
                             }
                             if(!$record){
-                                $node->create(
+                                d('create');
+                                $create = $node->create(
                                     $class,
                                     $node->role_system(),
                                     $import,
                                     []
                                 );
+                                ddd($create);
                             }
                             elseif(
                                 property_exists($options, 'force') &&
