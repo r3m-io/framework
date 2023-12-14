@@ -13,8 +13,8 @@
           "recursive": true
         },
         {
-          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Data/Node/",
-          "to" : "{{config('project.dir.data')}}Node/",
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Node/",
+          "to" : "{{config('project.dir.node')}}",
           "recursive": true
         }
       ],
@@ -227,8 +227,8 @@
           "recursive": true
         },
         {
-          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Data/Node/",
-          "to" : "{{config('project.dir.data')}}Node/",
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Node/",
+          "to" : "{{config('project.dir.node')}}",
           "recursive": true
         },
         {
