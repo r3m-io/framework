@@ -174,6 +174,7 @@ class Core
                     fclose($pipes[2]);
                     fclose($pipes[1]);
                     proc_close($process);
+                    ddd('yes found');
                     exit(0);
                 default :
                     if ($type == Core::SHELL_PROCESS) {
