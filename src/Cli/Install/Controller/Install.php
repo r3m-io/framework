@@ -390,6 +390,9 @@ class Install extends Controller {
                             }
                             if(!$record){
                                 d('create');
+                                d($class);
+                                d($import);
+                                d($package);
                                 $create = $node->create(
                                     $class,
                                     $node->role_system(),
