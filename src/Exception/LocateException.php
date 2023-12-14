@@ -44,6 +44,7 @@ class LocateException extends Exception {
      */
     public function __toString()
     {
+        d(App::is_cli());
         if(App::is_cli()){
             $string = parent::__toString();
             $location = $this->getLocation();
