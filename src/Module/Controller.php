@@ -376,7 +376,7 @@ class Controller {
             if($config->data(Config::DATA_FRAMEWORK_ENVIRONMENT) === Config::MODE_DEVELOPMENT){
                 throw new LocateException('Cannot find view file', $list);
             } else {
-                throw new LocateException('Cannot find view file');
+                throw new LocateException('Cannot find view file', $list);
             }
         }
         return $url;
