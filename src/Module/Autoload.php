@@ -75,7 +75,7 @@ class Autoload {
                 }
             }
         } else {
-            $autoload->addPrefix('Host',  $object->config(Config::DATA_PROJECT_DIR_HOST));
+            $autoload->addPrefix('Package',  $object->config(Config::DATA_PROJECT_DIR_PACKAGE));
             $autoload->addPrefix('Source',  $object->config(Config::DATA_PROJECT_DIR_SOURCE));
         }
         if(
