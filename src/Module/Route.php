@@ -1038,8 +1038,8 @@ class Route extends Data {
                     }
                 }
                 $route->data(Core::object_merge($route->data(), $response['list']));
+                //maybe re-sort on priority-name
             }
-            ddd($route);
             $object->data(App::ROUTE, $route);
         }
         elseif(!empty($host)) {
