@@ -3,7 +3,7 @@
     "r3m_io/application" : {
       "composer" : "composer require {{$this.#key}}:dev-main",
       "route" : [
-        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json}}"
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
       "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
       "copy" : [
@@ -30,7 +30,7 @@
     "r3m_io/config" : {
       "composer" : "composer require {{$this.#key}}:dev-main",
       "route" : [
-        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json}}"
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
       "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
       "copy" : [
@@ -62,7 +62,7 @@
     "r3m_io/doctrine" : {
       "composer" : "composer require {{$this.#key}}:dev-main",
       "route" : [
-        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json}}"
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
       "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
       "copy" : [
@@ -94,7 +94,7 @@
     "r3m_io/log" : {
       "composer" : "composer require {{$this.#key}}:dev-main",
       "route" : [
-        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json}}"
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
       "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
       "copy" : [
@@ -126,7 +126,7 @@
     "r3m_io/event" : {
       "composer" : "composer require {{$this.#key}}:dev-main",
       "route" : [
-        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json}}"
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
       "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
       "copy" : [
@@ -163,7 +163,7 @@
     "r3m_io/host" : {
       "composer" : "composer require {{$this.#key}}:dev-main",
       "route" : [
-        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json}}"
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
       "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
       "copy" : [
@@ -190,7 +190,7 @@
     "r3m_io/keyboard" : {
       "composer" : "composer require {{$this.#key}}:dev-main",
       "route" : [
-        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json}}"
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
       "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
       "copy" : [
@@ -217,7 +217,7 @@
     "r3m_io/node" : {
       "composer" : "composer require {{$this.#key}}:dev-main",
       "route" : [
-        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json}}"
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
       "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
       "copy" : [
@@ -249,7 +249,7 @@
     "r3m_io/route" : {
       "composer" : "composer require {{$this.#key}}:dev-main",
       "route" : [
-        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json}}"
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
       "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
       "copy" : [
@@ -281,7 +281,7 @@
     "r3m_io/autoload" : {
       "composer" : "composer require {{$this.#key}}:dev-main",
       "route" : [
-        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json}}"
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
       "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
       "copy" : [
@@ -301,6 +301,10 @@
           "recursive": true
         }
       ],
+      "import": [
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Autoload.json",
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Autoload.Prefix.json"
+      ],
       "command" : [
         "{{binary()}} {{$this.#key}} setup"
       ],
@@ -313,7 +317,7 @@
     "r3m_io/middleware" : {
       "composer" : "composer require {{$this.#key}}:dev-main",
       "route" : [
-        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json}}"
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
       "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
       "copy" : [
@@ -345,7 +349,7 @@
     "r3m_io/output_filter" : {
       "composer" : "composer require {{$this.#key}}:dev-main",
       "route" : [
-        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json}}"
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
       "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
       "copy" : [
@@ -377,7 +381,7 @@
     "r3m_io/priya" : {
         "composer" : "composer require {{$this.#key}}:*",
         "route" : [
-          "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json'}}"
+          "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
         ],
         "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
         "command" : [
