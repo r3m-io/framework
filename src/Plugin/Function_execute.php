@@ -8,12 +8,19 @@
  * @changeLog
  *     -            all
  */
+use R3m\Io\Module\Core;
 use R3m\Io\Module\Parse;
 use R3m\Io\Module\Data;
 
-function function_execute(Parse $parse, Data $data, $command=''){
+function function_execute(Parse $parse, Data $data, $command='', $notification=''){
+    $object = $parse->object();
     $command = (string) $command;
     $command = escapeshellcmd($command);
-    exec($command, $output);
+    $output = false;
+    Core::execute($object, $command, $output, $notify);
+    if($notification){
+        $object->data($notification, $notify);
+    }
+//    exec($command, $output);
     return $output;
 }
