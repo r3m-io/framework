@@ -512,7 +512,6 @@ class Install extends Controller {
             is_array($package->get('command'))
         ){
             $command_options = [];
-            ddd($options);
             foreach($options as $option => $value){
                 if($value === false){
                     $value = 'false';
