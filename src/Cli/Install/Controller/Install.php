@@ -514,8 +514,6 @@ class Install extends Controller {
             foreach($package->get('command') as $command){
                 echo $command . PHP_EOL;
                 Core::execute($object, $command, $output, $notification);
-                d($output);
-                ddd($notification);
                 if($output){
                     echo $output;
                 }
