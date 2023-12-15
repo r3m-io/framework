@@ -511,7 +511,12 @@ class Install extends Controller {
             $package->has('command') &&
             is_array($package->get('command'))
         ){
+            $command_options = [];
+            foreach($options as $option => $value){
+                $command_options[] = '-' . $option . '=\'' . $value . '\'';
+            }
             foreach($package->get('command') as $command){
+                $command .= ' ' . implode(' ', $command_options);
                 echo $command . PHP_EOL;
                 Core::execute($object, $command, $output, $notification);
                 if($output){
