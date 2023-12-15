@@ -89,7 +89,6 @@ class Install extends Controller {
         $role_system = $node->role_system();
         if(empty($role_system)){
             //install role system...
-            //move to setups...
             $node->role_system_create('r3m_io/boot');
             $node->role_system_create('r3m_io/node');
             $node->role_system_create('r3m_io/route');
