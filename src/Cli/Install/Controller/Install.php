@@ -514,13 +514,24 @@ class Install extends Controller {
             $command_options = [];
             ddd($options);
             foreach($options as $option => $value){
+                switch($value){
+                    case false:
+                        $value = 'false';
+                        break;
+                    case true:
+                        $value = 'true';
+                        break;
+                    case null:
+                        $value = 'null';
+                        break;
+                }
+                if($value === false){
+                    $value === 'false';
+                }
                 if(
                     in_array(
                         $value,
                         [
-                            false,
-                            true,
-                            null,
                             'false',
                             'true',
                             'null'
