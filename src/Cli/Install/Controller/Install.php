@@ -525,9 +525,6 @@ class Install extends Controller {
                         $value = 'null';
                         break;
                 }
-                if($value === false){
-                    $value === 'false';
-                }
                 if(
                     in_array(
                         $value,
