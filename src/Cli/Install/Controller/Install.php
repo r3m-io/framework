@@ -507,38 +507,38 @@ class Install extends Controller {
         // add to installation, but cannot do it here, node isn't yet installed
 //        $command = '{{binary()}} r3m_io/node create -class=System.Installation -name=' . $key . ' -ctime=' . time() . ' -mtime=' . time();
         echo 'Press ctrl-c to stop the installation...' . PHP_EOL;
+        $command_options = [];
+        foreach($options as $option => $value){
+            if($value === false){
+                $value = 'false';
+            }
+            elseif($value === true){
+                $value = 'true';
+            }
+            elseif($value === null){
+                $value = 'null';
+            }
+            if(
+                in_array(
+                    $value,
+                    [
+                        'false',
+                        'true',
+                        'null'
+                    ],
+                    true
+                ) ||
+                is_numeric($value)
+            ){
+                $command_options[] = '-' . $option . '=' . $value;
+            } else {
+                $command_options[] = '-' . $option . '=\'' . $value . '\'';
+            }
+        }
         if(
             $package->has('command') &&
             is_array($package->get('command'))
         ){
-            $command_options = [];
-            foreach($options as $option => $value){
-                if($value === false){
-                    $value = 'false';
-                }
-                elseif($value === true){
-                    $value = 'true';
-                }
-                elseif($value === null){
-                    $value = 'null';
-                }
-                if(
-                    in_array(
-                        $value,
-                        [
-                            'false',
-                            'true',
-                            'null'
-                        ],
-                        true
-                    ) ||
-                    is_numeric($value)
-                ){
-                    $command_options[] = '-' . $option . '=' . $value;
-                } else {
-                    $command_options[] = '-' . $option . '=\'' . $value . '\'';
-                }
-            }
             foreach($package->get('command') as $command){
                 if(!empty($command_options)){
                     $command .= ' ' . implode(' ', $command_options);
@@ -557,8 +557,12 @@ class Install extends Controller {
             $package->has('command') &&
             is_string($package->get('command'))
         ){
-            echo $package->get('command') . PHP_EOL;
-            Core::execute($object, $package->get('command'), $output, $notification);
+            $command = $package->get('command');
+            if(!empty($command_options)){
+                $command .= ' ' . implode(' ', $command_options);
+            }
+            echo $command . PHP_EOL;
+            Core::execute($object, $command, $output, $notification);
             if($output){
                 echo $output;
             }
