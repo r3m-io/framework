@@ -92,6 +92,7 @@ class Install extends Controller {
             $node->role_system_create('r3m_io/boot');
             $node->role_system_create('r3m_io/node');
             $node->role_system_create('r3m_io/route');
+            //move below to setups
             $node->role_system_create('r3m_io/config');
             $node->role_system_create('r3m_io/event');
             $node->role_system_create('r3m_io/autoload');
