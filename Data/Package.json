@@ -128,7 +128,6 @@
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
-      "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
       "copy" : [
         {
           "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Package/",
