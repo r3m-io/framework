@@ -513,7 +513,25 @@ class Install extends Controller {
         ){
             $command_options = [];
             foreach($options as $option => $value){
-                $command_options[] = '-' . $option . '=\'' . $value . '\'';
+                if(
+                    in_array(
+                        $value,
+                        [
+                            false,
+                            true,
+                            null,
+                            'false',
+                            'true',
+                            'null'
+                        ],
+                        true
+                    ) ||
+                    is_numeric($value)
+                ){
+                    $command_options[] = '-' . $option . '=' . $value;
+                } else {
+                    $command_options[] = '-' . $option . '=\'' . $value . '\'';
+                }
             }
             foreach($package->get('command') as $command){
                 if(!empty($command_options)){
