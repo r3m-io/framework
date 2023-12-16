@@ -1108,6 +1108,7 @@ class App extends Data {
 
     /**
      * @throws ObjectException
+     * @throws Exception
      */
     public function data_read($url, $attribute=null, $do_not_nest_key=false): mixed
     {
