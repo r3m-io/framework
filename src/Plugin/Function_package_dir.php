@@ -8,6 +8,9 @@
  * @changeLog
  *     -            all
  */
+
+use R3m\Io\Config;
+
 use R3m\Io\Module\Parse;
 use R3m\Io\Module\Data;
 use R3m\Io\Module\Dir;
@@ -36,8 +39,10 @@ function function_package_dir(Parse $parse, Data $data, $prefix='', $package='')
     foreach($explode as $nr => $value){
         $dir .= $value . '/';
         Dir::create($dir, Dir::CHMOD);
-        $command = 'chown www-data:www-data ' . $dir;
-        exec($command);
+        if($object->config(Config::POSIX_ID) === 0){
+            $command = 'chown www-data:www-data ' . $dir;
+            exec($command);
+        }
         if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
             $command = 'chmod 777 ' . $dir;
             exec($command);
