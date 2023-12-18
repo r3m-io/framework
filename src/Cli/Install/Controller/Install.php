@@ -122,29 +122,6 @@ class Install extends Controller {
                                     $command = 'chmod 777 ' . $copy->to;
                                     exec($command);
                                 }
-                                $counter = 0;
-                                if(substr($copy->to,0, 13) === '/Application/'){
-                                    $dir = Dir::name($copy->to);
-                                    $command = 'chown www-data:www-data ' . $dir;
-                                    exec($command);
-                                    if($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
-                                        $command = 'chmod 777 ' . $dir;
-                                        exec($command);
-                                    }
-                                    while($dir !== '/Application/'){
-                                        $dir = Dir::name($dir);
-                                        $command = 'chown www-data:www-data ' . $dir;
-                                        exec($command);
-                                        if($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
-                                            $command = 'chmod 777 ' . $dir;
-                                            exec($command);
-                                        }
-                                        $counter++;
-                                        if($counter > 255){
-                                            break;
-                                        }
-                                    }
-                                }
                             }
                             $dir = new Dir();
                             $read = $dir->read($copy->from, true);
@@ -205,29 +182,6 @@ class Install extends Controller {
                                     $command = 'chmod 777 ' . $copy->to;
                                     exec($command);
                                 }
-                                $counter = 0;
-                                if(substr($copy->to,0, 13) === '/Application/'){
-                                    $dir = Dir::name($copy->to);
-                                    $command = 'chown www-data:www-data ' . $dir;
-                                    exec($command);
-                                    if($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
-                                        $command = 'chmod 777 ' . $dir;
-                                        exec($command);
-                                    }
-                                    while($dir !== '/Application/'){
-                                        $dir = Dir::name($dir);
-                                        $command = 'chown www-data:www-data ' . $dir;
-                                        exec($command);
-                                        if($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
-                                            $command = 'chmod 777 ' . $dir;
-                                            exec($command);
-                                        }
-                                        $counter++;
-                                        if($counter > 255){
-                                            break;
-                                        }
-                                    }
-                                }
                             }
                             $dir = new Dir();
                             $read = $dir->read($copy->from, true);
@@ -271,84 +225,6 @@ class Install extends Controller {
                 }
             }
         }
-        /*
-        if(
-            $package->has('import') &&
-            is_array($package->get('import'))
-        ){
-            foreach($package->get('import') as $url_import){
-                if(File::exist($url_import)){
-                    $class = Controller::name(File::basename($url_import, $object->config('extension.json')));
-                    $read = $object->data_read($url_import);
-                    $url_object = $object->config('project.dir.node') .
-                        $object->config('dictionary.object') .
-                        $class .
-                        $object->config('extension.json');
-                    ddd($url_object);
-                    if($read){
-                        foreach($read->data($class) as $import){
-                            if(!property_exists($import, 'name')){
-                                continue;
-                            }
-                            if(property_exists($import, 'host')){
-                                $record = $node->record(
-                                    $class,
-                                    $node->role_system(),
-                                    [
-                                        'filter' => [
-                                            'name' => [
-                                                'operator' => '===',
-                                                'value' => $import->name
-                                            ],
-                                            'host' => [
-                                                'operator' => '===',
-                                                'value' => $import->host
-                                            ]
-                                        ]
-                                    ]
-                                );
-                            } else {
-                                $record = $node->record(
-                                    $class,
-                                    $node->role_system(),
-                                    [
-                                        'filter' => [
-                                            'name' => [
-                                                'operator' => '===',
-                                                'value' => $import->name
-                                            ]
-                                        ]
-                                    ]
-                                );
-                            }
-                            if(!$record){
-                                $node->create(
-                                    $class,
-                                    $node->role_system(),
-                                    $import,
-                                    []
-                                );
-                            }
-                            elseif(
-                                property_exists($options, 'force') &&
-                                is_array($record) &&
-                                array_key_exists('node', $record) &&
-                                property_exists($record['node'], 'uuid')
-                            ){
-                                $import->uuid = $record['node']->uuid;
-                                $put = $node->put(
-                                    $class,
-                                    $node->role_system(),
-                                    $import,
-                                    []
-                                );
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        */
         if(
             $package->has('route') &&
             is_array($package->get('route'))
