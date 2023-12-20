@@ -580,4 +580,18 @@ class File {
     {
         return move_uploaded_file($upload->data('tmp_name'), $target . $upload->data('name'));
     }
+
+    public static function size_format($size=0): string
+    {
+        return match ($size) {
+            $size < 1024 => $size . ' B',
+            $size < 1024 * 1024 => round($size / 1024, 2) . ' KB',
+            $size < 1024 * 1024 * 1024 => round($size / 1024 / 1024, 2) . ' MB',
+            $size < 1024 * 1024 * 1024 * 1024 => round($size / 1024 / 1024 / 1024, 2) . ' GB',
+            $size < 1024 * 1024 * 1024 * 1024 * 1024 => round($size / 1024 / 1024 / 1024 / 1024, 2) . ' TB',
+            $size < 1024 * 1024 * 1024 * 1024 * 1024 * 1024 => round($size / 1024 / 1024 / 1024 / 1024 / 1024, 2) . ' PB',
+            default => round($size / 1024 / 1024 / 1024 / 1024 / 1024 / 1024, 2) . ' EB',
+        };
+    }
+
 }
