@@ -37,6 +37,9 @@ function function_package_dir(Parse $parse, Data $data, $prefix='', $package='')
     }
     $dir = $prefix;
     if($object->config(Config::POSIX_ID) === 0){
+        if(!Dir::is($dir)){
+            Dir::create($dir, Dir::CHMOD);
+        }
         $command = 'chown www-data:www-data ' . $dir;
         exec($command);
     }
