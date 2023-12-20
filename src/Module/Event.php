@@ -188,7 +188,6 @@ class Event extends Main {
     {
         $event = new Event($object);
         $role_system = $event->role_system();
-        ddd($role_system);
         if(!$role_system){
             return;
         }
