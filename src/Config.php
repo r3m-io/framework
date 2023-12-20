@@ -398,19 +398,53 @@ class Config extends Data {
         Config::volume($object);
         $node = new Node($object);
         $class = Config::OBJECT;
-        $is_dir_create = false;
-        if(!Dir::is($object->config('framework.dir.cache'))){
-            Dir::create($object->config('framework.dir.cache'), Dir::CHMOD);
-            if($object->config('posix.id') === 0){
-                $command = 'chown www-data:www-data ' . $object->config('framework.dir.cache');
-                exec($command);
-                $is_dir_create = true;
+        $dir_cache = false;
+        if($object->config('posix.id') === 0){
+            $dir_temp = $object->config('framework.dir.temp');
+
+            $dir =
+                $dir_temp .
+                $object->config('posix.id') .
+                $object->config('ds')
+            ;
+            if(!Dir::is($dir)){
+                Dir::Create($dir);
+                $dir_www = $dir_temp .
+                    33 .
+                    $object->config('ds')
+                ;
+                $dir_cache =
+                    $dir .
+                    'Cache' .
+                    $object->config('ds')
+                ;
+                Dir::create($dir_www, Dir::CHMOD);
+                Dir::create($dir_cache, Dir::CHMOD);
+                File::permission($object, [
+                    'dir_www' => $dir_www
+                ]);
             }
+        }
+        elseif($object->config('posix.id') === 33){
+            $dir_temp = $object->config('framework.dir.temp');
+            $dir =
+                $dir_temp .
+                $object->config('posix.id') .
+                $object->config('ds')
+            ;
+            $dir_cache =
+                $dir .
+                'Cache' .
+                $object->config('ds')
+            ;
+            Dir::create($dir_cache, Dir::CHMOD);
+        } else {
+            throw new Exception('Posix id not allowed: ' . $object->config('posix.id') . ' for ' . $object->config('framework.dir.temp'));
         }
         $options = [
             'relation' => true,
             'ramdisk' => true,
-            'ramdisk_dir' => $object->config('framework.dir.cache') . $object->config('posix.id') . $object->config('ds'),
+            'ramdisk_dir' => $dir_cache,
         ];
         $role_system = $node->role_system();
         if(!$role_system){
@@ -427,13 +461,6 @@ class Config extends Data {
         $object->config('app.config.dir', $dir);
         $object->config('app.route.url', $object->config('app.config.dir') . 'Route' . $object->config('extension.json'));
         $object->config('app.secret.url', $object->config('app.config.dir') . 'Secret' . $object->config('extension.json'));
-        if(
-            $is_dir_create &&
-            $object->config('framework.environment') === Config::MODE_DEVELOPMENT
-        ){
-            $command = 'chmod 777 ' . $object->config('framework.dir.cache');
-            exec($command);
-        }
     }
 
     /**
