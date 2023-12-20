@@ -203,9 +203,16 @@ class Install extends Controller {
                                     $to = str_replace($copy->from, $copy->to, $file->url);
                                     if(
                                         !File::exist($to) ||
-                                        property_exists($options, 'force')
+                                        (
+                                            property_exists($options, 'force') ||
+                                            property_exists($options, 'patch')
+                                        )
+
                                     ){
-                                        if(property_exists($options, 'force')){
+                                        if(
+                                            property_exists($options, 'force') ||
+                                            property_exists($options, 'patch')
+                                        ){
                                             File::delete($to);
                                         }
                                         File::copy($file->url, $to);
@@ -291,6 +298,20 @@ class Install extends Controller {
                                     []
                                 );
                             }
+                            elseif(
+                                property_exists($options, 'patch') &&
+                                is_array($record) &&
+                                array_key_exists('node', $record) &&
+                                property_exists($record['node'], 'uuid')
+                            ){
+                                $import->uuid = $record['node']->uuid;
+                                $put = $node->patch(
+                                    $class,
+                                    $node->role_system(),
+                                    $import,
+                                    []
+                                );
+                            }
                         }
                     }
                 }
@@ -357,6 +378,20 @@ class Install extends Controller {
                         ){
                             $import->uuid = $record['node']->uuid;
                             $node->put(
+                                $class,
+                                $node->role_system(),
+                                $import,
+                                []
+                            );
+                        }
+                        elseif(
+                            property_exists($options, 'patch') &&
+                            is_array($record) &&
+                            array_key_exists('node', $record) &&
+                            property_exists($record['node'], 'uuid')
+                        ){
+                            $import->uuid = $record['node']->uuid;
+                            $node->patch(
                                 $class,
                                 $node->role_system(),
                                 $import,
