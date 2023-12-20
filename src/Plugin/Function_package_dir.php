@@ -36,6 +36,14 @@ function function_package_dir(Parse $parse, Data $data, $prefix='', $package='')
         return $result;
     }
     $dir = $prefix;
+    if($object->config(Config::POSIX_ID) === 0){
+        $command = 'chown www-data:www-data ' . $dir;
+        exec($command);
+    }
+    if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
+        $command = 'chmod 777 ' . $dir;
+        exec($command);
+    }
     foreach($explode as $nr => $value){
         $dir .= $value . '/';
         Dir::create($dir, Dir::CHMOD);
