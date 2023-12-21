@@ -320,7 +320,7 @@
           "recursive": true
         },
         {
-          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Data/Node/",
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Node/",
           "to" : "{{config('project.dir.data')}}Node/",
           "recursive": true
         },
