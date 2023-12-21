@@ -343,6 +343,38 @@
         ]
       }
     },
+    "r3m_io/server" : {
+      "composer" : "composer require {{$this.#key}}:dev-main",
+      "route" : [
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
+      ],
+      "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
+      "copy" : [
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Package/",
+          "to" : "{{package.dir(config('project.dir.package'), $this.#parentNode.#key)}}",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Node/",
+          "to" : "{{config('project.dir.node')}}",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Event/",
+          "to" : "{{config('project.dir.event')}}",
+          "recursive": true
+        }
+      ],
+      "command" : [
+        "{{binary()}} {{$this.#key}} setup"
+      ],
+      "update" : {
+        "command" : [
+          "{{binary()}} {{$this.#parentNode.#key}} update"
+        ]
+      }
+    },
     "r3m_io/middleware" : {
       "composer" : "composer require {{$this.#key}}:dev-main",
       "route" : [
