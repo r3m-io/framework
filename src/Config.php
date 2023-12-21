@@ -450,7 +450,7 @@ class Config extends Data {
         if(!$role_system){
             return;
         }
-        if(!$node->role_has($role_system, 'System:Config:record')){
+        if(!$node->role_has_permission($role_system, 'System:Config:record')){
             return;
         }
         $response = $node->record($class, $role_system, $options);
