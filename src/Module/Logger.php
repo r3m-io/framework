@@ -20,7 +20,8 @@ class Logger {
     /**
      * @throws Exception
      */
-    public static function configure(App $object){
+    public static function configure(App $object): void
+    {
         $interface = $object->config('log');
         $is = null;
         d($object->config());
