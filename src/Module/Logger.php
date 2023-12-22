@@ -93,7 +93,6 @@ class Logger {
                                             'dir' => $dir,
                                             'url' => $url,
                                         ]);
-                                        d($url);
                                     }
                                 }
                                 $push = new $handler->options->class(...$parameters);
@@ -174,7 +173,7 @@ class Logger {
                     $object->logger($logger->getName(), $logger);
                     if($logName !== 'name'){
                         $object->config('project.log.' . $logName, $logger->getName());
-                        $object->logger($logger->getName())->info('Logger initialised.', [$logger->getName()]);
+//                        $object->logger($logger->getName())->info('Logger initialised.', [$logger->getName()]);
                     }
                     if(
                         property_exists($record, 'channel') &&

@@ -150,9 +150,11 @@ class Autoload {
             }
         }
         $object = $this->object();
-        $logger = $object->config('project.log.name');
-        if($logger){
-            $object->logger($logger)->info('Registering autoloader', [$method, $prepend]);
+        if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
+            $logger = $object->config('project.log.name');
+            if($logger){
+                $object->logger($logger)->info('Registering autoloader', [$method, $prepend]);
+            }
         }
         return spl_autoload_register(array($this, $method), true, $prepend);
     }
