@@ -401,28 +401,31 @@ class Config extends Data {
         $dir_cache = false;
         if($object->config('posix.id') === 0){
             $dir_temp = $object->config('framework.dir.temp');
-
             $dir =
                 $dir_temp .
                 $object->config('posix.id') .
                 $object->config('ds')
             ;
-            if(!Dir::is($dir)){
+            if(!Dir::is($dir)) {
                 Dir::Create($dir);
-                $dir_www = $dir_temp .
-                    33 .
-                    $object->config('ds')
-                ;
-                $dir_cache =
-                    $dir .
-                    'Cache' .
-                    $object->config('ds')
-                ;
+            }
+            $dir_www = $dir_temp .
+                33 .
+                $object->config('ds')
+            ;
+            $dir_cache =
+                $dir .
+                'Cache' .
+                $object->config('ds')
+            ;
+            if(!Dir::is($dir_www)){
                 Dir::create($dir_www, Dir::CHMOD);
-                Dir::create($dir_cache, Dir::CHMOD);
                 File::permission($object, [
                     'dir_www' => $dir_www
                 ]);
+            }
+            if(!Dir::is($dir_cache)){
+                Dir::create($dir_cache, Dir::CHMOD);
             }
         }
         elseif($object->config('posix.id') === 33){
@@ -437,7 +440,9 @@ class Config extends Data {
                 'Cache' .
                 $object->config('ds')
             ;
-            Dir::create($dir_cache, Dir::CHMOD);
+            if(!Dir::is($dir_cache)){
+                Dir::create($dir_cache, Dir::CHMOD);
+            }
         } else {
             throw new Exception('Posix id not allowed: ' . $object->config('posix.id') . ' for ' . $object->config('framework.dir.temp'));
         }
