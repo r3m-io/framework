@@ -115,7 +115,8 @@
         }
       ],
       "command" : [
-        "{{binary()}} {{$this.#key}} setup"
+        "{{binary()}} {{$this.#key}} setup",
+        "{{binary()}} cache:clear"
       ],
       "update" : {
         "command" : [
