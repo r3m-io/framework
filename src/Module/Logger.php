@@ -180,6 +180,9 @@ class Logger {
                 }
             }
         }
+
+        d($object->config('project.log'));
+        ddd('end configure');
         $uuid = posix_geteuid();
 
         $is_chown =false;
