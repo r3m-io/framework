@@ -341,6 +341,7 @@ class File {
     public static function put($url, $data, $flags=LOCK_EX, $return='size'): bool|int
     {
         $size = file_put_contents($url, $data, $flags);
+        File::touch($url);
         switch($return){
             case File::SIZE:
             case File::BYTE:
