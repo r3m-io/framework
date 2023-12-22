@@ -194,24 +194,6 @@ class Logger {
                 }
             }
         }
-
-        d($object->config('project.log'));
-        return;
-        ddd('end configure');
-        $uuid = posix_geteuid();
-
-        $is_chown =false;
-        if(
-            $is &&
-            is_object($is) &&
-            property_exists($is, 'chown')){
-            $is_chown = $is->chown;
-        }
-        if(empty($uuid) && $is_chown === false){
-            $dir = $object->config('project.dir.log');
-            $command = 'chown www-data:www-data ' . $dir . ' -R';
-            Core::execute($object, $command);
-        }
     }
 
     /**
