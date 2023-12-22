@@ -140,8 +140,6 @@ class Autoload {
 
     public function register($method='load', $prepend=false): bool
     {
-        $object = $this->object();
-        $logger = $object->config('project.log.name');
         $functions = spl_autoload_functions();
         if(is_array($functions)){
             foreach($functions as $function){
@@ -151,6 +149,8 @@ class Autoload {
                 }
             }
         }
+        $object = $this->object();
+        $logger = $object->config('project.log.name');
         if($logger){
             $object->logger($logger)->info('Registering autoloader', [$method, $prepend]);
         }
