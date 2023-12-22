@@ -83,6 +83,13 @@ class Logger {
                                 } else {
                                     $parameters = [];
                                 }
+                                if(array_key_exists(0, $parameters)){
+                                    $url = $parameters[0];
+                                    if(!File::exist($url)){
+                                        d($url);
+                                        //touch file && file::permission
+                                    }
+                                }
                                 $push = new $handler->options->class(...$parameters);
                                 if(
                                     property_exists($handler, 'formatter') &&
@@ -161,6 +168,7 @@ class Logger {
                     $object->logger($logger->getName(), $logger);
                     if($logName !== 'name'){
                         $object->config('project.log.' . $logName, $logger->getName());
+                        $object->logger($logger->getName())->info('Logger initialised.', [$logger->getName()]);
                     }
                     if(
                         property_exists($record, 'channel') &&
