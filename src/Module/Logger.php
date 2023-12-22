@@ -23,6 +23,7 @@ class Logger {
     public static function configure(App $object){
         $interface = $object->config('log');
         $is = null;
+        d($interface);
         if($interface){
             foreach($interface as $name => $record){
                 $name = ucfirst($name);
