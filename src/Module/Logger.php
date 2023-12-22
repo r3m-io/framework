@@ -184,6 +184,7 @@ class Logger {
         }
 
         d($object->config('project.log'));
+        return;
         ddd('end configure');
         $uuid = posix_geteuid();
 
