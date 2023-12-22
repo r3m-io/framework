@@ -6,10 +6,10 @@ use R3m\Io\App;
 
 use R3m\Io\Module\Controller;
 
-class Config extends Controller {
+class Log extends Controller {
     const DIR = __DIR__ . '/';
 
-    public static function log(App $object, $response=null): object
+    public static function output_filter(App $object, $response=null): object
     {
         $result = [];
         if(
