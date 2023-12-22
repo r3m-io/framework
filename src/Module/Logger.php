@@ -86,8 +86,14 @@ class Logger {
                                 if(array_key_exists(0, $parameters)){
                                     $url = $parameters[0];
                                     if(!File::exist($url)){
+                                        $dir = Dir::name($url);
+                                        Dir::create($dir, Dir::CHMOD);
+                                        File::touch($url);
+                                        File::permission($object, [
+                                            'dir' => $dir,
+                                            'url' => $url,
+                                        ]);
                                         d($url);
-                                        //touch file && file::permission
                                     }
                                 }
                                 $push = new $handler->options->class(...$parameters);
