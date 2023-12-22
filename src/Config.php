@@ -464,7 +464,6 @@ class Config extends Data {
             array_key_exists('node', $response)
         ){
             $object->config(Core::object_merge($object->config(), $response['node']));
-            d($response);
         }
         $dir = $object->config('project.volume.dir.data') . 'App' . $object->config('ds');
         $object->config('app.config.dir', $dir);
