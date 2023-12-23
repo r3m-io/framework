@@ -140,11 +140,17 @@ class OutputFilter extends Main {
                     ){
                         //output filters need route match
                         if(
-                            array_key_exists('route', $options) &&
-                            is_object($options['route']) &&
-                            property_exists($options['route'], 'uuid') &&
-                            property_exists($filter, 'route') &&
-                            $options['route']->uuid === $filter->route
+                            (
+                                array_key_exists('route', $options) &&
+                                is_object($options['route']) &&
+                                property_exists($options['route'], 'uuid') &&
+                                property_exists($filter, 'route') &&
+                                $options['route']->uuid === $filter->route
+                            ) ||
+                            (
+                                property_exists($filter, 'route') &&
+                                $filter->route === '*'
+                            )
                         ){
                             foreach($filter->options->controller as $controller){
                                 $route = new stdClass();
