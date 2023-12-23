@@ -138,34 +138,36 @@ class OutputFilter extends Main {
                         property_exists($filter->options, 'controller') &&
                         is_array($filter->options->controller)
                     ){
-                        //need current route
-                        if(array_key_exists('route', $options)){
-                            $route = $options['route'];
-                            d($filter);
-                            ddd($route);
-                        }
-
-                        foreach($filter->options->controller as $controller){
-                            $route = new stdClass();
-                            $route->controller = $controller;
-                            $route = Route::controller($route);
-                            if(
-                                property_exists($route, 'controller') &&
-                                property_exists($route, 'function')
-                            ){
-                                $filter = new Storage($filter);
-                                try {
-                                    $response = $route->controller::{$route->function}($object, $filter, $options);
-                                    if($filter->get('stopPropagation')){
-                                        break 2;
+                        //output filters need route match
+                        if(
+                            array_key_exists('route', $options) &&
+                            is_object($options['route']) &&
+                            property_exists($options['route'], 'uuid') &&
+                            property_exists($filter, 'route') &&
+                            $options['route']->uuid === $filter->route
+                        ){
+                            foreach($filter->options->controller as $controller){
+                                $route = new stdClass();
+                                $route->controller = $controller;
+                                $route = Route::controller($route);
+                                if(
+                                    property_exists($route, 'controller') &&
+                                    property_exists($route, 'function')
+                                ){
+                                    $filter = new Storage($filter);
+                                    try {
+                                        $response = $route->controller::{$route->function}($object, $filter, $options);
+                                        if($filter->get('stopPropagation')){
+                                            break 2;
+                                        }
                                     }
-                                }
-                                catch (LocateException $exception){
-                                    if($object->config('project.log.error')){
-                                        $object->logger($object->config('project.log.error'))->error('LocateException', [ $route, (string) $exception ]);
-                                    }
-                                    elseif($object->config('project.log.name')){
-                                        $object->logger($object->config('project.log.name'))->error('LocateException', [ $route, (string) $exception ]);
+                                    catch (LocateException $exception){
+                                        if($object->config('project.log.error')){
+                                            $object->logger($object->config('project.log.error'))->error('LocateException', [ $route, (string) $exception ]);
+                                        }
+                                        elseif($object->config('project.log.name')){
+                                            $object->logger($object->config('project.log.name'))->error('LocateException', [ $route, (string) $exception ]);
+                                        }
                                     }
                                 }
                             }
