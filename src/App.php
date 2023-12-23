@@ -316,6 +316,7 @@ class App extends Data {
                         'route' => $route,
                         'methods' => $methods,
                     ]);
+                    d($route);
                     if (
                         is_object($route) &&
                         property_exists($route, 'function') &&
