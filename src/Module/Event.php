@@ -10,7 +10,6 @@
  */
 namespace R3m\Io\Module;
 
-use R3m\Io\Config;
 use stdClass;
 
 use R3m\Io\App;
@@ -18,11 +17,7 @@ use R3m\Io\App;
 use R3m\Io\Module\Data as Storage;
 use R3m\Io\Module\Template\Main;
 
-use R3m\Io\Node\Trait\Data;
-use R3m\Io\Node\Trait\Role;
-
-//use R3m\Io\Node\Trait\Data;
-//use R3m\Io\Node\Trait\Role;
+use R3m\Io\Node\Model\Node;
 
 use Exception;
 
@@ -31,9 +26,6 @@ use R3m\Io\Exception\ObjectException;
 use R3m\Io\Exception\FileWriteException;
 
 class Event extends Main {
-
-    use Data;
-    use Role;
 
     const NAME = 'Event';
     const OBJECT = 'System.Event';
@@ -186,12 +178,15 @@ class Event extends Main {
      */
     public static function configure(App $object): void
     {
-        $event = new Event($object);
-        $role_system = $event->role_system();
+        $node = new Node($object);
+        $role_system = $node->role_system();
         if(!$role_system){
             return;
         }
-        $response = $event->list(
+        if(!$node->role_has_permission($role_system, 'System:Event:list')){
+            return;
+        }
+        $response = $node->list(
             Event::OBJECT,
             $role_system,
             [

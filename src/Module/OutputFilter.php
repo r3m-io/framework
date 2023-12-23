@@ -17,8 +17,7 @@ use R3m\Io\App;
 use R3m\Io\Module\Data as Storage;
 use R3m\Io\Module\Template\Main;
 
-//use R3m\Io\Node\Trait\Data;
-//use R3m\Io\Node\Trait\Role;
+use R3m\Io\Node\Model\Node;
 
 use Exception;
 
@@ -28,12 +27,8 @@ use R3m\Io\Exception\ObjectException;
 
 class OutputFilter extends Main {
 
-//    use Data;
-//    use Role;
-
     const NAME = 'OutputFilter';
-    const OBJECT = 'OutputFilter';
-    const CHUNK_SIZE = 4096;
+    const OBJECT = 'System.Output.Filter';
     const LIST = 'list';
     const RECORD = 'record';
 
@@ -197,43 +192,31 @@ class OutputFilter extends Main {
      */
     public static function configure(App $object): void
     {
-        return;
-        /*
-        $outputFilter = new OutputFilter($object);
-        $limit = $object->config('output.filter.chunk_size') ?? OutputFilter::CHUNK_SIZE;
-        $count = $outputFilter->count(
+        $node = new Node($object);
+        $role_system = $node->role_system();
+        if(!$role_system){
+            return;
+        }
+        if(!$node->role_has_permission($role_system, 'System:Output:Filter:list')){
+            return;
+        }
+        $response = $node->list(
             OutputFilter::OBJECT,
-            $outputFilter->role_system(),
+            $role_system,
             [
                 'sort' => [
+                    'route' => 'ASC',
                     'options.priority' => 'ASC'
-                ]
+                ],
+                'limit' => '*',
+                'ramdisk' => true
             ]
         );
-        $page_max = ceil($count / $limit);
-        for($page = 1; $page <= $page_max; $page++){
-            $response = $outputFilter->list(
-                OutputFilter::OBJECT,
-                $outputFilter->role_system(),
-                [
-                    'sort' => [
-                        'action' => 'ASC',
-                        'options.priority' => 'ASC'
-                    ],
-                    'page' => $page,
-                    'limit' => $limit,
-                    'ramdisk' => true
-                ]
-            );
-            if(
-                $response &&
-                array_key_exists('list', $response)
-            ){
-                OutputFilter::on($object, $response['list'], [
-                    'type' => OutputFilter::LIST
-                ]);
-            }
+        if(
+            $response &&
+            array_key_exists('list', $response)
+        ){
+            OutputFilter::on($object, $response['list']);
         }
-        */
     }
 }
