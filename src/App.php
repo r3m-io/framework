@@ -316,7 +316,11 @@ class App extends Data {
                         'route' => $route,
                         'methods' => $methods,
                     ]);
-                    if (in_array($route->function, $methods, true)) {
+                    if (
+                        is_object($route) &&
+                        property_exists($route, 'function') &&
+                        in_array($route->function, $methods, true)
+                    ) {
                         $functions[] = $route->function;
                         $object->config('controller.function', $route->function);
                         $request = Core::deep_clone(
