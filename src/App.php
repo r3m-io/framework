@@ -349,7 +349,6 @@ class App extends Data {
                             'methods' => $methods,
                             'response' => $result
                         ]);
-                        d($result);
                     } else {
                         if($logger){
                             $object->logger($logger)->error(
