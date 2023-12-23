@@ -144,6 +144,7 @@ class OutputFilter extends Main {
                         property_exists($filter->options, 'controller') &&
                         is_array($filter->options->controller)
                     ){
+                        d($filter);
                         foreach($filter->options->controller as $controller){
                             $route = new stdClass();
                             $route->controller = $controller;
