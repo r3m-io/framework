@@ -29,8 +29,6 @@ class OutputFilter extends Main {
 
     const NAME = 'OutputFilter';
     const OBJECT = 'System.Output.Filter';
-    const LIST = 'list';
-    const RECORD = 'record';
 
     public function __construct(App $object){
         $this->object($object);

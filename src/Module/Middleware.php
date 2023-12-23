@@ -10,7 +10,6 @@
  */
 namespace R3m\Io\Module;
 
-use R3m\Io\Exception\FileWriteException;
 use stdClass;
 
 use R3m\Io\App;
@@ -18,24 +17,18 @@ use R3m\Io\App;
 use R3m\Io\Module\Data as Storage;
 use R3m\Io\Module\Template\Main;
 
-//use R3m\Io\Node\Trait\Data;
-//use R3m\Io\Node\Trait\Role;
+use R3m\Io\Node\Model\Node;
 
 use Exception;
 
 use R3m\Io\Exception\LocateException;
 use R3m\Io\Exception\ObjectException;
-class Middleware extends Main {
+use R3m\Io\Exception\FileWriteException;
 
-//    use Data;
-//    use Role;
+class Middleware extends Main {
 
     const NAME = 'Middleware';
     const OBJECT = 'System.Middleware';
-    const CHUNK_SIZE = 4096;
-
-    const LIST = 'list';
-    const RECORD = 'record';
 
     public function __construct(App $object){
         $this->object($object);
