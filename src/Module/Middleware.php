@@ -27,6 +27,8 @@ use R3m\Io\Exception\FileWriteException;
 
 class Middleware extends Main {
 
+    const DIR = __DIR__ . DIRECTORY_SEPARATOR;
+
     const NAME = 'Middleware';
     const OBJECT = 'System.Middleware';
 
