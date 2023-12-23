@@ -46,7 +46,7 @@ class Config extends Data {
     const EVENT = 'event';
     const VALUE_EVENT = 'Event';
     const OUTPUT_FILTER = 'output.filter';
-    const VALUE_OUTPUT_FILTER = 'OutputFilter';
+    const VALUE_OUTPUT_FILTER = 'Output\\Filter';
 
     const PUBLIC = 'public';
     const VALUE_PUBLIC = 'Public';
