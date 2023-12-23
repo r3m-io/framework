@@ -344,9 +344,6 @@ class App extends Data {
                             'route' => $route,
                             'response' => $result
                         ]);
-                        d($route);
-                        d($methods);
-                        d($result);
                         $result = OutputFilter::trigger($object, [
                             'route' => $route,
                             'methods' => $methods,

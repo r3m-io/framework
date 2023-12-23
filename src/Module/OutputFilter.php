@@ -127,6 +127,7 @@ class OutputFilter extends Main {
     public static function trigger(App $object, $options=[]){
         $filters = $object->get(App::OUTPUTFILTER)->data();
         $response = null;
+        d($filters);
         if(empty($filters)){
             if(
                 array_key_exists('response', $options)
