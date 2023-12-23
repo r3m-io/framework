@@ -217,7 +217,7 @@ class OutputFilter extends Main {
             $response &&
             array_key_exists('list', $response)
         ){
-            OutputFilter::on($object, $response['list']);
+            OutputFilter::on($object, $response['list'], ['type' => OutputFilter::LIST]);
         }
     }
 }
