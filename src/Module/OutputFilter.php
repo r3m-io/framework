@@ -120,7 +120,7 @@ class OutputFilter extends Main {
      * @throws Exception
      */
     public static function trigger(App $object, $options=[]){
-        $filters = $object->get(App::OUTPUTFILTER)->data();
+        $filters = $object->get(App::OUTPUTFILTER)->data(OutputFilter::OBJECT);
         $response = null;
         d($filters);
         if(empty($filters)){
