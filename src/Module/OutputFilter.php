@@ -122,17 +122,11 @@ class OutputFilter extends Main {
     public static function trigger(App $object, $options=[]){
         $filters = $object->get(App::OUTPUTFILTER)->data(OutputFilter::OBJECT);
         $response = null;
-        d($filters);
         if(empty($filters)){
             if(
                 array_key_exists('response', $options)
             ){
                 return $options['response'];
-            }
-            elseif(
-                array_key_exists('route', $options)
-            ){
-                return $options['route'];
             }
             return null;
         }
@@ -144,7 +138,13 @@ class OutputFilter extends Main {
                         property_exists($filter->options, 'controller') &&
                         is_array($filter->options->controller)
                     ){
-                        d($filter);
+                        //need current route
+                        if(array_key_exists('route', $options)){
+                            $route = $options['route'];
+                            d($filter);
+                            ddd($route);
+                        }
+
                         foreach($filter->options->controller as $controller){
                             $route = new stdClass();
                             $route->controller = $controller;
