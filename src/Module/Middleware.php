@@ -182,6 +182,9 @@ class Middleware extends Main {
                 }
             }
         }
+        if($response){
+            return new Response($response);
+        }
         if(array_key_exists('route', $options)){
             return $options['route'];
         }
