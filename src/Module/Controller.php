@@ -310,6 +310,7 @@ class Controller {
         }
         $url = false;
         $view_url = false;
+        $config_url = false;
         $read = false;
         if(
             $object->config('ramdisk.url') &&
@@ -357,7 +358,8 @@ class Controller {
                     $object->config('ramdisk.url') &&
                     !empty($object->config('ramdisk.is.disabled')) &&
                     $view_url &&
-                    $read
+                    $read &&
+                    $config_url
                 ){
                     //copy to ramdisk
                     $view_dir = Dir::name($view_url);
