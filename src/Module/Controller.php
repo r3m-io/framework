@@ -375,7 +375,6 @@ class Controller {
             }
         }
         if(empty($url)){
-            d($list);
             if (
                 $config->data(Config::DATA_FRAMEWORK_ENVIRONMENT) === Config::MODE_INIT ||
                 $config->data(Config::DATA_FRAMEWORK_ENVIRONMENT) === Config::MODE_DEVELOPMENT
