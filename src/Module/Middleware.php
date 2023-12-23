@@ -124,9 +124,9 @@ class Middleware extends Main {
         $response = null;
         if(empty($middlewares)){
             if(
-                array_key_exists('response', $options)
+                array_key_exists('route', $options)
             ){
-                return $options['response'];
+                return $options['route'];
             }
             return null;
         }
@@ -185,8 +185,8 @@ class Middleware extends Main {
         if($response){
             return $response;
         }
-        if(array_key_exists('response', $options)){
-            return $options['response'];
+        if(array_key_exists('route', $options)){
+            return $options['route'];
         }
         return null;
     }
