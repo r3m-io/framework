@@ -15,6 +15,7 @@ use stdClass;
 use R3m\Io\App;
 
 use R3m\Io\Module\Data as Storage;
+use R3m\Io\Module\Response;
 use R3m\Io\Module\Template\Main;
 
 use R3m\Io\Node\Model\Node;
