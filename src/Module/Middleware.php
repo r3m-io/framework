@@ -31,7 +31,7 @@ class Middleware extends Main {
 //    use Role;
 
     const NAME = 'Middleware';
-    const OBJECT = 'Middleware';
+    const OBJECT = 'System.Middleware';
     const CHUNK_SIZE = 4096;
 
     const LIST = 'list';
@@ -42,28 +42,23 @@ class Middleware extends Main {
     }
 
 
-    public static function on(App $object, $record, $options=[]): void
+    /**
+     * @throws Exception
+     */
+    public static function on(App $object, $data, $options=[]): void
     {
-        if(!array_key_exists('type', $options)){
-            $type = Middleware::RECORD;
-        } else {
-            $type = $options['type'];
-        }
-        $list = $object->get(App::MIDDLEWARE)->get(Middleware::NAME);
+        $list = $object->get(App::MIDDLEWARE)->get(Middleware::OBJECT);
         if(empty($list)){
             $list = [];
         }
-        switch($type){
-            case Middleware::RECORD :
-                $list[] = $record;
-                break;
-            case Middleware::LIST :
-                foreach($record as $node){
-                    $list[] = $node;
-                }
-                break;
+        if(is_array($data)){
+            foreach($data as $node){
+                $list[] = $node;
+            }
+        } else {
+            $list[] = $data;
         }
-        $object->get(App::MIDDLEWARE)->set(Middleware::NAME, $list);
+        $object->get(App::MIDDLEWARE)->set(Middleware::OBJECT, $list);
     }
 
     public static function off(App $object, $record, $options=[]): void
@@ -132,18 +127,13 @@ class Middleware extends Main {
      * @throws Exception
      */
     public static function trigger(App $object, $options=[]){
-        $middlewares = $object->get(App::MIDDLEWARE)->data();
+        $middlewares = $object->get(App::MIDDLEWARE)->data(Middleware::OBJECT);
         $response = null;
         if(empty($middlewares)){
             if(
                 array_key_exists('response', $options)
             ){
                 return $options['response'];
-            }
-            elseif(
-                array_key_exists('route', $options)
-            ){
-                return $options['route'];
             }
             return null;
         }
@@ -155,27 +145,42 @@ class Middleware extends Main {
                         property_exists($middleware->options, 'controller') &&
                         is_array($middleware->options->controller)
                     ){
-                        foreach($middleware->options->controller as $controller){
-                            $route = new stdClass();
-                            $route->controller = $controller;
-                            $route = Route::controller($route);
-                            if(
-                                property_exists($route, 'controller') &&
-                                property_exists($route, 'function')
-                            ){
-                                $middleware = new Storage($middleware);
-                                try {
-                                    $response = $route->controller::{$route->function}($object, $middleware, $options);
-                                    if($middleware->get('stopPropagation')){
-                                        break 2;
+                        //middleware need route match
+                        if(
+                            (
+                                array_key_exists('route', $options) &&
+                                is_object($options['route']) &&
+                                property_exists($options['route'], 'uuid') &&
+                                property_exists($middleware, 'route') &&
+                                $options['route']->uuid === $middleware->route
+                            ) ||
+                            (
+                                property_exists($middleware, 'route') &&
+                                $middleware->route === '*'
+                            )
+                        ){
+                            foreach($middleware->options->controller as $controller){
+                                $route = new stdClass();
+                                $route->controller = $controller;
+                                $route = Route::controller($route);
+                                if(
+                                    property_exists($route, 'controller') &&
+                                    property_exists($route, 'function')
+                                ){
+                                    $middleware = new Storage($middleware);
+                                    try {
+                                        $response = $route->controller::{$route->function}($object, $middleware, $options);
+                                        if($middleware->get('stopPropagation')){
+                                            break 2;
+                                        }
                                     }
-                                }
-                                catch (LocateException $exception){
-                                    if($object->config('project.log.error')){
-                                        $object->logger($object->config('project.log.error'))->error('LocateException', [ $route, (string) $exception ]);
-                                    }
-                                    elseif($object->config('project.log.name')){
-                                        $object->logger($object->config('project.log.name'))->error('LocateException', [ $route, (string) $exception ]);
+                                    catch (LocateException $exception){
+                                        if($object->config('project.log.error')){
+                                            $object->logger($object->config('project.log.error'))->error('LocateException', [ $route, (string) $exception ]);
+                                        }
+                                        elseif($object->config('project.log.name')){
+                                            $object->logger($object->config('project.log.name'))->error('LocateException', [ $route, (string) $exception ]);
+                                        }
                                     }
                                 }
                             }
@@ -187,8 +192,8 @@ class Middleware extends Main {
         if($response){
             return $response;
         }
-        if(array_key_exists('route', $options)){
-            return $options['route'];
+        if(array_key_exists('response', $options)){
+            return $options['response'];
         }
         return null;
     }
@@ -196,55 +201,35 @@ class Middleware extends Main {
     /**
      * @throws ObjectException
      * @throws FileWriteException
+     * @throws Exception
      */
     public static function configure(App $object): void
     {
-        return;
-        /*
-        $middleware = new Middleware($object);
-        $limit = $object->config('middleware.chunk_size') ?? Middleware::CHUNK_SIZE;
-        $count = $middleware->count(
+        $node = new Node($object);
+        $role_system = $node->role_system();
+        if(!$role_system){
+            return;
+        }
+        if(!$node->role_has_permission($role_system, 'System:Middleware:list')){
+            return;
+        }
+        $response = $node->list(
             Middleware::OBJECT,
-            $middleware->role_system(),
+            $role_system,
             [
                 'sort' => [
+                    'route' => 'ASC',
                     'options.priority' => 'ASC'
-                ]
-                'where' => [
-                    '(',
-                    [
-                        'attribute' => 'options.priority',
-                        'value' => 10,
-                        'operator' => '>'
-                    ],
-                    ')'
-                ]
+                ],
+                'limit' => '*',
+                'ramdisk' => true
             ]
         );
-        $page_max = ceil($count / $limit);
-        for($page = 1; $page <= $page_max; $page++){
-            $response = $middleware->list(
-                Middleware::OBJECT,
-                $middleware->role_system(),
-                [
-                    'sort' => [
-                        'action' => 'ASC',
-                        'options.priority' => 'ASC'
-                    ],
-                    'page' => $page,
-                    'limit' => $limit,
-                    'ramdisk' => true,
-                ]
-            );
-            if(
-                $response &&
-                array_key_exists('list', $response)
-            ){
-                Middleware::on($object, $response['list'], [
-                    'type' => Middleware::LIST
-                ]);
-            }
+        if(
+            $response &&
+            array_key_exists('list', $response)
+        ){
+            Middleware::on($object, $response['list']);
         }
-        */
     }
 }

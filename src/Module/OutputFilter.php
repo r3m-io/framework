@@ -41,7 +41,7 @@ class OutputFilter extends Main {
      */
     public static function on(App $object, $data, $options=[]): void
     {
-        $list = $object->get(App::OUTPUTFILTER)->get(OUTPUTFILTER::OBJECT);
+        $list = $object->get(App::OUTPUTFILTER)->get(OutputFilter::OBJECT);
         if(empty($list)){
             $list = [];
         }
@@ -52,7 +52,7 @@ class OutputFilter extends Main {
         } else {
             $list[] = $data;
         }
-        $object->get(App::OUTPUTFILTER)->set(OUTPUTFILTER::OBJECT, $list);
+        $object->get(App::OUTPUTFILTER)->set(OutputFilter::OBJECT, $list);
     }
 
     public static function off(App $object, $record, $options=[]){
@@ -194,6 +194,7 @@ class OutputFilter extends Main {
     /**
      * @throws ObjectException
      * @throws FileWriteException
+     * @throws Exception
      */
     public static function configure(App $object): void
     {
