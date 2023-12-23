@@ -36,28 +36,23 @@ class OutputFilter extends Main {
         $this->object($object);
     }
 
-    public static function on(App $object, $record, $options=[]): void
+    /**
+     * @throws Exception
+     */
+    public static function on(App $object, $data, $options=[]): void
     {
-        if(!array_key_exists('type', $options)){
-            $type = OutputFilter::RECORD;
-        } else {
-            $type = $options['type'];
-        }
-        $list = $object->get(App::OUTPUTFILTER)->get(OutputFilter::NAME);
+        $list = $object->get(App::OUTPUTFILTER)->get(OUTPUTFILTER::OBJECT);
         if(empty($list)){
             $list = [];
         }
-        switch($type){
-            case OutputFilter::RECORD :
-                $list[] = $record;
-                break;
-            case OutputFilter::LIST :
-                foreach($record as $node){
-                    $list[] = $node;
-                }
-                break;
+        if(is_array($data)){
+            foreach($data as $node){
+                $list[] = $node;
+            }
+        } else {
+            $list[] = $data;
         }
-        $object->get(App::OUTPUTFILTER)->set(OutputFilter::NAME, $list);
+        $object->get(App::OUTPUTFILTER)->set(OUTPUTFILTER::OBJECT, $list);
     }
 
     public static function off(App $object, $record, $options=[]){
@@ -217,7 +212,7 @@ class OutputFilter extends Main {
             $response &&
             array_key_exists('list', $response)
         ){
-            OutputFilter::on($object, $response['list'], ['type' => OutputFilter::LIST]);
+            OutputFilter::on($object, $response['list']);
         }
     }
 }
