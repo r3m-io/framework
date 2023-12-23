@@ -45,7 +45,7 @@ class Validate {
     /**
      * @throws Exception
      */
-    public static function validate(App $object, $validate){
+    public static function validate(App $object, $validate, $extra=false){
         $extension = $object->config('extension.php');  
         $test = [];
         foreach($validate as $field => $list){
@@ -60,13 +60,14 @@ class Validate {
             }
             $test[$field] = [];
             if(is_object($list)){
-                $validate->{$field} = Validate::validate($object, $list);
+                $validate->{$field} = Validate::validate($object, $list, $field);
                 if(property_exists($validate->{$field}, 'test')){
                     $validate->test[$field] = $validate->{$field}->test;                    
                 }
-            } 
+            }
             elseif(is_array($list)){
                 $field_request = str_replace('[]', '', $field);
+                d($field_request);
                 if($object->request('has', 'node.' . $field_request)){
                     $value = $object->request('node.' . $field_request);
                 }
