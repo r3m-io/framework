@@ -120,16 +120,11 @@ class Middleware extends Main {
      * @throws ObjectException
      * @throws Exception
      */
-    public static function trigger(App $object, $options=[]){
+    public static function trigger(App $object, Destination $destination=null, $options=[]){
         $middlewares = $object->get(App::MIDDLEWARE)->data(Middleware::OBJECT);
         $response = null;
         if(empty($middlewares)){
-            if(
-                array_key_exists('route', $options)
-            ){
-                return $options['route'];
-            }
-            return null;
+            return $destination;
         }
         if(is_array($middlewares) || is_object($middlewares)){
             foreach($middlewares as $middleware){
@@ -142,11 +137,9 @@ class Middleware extends Main {
                         //middleware need route match
                         if(
                             (
-                                array_key_exists('route', $options) &&
-                                is_object($options['route']) &&
-                                property_exists($options['route'], 'uuid') &&
+                                !empty($destination->get('uuid')) &&
                                 property_exists($middleware, 'route') &&
-                                $options['route']->uuid === $middleware->route
+                                $destination->get('uuid') === $middleware->route
                             ) ||
                             (
                                 property_exists($middleware, 'route') &&
@@ -170,10 +163,10 @@ class Middleware extends Main {
                                     }
                                     catch (LocateException $exception){
                                         if($object->config('project.log.error')){
-                                            $object->logger($object->config('project.log.error'))->error('LocateException', [ $route, (string) $exception ]);
+                                            $object->logger($object->config('project.log.error'))->error('LocateException', [ $destination->data(), (string) $exception ]);
                                         }
                                         elseif($object->config('project.log.name')){
-                                            $object->logger($object->config('project.log.name'))->error('LocateException', [ $route, (string) $exception ]);
+                                            $object->logger($object->config('project.log.name'))->error('LocateException', [ $destination->data(), (string) $exception ]);
                                         }
                                     }
                                 }
