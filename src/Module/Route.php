@@ -384,7 +384,7 @@ class Route extends Data {
             }
             $get->path = $old_path;
         }
-        ddd($get);
+        d($get);
     }
 
     /**
