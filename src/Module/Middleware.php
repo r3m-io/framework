@@ -156,7 +156,7 @@ class Middleware extends Main {
                                 ){
                                     $middleware = new Storage($middleware);
                                     try {
-                                        $response = $route->controller::{$route->function}($object, $middleware, $options);
+                                        $response = $route->controller::{$route->function}($object, $destination, $middleware, $options);
                                         if($middleware->get('stopPropagation')){
                                             break 2;
                                         }
