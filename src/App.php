@@ -205,7 +205,7 @@ class App extends Data {
                         }
                     }
                 }
-                d($destination);
+                ddd($destination);
                 if (
                     property_exists($route, 'redirect') &&
                     property_exists($route, 'method') &&
