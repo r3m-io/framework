@@ -205,38 +205,37 @@ class App extends Data {
                         }
                     }
                 }
-                d($destination);
-                ddd($object->request());
-                if (
-                    property_exists($route, 'redirect') &&
-                    property_exists($route, 'method') &&
+                if(
+                    !empty($destination->get('redirect')) &&
+                    !empty($destination->get('method')) &&
+                    is_array($destination->get('method')) &&
                     in_array(
                         Handler::method(),
-                        $route->method,
+                        $destination->get('method'),
                         true
                     )
-                ) {
+                ){
                     if($logger){
-                        $object->logger($logger)->info('Request (' . $object->request('request') . ') Redirect: ' . $route->redirect . ' Method: ' . implode(', ', $route->method));
+                        $object->logger($logger)->info('Request (' . $object->request('request') . ') Redirect: ' . $destination->get('redirect') . ' Method: ' . implode(', ', $destination->get('method')));
                     }
                     Event::trigger($object, 'app.run.route.redirect', [
-                        'route' => $route,
+                        'destination' => $destination,
                     ]);
-                    Core::redirect($route->redirect);
-                } elseif (
-                    property_exists($route, 'redirect') &&
-                    !property_exists($route, 'method')
-                ) {
+                    Core::redirect($destination->get('redirect'));
+                }
+                elseif(
+                    !empty($destination->get('redirect') &&
+                    empty($destination->get('method'))
+                ){
                     if($logger){
-                        $object->logger($logger)->info('Redirect: ' . $route->redirect);
+                        $object->logger($logger)->info('Redirect: ' . $destination->has('redirect'));
                     }
                     Event::trigger($object, 'app.run.route.redirect', [
-                        'route' => $route,
+                        'destination' => $destination,
                     ]);
-                    Core::redirect($route->redirect);
-                } elseif (
-                    property_exists($route, 'url')
-                ) {
+                    Core::redirect($destination->get('redirect'));
+                }
+                elseif(!empty($destination->get('url'))){
                     $object->config(
                         'controller.dir.root',
                         $object->config('project.dir.root') .
@@ -245,32 +244,35 @@ class App extends Data {
                         'framework' . $object->config('ds') .
                         'src' . $object->config('ds')
                     );
-                    $parse = new Parse($object, $object->data());
-                    $route->url = $parse->compile($route->url, $object->data());
-                    if (File::extension($route->url) === $object->config('extension.json')) {
+                    //change to config ?
+                    $parameters = [$destination->get('url')];
+                    $parameters = Config::parameters($object, $parameters);
+                    $url = $parameters[0];
+                    $destination->set('url', $url);
+                    if (File::extension($url) === $object->config('extension.json')) {
                         $response = new Response(
-                            File::read($route->url),
+                            File::read($url),
                             Response::TYPE_JSON,
                         );
                         Event::trigger($object, 'app.run.route.file', [
-                            'route' => $route,
+                            'destination' => $destination,
                             'extension' => $object->config('extension.json'),
                             'content_type' => $object->config('contentType.' . strtolower($object->config('extension.json')))
                         ]);
                         return Response::output($object, $response);
                     } else {
-                        $extension = File::extension($route->url);
+                        $extension = File::extension($url);
                         $contentType = $object->config('contentType.' . strtolower($extension));
                         if ($contentType) {
                             $response = new Response(
-                                File::read($route->url),
+                                File::read($url),
                                 Response::TYPE_FILE,
                             );
                             $response->header([
                                 'Content-Type: ' . $contentType
                             ]);
                             Event::trigger($object, 'app.run.route.file', [
-                                'route' => $route,
+                                'destination' => $destination,
                                 'extension' => $extension,
                                 'content_type' => $contentType
                             ]);
@@ -279,6 +281,7 @@ class App extends Data {
                         throw new Exception('Extension (' . $extension . ') not supported...');
                     }
                 } else {
+                        ddd($destination);
                     App::contentType($object);
                     App::controller($object, $route);
                     $methods = get_class_methods($route->controller);
