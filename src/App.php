@@ -244,7 +244,6 @@ class App extends Data {
                         'framework' . $object->config('ds') .
                         'src' . $object->config('ds')
                     );
-                    //change to config ?
                     $parameters = [$destination->get('url')];
                     $parameters = Config::parameters($object, $parameters);
                     $url = $parameters[0];
