@@ -163,14 +163,13 @@ class App extends Data {
         Handler::request_configure($object);
         App::configure($object);
         Route::configure($object);
-        $route = false;
+        $destination = false;
         $logger = $object->config('project.log.name');
         try {
             $file = FileRequest::get($object);
             if ($file === false) {
-                $route = Route::request($object);
-                d($route);
-                if ($route === false) {
+                $destination = Route::request($object);
+                if ($destination === false) {
                     if ($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
                         if($logger){
                             $object->logger($logger)->error('Couldn\'t determine route (' . $object->request('request') . ')...');
@@ -184,13 +183,13 @@ class App extends Data {
                             Response::STATUS_NOT_IMPLEMENTED
                         );
                         Event::trigger($object, 'app.run.route.error', [
-                            'route' => false,
+                            'destination' => false,
                             'exception' => $exception
                         ]);
                         return Response::output($object, $response);
                     } else {
-                        $route = Route::wildcard($object);
-                        if ($route === false) {
+                        $destination = Route::wildcard($object);
+                        if ($destination === false) {
                             if($logger){
                                 $object->logger($logger)->error('Couldn\'t determine route (wildcard) (' . $object->request('request') . ')...');
                             }
@@ -199,13 +198,14 @@ class App extends Data {
                                 Response::TYPE_HTML
                             );
                             Event::trigger($object, 'app.run.route.wildcard.error', [
-                                'route' => false,
+                                'destination' => false,
                                 'is_not_configured' => true
                             ]);
                             return Response::output($object, $response);
                         }
                     }
                 }
+                d($destination);
                 if (
                     property_exists($route, 'redirect') &&
                     property_exists($route, 'method') &&
