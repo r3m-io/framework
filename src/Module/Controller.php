@@ -187,10 +187,8 @@ class Controller {
             is_string($template)
         ){
             $called = get_called_class();
-            d($called);
             if(defined($called .'::DIR')){
                 $dir = $called::DIR;
-                d($dir);
             } else {
                 throw new Exception('Please define const DIR = __DIR__ . DIRECTORY_SEPARATOR; in the controller (' . $called . ').');
             }

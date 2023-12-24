@@ -151,7 +151,6 @@ class Middleware extends Main {
                                 $route = new stdClass();
                                 $route->controller = $controller;
                                 $route = Route::controller($route);
-                                d($route);
                                 if(
                                     property_exists($route, 'controller') &&
                                     property_exists($route, 'function')
@@ -178,8 +177,6 @@ class Middleware extends Main {
                 }
             }
         }
-        d($destination);
-        d($target);
         if($target){
             return $target;
         }
