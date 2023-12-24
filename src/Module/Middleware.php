@@ -177,6 +177,8 @@ class Middleware extends Main {
                 }
             }
         }
+        d($destination);
+        d($target);
         if($target){
             return $target;
         }
