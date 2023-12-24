@@ -221,6 +221,7 @@ class Route extends Data {
 
     /**
      * @throws ObjectException
+     * @throws Exception
      */
     public static function wildcard(App $object){
         if(defined('IS_CLI')){
@@ -228,6 +229,12 @@ class Route extends Data {
         } else {
             $route =  $object->data(App::ROUTE);
             $request = $route->data(Route::SELECT_WILDCARD);
+            if(property_exists($request, 'request')){
+                $request->request = new Data($request->request);
+            } else {
+                $request->request = new Data();
+            }
+            Route::add_request($object, $request);
             return $route->current(new Destination($request));
         }
         return false;
@@ -386,6 +393,11 @@ class Route extends Data {
                 }
             }
             $get->path = $old_path;
+        }
+        if(property_exists($get, 'request')){
+            $get->request = new Data($get->request);
+        } else {
+            $get->request = new Data();
         }
         Route::add_request($object, $get);
         //change request
