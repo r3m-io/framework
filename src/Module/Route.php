@@ -105,7 +105,7 @@ class Route extends Data {
                 throw new Exception('path & url are empty');
             }
         }
-        $get = $route::add_localhost($object, $get);
+//        $get = $route::add_localhost($object, $get);
         if(!empty($object->config('host.name'))  && property_exists($get, 'host')){
             $host = explode(':', $object->config('host.name'), 3);
             if(array_key_exists(2, $host)){
@@ -350,7 +350,12 @@ class Route extends Data {
                 throw new Exception('path & url are empty');
             }
         }
-        $get = $route::add_localhost($object, $get);
+        if(property_exists($get, 'request')){
+            $get->request = new Data($get->request);
+        } else {
+            $get->request = new Data();
+        }
+//        $get = $route::add_localhost($object, $get);
         if(!empty($object->config('host.name'))  && property_exists($get, 'host')){
             $host = explode(':', $object->config('host.name'), 3);
             if(array_key_exists(2, $host)){
@@ -385,20 +390,18 @@ class Route extends Data {
                     if(array_key_exists(1, $temp)){
                         $variable = $temp[1];
                         $path = str_replace('{$' . $variable . '}', $value, $path);
+                        $get->request->set($variable, $value);
                         $get->path = str_replace('{$' . $variable . '}', '', $get->path);
                     }
                 } else {
                     $path = str_replace('{$' . $key . '}', $value, $path);
+                    $get->request->set($key, $value);
                     $get->path = str_replace('{$' . $key . '}', '', $get->path);
                 }
             }
             $get->path = $old_path;
         }
-        if(property_exists($get, 'request')){
-            $get->request = new Data($get->request);
-        } else {
-            $get->request = new Data();
-        }
+
         Route::add_request($object, $get);
         //change request
         //change controller -> controller, function
