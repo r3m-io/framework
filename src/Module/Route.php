@@ -325,6 +325,69 @@ class Route extends Data {
     }
 
     /**
+     * @throws Exception
+     */
+    public static function navigation(App $object, $name='', $options=[]){
+        $route = $object->data(App::ROUTE);
+        $get = $route->data($name);
+        if(empty($get)){
+            return false;
+        }
+        if(!property_exists($get, 'path')){
+            if(property_exists($get, 'url')){
+                return $get->url;
+            } else {
+                throw new Exception('path & url are empty');
+            }
+        }
+        $get = $route::add_localhost($object, $get);
+        if(!empty($object->config('host.url'))  && property_exists($get, 'host')){
+            $host = explode(':', $object->config('host.url'), 3);
+            if(array_key_exists(2, $host)){
+                array_pop($host);
+            }
+            $host = implode(':', $host);
+            $get = $route::has_host($get, $host);
+        }
+        if(empty($get)){
+            return false;
+        }
+        $get->path = str_replace([
+            '{{',
+            '}}',
+        ], [
+            '{',
+            '}'
+        ], $get->path);
+        $path = $get->path;
+        if(is_array($options)){
+            if(
+                empty($options) &&
+                stristr($path, '{$') !== false
+            ){
+                throw new Exception('path has variable & option is empty');
+            }
+            $old_path = $get->path;
+            foreach($options as $key => $value){
+                if(is_numeric($key)){
+                    $explode = explode('}', $get->path, 2);
+                    $temp = explode('{$', $explode[0], 2);
+                    if(array_key_exists(1, $temp)){
+                        $variable = $temp[1];
+                        $path = str_replace('{$' . $variable . '}', $value, $path);
+                        $get->path = str_replace('{$' . $variable . '}', '', $get->path);
+                    }
+                } else {
+                    $path = str_replace('{$' . $key . '}', $value, $path);
+                    $get->path = str_replace('{$' . $key . '}', '', $get->path);
+                }
+            }
+            $get->path = $old_path;
+        }
+        ddd($get);
+    }
+
+    /**
      * @throws UrlEmptyException
      * @throws ObjectException
      * @throws Exception
