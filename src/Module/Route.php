@@ -419,6 +419,7 @@ class Route extends Data {
             if($request === false){
                 throw new Exception('Exception in request');
             }
+            ddd($request);
             $request->request->data(Core::object_merge(clone $select->parameter, $request->request->data()));
             $route =  $object->data(App::ROUTE);
             //Route::add_request($object, $request);
