@@ -106,8 +106,8 @@ class Route extends Data {
             }
         }
         $get = $route::add_localhost($object, $get);
-        if(!empty($object->config('host.url'))  && property_exists($get, 'host')){
-            $host = explode(':', $object->config('host.url'), 3);
+        if(!empty($object->config('host.name'))  && property_exists($get, 'host')){
+            $host = explode(':', $object->config('host.name'), 3);
             if(array_key_exists(2, $host)){
                 array_pop($host);
             }
@@ -150,9 +150,9 @@ class Route extends Data {
             $get->path = $old_path;
         }
         if($path == '/'){
-            $url = $object->config('host.url');
+            $url = $object->config('host.name');
         } else {
-            $url = $object->config('host.url') . $path;
+            $url = $object->config('host.name') . $path;
         }
         $object->logger()->debug('route:find.url:', [$url]);
         return $url;
@@ -228,7 +228,7 @@ class Route extends Data {
         } else {
             $route =  $object->data(App::ROUTE);
             $request = $route->data(Route::SELECT_WILDCARD);
-            return $route->current($request);
+            return $route->current(new Destination($request));
         }
         return false;
     }
@@ -327,7 +327,7 @@ class Route extends Data {
     /**
      * @throws Exception
      */
-    public static function navigation(App $object, $name='', $options=[]){
+    public static function navigate(App $object, $name='', $options=[]){
         $route = $object->data(App::ROUTE);
         $get = $route->data($name);
         if(empty($get)){
@@ -341,8 +341,8 @@ class Route extends Data {
             }
         }
         $get = $route::add_localhost($object, $get);
-        if(!empty($object->config('host.url'))  && property_exists($get, 'host')){
-            $host = explode(':', $object->config('host.url'), 3);
+        if(!empty($object->config('host.name'))  && property_exists($get, 'host')){
+            $host = explode(':', $object->config('host.name'), 3);
             if(array_key_exists(2, $host)){
                 array_pop($host);
             }
@@ -384,6 +384,9 @@ class Route extends Data {
             }
             $get->path = $old_path;
         }
+        //change request
+        //change controller -> controller, function
+        //set name
         d($get);
     }
 
@@ -417,8 +420,8 @@ class Route extends Data {
             }
             $request->request->data(Core::object_merge(clone $select->parameter, $request->request->data()));
             $route =  $object->data(App::ROUTE);
-            $object = Route::add_request($object, $request);
-            return $route->current($request);
+            Route::add_request($object, $request);
+            return $route->current(new Destination($request));
         } else {
             if(
                 Host::scheme() === Host::SCHEME_HTTP &&
@@ -477,7 +480,7 @@ class Route extends Data {
             $request = Route::route_select($object, $select);
             $route =  $object->data(App::ROUTE);
             Route::add_request($object, $request);
-            return $route->current($request);
+            return $route->current(new Destination($request));
         }
     }
 
