@@ -172,6 +172,7 @@ class Route extends Data {
 
     /**
      * @throws ObjectException
+     * @deprecated since 2023-12-24
      */
     private static function add_request($object, $request){
         if(empty($request)){
@@ -420,34 +421,13 @@ class Route extends Data {
             }
             $request->request->data(Core::object_merge(clone $select->parameter, $request->request->data()));
             $route =  $object->data(App::ROUTE);
-            Route::add_request($object, $request);
+            //Route::add_request($object, $request);
             return $route->current(new Destination($request));
         } else {
-            if(
-                Host::scheme() === Host::SCHEME_HTTP &&
-                $object->config('server.http.upgrade_insecure') === true &&
-                $object->config('framework.environment') !== Config::MODE_DEVELOPMENT &&
-                Host::isIp4Address() === false
-            ){
-                $url = false;
-                $subdomain = Host::subdomain();
-                if($subdomain){
-                    $url = Host::SCHEME_HTTPS . '://' . $subdomain . '.' . Host::domain() . '.' . Host::extension();
-                } else {
-                    $domain = Host::domain();
-                    if ($domain) {
-                        $url = Host::SCHEME_HTTPS . '://' . Host::domain() . '.' . Host::extension();
-                    }
-                }
-                if($url) {
-                    Core::redirect($url);
-                }
-            }
+            Route::upgrade_insecure($object);
             $input = Route::input($object);
-            $is_added = false;
             if(substr($input->data('request'), -1) != '/'){
                 $input->data('request', $input->data('request') . '/');
-                $is_added = true;
             }
             $select = new stdClass();
             $select->input = $input;
@@ -479,8 +459,36 @@ class Route extends Data {
             d($select);
             $request = Route::route_select($object, $select);
             $route =  $object->data(App::ROUTE);
-            Route::add_request($object, $request);
+            //Route::add_request($object, $request);
             return $route->current(new Destination($request));
+        }
+    }
+
+    /**
+     * @throws UrlEmptyException
+     * @throws Exception
+     */
+    public static function upgrade_insecure(App $object): void
+    {
+        if(
+            Host::scheme() === Host::SCHEME_HTTP &&
+            $object->config('server.http.upgrade_insecure') === true &&
+            $object->config('framework.environment') !== Config::MODE_DEVELOPMENT &&
+            Host::isIp4Address() === false
+        ){
+            $url = false;
+            $subdomain = Host::subdomain();
+            if($subdomain){
+                $url = Host::SCHEME_HTTPS . '://' . $subdomain . '.' . Host::domain() . '.' . Host::extension();
+            } else {
+                $domain = Host::domain();
+                if ($domain) {
+                    $url = Host::SCHEME_HTTPS . '://' . Host::domain() . '.' . Host::extension();
+                }
+            }
+            if($url) {
+                Core::redirect($url);
+            }
         }
     }
 
@@ -568,7 +576,7 @@ class Route extends Data {
             if(property_exists($current, 'controller')){
                 $current = Route::controller($current);
             }
-            Route::add_request($object, $current);
+            //Route::add_request($object, $current);
             return $current;
         }
         return false;
