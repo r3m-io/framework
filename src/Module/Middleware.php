@@ -123,7 +123,7 @@ class Middleware extends Main {
     public static function trigger(App $object, Destination $destination=null, $options=[]): Destination
     {
         $middlewares = $object->get(App::MIDDLEWARE)->data(Middleware::OBJECT);
-        $response = null;
+        $target = null;
         if(empty($middlewares)){
             return $destination;
         }
