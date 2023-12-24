@@ -239,10 +239,14 @@ class App extends Data {
                     $object->config(
                         'controller.dir.root',
                         $object->config('project.dir.root') .
-                        'vendor' . $object->config('ds') .
-                        'r3m_io' . $object->config('ds') .
-                        'framework' . $object->config('ds') .
-                        'src' . $object->config('ds')
+                        'vendor' .
+                        $object->config('ds') .
+                        'r3m_io' .
+                        $object->config('ds') .
+                        'framework' .
+                        $object->config('ds') .
+                        'src' .
+                        $object->config('ds')
                     );
                     $parameters = [$destination->get('url')];
                     $parameters = Config::parameters($object, $parameters);
