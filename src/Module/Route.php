@@ -340,8 +340,14 @@ class Route extends Data {
         if(empty($get)){
             return false;
         }
-        if(!property_exists($get, 'path')){
-            if(property_exists($get, 'url')){
+        if(
+            !property_exists($get, 'path') ||
+            empty($get->path)
+        ){
+            if(
+                property_exists($get, 'url') &&
+                !empty($get->url)
+            ){
                 return $get->url;
             } else {
                 throw new Exception('path & url are empty');
@@ -352,10 +358,10 @@ class Route extends Data {
         } else {
             $get->request = new Data();
         }
-//        $get = $route::add_localhost($object, $get);
         if(
             !empty($object->config('host.name'))  &&
-            property_exists($get, 'host')
+            property_exists($get, 'host') &&
+            !empty($get->host)
         ){
             $host = explode(':', $object->config('host.name'), 3);
             if(array_key_exists(2, $host)){
@@ -419,9 +425,8 @@ class Route extends Data {
             $key = 0;
             if(property_exists($select->parameter, $key)){
                 $select->attribute = explode($object->config('ds'), $select->parameter->{$key});
-
             } else {
-                $select->attribute =[];
+                $select->attribute = [];
                 $select->attribute[] = '';
             }
             $select->method = Handler::method();
@@ -473,7 +478,6 @@ class Route extends Data {
             }
             $select->method = Handler::method();
             $select->host = strtolower($object->config('host.name'));
-            d($select);
             $request = Route::route_select($object, $select);
             $route =  $object->data(App::ROUTE);
             Route::add_request($object, $request);
