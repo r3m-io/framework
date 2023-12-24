@@ -338,10 +338,7 @@ class App extends Data {
                                 Handler::NAME_INPUT
                             )->data()
                         );
-                        $object->config(
-                            'request',
-                            $request
-                        );
+                        $object->config('request', $request);
                         if($logger){
                             $object->logger($logger)->info(
                                 'Controller (' .
