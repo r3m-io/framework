@@ -485,7 +485,8 @@ class Route extends Data {
         }
     }
 
-    public static function upgrade_insecure(App $object){
+    public static function upgrade_insecure(App $object): void
+    {
         if(
             Host::scheme() === Host::SCHEME_HTTP &&
             $object->config('server.http.upgrade_insecure') === true &&
