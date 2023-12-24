@@ -183,6 +183,7 @@ class Middleware extends Main {
                 }
             }
         }
+        ddd($options);
         if($response){
             return new Response($response);
         }
