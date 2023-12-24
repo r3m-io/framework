@@ -345,9 +345,9 @@ class App extends Data {
                         if($logger){
                             $object->logger($logger)->info(
                                 'Controller (' .
-                                $route->controller .
+                                $controller .
                                 ') function (' .
-                                $route->function .
+                                $function .
                                 ') triggered.'
                             );
                         }
