@@ -330,6 +330,7 @@ class Route extends Data {
     public static function navigate(App $object, $name='', $options=[]){
         $route = $object->data(App::ROUTE);
         $get = $route->data($name);
+        d($get);
         if(empty($get)){
             return false;
         }
