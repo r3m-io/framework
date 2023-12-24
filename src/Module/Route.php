@@ -473,6 +473,7 @@ class Route extends Data {
             }
             $select->method = Handler::method();
             $select->host = strtolower($object->config('host.name'));
+            d($select);
             $request = Route::route_select($object, $select);
             $route =  $object->data(App::ROUTE);
             Route::add_request($object, $request);
