@@ -387,6 +387,7 @@ class Route extends Data {
             }
             $get->path = $old_path;
         }
+        Route::add_request($object, $get);
         //change request
         //change controller -> controller, function
         //set name
@@ -1111,7 +1112,6 @@ class Route extends Data {
                         $response['list'][$name] = $record;
                     }
                 }
-                d($response);
                 $route->data(Core::object_merge($route->data(), $response['list']));
                 //maybe re-sort on priority-name
             }
