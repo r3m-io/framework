@@ -120,7 +120,8 @@ class Middleware extends Main {
      * @throws ObjectException
      * @throws Exception
      */
-    public static function trigger(App $object, Destination $destination=null, $options=[]){
+    public static function trigger(App $object, Destination $destination=null, $options=[]): Destination
+    {
         $middlewares = $object->get(App::MIDDLEWARE)->data(Middleware::OBJECT);
         $response = null;
         if(empty($middlewares)){
@@ -156,7 +157,7 @@ class Middleware extends Main {
                                 ){
                                     $middleware = new Storage($middleware);
                                     try {
-                                        $response = $route->controller::{$route->function}($object, $destination, $middleware, $options);
+                                        $target = $route->controller::{$route->function}($object, $destination, $middleware, $options);
                                         if($middleware->get('stopPropagation')){
                                             break 2;
                                         }
@@ -176,15 +177,10 @@ class Middleware extends Main {
                 }
             }
         }
-        d($response);
-        d($options);
-        if($response){
-            return new Response($response);
+        if($target){
+            return $target;
         }
-        if(array_key_exists('route', $options)){
-            return $options['route'];
-        }
-        return null;
+        return $destination;
     }
 
     /**
