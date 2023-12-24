@@ -403,10 +403,7 @@ class Route extends Data {
         }
         $get = Route::controller($get);
         Route::add_request($object, $get);
-        //change request
-        //change controller -> controller, function
-        //set name
-        d($get);
+        return $route->current(new Destination($get));
     }
 
     /**
