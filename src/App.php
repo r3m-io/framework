@@ -470,7 +470,7 @@ class App extends Data {
                     }
                     if($is_url === false){
                         Event::trigger($object, 'app.route.exception', [
-                            'route' => $route,
+                            'destination' => $destination,
                             'exception' => $exception
                         ]);
                         echo $exception;
@@ -482,7 +482,7 @@ class App extends Data {
                         $data['exception'] = Core::object_array($exception);
                         $data['exception']['className'] = get_class($exception);
                         Event::trigger($object, 'app.route.exception', [
-                            'route' => $route,
+                            'destination' => $destination,
                             'url' => $url,
                             'exception' => $exception
                         ]);
