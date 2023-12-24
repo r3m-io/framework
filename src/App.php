@@ -317,8 +317,7 @@ class App extends Data {
                         $functions[] = 'configure';
                         $controller::configure($object);
                     }
-                    $destination = Middleware::trigger($object, [
-                        'destination' => $destination,
+                    $destination = Middleware::trigger($object, $destination, [
                         'methods' => $methods,
                     ]);
                     $controller = $destination->get('controller');
