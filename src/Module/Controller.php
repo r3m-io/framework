@@ -187,6 +187,7 @@ class Controller {
             is_string($template)
         ){
             $called = get_called_class();
+            d($called);
             if(defined($called .'::DIR')){
                 $dir = $called::DIR;
             } else {
