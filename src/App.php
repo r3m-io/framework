@@ -10,6 +10,7 @@
  */
 namespace R3m\Io;
 
+use R3m\Io\Module\Destination;
 use stdClass;
 
 use R3m\Io\Module\Autoload;
@@ -283,17 +284,18 @@ class App extends Data {
                         }
                         throw new Exception('Extension (' . $extension . ') not supported...');
                     }
-                } else {
-                        ddd($destination);
+                }
+                elseif(!empty($destination->get('controller'))){
                     App::contentType($object);
-                    App::controller($object, $route);
-                    $methods = get_class_methods($route->controller);
+                    App::controller($object, $destination);
+                    $controller = $destination->get('controller');
+                    $methods = get_class_methods($controller);
                     if (empty($methods)) {
                         if($logger){
-                            $object->logger($logger)->error('Couldn\'t determine controller (' . $route->controller . ') with request (' . $object->request('request') . ')');
+                            $object->logger($logger)->error('Couldn\'t determine controller (' . $destination->get('controller') . ') with request (' . $object->request('request') . ')');
                         }
                         $exception = new Exception(
-                            'Couldn\'t determine controller (' . $route->controller . ')'
+                            'Couldn\'t determine controller (' . $destination->get('controller') . ')'
                         );
                         $response = new Response(
                             App::exception_to_json($exception),
@@ -301,7 +303,7 @@ class App extends Data {
                             Response::STATUS_NOT_IMPLEMENTED
                         );
                         Event::trigger($object, 'app.run.route.file', [
-                            'route' => $route,
+                            'destination' => $destination,
                             'exception' => $exception
                         ]);
                         return Response::output($object, $response);
@@ -309,28 +311,27 @@ class App extends Data {
                     $functions = [];
                     if (in_array('controller', $methods, true)) {
                         $functions[] = 'controller';
-                        $route->controller::controller($object);
+                        $controller::controller($object);
                     }
                     if (in_array('configure', $methods, true)) {
                         $functions[] = 'configure';
-                        $route->controller::configure($object);
+                        $controller::configure($object);
                     }
-                    // @deprecated since Middleware
-                    if (in_array('before_run', $methods, true)) {
-                        $functions[] = 'before_run';
-                        $route->controller::before_run($object);
-                    }
-                    $route = Middleware::trigger($object, [
-                        'route' => $route,
+                    $destination = Middleware::trigger($object, [
+                        'destination' => $destination,
                         'methods' => $methods,
                     ]);
-                    if (
-                        is_object($route) &&
-                        property_exists($route, 'function') &&
-                        in_array($route->function, $methods, true)
-                    ) {
-                        $functions[] = $route->function;
-                        $object->config('controller.function', $route->function);
+                    $controller = $destination->get('controller');
+                    $function = $destination->get('function');
+                    $methods = get_class_methods($controller);
+                    if(
+                        $destination &&
+                        $function &&
+                        $methods &&
+                        in_array($function, $methods, true)
+                    ){
+                        $functions[] = $function;
+                        $object->config('controller.function', $function);
                         $request = Core::deep_clone(
                             $object->get(
                                 App::NAMESPACE . '.' .
@@ -351,13 +352,13 @@ class App extends Data {
                                 ') triggered.'
                             );
                         }
-                        $result = $route->controller::{$route->function}($object);
+                        $result = $controller::{$function}($object);
                         Event::trigger($object, 'app.run.route.controller', [
-                            'route' => $route,
+                            'destination' => $destination,
                             'response' => $result
                         ]);
                         $result = OutputFilter::trigger($object, [
-                            'route' => $route,
+                            'destination' => $destination,
                             'methods' => $methods,
                             'response' => $result
                         ]);
@@ -365,17 +366,17 @@ class App extends Data {
                         if($logger){
                             $object->logger($logger)->error(
                                 'Controller (' .
-                                $route->controller .
+                                $controller .
                                 ') function (' .
-                                $route->function .
+                                $function .
                                 ') does not exist.'
                             );
                         }
                         $exception = new Exception(
                             'Controller (' .
-                            $route->controller .
+                            $controller .
                             ') function (' .
-                            $route->function .
+                            $function .
                             ') does not exist.'
                         );
                         $response = new Response(
@@ -384,28 +385,13 @@ class App extends Data {
                             Response::STATUS_NOT_IMPLEMENTED
                         );
                         Event::trigger($object, 'app.run.route.controller', [
-                            'route' => $route,
+                            'destination' => $destination,
                             'exception' => $exception
                         ]);
                         return Response::output($object, $response);
                     }
-                    // @deprecated since OutputFilter
-                    if (in_array('after_run', $methods, true)) {
-                        $functions[] = 'after_run';
-                        $route->controller::after_run($object);
-                    }
-                    // @deprecated since OutputFilter
-                    if (in_array('before_result', $methods, true)) {
-                        $functions[] = 'before_result';
-                        $route->controller::before_result($object);
-                    }
                     $functions[] = 'result';
                     $result = App::result($object, $result);
-                    // @deprecated since OutputFilter
-                    if (in_array('after_result', $methods)) {
-                        $functions[] = 'after_result';
-                        $result = $route->controller::after_result($object, $result);
-                    }
                     if($logger){
                         $object->logger($logger)->info('Functions: [' . implode(', ', $functions) . '] called in controller: ' . $route->controller);
                     }
@@ -434,7 +420,7 @@ class App extends Data {
                         $object->logger($logger)->error($exception->getMessage());
                     }
                     Event::trigger($object, 'app.route.exception', [
-                        'route' => $route,
+                        'destination' => $destination,
                         'exception' => $exception
                     ]);
                     return App::exception_to_json($exception);
@@ -444,7 +430,7 @@ class App extends Data {
                         $object->logger($logger)->error($exception->getMessage());
                     }
                     Event::trigger($object, 'app.route.exception', [
-                        'route' => $route,
+                        'destination' => $destination,
                         'exception' => $exception
                     ]);
                     fwrite(STDERR, App::exception_to_cli($object, $exception));
@@ -506,15 +492,16 @@ class App extends Data {
     /**
      * @throws Exception
      */
-    public static function controller(App $object, $route): void
+    public static function controller(App $object, Destination $destination): void
     {
-        if(property_exists($route, 'controller')){
-            $check = class_exists($route->controller);
+        $controller = $destination->get('controller');
+        if(!empty($controller)){
+            $check = class_exists($controller);
             if(empty($check)){
-                throw new Exception('Cannot call controller (' . $route->controller .')');
+                throw new Exception('Cannot call controller (' . $controller .')');
             }
         } else {
-            throw new Exception('Missing controller in route');
+            throw new Exception('Missing controller in destination');
         }
     }
 
