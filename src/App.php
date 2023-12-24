@@ -392,7 +392,7 @@ class App extends Data {
                     $functions[] = 'result';
                     $result = App::result($object, $result);
                     if($logger){
-                        $object->logger($logger)->info('Functions: [' . implode(', ', $functions) . '] called in controller: ' . $route->controller);
+                        $object->logger($logger)->info('Functions: [' . implode(', ', $functions) . '] called in controller: ' . $controller);
                     }
                     return $result;
                 }
