@@ -401,7 +401,7 @@ class Route extends Data {
             }
             $get->path = $old_path;
         }
-
+        $get = Route::controller($get);
         Route::add_request($object, $get);
         //change request
         //change controller -> controller, function
