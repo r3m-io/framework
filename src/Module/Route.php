@@ -1111,6 +1111,7 @@ class Route extends Data {
                         $response['list'][$name] = $record;
                     }
                 }
+                d($response);
                 $route->data(Core::object_merge($route->data(), $response['list']));
                 //maybe re-sort on priority-name
             }
