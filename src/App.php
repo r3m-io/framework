@@ -224,7 +224,7 @@ class App extends Data {
                     Core::redirect($destination->get('redirect'));
                 }
                 elseif(
-                    !empty($destination->get('redirect') &&
+                    !empty($destination->get('redirect')) &&
                     empty($destination->get('method'))
                 ){
                     if($logger){
