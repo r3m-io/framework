@@ -407,6 +407,7 @@ class Route extends Data {
             }
             $select->method = Handler::method();
             $select->host = [];
+            d($select);
             $request = Route::route_select_cli($object, $select);
             if($request === false){
                 $select = Route::route_select_info($object, $select);
