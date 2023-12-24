@@ -485,6 +485,10 @@ class Route extends Data {
         }
     }
 
+    /**
+     * @throws UrlEmptyException
+     * @throws Exception
+     */
     public static function upgrade_insecure(App $object): void
     {
         if(
