@@ -34,6 +34,9 @@ function function_ramdisk_mount(Parse $parse, Data $data, $size='1G', $url='', $
     if(empty($url)){
         $url = $object->config('framework.dir.temp') . $name . $object->config('ds');
     }
+    if(substr($url, 0, -1) != $object->config('ds')){
+        $url .= $object->config('ds');
+    }
     $uuid = $object->config('ramdisk.uuid');
     ddd($uuid);
     if($uuid){
@@ -52,9 +55,7 @@ function function_ramdisk_mount(Parse $parse, Data $data, $size='1G', $url='', $
         Core::execute($object, $command);
     }
     Dir::create($url, 0777);
-    if(substr($url, 0, -1) != $object->config('ds')){
-        $url .= $object->config('ds');
-    }
+
 //    $command = 'chown www-data:www-data ' . $url;
 //    Core::execute($object, $command);
     $mount_url = substr($url, 0, -1);
