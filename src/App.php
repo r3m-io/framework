@@ -353,8 +353,7 @@ class App extends Data {
                             'destination' => $destination,
                             'response' => $result
                         ]);
-                        $result = OutputFilter::trigger($object, [
-                            'destination' => $destination,
+                        $result = OutputFilter::trigger($object,$destination, [
                             'methods' => $methods,
                             'response' => $result
                         ]);

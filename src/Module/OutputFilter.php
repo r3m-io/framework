@@ -117,7 +117,7 @@ class OutputFilter extends Main {
      * @throws ObjectException
      * @throws Exception
      */
-    public static function trigger(App $object, $options=[]){
+    public static function trigger(App $object, Destination $destination, $options=[]){
         $filters = $object->get(App::OUTPUTFILTER)->data(OutputFilter::OBJECT);
         $response = null;
         if(empty($filters)){
@@ -139,11 +139,9 @@ class OutputFilter extends Main {
                         //output filters need route match
                         if(
                             (
-                                array_key_exists('route', $options) &&
-                                is_object($options['route']) &&
-                                property_exists($options['route'], 'uuid') &&
+                                $destination->has('uuid') &&
                                 property_exists($filter, 'route') &&
-                                $options['route']->uuid === $filter->route
+                                $destination->get('uuid') === $filter->route
                             ) ||
                             (
                                 property_exists($filter, 'route') &&
@@ -160,7 +158,7 @@ class OutputFilter extends Main {
                                 ){
                                     $filter = new Storage($filter);
                                     try {
-                                        $response = $route->controller::{$route->function}($object, $filter, $options);
+                                        $response = $route->controller::{$route->function}($object, $destination, $filter, $options);
                                         if($filter->get('stopPropagation')){
                                             break 2;
                                         }
