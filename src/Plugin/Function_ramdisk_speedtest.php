@@ -22,30 +22,27 @@ function function_ramdisk_speedtest(Parse $parse, Data $data){
     if (!empty($id)){
         throw new Exception('RamDisk speedtest can only be run by root...');
     }
-    $config_url = $object->config('app.config.url');
-    $config = $object->data_read($config_url);
-    if($config){
-        $url = $config->get('ramdisk.url');
-        if($url){
-            $command = 'dd if=/dev/zero of=' . $url . 'zero bs=4k count=100000';
-            Core::execute($object, $command, $output, $notification);
-            echo 'Write:' . PHP_EOL;
-            if($output){
-                echo $output . PHP_EOL;
-            }
-            if($notification){
-                echo $notification . PHP_EOL;
-            }
-            $command = 'dd if=' . $url . 'zero of=/dev/null bs=4k count=100000';
-            Core::execute($object, $command, $output, $notification);
-            Echo 'Read:' . PHP_EOL;
-            if($output){
-                echo $output . PHP_EOL;
-            }
-            if($notification){
-                echo $notification . PHP_EOL;
-            }
-            File::delete($url . 'zero');
+    $url = $object->config('ramdisk.url') . 'speedtest';
+    if($url){
+        $command = 'dd if=/dev/zero of=' . $url . 'zero bs=4k count=100000';
+        Core::execute($object, $command, $output, $notification);
+        echo 'Write:' . PHP_EOL;
+        if($output){
+            echo $output . PHP_EOL;
         }
+        if($notification){
+            echo $notification . PHP_EOL;
+        }
+        $command = 'dd if=' . $url . 'zero of=/dev/null bs=4k count=100000';
+        Core::execute($object, $command, $output, $notification);
+        echo 'Read:' . PHP_EOL;
+        if($output){
+            echo $output . PHP_EOL;
+        }
+        if($notification){
+            echo $notification . PHP_EOL;
+        }
+        File::delete($url . 'zero');
     }
+
 }
