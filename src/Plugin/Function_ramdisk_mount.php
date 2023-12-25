@@ -35,6 +35,7 @@ function function_ramdisk_mount(Parse $parse, Data $data, $size='1G', $url='', $
         $url = $object->config('framework.dir.temp') . $name . $object->config('ds');
     }
     $uuid = $object->config('ramdisk.uuid');
+    ddd($uuid);
     if($uuid){
         $command = Core::binary($object) .
             ' r3m_io/node patch -class=System.Config.Ramdisk -uuid=' .
