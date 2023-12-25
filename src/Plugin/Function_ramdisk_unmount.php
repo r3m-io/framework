@@ -23,17 +23,19 @@ function function_ramdisk_unmount(Parse $parse, Data $data, $url=''){
     if (!empty($id)){
         throw new Exception('RamDisk can only be unmounted by root...');
     }
-    $config_url = $object->config('app.config.url');
-    $config = $object->data_read($config_url);
-    if($config){
-        $url = $object->get('ramdisk.url');
-        if($url){
-            $command = 'umount ' . $url;
-            Core::execute($object, $command);
-            Dir::remove($url);
-        }
-        $config->delete('ramdisk');
-        $config->write($config_url);
+    $url = $object->config('ramdisk.url');
+    if($url){
+        $command = 'umount ' . $url;
+        Core::execute($object, $command);
+        Dir::remove($url);
+        //update name && url of ramdisk
+        $command = Core::binary() .
+            ' r3m_io/node unset -class=System.Ramdisk -uuid=' .
+            $object->config('ramdisk.uuid') .
+            '-name -url'
+        ;
+        echo $command;
+//        Core::execute($object, $command);
     }
     echo 'RamDisk successfully unmounted...' . PHP_EOL;
 }
