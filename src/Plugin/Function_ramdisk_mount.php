@@ -34,15 +34,26 @@ function function_ramdisk_mount(Parse $parse, Data $data, $size='1G', $url='', $
     if(empty($url)){
         $url = $object->config('framework.dir.temp') . $name . $object->config('ds');
     }
-    $config_url = $object->config('app.config.url');
-    $config = $object->data_read($config_url);
-    if($config){
-        $config->set('ramdisk.size', $size);
-        $config->set('ramdisk.url', $url);
-        $config->set('ramdisk.name', $name);
-        $config->write($config_url);
+    $uuid = $object->config('ramdisk.uuid');
+    if($uuid){
+        $command = Core::binary($object) .
+            ' r3m_io/node patch -class=System.Config.Ramdisk -uuid=' .
+            $uuid .
+            ' -name="'.
+            $name .
+            '" -url="'.
+            $url .
+            '" -size="'.
+            $size .
+            '"'
+        ;
+        echo $command . PHP_EOL;
+        Core::execute($object, $command);
     }
     Dir::create($url, 0777);
+    if(substr($url, 0, -1) != $object->config('ds')){
+        $url .= $object->config('ds');
+    }
 //    $command = 'chown www-data:www-data ' . $url;
 //    Core::execute($object, $command);
     $mount_url = substr($url, 0, -1);
