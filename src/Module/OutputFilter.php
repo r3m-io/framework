@@ -136,7 +136,6 @@ class OutputFilter extends Main {
                         property_exists($filter->options, 'controller') &&
                         is_array($filter->options->controller)
                     ){
-                        d($destination);
                         //output filters need route match
                         if(
                             (
@@ -153,6 +152,7 @@ class OutputFilter extends Main {
                                 $route = new stdClass();
                                 $route->controller = $controller;
                                 $route = Route::controller($route);
+                                d($route);
                                 if(
                                     property_exists($route, 'controller') &&
                                     property_exists($route, 'function')
