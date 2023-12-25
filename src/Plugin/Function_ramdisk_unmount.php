@@ -32,9 +32,9 @@ function function_ramdisk_unmount(Parse $parse, Data $data, $url=''){
         $command = Core::binary($object) .
             ' r3m_io/node unset -class=System.Ramdisk -uuid=' .
             $object->config('ramdisk.uuid') .
-            '-name -url'
+            ' -name -url'
         ;
-        echo $command;
+        echo $command . PHP_EOL;
 //        Core::execute($object, $command);
     }
     echo 'RamDisk successfully unmounted...' . PHP_EOL;
