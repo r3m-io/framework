@@ -138,7 +138,7 @@ class OutputFilter extends Main {
                     ){
                         //output filters need route match
                         d($filter);
-                        d($destination->get('uuid')));
+                        d($destination->get('uuid'));
                         if(
                             (
                                 $destination->has('uuid') &&
