@@ -44,5 +44,4 @@ function function_ramdisk_speedtest(Parse $parse, Data $data){
         }
         File::delete($url . 'zero');
     }
-
 }
