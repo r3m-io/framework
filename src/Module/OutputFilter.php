@@ -136,6 +136,7 @@ class OutputFilter extends Main {
                         property_exists($filter->options, 'controller') &&
                         is_array($filter->options->controller)
                     ){
+                        d($destination);
                         //output filters need route match
                         if(
                             (
