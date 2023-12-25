@@ -29,7 +29,7 @@ function function_ramdisk_unmount(Parse $parse, Data $data, $url=''){
         Core::execute($object, $command);
         Dir::remove($url);
         //property unset of name && url of ramdisk
-        $command = Core::binary() .
+        $command = Core::binary($object) .
             ' r3m_io/node unset -class=System.Ramdisk -uuid=' .
             $object->config('ramdisk.uuid') .
             '-name -url'
