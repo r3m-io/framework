@@ -406,12 +406,13 @@ class Parse {
                 }
             }
             $mtime = $storage->data('r3m.io.parse.view.mtime');
+            d($url);
             $file_exist = File::exist($url);
             $file_mtime = false;
             if($file_exist){
                 $file_mtime = File::mtime($url);
             }
-            if($file_exist && $file_mtime == $mtime){
+            if($file_exist && $file_mtime === $mtime){
                 //cache file                   
                 $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
                 $template = new $class(new Parse($this->object()), $storage);
@@ -428,7 +429,7 @@ class Parse {
                 }
                 return $string;
             }
-            elseif(File::exist($url) && File::mtime($url) != $mtime){
+            elseif(File::exist($url) && File::mtime($url) !== $mtime){
                 Event::trigger($object, 'parse.compile.opcache.invalidate', [
                     'string' => $string,
                     'data' => $data,
