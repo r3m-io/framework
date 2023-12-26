@@ -267,6 +267,8 @@ class Controller {
                     $object->config('ds') .
                     $basename . $config->data('extension.tpl')
                 ;
+                d($basename);
+                ddd($name);
                 $list[] = $object->config('controller.dir.view') .
                     str_replace('.', $object->config('ds'), $name) .
                     $config->data('extension.tpl')
