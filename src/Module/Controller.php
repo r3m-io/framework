@@ -281,6 +281,14 @@ class Controller {
                     str_replace('.', $object->config('ds'), $name) .
                     $object->config('ds') .
                     $basename .
+                    $object->config('ds') .
+                    $basename .
+                    $config->data('extension.tpl')
+                ;
+                $list[] = $object->config('host.dir.view') .
+                    str_replace('.', $object->config('ds'), $name) .
+                    $object->config('ds') .
+                    $basename .
                     $config->data('extension.tpl')
                 ;
                 $list[] = $object->config('host.dir.view') .
