@@ -273,6 +273,7 @@
             "R3m\\Io\\Module\\Sort",
             "R3m\\Io\\Module\\Validate",
             "R3m\\Io\\Module\\Template\\Main",
+            "R3m\\Io\\Node\\Model\\Node",
             "Exception",
             "R3m\\Io\\Exception\\AuthenticationException",
             "R3m\\Io\\Exception\\AuthorizationException",

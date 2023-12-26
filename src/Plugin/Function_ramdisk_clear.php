@@ -26,7 +26,7 @@ function function_ramdisk_clear(Parse $parse, Data $data){
         throw new Exception('RamDisk clear can only be run by root...');
     }
     $class = 'System.Config.Ramdisk';
-    $node = new \R3m\Io\Node\Model\Node($object);
+    $node = new Node($object);
 
     $record = $node->record($class, $node->role_system(),[]);
     if(!$record){
