@@ -307,7 +307,6 @@ class Controller {
                 array_pop($explode);
                 $explode[] = $config->data('dictionary.view');
             }
-            d($list);
         }
         $url = false;
         $view_url = false;
