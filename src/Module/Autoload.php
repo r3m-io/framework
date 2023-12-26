@@ -581,6 +581,7 @@ class Autoload {
                                     } else {
                                         if(Autoload::ramdisk_exclude_load($object, $load)){
                                             //controllers cannot be cached
+                                            //don't cache R3m\Io\Module\Compile because they are already cached
                                         }
                                         else {
                                             //from disk
