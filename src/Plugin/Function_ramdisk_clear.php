@@ -74,6 +74,7 @@ function function_ramdisk_clear(Parse $parse, Data $data){
             }
         }
     }
+    echo 'Location: ' . $url . PHP_EOL;
     $command = 'mount | tail -n 1';
     Core::execute($object, $command, $output);
     echo $output . PHP_EOL;
