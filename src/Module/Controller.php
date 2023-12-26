@@ -218,6 +218,7 @@ class Controller {
             $explode[] = $config->data('dictionary.view');
             $max = count($explode);
             $temp = explode('\\', $called);
+            $dotted_last = false;
             if(empty($name)){
                 $name = array_pop($temp);
             } else {
@@ -254,21 +255,21 @@ class Controller {
             );
             $list[] = $dir . $name . $config->data('extension.tpl');
             if(!empty($object->config('controller.dir.view'))){
-                $list[] = $object->config('controller.dir.view') .
-                    str_replace('.', $object->config('ds'), $name) .
-                    $object->config('ds') .
-                    $basename .
-                    $object->config('ds') .
-                    $basename .
-                    $config->data('extension.tpl')
-                ;
+                if($dotted_last){
+                    $list[] = $object->config('controller.dir.view') .
+                        str_replace('.', $object->config('ds'), $name) .
+                        $object->config('ds') .
+                        $dotted_last .
+                        $object->config('ds') .
+                        $basename .
+                        $config->data('extension.tpl')
+                    ;
+                }
                 $list[] = $object->config('controller.dir.view') .
                     str_replace('.', $object->config('ds'), $name) .
                     $object->config('ds') .
                     $basename . $config->data('extension.tpl')
                 ;
-                d($basename);
-                ddd($name);
                 $list[] = $object->config('controller.dir.view') .
                     str_replace('.', $object->config('ds'), $name) .
                     $config->data('extension.tpl')
