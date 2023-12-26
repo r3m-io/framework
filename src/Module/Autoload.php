@@ -540,6 +540,7 @@ class Autoload {
                         unset($item['dirName']);
                     }
                     $fileList[$nr] = $this->fileList($item, $url);
+                    d($fileList);
                     if(is_array($fileList[$nr]) && empty($this->expose())){
                         foreach($fileList[$nr] as $file){
                             if(substr($file, 0, 5) == '[---]'){
