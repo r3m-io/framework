@@ -595,7 +595,6 @@ class Autoload {
                                                 //files with content __DIR__, __FILE__ cannot be cached
                                             } else {
                                                 //save to file
-                                                d($object->config('autoload.cache.file.name'));
                                                 file_put_contents($object->config('autoload.cache.file.name'), $read);
                                                 touch($object->config('autoload.cache.file.name'), filemtime($file));
 
