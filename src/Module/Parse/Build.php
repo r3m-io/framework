@@ -625,7 +625,6 @@ class Build {
             'string' => $string,
             'storage' => $this->storage(),
         ]);
-        d($url);
         return $write;
     }
 
