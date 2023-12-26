@@ -242,11 +242,13 @@ class Dir {
 
     public static function copy($source='', $target=''): bool
     {
-        d(is_dir($source));
+        if(substr($source, -1) !== Dir::SEPARATOR){
+            $source .= Dir::SEPARATOR;
+        }
         if(is_dir($source)){
             $source = escapeshellarg($source);
             $target = escapeshellarg($target);
-            exec('cp ' . $source . ' ' . $target . ' -R');
+            exec('cp ' . $source . '* ' . $target . ' -R');
             return true;
         } else {
             return false;
