@@ -594,25 +594,21 @@ class Autoload {
                                             if(Autoload::ramdisk_exclude_content($object, $read, $file)){
                                                 //files with content __DIR__, __FILE__ cannot be cached
                                             } else {
-                                                if(Autoload::ramdisk_prefix($object, $read, $file)){
-                                                    //save to file
-                                                    d($object->config('autoload.cache.file.name'));
-                                                    file_put_contents($object->config('autoload.cache.file.name'), $read);
-                                                    touch($object->config('autoload.cache.file.name'), filemtime($file));
+                                                //save to file
+                                                d($object->config('autoload.cache.file.name'));
+                                                file_put_contents($object->config('autoload.cache.file.name'), $read);
+                                                touch($object->config('autoload.cache.file.name'), filemtime($file));
 
-                                                    //save file reference for filemtime comparison
-                                                    $mtime[sha1($object->config('autoload.cache.file.name'))] = $file;
-                                                    if(!is_dir($config_dir)){
-                                                        mkdir($config_dir, 0750, true);
-                                                    }
-                                                    $write = json_encode($mtime, JSON_PRETTY_PRINT | JSON_PRESERVE_ZERO_FRACTION);
-                                                    file_put_contents($config_url, $write);
-                                                    $object->set(sha1($config_url), $mtime);
-                                                    exec('chmod 640 ' . $object->config('autoload.cache.file.name'));
-                                                    exec('chmod 640 ' . $config_url);
+                                                //save file reference for filemtime comparison
+                                                $mtime[sha1($object->config('autoload.cache.file.name'))] = $file;
+                                                if(!is_dir($config_dir)){
+                                                    mkdir($config_dir, 0750, true);
                                                 }
-
-
+                                                $write = json_encode($mtime, JSON_PRETTY_PRINT | JSON_PRESERVE_ZERO_FRACTION);
+                                                file_put_contents($config_url, $write);
+                                                $object->set(sha1($config_url), $mtime);
+                                                exec('chmod 640 ' . $object->config('autoload.cache.file.name'));
+                                                exec('chmod 640 ' . $config_url);
                                             }
                                         }
                                     }
@@ -835,7 +831,7 @@ class Autoload {
         $prefix = $object->config('ramdisk.autoload.prefix');
         d($prefix);
         d($file);
-        d($content);
+//        d($content);
         return true;
         /*
         $is_exclude = false;
