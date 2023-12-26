@@ -581,7 +581,8 @@ class Autoload {
                                     } else {
                                         if(Autoload::ramdisk_exclude_load($object, $load)){
                                             //controllers cannot be cached
-                                        } else {
+                                        }
+                                        else {
                                             //from disk
                                             //copy to ramdisk
                                             $dirname = dirname($object->config('autoload.cache.file.name'));
@@ -591,23 +592,27 @@ class Autoload {
                                             d($file);
                                             $read = file_get_contents($file);
                                             if(Autoload::ramdisk_exclude_content($object, $read, $file)){
-                                                //save to file
                                                 //files with content __DIR__, __FILE__ cannot be cached
                                             } else {
-                                                d($object->config('autoload.cache.file.name'));
-                                                file_put_contents($object->config('autoload.cache.file.name'), $read);
-                                                touch($object->config('autoload.cache.file.name'), filemtime($file));
+                                                if(Autoload::ramdisk_prefix($object, $read, $file)){
+                                                    //save to file
+                                                    d($object->config('autoload.cache.file.name'));
+                                                    file_put_contents($object->config('autoload.cache.file.name'), $read);
+                                                    touch($object->config('autoload.cache.file.name'), filemtime($file));
 
-                                                //save file reference for filemtime comparison
-                                                $mtime[sha1($object->config('autoload.cache.file.name'))] = $file;
-                                                if(!is_dir($config_dir)){
-                                                    mkdir($config_dir, 0750, true);
+                                                    //save file reference for filemtime comparison
+                                                    $mtime[sha1($object->config('autoload.cache.file.name'))] = $file;
+                                                    if(!is_dir($config_dir)){
+                                                        mkdir($config_dir, 0750, true);
+                                                    }
+                                                    $write = json_encode($mtime, JSON_PRETTY_PRINT | JSON_PRESERVE_ZERO_FRACTION);
+                                                    file_put_contents($config_url, $write);
+                                                    $object->set(sha1($config_url), $mtime);
+                                                    exec('chmod 640 ' . $object->config('autoload.cache.file.name'));
+                                                    exec('chmod 640 ' . $config_url);
                                                 }
-                                                $write = json_encode($mtime, JSON_PRETTY_PRINT | JSON_PRESERVE_ZERO_FRACTION);
-                                                file_put_contents($config_url, $write);
-                                                $object->set(sha1($config_url), $mtime);
-                                                exec('chmod 640 ' . $object->config('autoload.cache.file.name'));
-                                                exec('chmod 640 ' . $config_url);
+
+
                                             }
                                         }
                                     }
@@ -820,6 +825,31 @@ class Autoload {
             }
         }
         return $result;
+    }
+
+    public static function ramdisk_prefix(App $object, $content='', $file=''): bool
+    {
+        $prefix = $object->config('ramdisk.autoload.prefix');
+        d($prefix);
+        d($file);
+        d($content);
+        return true;
+        /*
+        $is_exclude = false;
+        $exclude_prefix = $object->config('ramdisk.autoload.prefix');
+        if(
+            !empty($exclude_prefix) &&
+            is_array($exclude_prefix)
+        ){
+            foreach($exclude_prefix as $needle){
+                if(stristr($prefix, $needle) !== false){
+                    $is_exclude = true;
+                    break;
+                }
+            }
+        }
+        return $is_exclude;
+        */
     }
 
     public static function ramdisk_exclude_load(App $object, $load=''): bool
