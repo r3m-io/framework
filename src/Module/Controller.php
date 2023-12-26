@@ -255,21 +255,19 @@ class Controller {
             );
             $list[] = $dir . $name . $config->data('extension.tpl');
             if(!empty($object->config('controller.dir.view'))){
-                if($dotted_last){
-                    $list[] = $object->config('controller.dir.view') .
-                        str_replace('.', $object->config('ds'), $name) .
-                        $object->config('ds') .
-                        $dotted_last .
-                        $object->config('ds') .
-                        $basename .
-                        $config->data('extension.tpl')
-                    ;
-                }
                 $list[] = $object->config('controller.dir.view') .
                     str_replace('.', $object->config('ds'), $name) .
                     $object->config('ds') .
                     $basename . $config->data('extension.tpl')
                 ;
+                if($dotted_last){
+                    $list[] = $object->config('controller.dir.view') .
+                        str_replace('.', $object->config('ds'), $name) .
+                        $object->config('ds') .
+                        $dotted_last .
+                        $config->data('extension.tpl')
+                    ;
+                }
                 $list[] = $object->config('controller.dir.view') .
                     str_replace('.', $object->config('ds'), $name) .
                     $config->data('extension.tpl')
@@ -284,16 +282,16 @@ class Controller {
                     str_replace('.', $object->config('ds'), $name) .
                     $object->config('ds') .
                     $basename .
-                    $object->config('ds') .
-                    $basename .
                     $config->data('extension.tpl')
                 ;
-                $list[] = $object->config('host.dir.view') .
-                    str_replace('.', $object->config('ds'), $name) .
-                    $object->config('ds') .
-                    $basename .
-                    $config->data('extension.tpl')
-                ;
+                if($dotted_last){
+                    $list[] = $object->config('host.dir.view') .
+                        str_replace('.', $object->config('ds'), $name) .
+                        $object->config('ds') .
+                        $dotted_last .
+                        $config->data('extension.tpl')
+                    ;
+                }
                 $list[] = $object->config('host.dir.view') .
                     str_replace('.', $object->config('ds'), $name) .
                     $config->data('extension.tpl')
