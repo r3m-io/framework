@@ -827,6 +827,9 @@ class Autoload {
         return $result;
     }
 
+    /**
+     * @throws Exception
+     */
     public static function ramdisk_prefix(App $object, $content='', $file=''): bool
     {
         $prefix = $object->config('ramdisk.autoload.prefix');
