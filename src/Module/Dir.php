@@ -242,6 +242,7 @@ class Dir {
 
     public static function copy($source='', $target=''): bool
     {
+        d(is_dir($source));
         if(is_dir($source)){
             $source = escapeshellarg($source);
             $target = escapeshellarg($target);
