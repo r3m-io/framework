@@ -435,7 +435,6 @@ class Autoload {
         $item['file_dot'] = str_replace('_', '.', $item['file']);
         $data[] = $item['directory'] . $item['file_dot'] . DIRECTORY_SEPARATOR . $item['file_dot'] . '.' . Autoload::EXT_PHP;
         $data[] = $item['directory'] . $item['file'] . DIRECTORY_SEPARATOR . $item['file'] . '.' . Autoload::EXT_PHP;
-        $data[] = $item['directory'] . $item['file'] . DIRECTORY_SEPARATOR . $item['file'] . '.' . Autoload::EXT_PHP;
         $data[] = $item['directory'] . $item['file_dot'] . DIRECTORY_SEPARATOR . $item['baseName'] . '.' . Autoload::EXT_PHP;
         $data[] = $item['directory'] . $item['file'] . DIRECTORY_SEPARATOR . $item['baseName'] . '.' . Autoload::EXT_PHP;
         $data[] = $item['directory'] . $item['file_dot'] . '.' . Autoload::EXT_PHP;
@@ -540,7 +539,6 @@ class Autoload {
                         unset($item['dirName']);
                     }
                     $fileList[$nr] = $this->fileList($item, $url);
-                    d($fileList);
                     if(is_array($fileList[$nr]) && empty($this->expose())){
                         foreach($fileList[$nr] as $file){
                             if(substr($file, 0, 5) == '[---]'){
