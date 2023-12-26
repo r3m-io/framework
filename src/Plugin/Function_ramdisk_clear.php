@@ -54,14 +54,12 @@ function function_ramdisk_clear(Parse $parse, Data $data){
     Core::execute($object, $command);
     $command = 'chown www-data:www-data ' . $url;
     Core::execute($object, $command);
-
     $node->patch($class, $node->role_system(), [
         'uuid' => $record['node']->uuid,
         'size' => $size,
         'url' => $url,
         'name' => $name
     ]);
-
     $dir = new Dir();
     $read = $dir->read($object->config('framework.dir.temp'));
     if(is_array($read)){
@@ -79,5 +77,4 @@ function function_ramdisk_clear(Parse $parse, Data $data){
     $command = 'mount | tail -n 1';
     Core::execute($object, $command, $output);
     echo $output . PHP_EOL;
-
 }
