@@ -435,6 +435,7 @@ class Autoload {
         $item['file_dot'] = str_replace('_', '.', $item['file']);
         $data[] = $item['directory'] . $item['file_dot'] . DIRECTORY_SEPARATOR . $item['file_dot'] . '.' . Autoload::EXT_PHP;
         $data[] = $item['directory'] . $item['file'] . DIRECTORY_SEPARATOR . $item['file'] . '.' . Autoload::EXT_PHP;
+        $data[] = $item['directory'] . $item['file'] . DIRECTORY_SEPARATOR . $item['file'] . '.' . Autoload::EXT_PHP;
         $data[] = $item['directory'] . $item['file_dot'] . DIRECTORY_SEPARATOR . $item['baseName'] . '.' . Autoload::EXT_PHP;
         $data[] = $item['directory'] . $item['file'] . DIRECTORY_SEPARATOR . $item['baseName'] . '.' . Autoload::EXT_PHP;
         $data[] = $item['directory'] . $item['file_dot'] . '.' . Autoload::EXT_PHP;
@@ -478,7 +479,9 @@ class Autoload {
                 $object->config('ds')
             ;
         }
-        Dir::create($dir_temp, DIR::CHMOD);
+        if(!Dir::is($dir_temp)){
+            Dir::create($dir_temp, DIR::CHMOD);
+        }
         if(!empty($prefixList)){
             foreach($prefixList as $nr => $item){
                 if(empty($item['prefix'])){
