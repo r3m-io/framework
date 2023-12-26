@@ -588,11 +588,13 @@ class Autoload {
                                             if(!is_dir($dirname)){
                                                 mkdir($dirname, 0750, true);
                                             }
+                                            d($file);
                                             $read = file_get_contents($file);
                                             if(Autoload::ramdisk_exclude_content($object, $read, $file)){
                                                 //save tp file
                                                 //files with content __DIR__, __FILE__ cannot be cached
                                             } else {
+                                                d($object->config('autoload.cache.file.name'));
                                                 file_put_contents($object->config('autoload.cache.file.name'), $read);
                                                 touch($object->config('autoload.cache.file.name'), filemtime($file));
 
