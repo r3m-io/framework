@@ -591,7 +591,7 @@ class Autoload {
                                             d($file);
                                             $read = file_get_contents($file);
                                             if(Autoload::ramdisk_exclude_content($object, $read, $file)){
-                                                //save tp file
+                                                //save to file
                                                 //files with content __DIR__, __FILE__ cannot be cached
                                             } else {
                                                 d($object->config('autoload.cache.file.name'));
