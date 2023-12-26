@@ -257,6 +257,14 @@ class Controller {
                 $list[] = $object->config('controller.dir.view') .
                     str_replace('.', $object->config('ds'), $name) .
                     $object->config('ds') .
+                    $basename .
+                    $object->config('ds') .
+                    $basename .
+                    $config->data('extension.tpl')
+                ;
+                $list[] = $object->config('controller.dir.view') .
+                    str_replace('.', $object->config('ds'), $name) .
+                    $object->config('ds') .
                     $basename . $config->data('extension.tpl')
                 ;
                 $list[] = $object->config('controller.dir.view') .
