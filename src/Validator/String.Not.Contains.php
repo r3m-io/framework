@@ -15,6 +15,8 @@ function validate_string_not_contains(App $object, $string='', $field='', $argum
     if(empty($string)){
         return false;
     }
+    d($string);
+    d($argument);
     if(is_string($argument)){
         if(stristr($string, $argument) !== false){
             return false;
