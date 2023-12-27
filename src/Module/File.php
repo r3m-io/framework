@@ -588,11 +588,13 @@ class File {
 //        $alpha = 'abcdefghijklmnopqrstuvwxyz/'; //if expressed /sec
 //        $number = str_replace(str_split($alpha), '', $calculation);
 
-        preg_match('/([0-9]+)(\.[0-9]+)/', $calculation, $match);
-//        preg_match('/^\d+(\.\d+)?$/', $calculation, $match);
-
-        ddd($match);
-$number = "1.5";
+        $number = false;
+        if (preg_match('/[0-9]+(?:\.[0-9]+)?/', $calculation, $matches)) {
+            $number = $matches[0];
+        }
+        if($number === false){
+            return 0;
+        }
         $number = round($number, 2);
         if($b){
             $number = $number;
