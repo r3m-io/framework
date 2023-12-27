@@ -210,15 +210,35 @@ class FileRequest {
             $location = FileRequest::location($object, $dir);
         } else{
             $location = Config::parameters($object, $location);
-            $directory_public = $object->config('server.directory_public');
-            foreach($location as $nr => $url){
-                foreach($directory_public as $public){
-                    if(stristr($url, '/' . $public . '/') !== false){
-                        $location[$nr] = $url . $dir;
-                        continue 2;
-                    }
+            $public = $object->config('server.public');
+            if(
+                $public &&
+                substr($public, -1, 1) !== $object->config('ds')
+            ){
+                $public .= $object->config('ds');
+            }
+            $public_directory = false;
+            if($public){
+                $explode = explode( $object->config('ds'), $public);
+                if(count($explode) >= 2){
+                    array_pop($explode);
+                    $public_directory = array_pop($explode);
                 }
-                unset($location[$nr]);
+            }
+            if($public_directory === false){
+                $object->logger($logger)->info('host.file.request needs server.public configured...', [$public]);
+                $location = [];
+            }
+            foreach($location as $nr => $url){
+                if(
+                    stristr(
+                        $url,
+                        $object->config('ds') . $public_directory . $object->config('ds')
+                    ) === false
+                ){
+                    $object->logger($logger)->info('host.file.request contains directory outside server.public...', [$url]);
+                    unset($location[$nr]);
+                }
             }
         }
         $ram_dir = false;
