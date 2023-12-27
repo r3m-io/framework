@@ -577,6 +577,41 @@ class File {
         }
     }
 
+    public static function size_calculation($calculation=''){
+        $b = str_contains(strtolower($calculation), 'b');
+        $k = str_contains(strtolower($calculation), 'k');
+        $m = str_contains(strtolower($calculation), 'm');
+        $g = str_contains(strtolower($calculation), 'g');
+        $t = str_contains(strtolower($calculation), 't');
+        $p = str_contains(strtolower($calculation), 'p');
+        $e = str_contains(strtolower($calculation), 'e');
+        $alpha = 'abcdefghijklmnopqrstuvwxyz/'; //if expressed /sec
+        $number = str_replace(str_split($alpha), '', $calculation);
+        $number = round($number, 2);
+        if($b){
+            $number = $number;
+        }
+        if($k){
+            $number = $number * 1024;
+        }
+        elseif($m){
+            $number = $number * 1024 * 1024;
+        }
+        elseif($g){
+            $number = $number * 1024 * 1024 * 1024;
+        }
+        elseif($t){
+            $number = $number * 1024 * 1024 * 1024 * 1024;
+        }
+        elseif($p){
+            $number = $number * 1024 * 1024 * 1024 * 1024 * 1024;
+        }
+        elseif($e){
+            $number = $number * 1024 * 1024 * 1024 * 1024 * 1024 * 1024;
+        }
+        return $number;
+    }
+
     public static function upload(Data $upload, $target): bool
     {
         return move_uploaded_file($upload->data('tmp_name'), $target . $upload->data('name'));
