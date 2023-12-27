@@ -592,7 +592,7 @@ class File {
 //        preg_match('/^\d+(\.\d+)?$/', $calculation, $match);
 
         ddd($match);
-
+$number = "1.5";
         $number = round($number, 2);
         if($b){
             $number = $number;
