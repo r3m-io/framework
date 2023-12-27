@@ -588,7 +588,7 @@ class File {
 //        $alpha = 'abcdefghijklmnopqrstuvwxyz/'; //if expressed /sec
 //        $number = str_replace(str_split($alpha), '', $calculation);
 
-        preg_match('/[0-9]+\.[0-9]+/', $calculation, $match);
+        preg_match('/([0-9]+)(\.[0-9]+)/', $calculation, $match);
 //        preg_match('/^\d+(\.\d+)?$/', $calculation, $match);
 
         ddd($match);
