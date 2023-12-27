@@ -587,6 +587,11 @@ class File {
         $e = str_contains(strtolower($calculation), 'e');
         $alpha = 'abcdefghijklmnopqrstuvwxyz/'; //if expressed /sec
         $number = str_replace(str_split($alpha), '', $calculation);
+
+        preg_match('/[0-9]+/', $calculation, $match);
+
+        ddd($match);
+
         $number = round($number, 2);
         if($b){
             $number = $number;
