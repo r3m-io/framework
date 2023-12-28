@@ -512,7 +512,6 @@ class Parse {
             $document = $build->create('use', $tree, $document);
             $document = $build->create('trait', $tree, $document);
             $write = $build->write($url, $document, $string);
-            d($url);
             if($mtime !== null){
                 $touch = File::touch($url, $mtime);
                 opcache_invalidate($url, true);
@@ -538,7 +537,6 @@ class Parse {
             if($exists){
                 $template = new $class(new Parse($this->object()), $storage);
                 $string = $template->run();
-                d($string);
                 if(empty($this->halt_literal())){
                     $string = Literal::restore($storage, $string);
                 }
