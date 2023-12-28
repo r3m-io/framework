@@ -17,6 +17,7 @@
 		"ext-zip": "*",
 		"ext-shmop": "*",
 		"r3m_io/autoload": "*",
+		"r3m_io/basic": "*",
 		"r3m_io/event": "*",
 		"r3m_io/config": "*",
 		"r3m_io/host": "*",
