@@ -440,7 +440,7 @@
         ]
       }
     },
-    "r3m_io/apache2" : {
+    "r3m_io/basic" : {
       "composer" : "composer require {{$this.#key}}:dev-main",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
