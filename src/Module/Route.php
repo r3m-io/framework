@@ -481,6 +481,7 @@ class Route extends Data {
             $request = Route::route_select($object, $select);
             $route =  $object->data(App::ROUTE);
             Route::add_request($object, $request);
+            ddd($request);
             return $route->current(new Destination($request));
         }
     }
