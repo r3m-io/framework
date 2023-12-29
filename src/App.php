@@ -98,32 +98,14 @@ class App extends Data {
         require_once __DIR__ . '/Debug.php';
         require_once __DIR__ . '/Error.php';
         Config::configure($this);
-        $duration = (microtime(true) - $this->config('time.start')) * 1000;
-        d($duration);
         Logger::configure($this);
-        $duration = (microtime(true) - $this->config('time.start')) * 1000;
-        d($duration);
         Host::configure($this);
-        $duration = (microtime(true) - $this->config('time.start')) * 1000;
-        d($duration);
         Domain::configure($this);
-        $duration = (microtime(true) - $this->config('time.start')) * 1000;
-        d($duration);
         Event::configure($this);
-        $duration = (microtime(true) - $this->config('time.start')) * 1000;
-        d($duration);
         Middleware::configure($this);
-        $duration = (microtime(true) - $this->config('time.start')) * 1000;
-        d($duration);
         OutputFilter::configure($this);
-        $duration = (microtime(true) - $this->config('time.start')) * 1000;
-        d($duration);
         Autoload::configure($this);
-        $duration = (microtime(true) - $this->config('time.start')) * 1000;
-        d($duration);
         Autoload::ramdisk_configure($this);
-        $duration = (microtime(true) - $this->config('time.start')) * 1000;
-        d($duration);
     }
 
     /**
