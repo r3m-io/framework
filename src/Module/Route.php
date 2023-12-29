@@ -417,7 +417,8 @@ class Route extends Data {
      * @throws ObjectException
      * @throws Exception
      */
-    public static function request(App $object){
+    public static function request(App $object): false|Destination
+    {
         if(defined('IS_CLI')){
             $input = Route::input($object);
             $select = new stdClass();
@@ -481,8 +482,10 @@ class Route extends Data {
             $request = Route::route_select($object, $select);
             $route =  $object->data(App::ROUTE);
             Route::add_request($object, $request);
-            ddd($request);
-            return $route->current(new Destination($request));
+            if($request){
+                return $route->current(new Destination($request));
+            }
+            return false;
         }
     }
 
