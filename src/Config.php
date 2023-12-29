@@ -136,9 +136,7 @@ class Config extends Data {
     const VALUE_TRANSLATION = 'Translation';
 
     const LOCALHOST_EXTENSION = 'localhost.extension';
-    const VALUE_LOCALHOST_EXTENSION =  [
-        'local'
-    ];
+    const VALUE_LOCALHOST_EXTENSION = 'local';
 
     const LOG = 'log';
     const VALUE_LOG = 'Log';

@@ -25,8 +25,6 @@ class Host {
     const SCHEME_HTTP = 'http';
     const SCHEME_HTTPS = 'https';
 
-    const LOCAL = 'local';
-
     /**
      * @throws \Exception
      */
