@@ -488,7 +488,7 @@ class Route extends Data {
                     array_pop($select->attribute);
                 }
             }
-            if(end($select->attribute) === ''){
+            while(end($select->attribute) === ''){
                 array_pop($select->attribute);
             }
             $select->method = Handler::method();
