@@ -16,5 +16,9 @@ use R3m\Io\Module\Host;
 
 function function_host_url(Parse $parse, Data $data){
     $object = $parse->object();
-    return $object->config('host.url.' . $object->config('framework.environment'));
+    $url =  $object->config('host.url.' . $object->config('framework.environment'));
+    if(substr($url,-1, 1) != '/'){
+        $url .= '/';
+    }
+    return $url;
 }
