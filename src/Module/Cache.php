@@ -127,8 +127,12 @@ class Cache {
                     ) .  $options['extension'];
             case Cache::ROUTE:
                 $current = $object->route()->current();
-                ddd($current);
-                $request = $current->request->data();
+                $request = $current->data('request');
+                if($request){
+                    $request = $request->data();
+                } else {
+                    throw new Exception('Request is missing in route data');
+                }
                 $list = [];
                 if(array_key_exists('expose', $options)){
                     foreach($options['expose'] as $expose){
@@ -257,7 +261,12 @@ class Cache {
         ){
             //per route cache
             $current = $object->route()->current();
-            $request = $current->request->data();
+            $request = $current->get('request');
+            if($request){
+                $request = $request->data();
+            } else {
+                throw new Exception('Request is missing in route data');
+            }
             $list = [];
             if(array_key_exists('expose', $options)){
                 foreach($options['expose'] as $expose){
