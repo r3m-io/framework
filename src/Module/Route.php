@@ -1186,7 +1186,6 @@ class Route extends Data {
 
                 ]
             );
-            ddd($response);
             if(
                 is_array($response) &&
                 array_key_exists('list', $response) &&
@@ -1195,6 +1194,7 @@ class Route extends Data {
                 foreach($response['list'] as $name => $record){
                     $record = Route::item_path($object, $record);
                     $record = Route::item_deep($object, $record);
+                    $response['list'][$name] = $record;
                 }
                 $route->data($response['list']);
             }
