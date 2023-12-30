@@ -127,6 +127,7 @@ class Cache {
                     ) .  $options['extension'];
             case Cache::ROUTE:
                 $current = $object->route()->current();
+                ddd($current);
                 $request = $current->request->data();
                 $list = [];
                 if(array_key_exists('expose', $options)){
