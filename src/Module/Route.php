@@ -638,6 +638,8 @@ class Route extends Data {
             if(!property_exists($record, 'deep')){
                 continue;
             }
+            d($record);
+            d($select);
             $match = Route::is_match($object, $record, $select);
             if($match === true){
                 $current = $record;
