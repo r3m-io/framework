@@ -1186,7 +1186,6 @@ class Route extends Data {
 
                 ]
             );
-            d($response);
             if(
                 is_array($response) &&
                 array_key_exists('list', $response)
@@ -1207,7 +1206,6 @@ class Route extends Data {
                 }
                 $route->data($response['list']);
             }
-            ddd($route);
             $object->data(App::ROUTE, $route);
         }
     }
