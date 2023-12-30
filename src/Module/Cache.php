@@ -166,9 +166,9 @@ class Cache {
                     }
                 }
                 if(!empty($list)){
-                    $name = $current->name . '-' . implode('-', $list);
+                    $name = $current->get('name') . '-' . implode('-', $list);
                 } else {
-                    $name = $current->name;
+                    $name = $current->get('name');
                 }
                 return
                     Autoload::name_reducer(
