@@ -1189,7 +1189,7 @@ class Route extends Data {
             d($response);
             if(
                 is_array($response) &&
-                array_key_exists('list', $response) &&
+                array_key_exists('list', $response)
             ){
                 if(is_array($response['list'])){
                     foreach($response['list'] as $name => $record){
@@ -1205,7 +1205,6 @@ class Route extends Data {
                         $response['list']->{$name} = $record;
                     }
                 }
-
                 $route->data($response['list']);
             }
             ddd($route);
