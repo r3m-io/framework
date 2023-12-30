@@ -807,6 +807,7 @@ class Route extends Data {
         if(property_exists($route, 'controller')){
             $route = Route::controller($route);
         }
+        d($route);
         return $route;
     }
 
