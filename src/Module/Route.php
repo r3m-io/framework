@@ -474,6 +474,7 @@ class Route extends Data {
                 $select->deep = substr_count($string_count, '/');
                 $select->attribute = explode('/', $input->data('request'));
             }
+            ddd($select);
             if(end($select->attribute) === ''){
                 array_pop($select->attribute);
             }
