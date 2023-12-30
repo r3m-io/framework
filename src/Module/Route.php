@@ -1186,6 +1186,7 @@ class Route extends Data {
 
                 ]
             );
+            d($response);
             if(
                 is_array($response) &&
                 array_key_exists('list', $response) &&
