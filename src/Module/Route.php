@@ -328,6 +328,7 @@ class Route extends Data {
         if(!empty($collection)){
             if($previous_char === '/'){
                 d('5');
+                d($collection);
                 $explode[] = substr($collection, 0,-1);
             } else {
                 d('6');
