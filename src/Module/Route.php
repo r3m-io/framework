@@ -624,7 +624,6 @@ class Route extends Data {
         $route =  $object->data(App::ROUTE);
         $match = false;
         $data = $route->data();
-        d($data);
         if(empty($data)){
             return $select;
         }
@@ -640,8 +639,6 @@ class Route extends Data {
             if(!property_exists($record, 'deep')){
                 continue;
             }
-            d($record);
-            d($select);
             $match = Route::is_match($object, $record, $select);
             if($match === true){
                 $current = $record;
@@ -649,7 +646,6 @@ class Route extends Data {
                 break;
             }
         }
-        ddd($match);
         if($match === false){
             foreach($data as $name => $record){
                 if(property_exists($record, 'resource')){
