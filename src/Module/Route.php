@@ -632,6 +632,7 @@ class Route extends Data {
         }
         $current = false;
         foreach($data as $name => $record){
+            d($record);
             if(property_exists($record, 'resource')){
                 continue;
             }
