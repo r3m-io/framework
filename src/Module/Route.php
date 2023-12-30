@@ -293,8 +293,10 @@ class Route extends Data {
                 $char === '{' &&
                 $is_quote_double === false
             ){
+                d('1');
                 $is_type = true;
                 if(!empty($collection)){
+                    d('2');
                     $explode[] = substr($collection, 0,-1);
                 }
                 $collection = $char;
@@ -305,8 +307,10 @@ class Route extends Data {
                 $char == '[' &&
                 $is_quote_double === false
             ){
+                d('3');
                 $is_type = true;
                 if(!empty($collection)){
+                    d('4');
                     $explode[] = substr($collection, 0,-1);
                 }
                 $collection = $char;
@@ -323,8 +327,10 @@ class Route extends Data {
         }
         if(!empty($collection)){
             if($previous_char === '/'){
+                d('5');
                 $explode[] = substr($collection, 0,-1);
             } else {
+                d('6');
                 $explode[] = $collection;
             }
         }
