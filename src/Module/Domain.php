@@ -128,7 +128,6 @@ class Domain {
             }
         }
         $object->config($key, $value);
-        d($object->config('domain'));
         return true;
     }
 }
