@@ -335,6 +335,7 @@ class Route extends Data {
                 $explode[] = $collection;
             }
         }
+        d($explode);
         return $explode;
     }
 
