@@ -466,7 +466,7 @@ class Route extends Data {
             $test = Route::request_explode(urldecode($input->data('request')));
             $test_count = count($test);
             d($test);
-            ddd($test_count);
+            d($test_count);
             if($test_count > 1){
                 $string_count = $test[0];
 //                $select->deep = substr_count($string_count, '/');
