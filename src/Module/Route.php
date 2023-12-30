@@ -465,8 +465,6 @@ class Route extends Data {
             $select->input = $input;
             $test = Route::request_explode(urldecode($input->data('request')));
             $test_count = count($test);
-            d($test);
-            d($test_count);
             if($test_count > 1){
                 $string_count = $test[0];
 //                $select->deep = substr_count($string_count, '/');
@@ -493,7 +491,6 @@ class Route extends Data {
             }
             $select->method = Handler::method();
             $select->host = strtolower($object->config('host.name'));
-            d($select);
             $request = Route::route_select($object, $select);
             d($request);
             $route =  $object->data(App::ROUTE);
@@ -648,6 +645,7 @@ class Route extends Data {
                 break;
             }
         }
+        ddd($match);
         if($match === false){
             foreach($data as $name => $record){
                 if(property_exists($record, 'resource')){
