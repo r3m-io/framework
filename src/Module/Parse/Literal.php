@@ -49,19 +49,7 @@ class Literal {
      * @throws Exception
      */
     public static function restore(Data $data, $string=''){
-        if(is_null($string)){
-            return null;
-        }
-        elseif(is_int($string)){
-            return $string;
-        }
-        elseif(is_float($string)){
-            return $string;
-        }
-        elseif(is_bool($string)){
-            return $string;
-        }
-        elseif(is_object($string)){
+        if(is_object($string)){
             foreach($string as $key => $value){
                 $string->{$key} = Literal::restore($data, $value);
             }
@@ -71,6 +59,18 @@ class Literal {
                 $string[$key] = Literal::restore($data, $value);
             }
         } else {
+            if(is_null($string)){
+                return null;
+            }
+            elseif(is_int($string)){
+                return $string;
+            }
+            elseif(is_float($string)){
+                return $string;
+            }
+            elseif(is_bool($string)){
+                return $string;
+            }
             $tag = 'literal-' . $data->data('r3m.io.parse.literal.key') . '-';
             $explode = explode($tag, $string, 2);
             if(isset($explode[1])){
