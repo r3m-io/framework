@@ -13,14 +13,14 @@ use R3m\Io\Module\Data;
 
 function function_d(Parse $parse, Data $data, $debug=null){
     $trace = debug_backtrace(true);
-    ob_start();
+//    ob_start();
     if(!defined('IS_CLI')){
-        echo '<pre class="priya-debug">';
+        echo '<pre class="priya-debug">' . PHP_EOL;
     }
     echo $trace[0]['file'] . ':' . $trace[0]['line'] . PHP_EOL;
-    ob_flush();
+//    ob_flush();
     var_dump($debug);
     if(!defined('IS_CLI')){
-        echo '</pre>';    
+        echo '</pre>' . PHP_EOL;
     }
 }

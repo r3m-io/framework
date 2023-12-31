@@ -27,12 +27,12 @@ function function_dd(Parse $parse, Data $data, $debug=null){
     }
     $trace = debug_backtrace(true);    
     if(!defined('IS_CLI')){
-        echo '<pre class="priya-debug">';
+        echo '<pre class="priya-debug">' . PHP_EOL;
     }
     echo $trace[0]['file'] . ':' . $trace[0]['line'] . PHP_EOL;
     var_dump($debug);
     if(!defined('IS_CLI')){
-        echo '</pre>';
+        echo '</pre>' . PHP_EOL;
     }
     exit;    
 }
