@@ -213,7 +213,7 @@ class Build {
                     !empty($record['name'])
                 ){
                     $name = str_replace('.', '_', $record['name']);
-                    $name.= rand(1000,9999) . rand(1000,9999);
+                    $name .= Core::uuid_variable();//rand(1000,9999) . rand(1000,9999);
                     $trait[] = 'trait ' . $name . ' {';
                     $use[] = $this->indent(1) . 'use ' . $name . ';';
                     $explode = explode(PHP_EOL, $record['value']);
@@ -231,7 +231,7 @@ class Build {
                     !empty($record['name'])
                 ){
                     $name = str_replace('.', '_', $record['name']);
-                    $name.= rand(1000,9999) . rand(1000,9999);
+                    $name.= Core::uuid_variable();//rand(1000,9999) . rand(1000,9999);
                     $namespace = str_replace('.', '\\', $record['namespace']);
                     $trait[] = 'namespace ' . $namespace . ';';
                     $trait[] = 'trait ' . $name . ' {';
