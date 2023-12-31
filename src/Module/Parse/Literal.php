@@ -50,9 +50,13 @@ class Literal {
             }
         } else {
             $tag = 'literal-' . $data->data('r3m.io.parse.literal.key') . '-';
+            d($tag);
+            d($string);
             $explode = explode($tag, $string, 2);
             if(isset($explode[1])){
                 $key = substr($explode[1], 0, 40);
+                d($key);
+                d($data->data('r3m.io.parse.literal'));
                 $string =  str_replace($tag . $key, $data->data('r3m.io.parse.literal.' . $key), $string);
                 $explode = explode($tag, $string, 2);
                 if(isset($explode[1])){
