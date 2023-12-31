@@ -685,7 +685,8 @@ class Build {
                     }
                     $remove_newline = false;
                 }
-                d($record['value']);
+                $value = $record['value'];
+                $value = Literal::restore($data, $value);
                 $run[] = $this->indent() .
                     'echo \'' .
                     str_replace(
@@ -697,7 +698,7 @@ class Build {
                             '\\\\',
                             '\\\'',
                         ],
-                        $record['value']
+                        $value
                     ) .
                     '\';';
             }
