@@ -411,8 +411,8 @@ class Parse {
             if($file_exist){
                 $file_mtime = File::mtime($url);
             }
-            d('-------------------------------------------------------------+++++++++++++++++++++++---------------');
-            d($string);
+//            d('-------------------------------------------------------------+++++++++++++++++++++++---------------');
+//            d($string);
             if($file_exist && $file_mtime === $mtime){
                 //cache file
                 $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
@@ -428,6 +428,8 @@ class Parse {
                 if($this->object()->config('project.log.name')){
                     $this->object->logger($this->object()->config('project.log.name'))->info('cache file: ' . $url . ' mtime: ' . $mtime);
                 }
+                d('=2=============================================================================================');
+                d($string);
                 return $string;
             }
             elseif(File::exist($url) && File::mtime($url) !== $mtime){
@@ -573,6 +575,8 @@ class Parse {
         elseif(is_numeric($string)){
             return $string + 0;
         }
+        d('=1=============================================================================================');
+        d($string);
         return $string;
     }
 
