@@ -158,7 +158,8 @@ class Build {
         return $this->getLimit();
     }
 
-    public function setLimit($limit=null){
+    public function setLimit($limit=null): void
+    {
         $this->limit= $limit;
     }
 
@@ -187,14 +188,13 @@ class Build {
         $document[] = $this->indent(0) . $storage->data('placeholder.function');
         $document[] = $this->indent(0) . '}';
         $document[] = '';
-        $document[] = '/**';
-        $document[] = ' * Traits' ;
-        $document[] = ' */';
-        $document[] = '';
         $document[] = $this->storage()->data('placeholder.trait');
         return $document;
     }
 
+    /**
+     * @throws Exception
+     */
     private function createTrait($document=[]): array
     {
         $storage = $this->storage();
@@ -375,13 +375,13 @@ class Build {
             if(
                 empty($limit) ||
                 (
-                    !empty($limit) &&
+                    is_array($limit) &&
                     array_key_exists('function', $limit) &&
                     in_array($function_name, $limit['function']) &&
                     $function_count >= 1
                 ) ||
                 (
-                    !empty($limit) &&
+                    is_array($limit) &&
                     array_key_exists('modifier', $limit) &&
                     in_array($modifier_name, $limit['modifier']) &&
                     $modifier_count >= 1
@@ -685,6 +685,7 @@ class Build {
                     }
                     $remove_newline = false;
                 }
+                d($record['value']);
                 $run[] = $this->indent() .
                     'echo \'' .
                     str_replace(
