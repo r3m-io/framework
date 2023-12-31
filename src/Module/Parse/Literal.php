@@ -11,10 +11,14 @@
 namespace R3m\Io\Module\Parse;
 
 use R3m\Io\Module\Data;
-use R3m\Io\Module\Core;
+
+use Exception;
 
 class Literal {
 
+    /**
+     * @throws Exception
+     */
     public static function apply(Data $data, $string='')
     {
         if(is_null($string)){
@@ -41,9 +45,21 @@ class Literal {
         return $string;
     }
 
+    /**
+     * @throws Exception
+     */
     public static function restore(Data $data, $string=''){
         if(is_null($string)){
             return null;
+        }
+        elseif(is_int($string)){
+            return $string;
+        }
+        elseif(is_float($string)){
+            return $string;
+        }
+        elseif(is_bool($string)){
+            return $string;
         }
         elseif(is_object($string)){
             foreach($string as $key => $value){
