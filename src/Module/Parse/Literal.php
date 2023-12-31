@@ -15,8 +15,11 @@ use R3m\Io\Module\Core;
 
 class Literal {
 
-    public static function apply(Data $data, $string=''): string
+    public static function apply(Data $data, $string='')
     {
+        if(is_null($string)){
+            return null;
+        }
         $explode = explode('{literal}', $string, 2);
         $key = $data->data('r3m.io.parse.literal.key');
         if(empty($key)){
