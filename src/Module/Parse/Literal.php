@@ -59,16 +59,7 @@ class Literal {
                 $string[$key] = Literal::restore($data, $value);
             }
         } else {
-            if(is_null($string)){
-                return null;
-            }
-            elseif(is_int($string)){
-                return $string;
-            }
-            elseif(is_float($string)){
-                return $string;
-            }
-            elseif(is_bool($string)){
+            if(!is_string($string)){
                 return $string;
             }
             $tag = 'literal-' . $data->data('r3m.io.parse.literal.key') . '-';
