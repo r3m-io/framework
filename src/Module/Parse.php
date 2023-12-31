@@ -456,7 +456,7 @@ class Parse {
                     $storage->set('rdelim','}');
                 }
                 $uuid = Core::uuid();
-//                $storage->data('r3m.io.parse.compile.remove_newline', true);
+                $storage->data('r3m.io.parse.compile.remove_newline', true);
                 $string = str_replace(
                     [
                         '{',
