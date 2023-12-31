@@ -413,6 +413,7 @@ class Parse {
             }
             if($file_exist && $file_mtime === $mtime){
                 //cache file
+                d($this->halt_literal());
                 d($url);
                 $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
                 $template = new $class(new Parse($this->object()), $storage);
