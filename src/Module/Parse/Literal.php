@@ -53,6 +53,7 @@ class Literal {
             d($tag);
             d($string);
             $explode = explode($tag, $string, 2);
+            d(count($explode));
             if(isset($explode[1])){
                 $key = substr($explode[1], 0, 40);
                 d($key);
