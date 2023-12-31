@@ -95,6 +95,8 @@ class Value {
                     '}'
                 ], $record['value']);
                 //$record['value'] = str_replace('\\', '\\\\', $record['value']);
+            d('****************************************************************************');
+            d($record['value']);
                 return '\'' . $record['value'] . '\''; //might need str_replace on quote_single (') to (\')
             case Token::TYPE_QUOTE_DOUBLE_STRING :
                 if(stristr($record['value'], '{') === false){                                        
