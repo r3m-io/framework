@@ -277,8 +277,6 @@ class Parse {
      * @throws Exception
      */
     public function compile($string='', $data=[], $storage=null, $depth=null, $is_debug=false){
-        d('=4=============================================================================================');
-        d($string);
         $object = $this->object();
         if($storage === null){            
             $storage = $this->storage(new Data());
@@ -292,8 +290,6 @@ class Parse {
             foreach($string as $key => $value){
                 $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
             }
-            d('=5=============================================================================================');
-            d($string);
             return $string;
         }
         elseif(is_object($string)){
@@ -368,13 +364,9 @@ class Parse {
                     $string = Parse::unset($string, $unset);
                 }
             }
-            d('=6=============================================================================================');
-            d($string);
             return $string;
         }
         elseif(stristr($string, '{') === false){
-            d('=3=============================================================================================');
-            d($string);
             return $string;
         } else {
             //this section takes at least 5 msec per document: file:put 2msec, memcache::put 2msec, rest 1msec
@@ -419,8 +411,6 @@ class Parse {
             if($file_exist){
                 $file_mtime = File::mtime($url);
             }
-//            d('-------------------------------------------------------------+++++++++++++++++++++++---------------');
-//            d($string);
             if($file_exist && $file_mtime === $mtime){
                 //cache file
                 $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
@@ -436,8 +426,6 @@ class Parse {
                 if($this->object()->config('project.log.name')){
                     $this->object->logger($this->object()->config('project.log.name'))->info('cache file: ' . $url . ' mtime: ' . $mtime);
                 }
-                d('=2=============================================================================================');
-                d($string);
                 return $string;
             }
             elseif(File::exist($url) && File::mtime($url) !== $mtime){
@@ -572,27 +560,17 @@ class Parse {
             }
         }
         if($string === 'null'){
-            d('=7=============================================================================================');
-            d($string);
             return null;
         }
         elseif($string === 'true'){
-            d('=8=============================================================================================');
-            d($string);
             return true;
         }
         elseif($string === 'false'){
-            d('=9=============================================================================================');
-            d($string);
             return false;
         }
         elseif(is_numeric($string)){
-            d('=10=============================================================================================');
-            d($string);
             return $string + 0;
         }
-        d('=1=============================================================================================');
-        d($string);
         return $string;
     }
 
