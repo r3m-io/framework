@@ -39,6 +39,8 @@ class Literal {
     }
 
     public static function restore(Data $data, $string=''){
+        d('++++++++++++++++++++++++++++++++++++++---------------------------------------------------');
+        d($string);
         if(is_object($string)){
             foreach($string as $key => $value){
                 $string->{$key} = Literal::restore($data, $value);
