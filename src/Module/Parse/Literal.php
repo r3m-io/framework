@@ -55,6 +55,9 @@ class Literal {
                 $key = substr($explode[1], 0, 40);
                 d($key);
                 ddd($data->data('r3m.io.parse.literal'));
+            } else {
+                d('------------------------------------------------------------------------');
+                d($string);
             }
             if(isset($explode[1])){
                 $key = substr($explode[1], 0, 40);
