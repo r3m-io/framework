@@ -367,6 +367,8 @@ class Parse {
             return $string;
         }
         elseif(stristr($string, '{') === false){
+            d('=3=============================================================================================');
+            d($string);
             return $string;
         } else {
             //this section takes at least 5 msec per document: file:put 2msec, memcache::put 2msec, rest 1msec
