@@ -721,7 +721,7 @@ class Autoload {
             if($dir){
                 $url = $dir . Autoload::FILE;
                 $this->write($url, $this->read);
-                ddd($this);
+                ddd($this->getPrefixList());
                 if(file_exists($url)) {
                     exec('chmod 640 ' . $url);
                 }
