@@ -72,6 +72,7 @@ class Autoload {
         } else {
             $prefix = $object->config('autoload.prefix');
         }
+        d($prefix);
         if(
             !empty($prefix) &&
             is_array($prefix)
