@@ -721,10 +721,20 @@ class Autoload {
             if($dir){
                 $url = $dir . Autoload::FILE;
                 $this->write($url, $this->read);
-                ddd($this->getPrefixList());
                 if(file_exists($url)) {
                     exec('chmod 640 ' . $url);
                 }
+                $url = $dir. Autoload::FILE_PREFIX;
+                $object = $this->object();
+                $start = $object->config('time.start');
+                /*
+                if(
+                    file_exists($url) &&
+                    filemtime($url) <= $start + 60) {
+                    return;
+                }
+                */
+                $this->write($url, $this->getPrefixList());
             }
         }
     }
@@ -753,16 +763,12 @@ class Autoload {
         $this->read->autoload->{$caller}->{$class} = (string) $file;
     }
 
-    protected function write($url='', $data=''): mixed
+    protected function write($url='', $data=''): int|bool
     {
-        if(posix_geteuid() === 0){
-            return false;
-        }
         $data = (string) json_encode($data, JSON_PRETTY_PRINT);
         if(empty($data)){
             return false;
         }
-        $fwrite = 0;
         $dir = dirname($url);
         if(is_dir($dir) === false){
             try {
@@ -774,25 +780,7 @@ class Autoload {
         if(is_dir($dir) === false){
             return false;
         }
-        $resource = fopen($url, 'w');
-        if($resource === false){
-            return $resource;
-        }
-        flock($resource, LOCK_EX);
-        fseek($resource, 0);
-        for ($written = 0; $written < strlen($data); $written += $fwrite) {
-            $fwrite = fwrite($resource, substr($data, $written));
-            if ($fwrite === false) {
-                break;
-            }
-        }
-        flock($resource, LOCK_UN);
-        fclose($resource);
-        if($written != strlen($data)){
-            return false;
-        } else {
-            return $fwrite;
-        }
+        return file_put_contents($url, $data, LOCK_EX);
     }
 
     private function read($url=''): object
