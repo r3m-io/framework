@@ -44,6 +44,7 @@ class Autoload {
 
     public $prefixList = array();
     public $environment = 'init';
+    public $is_init = false;
 
     /**
      * @throws ObjectException
@@ -95,6 +96,7 @@ class Autoload {
         } else {
             $autoload->addPrefix('Package',  $object->config(Config::DATA_PROJECT_DIR_PACKAGE));
             $autoload->addPrefix('Source',  $object->config(Config::DATA_PROJECT_DIR_SOURCE));
+            $autoload->is_init = true;
         }
         if(
             empty($object->config('ramdisk.is.disabled')) &&
@@ -727,7 +729,7 @@ class Autoload {
             }
         }
         $prefixList = $this->getPrefixList();
-        if(!empty($prefixList)){
+        if(!empty($prefixList) && $this->is_init === false){
             $url = $dir. Autoload::FILE_PREFIX;
             $start = $object->config('time.start');
             $exist = file_exists($url);
