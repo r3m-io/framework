@@ -53,7 +53,9 @@ class Autoload {
         $duration = (microtime(true) - $object->config('time.start')) * 1000;
         d($duration . 'ms1');
         $autoload = new Autoload();
+        d($duration . 'ms3');
         $autoload->object($object);
+        d($duration . 'ms4');
         $prefix = $object->config('autoload.prefix');
         if(
             !empty($prefix) &&
@@ -75,6 +77,7 @@ class Autoload {
                 ){
                     $autoload->addPrefix($parameters['prefix'],  $parameters['directory']);
                 }
+                d($duration . 'ms5');
             }
         } else {
             $autoload->addPrefix('Package',  $object->config(Config::DATA_PROJECT_DIR_PACKAGE));
