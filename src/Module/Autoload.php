@@ -57,6 +57,18 @@ class Autoload {
         d($duration . 'ms3');
         $autoload->object($object);
         d($duration . 'ms4');
+
+        if(
+            empty($object->config('ramdisk.is.disabled')) &&
+            !empty($object->config('ramdisk.url'))
+        ) {
+            $cache_dir = $object->config('ramdisk.url') .
+                $object->config(Config::POSIX_ID) .
+                $object->config('ds') .
+                Autoload::NAME .
+                $object->config('ds');
+            ddd($cache_dir);
+        }
         $prefix = $object->config('autoload.prefix');
         if(
             !empty($prefix) &&
@@ -734,8 +746,8 @@ class Autoload {
             $exist = file_exists($url);
             if($exist){
                 $mtime = filemtime($url);
-                if($mtime > $start - 60){ //if file is younger than 1 minute: return
-                    d('yes');
+                if($mtime > $start - 60){
+                    //if file is younger than 1 minute: return
                     return;
                 }
             }
