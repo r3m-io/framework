@@ -98,14 +98,32 @@ class App extends Data {
         require_once __DIR__ . '/Debug.php';
         require_once __DIR__ . '/Error.php';
         Config::configure($this);
+        $duration = (microtime(true) - $this->config('time.start')) * 1000;
+        d($duration . 'ms');
         Logger::configure($this);
+        $duration = (microtime(true) - $this->config('time.start')) * 1000;
+        d($duration . 'ms');
         Host::configure($this);
+        $duration = (microtime(true) - $this->config('time.start')) * 1000;
+        d($duration . 'ms');
         Domain::configure($this);
+        $duration = (microtime(true) - $this->config('time.start')) * 1000;
+        d($duration . 'ms');
         Event::configure($this);
+        $duration = (microtime(true) - $this->config('time.start')) * 1000;
+        d($duration . 'ms');
         Middleware::configure($this);
+        $duration = (microtime(true) - $this->config('time.start')) * 1000;
+        d($duration . 'ms');
         OutputFilter::configure($this);
+        $duration = (microtime(true) - $this->config('time.start')) * 1000;
+        d($duration . 'ms');
         Autoload::configure($this);
+        $duration = (microtime(true) - $this->config('time.start')) * 1000;
+        d($duration . 'ms');
         Autoload::ramdisk_configure($this);
+        $duration = (microtime(true) - $this->config('time.start')) * 1000;
+        d($duration . 'ms');
     }
 
     /**
@@ -162,14 +180,22 @@ class App extends Data {
     public static function run(App $object): mixed
     {
         Handler::request_configure($object);
+        $duration = (microtime(true) - $object->config('time.start')) * 1000;
+        d($duration . 'ms');
         App::configure($object);
+        $duration = (microtime(true) - $object->config('time.start')) * 1000;
+        d($duration . 'ms');
         Route::configure($object);
         $destination = false;
         $logger = $object->config('project.log.name');
         try {
             $file = FileRequest::get($object);
+            $duration = (microtime(true) - $object->config('time.start')) * 1000;
+            d($duration . 'ms');
             if ($file === false) {
                 $destination = Route::request($object);
+                $duration = (microtime(true) - $object->config('time.start')) * 1000;
+                d($duration . 'ms');
                 if ($destination === false) {
                     if ($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
                         if($logger){
@@ -330,6 +356,8 @@ class App extends Data {
                         in_array($function, $methods, true)
                     ){
                         $functions[] = $function;
+                        $duration = (microtime(true) - $object->config('time.start')) * 1000;
+                        d($duration . 'ms');
                         $object->config('controller.function', $function);
                         $request = Core::deep_clone(
                             $object->get(
@@ -349,6 +377,8 @@ class App extends Data {
                             );
                         }
                         $result = $controller::{$function}($object);
+                        $duration = (microtime(true) - $object->config('time.start')) * 1000;
+                        d($duration . 'ms');
                         Event::trigger($object, 'app.run.route.controller', [
                             'destination' => $destination,
                             'response' => $result
