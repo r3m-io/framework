@@ -154,10 +154,11 @@ class Event extends Main {
                                 property_exists($route, 'controller') &&
                                 property_exists($route, 'function')
                             ){
-                                $event = new Storage($event);
+                                $route_event = new Storage($event);
+                                d($route_event);
                                 try {
-                                    $response = $route->controller::{$route->function}($object, $event, $options);
-                                    ddd($response);
+                                    $response = $route->controller::{$route->function}($object, $route_event, $options);
+                                    d($response);
                                 }
                                 catch (LocateException $exception){
                                     if($object->config('project.log.error')){
