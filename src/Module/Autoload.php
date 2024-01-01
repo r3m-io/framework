@@ -130,6 +130,7 @@ class Autoload {
                 $cache_dir = $parameters['cache'];
             }
         }
+        d($duration . 'ms8');
         if(empty($cache_dir)){
             $cache_dir =
                 $object->config(Config::DATA_FRAMEWORK_DIR_TEMP) .
@@ -139,6 +140,7 @@ class Autoload {
                 $object->config(Config::DS)
             ;
         }
+        d($duration . 'ms9');
         $autoload->cache_dir($cache_dir);
         $duration = (microtime(true) - $object->config('time.start')) * 1000;
         d($duration . 'ms2');
