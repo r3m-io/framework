@@ -68,7 +68,11 @@ class Autoload {
                 Autoload::NAME .
                 $object->config('ds');
             $url = $cache_dir . Autoload::FILE_PREFIX;
-            ddd($url);
+            if(file_exists($url)){
+                $prefix = json_decode(file_get_contents($url));
+                ddd($prefix);
+            }
+
         }
         $prefix = $object->config('autoload.prefix');
         if(
