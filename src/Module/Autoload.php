@@ -50,6 +50,8 @@ class Autoload {
      */
     public static function configure(App $object): void
     {
+        $duration = (microtime(true) - $object->config('time.start')) * 1000;
+        d($duration . 'ms1');
         $autoload = new Autoload();
         $autoload->object($object);
         $prefix = $object->config('autoload.prefix');
@@ -133,7 +135,11 @@ class Autoload {
             ;
         }
         $autoload->cache_dir($cache_dir);
+        $duration = (microtime(true) - $object->config('time.start')) * 1000;
+        d($duration . 'ms2');
         $autoload->register();
+        $duration = (microtime(true) - $object->config('time.start')) * 1000;
+        d($duration . 'ms3');
         $autoload->environment($object->config('framework.environment'));
         $object->data(App::AUTOLOAD_R3M, $autoload);        
     }
