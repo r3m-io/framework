@@ -716,25 +716,31 @@ class Autoload {
     }
 
     public function __destruct(){
+        $object = $this->object();
+        $dir = $this->cache_dir();
         if(!empty($this->read)){
-            $dir = $this->cache_dir();
             if($dir){
                 $url = $dir . Autoload::FILE;
                 $this->write($url, $this->read);
                 if(file_exists($url)) {
                     exec('chmod 640 ' . $url);
                 }
-                $url = $dir. Autoload::FILE_PREFIX;
-                $object = $this->object();
-                $start = $object->config('time.start');
-                /*
-                if(
-                    file_exists($url) &&
-                    filemtime($url) <= $start + 60) {
+            }
+        }
+        $prefixList = $this->getPrefixList();
+        if(!empty($prefixList)){
+            $url = $dir. Autoload::FILE_PREFIX;
+            $start = $object->config('time.start');
+            $exist = file_exists($url);
+            if($exist){
+                $mtime = filemtime($url);
+                if($mtime > $start - 60){ //if file is younger than 1 minute: return
                     return;
                 }
-                */
-                $this->write($url, $this->getPrefixList());
+            }
+            $this->write($url, $prefixList);
+            if(file_exists($url)) {
+                exec('chmod 640 ' . $url);
             }
         }
     }
