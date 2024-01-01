@@ -155,7 +155,8 @@ class Event extends Main {
                             ){
                                 $event = new Storage($event);
                                 try {
-                                    $route->controller::{$route->function}($object, $event, $options);
+                                    $response = $route->controller::{$route->function}($object, $event, $options);
+                                    ddd($response);
                                 }
                                 catch (LocateException $exception){
                                     if($object->config('project.log.error')){
