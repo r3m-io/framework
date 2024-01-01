@@ -67,7 +67,8 @@ class Autoload {
                 $object->config('ds') .
                 Autoload::NAME .
                 $object->config('ds');
-            ddd($cache_dir);
+            $url = $cache_dir . Autoload::FILE_PREFIX;
+            ddd($url);
         }
         $prefix = $object->config('autoload.prefix');
         if(
