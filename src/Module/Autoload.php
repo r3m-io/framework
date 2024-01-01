@@ -70,11 +70,12 @@ class Autoload {
             $url = $cache_dir . Autoload::FILE_PREFIX;
             if(file_exists($url)){
                 $prefix = json_decode(file_get_contents($url));
-                ddd($prefix);
+            } else {
+                $prefix = $object->config('autoload.prefix');
             }
-
+        } else {
+            $prefix = $object->config('autoload.prefix');
         }
-        $prefix = $object->config('autoload.prefix');
         if(
             !empty($prefix) &&
             is_array($prefix)
