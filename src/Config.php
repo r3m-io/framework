@@ -518,6 +518,9 @@ class Config extends Data {
             $parameters[$nr] = $parameter;
         }
         foreach($parameters as $key => $parameter){
+            if(!str_contains($parameter, 'config(')){
+                continue;
+            }
             $tree = Parse\Token::tree($parameter);
             if(
                 !empty($tree) &&
