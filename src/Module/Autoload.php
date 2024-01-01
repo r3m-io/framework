@@ -83,6 +83,7 @@ class Autoload {
             $autoload->addPrefix('Package',  $object->config(Config::DATA_PROJECT_DIR_PACKAGE));
             $autoload->addPrefix('Source',  $object->config(Config::DATA_PROJECT_DIR_SOURCE));
         }
+        d($duration . 'ms6');
         if(
             empty($object->config('ramdisk.is.disabled')) &&
             !empty($object->config('ramdisk.url'))
@@ -119,6 +120,7 @@ class Autoload {
                 }
             }
         }
+        d($duration . 'ms7');
         if(empty($cache_dir)){
             $cache_dir = $object->config('autoload.cache.directory');
             if($cache_dir){
