@@ -155,7 +155,9 @@ class Event extends Main {
                                 property_exists($route, 'function')
                             ){
                                 $route_event = new Storage($event);
+                                $response = $route->controller::{$route->function}($object, $route_event, $options);
                                 d($route_event);
+                                d($response);
                                 try {
                                     $response = $route->controller::{$route->function}($object, $route_event, $options);
                                     d($response);
