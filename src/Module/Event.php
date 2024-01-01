@@ -149,7 +149,6 @@ class Event extends Main {
                             $route = new stdClass();
                             $route->controller = $controller;
                             $route = Route::controller($route);
-                            d($route);
                             if(
                                 property_exists($route, 'controller') &&
                                 property_exists($route, 'function')
@@ -164,6 +163,14 @@ class Event extends Main {
                                     }
                                     elseif($object->config('project.log.name')){
                                         $object->logger($object->config('project.log.name'))->error('LocateException', [ $route, (string) $exception ]);
+                                    }
+                                }
+                                catch(Exception $exception){
+                                    if($object->config('project.log.error')){
+                                        $object->logger($object->config('project.log.error'))->error('Exception', [ $route, (string) $exception ]);
+                                    }
+                                    elseif($object->config('project.log.name')){
+                                        $object->logger($object->config('project.log.name'))->error('Exception', [ $route, (string) $exception ]);
                                     }
                                 }
                             }
