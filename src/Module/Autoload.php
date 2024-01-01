@@ -77,12 +77,14 @@ class Autoload {
                 ){
                     $autoload->addPrefix($parameters['prefix'],  $parameters['directory']);
                 }
+                $duration = (microtime(true) - $object->config('time.start')) * 1000;
                 d($duration . 'ms5');
             }
         } else {
             $autoload->addPrefix('Package',  $object->config(Config::DATA_PROJECT_DIR_PACKAGE));
             $autoload->addPrefix('Source',  $object->config(Config::DATA_PROJECT_DIR_SOURCE));
         }
+        $duration = (microtime(true) - $object->config('time.start')) * 1000;
         d($duration . 'ms6');
         if(
             empty($object->config('ramdisk.is.disabled')) &&
@@ -120,6 +122,7 @@ class Autoload {
                 }
             }
         }
+        $duration = (microtime(true) - $object->config('time.start')) * 1000;
         d($duration . 'ms7');
         if(empty($cache_dir)){
             $cache_dir = $object->config('autoload.cache.directory');
@@ -130,6 +133,7 @@ class Autoload {
                 $cache_dir = $parameters['cache'];
             }
         }
+        $duration = (microtime(true) - $object->config('time.start')) * 1000;
         d($duration . 'ms8');
         if(empty($cache_dir)){
             $cache_dir =
@@ -140,6 +144,7 @@ class Autoload {
                 $object->config(Config::DS)
             ;
         }
+        $duration = (microtime(true) - $object->config('time.start')) * 1000;
         d($duration . 'ms9');
         $autoload->cache_dir($cache_dir);
         $duration = (microtime(true) - $object->config('time.start')) * 1000;
