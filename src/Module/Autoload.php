@@ -51,13 +51,8 @@ class Autoload {
      */
     public static function configure(App $object): void
     {
-        $duration = (microtime(true) - $object->config('time.start')) * 1000;
-        d($duration . 'ms1');
         $autoload = new Autoload();
-        d($duration . 'ms3');
         $autoload->object($object);
-        d($duration . 'ms4');
-
         if(
             empty($object->config('ramdisk.is.disabled')) &&
             !empty($object->config('ramdisk.url'))
@@ -96,15 +91,11 @@ class Autoload {
                 ){
                     $autoload->addPrefix($parameters['prefix'],  $parameters['directory']);
                 }
-                $duration = (microtime(true) - $object->config('time.start')) * 1000;
-                d($duration . 'ms5');
             }
         } else {
             $autoload->addPrefix('Package',  $object->config(Config::DATA_PROJECT_DIR_PACKAGE));
             $autoload->addPrefix('Source',  $object->config(Config::DATA_PROJECT_DIR_SOURCE));
         }
-        $duration = (microtime(true) - $object->config('time.start')) * 1000;
-        d($duration . 'ms6');
         if(
             empty($object->config('ramdisk.is.disabled')) &&
             !empty($object->config('ramdisk.url'))
@@ -141,8 +132,6 @@ class Autoload {
                 }
             }
         }
-        $duration = (microtime(true) - $object->config('time.start')) * 1000;
-        d($duration . 'ms7');
         if(empty($cache_dir)){
             $cache_dir = $object->config('autoload.cache.directory');
             if($cache_dir){
@@ -152,8 +141,6 @@ class Autoload {
                 $cache_dir = $parameters['cache'];
             }
         }
-        $duration = (microtime(true) - $object->config('time.start')) * 1000;
-        d($duration . 'ms8');
         if(empty($cache_dir)){
             $cache_dir =
                 $object->config(Config::DATA_FRAMEWORK_DIR_TEMP) .
@@ -163,14 +150,8 @@ class Autoload {
                 $object->config(Config::DS)
             ;
         }
-        $duration = (microtime(true) - $object->config('time.start')) * 1000;
-        d($duration . 'ms9');
         $autoload->cache_dir($cache_dir);
-        $duration = (microtime(true) - $object->config('time.start')) * 1000;
-        d($duration . 'ms2');
         $autoload->register();
-        $duration = (microtime(true) - $object->config('time.start')) * 1000;
-        d($duration . 'ms3');
         $autoload->environment($object->config('framework.environment'));
         $object->data(App::AUTOLOAD_R3M, $autoload);        
     }
