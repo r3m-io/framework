@@ -735,6 +735,7 @@ class Autoload {
             if($exist){
                 $mtime = filemtime($url);
                 if($mtime > $start - 60){ //if file is younger than 1 minute: return
+                    d('yes');
                     return;
                 }
             }
