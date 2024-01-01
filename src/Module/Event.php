@@ -155,9 +155,12 @@ class Event extends Main {
                                 property_exists($route, 'function')
                             ){
                                 $route_event = new Storage($event);
-                                $response = $route->controller::{$route->function}($object, $route_event, $options);
+                                if(!in_array($route->controller, ['Event\R3m\Io\Framework\Parse\Build'], true)){
+                                    $response = $route->controller::{$route->function}($object, $route_event, $options);
+                                    d($response);
+                                }
                                 d($route_event);
-                                d($response);
+
                                 try {
                                     $response = $route->controller::{$route->function}($object, $route_event, $options);
                                     d($response);
