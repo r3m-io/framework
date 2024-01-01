@@ -24,6 +24,7 @@ use R3m\Io\Exception\ObjectException;
 class Autoload {
     const DIR = __DIR__;
     const FILE = 'Autoload.json';
+    const FILE_PREFIX = 'Autoload.Prefix.json';
     const TEMP = 'Temp';
     const NAME = 'Autoload';
     const EXT_PHP = 'php';
@@ -720,6 +721,7 @@ class Autoload {
             if($dir){
                 $url = $dir . Autoload::FILE;
                 $this->write($url, $this->read);
+                ddd($this);
                 if(file_exists($url)) {
                     exec('chmod 640 ' . $url);
                 }
