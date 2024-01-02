@@ -145,9 +145,13 @@ class Install extends Controller {
                                         $to = str_replace($copy->from, $copy->to, $file->url);
                                         if(
                                             !File::exist($to) ||
-                                            property_exists($options, 'force')
+                                            property_exists($options, 'force') ||
+                                            property_exists($options, 'patch')
                                         ){
-                                            if(property_exists($options, 'force')){
+                                            if(
+                                                property_exists($options, 'force') ||
+                                                property_exists($options, 'patch')
+                                            ){
                                                 File::delete($to);
                                             }
                                             File::copy($file->url, $to);
