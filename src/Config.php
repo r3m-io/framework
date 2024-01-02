@@ -70,7 +70,7 @@ class Config extends Data {
     const VALUE_MOUNT = 'Mount';
 
     const ASSET = 'Asset';
-    const VALUE_ASSET = 'ASSET';
+    const VALUE_ASSET = 'Asset';
 
     const BACKUP = 'Backup';
     const VALUE_BACKUP = 'Backup';
@@ -518,9 +518,6 @@ class Config extends Data {
             $parameters[$nr] = $parameter;
         }
         foreach($parameters as $key => $parameter){
-            if(!str_contains($parameter, 'config(')){
-                continue;
-            }
             $tree = Parse\Token::tree($parameter);
             if(
                 !empty($tree) &&
