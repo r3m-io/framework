@@ -464,9 +464,6 @@ class Autoload {
         $this->fileList[$item['baseName']][] = $data;
         $result = array();
         foreach($data as $nr => $file){
-            if($file === '[---]'){
-                $file = $file . $nr;
-            }
             $result[$file] = $file;
         }
         return $result;
@@ -523,7 +520,12 @@ class Autoload {
                     $item['file'] = implode('.', $tmp);
                 }
                 elseif($is_data === false) {
-
+                    if($object->config('project.log.error')){
+                        $object->logger($object->config('project.log.error'))->error('Autoload error, cannot load (' . $load .') class. (Prefix not initialized)');
+                    }
+                    elseif($object->config('project.log.name')){
+                        $object->logger($object->config('project.log.name'))->error('Autoload error, cannot load (' . $load .') class. (Prefix not initialized)');
+                    }
                     continue; //changed @ 2023-11-16
                     /*
                     File::append(
@@ -536,8 +538,6 @@ class Autoload {
                     }
                     $item['file'] = implode('.', $tmp);
                     */
-                } else {
-                    continue;
                 }
                 if(empty($item['file'])){
                     $item['file'] = $load;
@@ -562,10 +562,6 @@ class Autoload {
                     $fileList[$nr] = $this->fileList($item, $url);
                     if(is_array($fileList[$nr]) && empty($this->expose())){
                         foreach($fileList[$nr] as $file){
-                            if(substr($file, 0, 5) == '[---]'){
-                                continue;
-                            }
-//                            File::append($dir_temp . 'Exist.log', 'exist: ' . file_exists($file) . ': ' . $file . PHP_EOL);
                             if(file_exists($file)){
                                 if(
                                     empty($object->config('ramdisk.is.disabled')) &&
@@ -649,7 +645,6 @@ class Autoload {
             } else {
                 throw new LocateException('Could not find data file (' . $load . ')');
             }
-
         }
         /**
          * need fast logger writing to autoload log which should be in tmp ?
