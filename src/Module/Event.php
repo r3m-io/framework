@@ -119,11 +119,9 @@ class Event extends Main {
      * @throws Exception
      */
     public static function trigger(App $object, $action, $options=[]){
-        d($action);
         $events = $object->get(App::EVENT)->select(Event::OBJECT, [
             'action' => $action
         ]);
-        d($events);
         if(empty($events)){
             return null;
         }
@@ -149,21 +147,13 @@ class Event extends Main {
                             $route = new stdClass();
                             $route->controller = $controller;
                             $route = Route::controller($route);
-                            d($route);
                             if(
                                 property_exists($route, 'controller') &&
                                 property_exists($route, 'function')
                             ){
                                 $route_event = new Storage($event);
-                                if(!in_array($route->controller, ['Event\R3m\Io\Framework\Parse\Build'], true)){
-                                    $response = $route->controller::{$route->function}($object, $route_event, $options);
-                                    d($response);
-                                }
-                                d($route_event);
-
                                 try {
                                     $response = $route->controller::{$route->function}($object, $route_event, $options);
-                                    d($response);
                                 }
                                 catch (LocateException $exception){
                                     if($object->config('project.log.error')){
