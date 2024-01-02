@@ -72,7 +72,7 @@ class Autoload {
         } else {
             $prefix = $object->config('autoload.prefix');
         }
-        d($object->config('autoload'));
+        d($object->config());
         d($prefix);
         if(
             !empty($prefix) &&
