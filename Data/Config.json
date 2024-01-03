@@ -20,9 +20,7 @@
                 "route",
                 "ramdisk",
                 "bin",
-                "configure",
                 "doctrine",
-                "openssl",
                 "restore",
                 "secret",
                 "zip"
