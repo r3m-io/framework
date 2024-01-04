@@ -454,6 +454,7 @@ class Config extends Data {
             property_exists($role_system, 'uuid')
         ){
             $object->config('framework.role.system.uuid', $role_system->uuid);
+            ddd('yes');
         }
         d($role_system);
         d($object->data('framework'));
