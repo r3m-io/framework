@@ -455,6 +455,7 @@ class Config extends Data {
         ){
             $object->config('framework.role.system.uuid', $role_system->uuid);
         }
+        d($role_system);
         d($object->data('framework'));
         if(!$role_system){
             return;
