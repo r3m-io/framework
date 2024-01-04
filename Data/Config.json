@@ -17,7 +17,6 @@
                 "version",
                 "uuid",
                 "password",
-                "route",
                 "ramdisk",
                 "bin",
                 "doctrine",

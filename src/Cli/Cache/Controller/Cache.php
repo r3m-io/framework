@@ -46,8 +46,7 @@ class Cache extends Controller {
 
     const CLEAR_COMMAND = [
         '{{binary()}} autoload restart',
-        '{{binary()}} parse restart',
-        '{{binary()}} route restart'
+        '{{binary()}} parse restart'
     ];
 
     const RAMDISK_CLEAR_COMMAND = '{{binary()}} ramdisk clear';

@@ -40,8 +40,7 @@ class Clear extends Controller {
 
     const CLEAR_COMMAND = [
         '{{binary()}} autoload restart',
-        '{{binary()}} parse restart',
-        '{{binary()}} route restart'
+        '{{binary()}} parse restart'
     ];
 
     const INFO = '{{binary()}} cache:clear                    | Clears the app cache';
