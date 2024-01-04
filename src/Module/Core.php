@@ -281,14 +281,21 @@ class Core
 
     public static function output_mode($mode = null): void
     {
-        if (!in_array($mode, Core::OUTPUT_MODE)) {
+        if (
+            !in_array(
+                $mode,
+                Core::OUTPUT_MODE,
+            true
+            )
+        ) {
             $mode = Core::OUTPUT_MODE_DEFAULT;
         }
         switch ($mode) {
             case  Core::MODE_INTERACTIVE :
                 ob_implicit_flush(true);
                 try {
-                    @ob_end_flush();
+                    @ob_flush();
+                    @flush();
                 } catch (\Exception $e) {
                     //do nothing
                 }
