@@ -449,7 +449,7 @@ class Config extends Data {
             'ramdisk_dir' => $dir_cache,
         ];
         $role_system = $node->role_system();
-        ddd($object);
+        ddd($object->data('framework'));
         if(!$role_system){
             return;
         }
