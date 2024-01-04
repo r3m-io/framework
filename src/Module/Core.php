@@ -292,18 +292,18 @@ class Core
         }
         switch ($mode) {
             case  Core::MODE_INTERACTIVE :
-                ob_implicit_flush(true);
+
                 try {
-                    @ob_flush();
-                    @flush();
+                    @ob_end_flush();
+                    @ob_implicit_flush(true);
                 } catch (\Exception $e) {
                     //do nothing
                 }
                 break;
             default :
-                ob_implicit_flush(false);
                 try {
                     @ob_end_flush();
+                    @ob_implicit_flush(false);
                 } catch (\Exception $e) {
                     //do nothing
                 }
