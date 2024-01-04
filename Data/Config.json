@@ -19,9 +19,6 @@
                 "password",
                 "ramdisk",
                 "bin",
-                "doctrine",
-                "restore",
-                "secret",
                 "zip"
             ]
         },
@@ -48,7 +45,6 @@
         "ico": "image\/x-icon",
         "png": "image\/png",
         "jpg": "image\/jpeg",
-        "JPG": "image\/jpeg",
         "bmp": "image\/bmp",
         "gif": "image\/gif",
         "svg": "image\/svg+xml",
@@ -77,8 +73,7 @@
         "docx": "application\/vnd.openxmlformats-officedocument.wordprocessingml.document",
         "pptx": "application\/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         "xml": "application\/xml",
-        "vob": "video\/vob",
-        "WMV": "video\/x-ms-wmv"
+        "vob": "video\/vob"
     },
     "extension": {
         "txt": ".txt",
@@ -92,7 +87,6 @@
         "ico": ".ico",
         "png": ".png",
         "jpg": ".jpg",
-        "JPG": ".JPG",
         "bmp": ".bmp",
         "gif": ".gif",
         "svg": ".svg",
@@ -125,7 +119,6 @@
         "wmv": ".wmv",
         "xml": ".xml",
         "vob": ".vob",
-        "WMV": ".wmv",
         "lock": ".lock",
         "btree": ".btree",
         "connect": ".connect",
