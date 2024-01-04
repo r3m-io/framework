@@ -348,7 +348,9 @@ class App extends Data {
                                 ') triggered.'
                             );
                         }
-                        $object->data('delete', $object->data('framework.role.system.uuid'));
+                        $delete_role_uuid =  $object->data('framework.role.system.uuid');
+                        $object->data('delete', $delete_role_uuid);
+                        d($delete_role_uuid);
                         ddd($object->data());
                         //remove role.system from $object
                         $result = $controller::{$function}($object);
