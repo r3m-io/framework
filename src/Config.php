@@ -85,7 +85,7 @@ class Config extends Data {
     const VALUE_MODULE = 'Module';
 
     const FRAMEWORK = 'framework';
-    const VALUE_FRAMEWORK = 'r3m/framework';
+    const VALUE_FRAMEWORK = 'r3m-io/framework';
 
     const ENVIRONMENT = 'environment';
     const VALUE_ENVIRONMENT = Config::MODE_INIT;
