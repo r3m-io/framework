@@ -348,7 +348,7 @@ class App extends Data {
                                 ') triggered.'
                             );
                         }
-                        ddd($object->config('framework'));
+                        d($object->config('framework'));
                         //remove role.system from $object
                         $result = $controller::{$function}($object);
                         Event::trigger($object, 'app.run.route.controller', [
