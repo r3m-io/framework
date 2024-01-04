@@ -1097,7 +1097,6 @@ class Route extends Data {
      */
     public static function configure(App $object): void
     {
-        $start = microtime(true);
         $route = $object->data(App::ROUTE);
         if(!$route){
             $route = new Route();
@@ -1203,8 +1202,6 @@ class Route extends Data {
             }
             $object->data(App::ROUTE, $route);
         }
-        $duration = microtime(true) - $start;
-        d($duration * 1000 . ' ms');
     }
 
     private static function cache_mtime($object, $cache): ?bool
