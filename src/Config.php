@@ -449,12 +449,14 @@ class Config extends Data {
             'ramdisk_dir' => $dir_cache,
         ];
         $role_system = $node->role_system();
+        /*
         if(
             is_object($role_system) &&
             property_exists($role_system, 'uuid')
         ){
             $object->config('framework.role.system.uuid', $role_system->uuid);
         }
+        */
         d($role_system);
         d($object->config('framework'));
         if(!$role_system){
