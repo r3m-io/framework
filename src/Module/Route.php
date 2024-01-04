@@ -173,9 +173,10 @@ class Route extends Data {
     /**
      * @throws ObjectException
      */
-    private static function add_request($object, $request){
+    private static function add_request($object, $request): void
+    {
         if(empty($request)){
-            return $object;
+            return;
         }
         if(
             property_exists($request, 'request') &&
@@ -197,7 +198,6 @@ class Route extends Data {
                 )
             );
         }
-        return $object;
     }
 
     /**
@@ -1097,6 +1097,7 @@ class Route extends Data {
      */
     public static function configure(App $object): void
     {
+        $start = microtime(true);
         $route = $object->data(App::ROUTE);
         if(!$route){
             $route = new Route();
@@ -1202,6 +1203,8 @@ class Route extends Data {
             }
             $object->data(App::ROUTE, $route);
         }
+        $duration = microtime(true) - $start;
+        d($duration * 1000 . ' ms');
     }
 
     private static function cache_mtime($object, $cache): ?bool

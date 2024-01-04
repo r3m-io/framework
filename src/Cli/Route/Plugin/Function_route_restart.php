@@ -10,8 +10,7 @@ function function_route_restart(Parse $parse, Data $data){
     $object->config('ramdisk.is.disabled', true);
     $temp_dir = $object->config('framework.dir.temp');
     $dir = new Dir();
-    $read = $dir->read($temp_dir, true);
-    ddd($read);
+    $read = $dir->read($temp_dir, true);;
     if($read){
         foreach($read as $file){
             if($file->type === Dir::TYPE){
