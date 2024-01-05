@@ -1063,7 +1063,10 @@ class App extends Data {
         $data->data($this->data());
         $node = new Data();
         $logger = $this->config('project.log.name');
-        if($logger){
+        if(
+            $logger &&
+            $this->config('framework.environment') === Config::MODE_DEVELOPMENT
+        ){
             $this->logger($logger)->info(' parse_select: ' . $url, [$select ,$scope]);
         }
         $node->data(
