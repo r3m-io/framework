@@ -664,13 +664,6 @@ class App extends Data {
         if(array_key_exists($name, $this->logger)){
             return $this->logger[$name];
         }
-        if($name === 'Project.log.name'){
-            $debug = debug_backtrace(true);
-            d($debug[0]['file'] . ' ' . $debug[0]['line']);
-            d($debug[1]['file'] . ' ' . $debug[1]['line']);
-            d($debug[2]['file'] . ' ' . $debug[2]['line']);
-            throw new Exception('Please configure project.log.name');
-        }
         throw new Exception('Logger with name: ' . $name . ' not initialised.');
 
     }
@@ -1112,8 +1105,11 @@ class App extends Data {
      */
     public function data_read($url, $attribute=null, $do_not_nest_key=false): mixed
     {
+        $cache = $this->data(App::CACHE);
         if($attribute !== null){
-            $data = $this->data($attribute);
+            if($cache){
+                $data = $cache->get($attribute);
+            }
             if(!empty($data)){
                 return $data;
             }
@@ -1133,8 +1129,11 @@ class App extends Data {
                 $data = new Data();
                 $data->do_not_nest_key($do_not_nest_key);
             }
-            if($attribute !== null){
-                $this->data($attribute, $data);
+            if(
+                $attribute !== null &&
+                $cache
+            ){
+                $cache->set($attribute, $data);
             }
             return $data;
         } else {
@@ -1149,10 +1148,13 @@ class App extends Data {
      */
     public function parse_read($url, $attribute=null): mixed
     {
+        $cache = $this->data(App::CACHE);
         if($attribute !== null){
-            $data = $this->data($attribute);
-            if(!empty($data)){
-                return $data;
+            if($cache){
+                $data = $cache->get($attribute);
+                if(!empty($data)){
+                    return $data;
+                }
             }
         }
         if(File::exist($url)){
@@ -1186,8 +1188,8 @@ class App extends Data {
             } else {
                 $data = new Data();
             }
-            if($attribute !== null){
-                $this->data($attribute, $data);
+            if($attribute !== null && $cache){
+                $cache->set($attribute, $data);
             }
             return $data;
         } else {
