@@ -54,7 +54,7 @@ class Cache extends Controller {
     const INFO = [
         '{{binary()}} cache clear                    | Clears the app cache',
         '{{binary()}} cache garbage                  | Clears the file cache'
-    ]
+    ];
 
     /**
      * @throws Exception
