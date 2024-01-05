@@ -51,7 +51,10 @@ class Cache extends Controller {
 
     const RAMDISK_CLEAR_COMMAND = '{{binary()}} ramdisk clear';
 
-    const INFO = '{{binary()}} cache clear                    | Clears the app cache';
+    const INFO = [
+        '{{binary()}} cache clear                    | Clears the app cache',
+        '{{binary()}} cache garbage                  | Clears the file cache'
+    ]
 
     /**
      * @throws Exception
