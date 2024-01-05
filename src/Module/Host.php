@@ -33,9 +33,6 @@ class Host {
         if(defined('IS_CLI')){
             return false;
         }
-        $key = 'host.url';
-        $value = Host::url();
-        $object->config($key, $value);
         $key = 'host.scheme';
         $value = Host::scheme();
         $object->config($key, $value);
