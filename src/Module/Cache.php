@@ -20,7 +20,7 @@ use R3m\Io\Exception\FileWriteException;
 use R3m\Io\Exception\ObjectException;
 
 class Cache {
-
+    const NAME = 'Cache';
     const ROUTE = 'route';
     const FILE = 'file';
     const REQUEST = 'request';

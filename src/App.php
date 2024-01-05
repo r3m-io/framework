@@ -10,15 +10,16 @@
  */
 namespace R3m\Io;
 
-use R3m\Io\Module\Destination;
 use stdClass;
 
 use R3m\Io\Module\Autoload;
+use R3m\Io\Module\Cache;
 use R3m\Io\Module\Cli;
 use R3m\Io\Module\Controller;
 use R3m\Io\Module\Core;
 use R3m\Io\Module\Data;
 use R3m\Io\Module\Database;
+use R3m\Io\Module\Destination;
 use R3m\Io\Module\Dir;
 use R3m\Io\Module\Domain;
 use R3m\Io\Module\Event;
@@ -70,6 +71,7 @@ class App extends Data {
     const EVENT = App::NAMESPACE . '.' . Event::NAME;
     const MIDDLEWARE = App::NAMESPACE . '.' . Middleware::NAME;
     const OUTPUTFILTER = App::NAMESPACE . '.' . OutputFilter::NAME;
+    const CACHE = App::NAMESPACE . '.' . Cache::NAME;
     const FILTER = App::NAMESPACE . '.' . Filter::NAME;
     const FLAGS = App::NAMESPACE . '.' . Data::FLAGS;
     const OPTIONS = App::NAMESPACE . '.' . Data::OPTIONS;
@@ -93,6 +95,7 @@ class App extends Data {
         $this->data(App::EVENT, new Data());
         $this->data(App::MIDDLEWARE, new Data());
         $this->data(App::OUTPUTFILTER, new Data());
+        $this->data(App::CACHE, new Data());
         $this->config('time.start', microtime(true));
         App::is_cli();
         require_once __DIR__ . '/Debug.php';
