@@ -1032,6 +1032,7 @@ class App extends Data {
     /**
      * @throws ObjectException
      * @throws FileWriteException
+     * @throws Exception
      */
     public function data_select($url, $select=null): Data
     {
@@ -1039,6 +1040,13 @@ class App extends Data {
         $data = new Data();
         $data->data($this->data());
         $node = new Data();
+        $logger = $this->config('project.log.debug');
+        if(
+            $logger &&
+            $this->config('framework.environment') === Config::MODE_DEVELOPMENT
+        ){
+            $this->logger($logger)->info(' parse_select: ' . $url, [$select]);
+        }
         $node->data(
             Core::object_select(
                 $parse,
@@ -1062,7 +1070,7 @@ class App extends Data {
         $data = new Data();
         $data->data($this->data());
         $node = new Data();
-        $logger = $this->config('project.log.name');
+        $logger = $this->config('project.log.debug');
         if(
             $logger &&
             $this->config('framework.environment') === Config::MODE_DEVELOPMENT
