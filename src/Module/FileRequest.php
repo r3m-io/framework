@@ -27,6 +27,9 @@ use R3m\Io\Exception\LocateException;
 class FileRequest {
     const REQUEST = 'Request';
 
+    /**
+     * @throws Exception
+     */
     private static function location(App $object, $dir): array
     {
         $location = [];
@@ -130,27 +133,6 @@ class FileRequest {
         return $location;
     }
 
-    /*
-    public static function local(App $object){
-        $fileRequest = $object->config('server.fileRequest');
-        if(empty($fileRequest)){
-            return false;
-        }
-        if(!is_object($fileRequest)){
-            return false;
-        }
-        foreach($fileRequest as $name => $node){
-            $explode = explode('-', $name, 3);
-            $count = count($explode);
-            if($count > 1){
-                $explode[$count - 1] = 'local';
-                $name = implode('-', $explode);
-                $fileRequest->{$name} = $node;
-            }
-        }
-    }
-    */
-
     /**
      * @throws LocateException
      * @throws Exception
@@ -181,9 +163,12 @@ class FileRequest {
             }
             Core::redirect($url);
         }
-        $logger = $object->config('project.log.fileRequest');
-        if(empty($logger)){
-            $logger = $object->config('project.log.name');
+        $logger = false;
+        if ($object->config('framework.environment') == Config::MODE_DEVELOPMENT) {
+            $logger = $object->config('project.log.fileRequest');
+            if(empty($logger)){
+                $logger = $object->config('project.log.debug');
+            }
         }
         $request = $object->data(App::REQUEST);
         $input = $request->data('request');
@@ -226,7 +211,9 @@ class FileRequest {
                 }
             }
             if($public_directory === false){
-                $object->logger($logger)->info('host.file.request needs server.public configured...', [$public]);
+                if($logger){
+                    $object->logger($logger)->info('host.file.request needs server.public configured...', [$public]);
+                }
                 $location = [];
             }
             foreach($location as $nr => $url){
@@ -236,7 +223,9 @@ class FileRequest {
                         $object->config('ds') . $public_directory . $object->config('ds')
                     ) === false
                 ){
-                    $object->logger($logger)->info('host.file.request contains directory outside server.public...', [$url]);
+                    if($logger){
+                        $object->logger($logger)->info('host.file.request contains directory outside server.public...', [$url]);
+                    }
                     unset($location[$nr]);
                 }
             }
@@ -354,6 +343,9 @@ class FileRequest {
                         if(Server::cors_is_allowed($object, $origin)){
                             header("Access-Control-Allow-Origin: {$origin}");
                         } elseif($logger){
+                            //if domain.url != origin
+                            d($origin);
+                            ddd($object->config('domain'));
                             $object->logger($logger)->debug('Cors is not allowed for: ', [ $origin ]);
                         }
                     }
