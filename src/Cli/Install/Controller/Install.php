@@ -58,6 +58,7 @@ class Install extends Controller {
             ]);
             throw $exception;
         }
+        Core::interactive();
         $url = $object->config('framework.dir.data') .
             $object->config('dictionary.package') .
             $object->config('extension.json')
