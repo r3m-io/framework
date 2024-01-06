@@ -53,7 +53,7 @@ class Cache extends Controller {
 
     const INFO = [
         '{{binary()}} cache clear                    | Clears the app cache',
-        '{{binary()}} cache garbage collector        | Clears the file cache from old files'
+        '{{binary()}} cache garbage collector        | Cronjob to clean up the cache'
     ];
 
     /**
@@ -224,12 +224,12 @@ class Cache extends Controller {
                             if($seconds){
                                 echo 'Garbage Collector: amount freed: ' . $counter . ' size: ' . $size_freed . ' bytes seconds: ' . $seconds . PHP_EOL;
                                 if($object->config('project.log.name')){
-                                    $object->logger($object->config('project.log.name'))->info('Garbage Collector: amount freed: ' . $counter . ' size: ' . $size_freed . ' bytes' . PHP_EOL, [ $dir_cache, $duration, $seconds ]);
+                                    $object->logger($object->config('project.log.name'))->info('Garbage Collector: amount freed: ' . $counter . ' size: ' . $size_freed . ' bytes' . PHP_EOL, [ $dir_cache, $duration * 1000 . ' ms', $seconds ]);
                                 }
                             } else {
                                 echo 'Garbage Collector: amount freed: ' . $counter . ' size: ' . $size_freed . ' bytes' . PHP_EOL;
                                 if($object->config('project.log.name')){
-                                    $object->logger($object->config('project.log.name'))->info('Garbage Collector: amount freed: ' . $counter . ' size: ' . $size_freed . ' bytes' . PHP_EOL, [ $dir_cache, $duration ]);
+                                    $object->logger($object->config('project.log.name'))->info('Garbage Collector: amount freed: ' . $counter . ' size: ' . $size_freed . ' bytes' . PHP_EOL, [ $dir_cache, $duration * 1000 . ' ms' ]);
                                 }
                             }
                             Event::trigger($object, 'cli.' . strtolower(Cache::NAME) . '.' . __FUNCTION__, [
