@@ -124,18 +124,17 @@ class App extends Data {
                 Server::cors($object);
             }
         }
-        $logger = $object->config('project.log.debug');
+        $logger = false;
+        if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
+            $logger = $object->config('project.log.debug');
+        }
         if(
             $logger &&
-            empty($object->request('request')) &&
-            $object->config('framework.environment') === Config::MODE_DEVELOPMENT
+            empty($object->request('request'))
         ){
             $object->logger($logger)->info($info, [Host::subdomain()]);
         }
-        elseif(
-            $logger &&
-            $object->config('framework.environment') === Config::MODE_DEVELOPMENT
-        ) {
+        elseif($logger) {
             $object->logger($logger)->info($info . ' with request: ' . $object->request('request'), [Host::subdomain()]);
         }
         $options = $object->config('server.http.cookie');
@@ -171,7 +170,11 @@ class App extends Data {
         App::configure($object);
         Route::configure($object);
         $destination = false;
-        $logger = $object->config('project.log.debug');
+        $logger = false;
+        if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
+            $logger = $object->config('project.log.debug');
+        }
+        $logger_error =  $object->config('project.log.error');
         try {
             $file = FileRequest::get($object);
             if ($file === false) {
@@ -197,9 +200,8 @@ class App extends Data {
                     } else {
                         $destination = Route::wildcard($object);
                         if ($destination === false) {
-                            $logger =  $object->config('project.log.error');
-                            if($logger){
-                                $object->logger($logger)->error('Couldn\'t determine route (wildcard) (' . $object->request('request') . ')...');
+                            if($logger_error){
+                                $object->logger($logger_error)->error('Couldn\'t determine route (wildcard) (' . $object->request('request') . ')...');
                             }
                             $response = new Response(
                                 "Website is not configured...",
@@ -223,10 +225,7 @@ class App extends Data {
                         true
                     )
                 ){
-                    if(
-                        $logger &&
-                        $object->config('framework.environment') === Config::MODE_DEVELOPMENT
-                    ){
+                    if($logger){
                         $object->logger($logger)->info('Request (' . $object->request('request') . ') Redirect: ' . $destination->get('redirect') . ' Method: ' . implode(', ', $destination->get('method')));
                     }
                     Event::trigger($object, 'app.run.route.redirect', [
@@ -238,10 +237,7 @@ class App extends Data {
                     !empty($destination->get('redirect')) &&
                     empty($destination->get('method'))
                 ){
-                    if(
-                        $logger &&
-                        $object->config('framework.environment') === Config::MODE_DEVELOPMENT
-                    ){
+                    if($logger){
                         $object->logger($logger)->info('Redirect: ' . $destination->has('redirect'));
                     }
                     Event::trigger($object, 'app.run.route.redirect', [
@@ -266,20 +262,21 @@ class App extends Data {
                     $parameters = Config::parameters($object, $parameters);
                     $url = $parameters[0];
                     $destination->set('url', $url);
-                    if (File::extension($url) === $object->config('extension.json')) {
+                    $extension = File::extension($url);
+                    $extension_lowercase = strtolower($extension);
+                    if ($extension_lowercase === $object->config('extension.json')) {
                         $response = new Response(
                             File::read($url),
                             Response::TYPE_JSON,
                         );
                         Event::trigger($object, 'app.run.route.file', [
                             'destination' => $destination,
-                            'extension' => $object->config('extension.json'),
-                            'content_type' => $object->config('contentType.' . strtolower($object->config('extension.json')))
+                            'extension' => $extension,
+                            'content_type' => $object->config('contentType.' . $object->config('extension.json'))
                         ]);
                         return Response::output($object, $response);
                     } else {
-                        $extension = File::extension($url);
-                        $contentType = $object->config('contentType.' . strtolower($extension));
+                        $contentType = $object->config('contentType.' . $extension_lowercase);
                         if ($contentType) {
                             $response = new Response(
                                 File::read($url),
@@ -304,8 +301,8 @@ class App extends Data {
                     $controller = $destination->get('controller');
                     $methods = get_class_methods($controller);
                     if (empty($methods)) {
-                        if($logger){
-                            $object->logger($logger)->error('Couldn\'t determine controller (' . $destination->get('controller') . ') with request (' . $object->request('request') . ')');
+                        if($logger_error){
+                            $object->logger($logger_error)->error('Couldn\'t determine controller (' . $destination->get('controller') . ') with request (' . $object->request('request') . ')');
                         }
                         $exception = new Exception(
                             'Couldn\'t determine controller (' . $destination->get('controller') . ')'
@@ -352,10 +349,7 @@ class App extends Data {
                             )->data()
                         );
                         $object->config('request', $request);
-                        if(
-                            $logger &&
-                            $object->config('framework.environment') === Config::MODE_DEVELOPMENT
-                        ){
+                        if($logger){
                             $object->logger($logger)->info(
                                 'Controller (' .
                                 $controller .
@@ -364,22 +358,19 @@ class App extends Data {
                                 ') triggered.'
                             );
                         }
-//                        $delete_role_uuid =  $object->config('framework.role.system.uuid');
-//                        $object->data('delete', $delete_role_uuid);
-                        //remove role.system from $object
+ddd($object->data(App::CACHE));
                         $result = $controller::{$function}($object);
                         Event::trigger($object, 'app.run.route.controller', [
                             'destination' => $destination,
                             'response' => $result
                         ]);
-                        $result = OutputFilter::trigger($object,$destination, [
+                        $result = OutputFilter::trigger($object, $destination, [
                             'methods' => $methods,
                             'response' => $result
                         ]);
                     } else {
-                        $logger =  $object->config('project.log.error');
-                        if($logger){
-                            $object->logger($logger)->error(
+                        if($logger_error){
+                            $object->logger($logger_error)->error(
                                 'Controller (' .
                                 $controller .
                                 ') function (' .
@@ -407,19 +398,13 @@ class App extends Data {
                     }
                     $functions[] = 'result';
                     $result = App::result($object, $result);
-                    if(
-                        $logger &&
-                        $object->config('framework.environment') === Config::MODE_DEVELOPMENT
-                    ){
+                    if($logger){
                         $object->logger($logger)->info('Functions: [' . implode(', ', $functions) . '] called in controller: ' . $controller);
                     }
                     return $result;
                 }
             }  else {
-                if(
-                    $logger &&
-                    $object->config('framework.environment') === Config::MODE_DEVELOPMENT
-                ){
+                if($logger){
                     $object->logger($logger)->info('File request: ' . $object->request('request') . ' called...');
                 }
                 Event::trigger($object, 'app.run.file.request', []);
@@ -437,9 +422,8 @@ class App extends Data {
                         header('Status: ' . $code);
                         header('Content-Type: application/json');
                     }
-                    $logger =  $object->config('project.log.error');
-                    if($logger){
-                        $object->logger($logger)->error($exception->getMessage());
+                    if($logger_error){
+                        $object->logger($logger_error)->error($exception->getMessage());
                     }
                     Event::trigger($object, 'app.route.exception', [
                         'destination' => $destination,
@@ -448,9 +432,8 @@ class App extends Data {
                     return App::exception_to_json($exception);
                 }
                 elseif($object->data(App::CONTENT_TYPE) === App::CONTENT_TYPE_CLI){
-                    $logger =  $object->config('project.log.error');
-                    if($logger){
-                        $object->logger($logger)->error($exception->getMessage());
+                    if($logger_error){
+                        $object->logger($logger_error)->error($exception->getMessage());
                     }
                     Event::trigger($object, 'app.route.exception', [
                         'destination' => $destination,
@@ -618,11 +601,11 @@ class App extends Data {
      */
     private static function result(App $object, $output): mixed
     {
+        $logger_error = $object->config('project.log.error');
         if($output instanceof Exception){
             if(App::is_cli()){
-                $logger = $object->config('project.log.name');
-                if($logger){
-                    $object->logger($logger)->error($output->getMessage());
+                if($logger_error){
+                    $object->logger($logger_error)->error($output->getMessage());
                 }
                 fwrite(STDERR, App::exception_to_cli($object, $output));
                 return '';
@@ -1062,11 +1045,11 @@ class App extends Data {
         $data = new Data();
         $data->data($this->data());
         $node = new Data();
-        $logger = $this->config('project.log.debug');
-        if(
-            $logger &&
-            $this->config('framework.environment') === Config::MODE_DEVELOPMENT
-        ){
+        $logger = false;
+        if($this->config('framework.environment') === Config::MODE_DEVELOPMENT){
+            $logger = $this->config('project.log.debug');
+        }
+        if($logger){
             $this->logger($logger)->info(' parse_select: ' . $url, [$select]);
         }
         $node->data(
@@ -1092,11 +1075,11 @@ class App extends Data {
         $data = new Data();
         $data->data($this->data());
         $node = new Data();
-        $logger = $this->config('project.log.debug');
-        if(
-            $logger &&
-            $this->config('framework.environment') === Config::MODE_DEVELOPMENT
-        ){
+        $logger = false;
+        if($this->config('framework.environment') === Config::MODE_DEVELOPMENT){
+            $logger = $this->config('project.log.debug');
+        }
+        if($logger){
             $this->logger($logger)->info(' parse_select: ' . $url, [$select ,$scope]);
         }
         $node->data(
@@ -1122,6 +1105,13 @@ class App extends Data {
         $parse = new Parse($this);
         $data = new Data();
         $data->data($this->data());
+        $logger = false;
+        if($this->config('framework.environment') === Config::MODE_DEVELOPMENT){
+            $logger = $this->config('project.log.debug');
+        }
+        if($logger){
+            $this->logger($logger)->info(' object_select: ' . $url, [$select ,$compile, $scope]);
+        }
         return Core::object_select(
             $parse,
             $data,
@@ -1138,6 +1128,7 @@ class App extends Data {
      */
     public function data_read($url, $attribute=null, $do_not_nest_key=false): mixed
     {
+        $logger_error = $this->config('project.log.error');
         $cache = $this->data(App::CACHE);
         if($attribute !== null){
             if($cache){
@@ -1156,6 +1147,9 @@ class App extends Data {
                     $data->data(Core::object($read, Core::OBJECT_OBJECT));
                 }
                 catch(ObjectException $exception){
+                    if($logger_error){
+                        $this->logger($logger_error)->error('Syntax error in ' . $url);
+                    }
                     throw new ObjectException('Syntax error in ' . $url);
                 }
             } else {
