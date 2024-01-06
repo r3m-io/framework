@@ -335,7 +335,7 @@ class FileRequest {
                     Handler::header("HTTP/1.1 200 OK");
                     $gm = gmdate('D, d M Y H:i:s T', $mtime);
                     Handler::header('Last-Modified: '. $gm);
-                    //Handler::header('Content-Type: ' . $contentType);
+                    Handler::header('Content-Type: ' . $contentType);
                     Handler::header('ETag: ' . $etag . '-' . $gm);
                     Handler::header('Cache-Control: public');
                     if(array_key_exists('HTTP_ORIGIN', $_SERVER)){
@@ -344,9 +344,10 @@ class FileRequest {
                             header("Access-Control-Allow-Origin: {$origin}");
                         } elseif($logger){
                             //if domain.url != origin
-                            d($origin);
-                            ddd($object->config('domain'));
-                            $object->logger($logger)->debug('Cors is not allowed for: ', [ $origin ]);
+                            $match = substr($object->config('domain.url'), 0, -1);
+                            if($origin !== $match){
+                                $object->logger($logger)->info('Cors is not allowed for: ', [ $origin ]);
+                            }
                         }
                     }
                     elseif(array_key_exists('HTTP_REFERER', $_SERVER)){
@@ -366,9 +367,10 @@ class FileRequest {
                         }
                         elseif($logger){
                             //if domain.url != origin
-                            d($origin);
-                            ddd($object->config('domain'));
-                            $object->logger($logger)->info('Cors is not allowed for: ', [ $origin ]);
+                            $match = substr($object->config('domain.url'), 0, -1);
+                            if($origin !== $match){
+                                $object->logger($logger)->info('Cors is not allowed for: ', [ $origin ]);
+                            }
                         }
                     }
                     elseif($logger){
@@ -388,6 +390,7 @@ class FileRequest {
                 }
                 $size = File::size($url);
                 $ram_maxsize = $object->config('ramdisk.file.size.max');
+                ddd($ram_maxsize);
                 if(
                     !empty($ram_maxsize) &&
                     $size > $ram_maxsize
