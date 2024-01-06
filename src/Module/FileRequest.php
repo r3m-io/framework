@@ -190,6 +190,7 @@ class FileRequest {
         if (empty($file_extension)) {
             return false;
         }
+        $file_extension_lowercase = strtolower($file_extension);
         $location = $object->config('host.file.request');
         if (empty($location)) {
             $location = FileRequest::location($object, $dir);
@@ -235,7 +236,6 @@ class FileRequest {
         $ram_maxsize = false;
         $file_mtime = false;
         $file_mtime_url = false;
-        $file_mtime_dir = false;
         if(
             $object->config('ramdisk.url') &&
             empty($object->config('ramdisk.is.disabled'))
@@ -315,7 +315,7 @@ class FileRequest {
             ){
                 $etag = sha1($url);
                 $mtime = File::mtime($url);
-                $contentType = $object->config('contentType.' . $file_extension);
+                $contentType = $object->config('contentType.' . $file_extension_lowercase);
                 if(empty($contentType)){
                     if($logger){
                         $object->logger($logger)->info('HTTP/1.0 415 Unsupported Media Type', [ $file, $file_extension]);
@@ -414,7 +414,7 @@ class FileRequest {
                     if(in_array('*', $file_extension_deny, true)){
                         return $read;
                     }
-                    elseif(in_array($file_extension, $file_extension_deny, true)){
+                    elseif(in_array($file_extension_lowercase, $file_extension_deny, true)){
                         return $read;
                     } else {
                         $to_ramdisk = true;
@@ -428,7 +428,7 @@ class FileRequest {
                     if(in_array('*', $file_extension_allow, true)){
                         $to_ramdisk = true;
                     }
-                    elseif(in_array($file_extension, $file_extension_allow, true)){
+                    elseif(in_array($file_extension_lowercase, $file_extension_allow, true)){
                         $to_ramdisk = true;
                     } else {
                         return $read;
@@ -443,13 +443,13 @@ class FileRequest {
                     if(in_array('*', $file_extension_deny, true)){
                         return $read;
                     }
-                    elseif(in_array($file_extension, $file_extension_deny, true)){
+                    elseif(in_array($file_extension_lowercase, $file_extension_deny, true)){
                         return $read;
                     } else {
                         if(in_array('*', $file_extension_allow, true)){
                             $to_ramdisk = true;
                         }
-                        elseif(in_array($file_extension, $file_extension_allow, true)){
+                        elseif(in_array($file_extension_lowercase, $file_extension_allow, true)){
                             $to_ramdisk = true;
                         } else {
                             return $read;
@@ -495,7 +495,7 @@ class FileRequest {
         } else {
             if(
                 in_array(
-                    $extension,
+                    $file_extension_lowercase,
                     $object->config('error.extension.tpl')
                 )
             ){
@@ -503,9 +503,9 @@ class FileRequest {
                     //let's parse this tpl
                     $data = new Data();
                     $data->set('file', $file);
-                    $data->set('extension', $extension);
+                    $data->set('extension', $file_extension);
                     $data->set('location', $location);
-                    $contentType = $object->config('contentType.' . $extension);
+                    $contentType = $object->config('contentType.' . $file_extension_lowercase);
                     $data->set('contentType', $contentType);
                     $parse = new Parse($object, $data);
                     $compile = $parse->compile(File::read($parse->compile($object->config('server.http.error.404'), $data->get())), $data->get());
@@ -514,7 +514,7 @@ class FileRequest {
             }
             elseif(
                 in_array(
-                    $extension,
+                    $file_extension_lowercase,
                     $object->config('error.extension.text')
                 )
             ){
@@ -524,7 +524,7 @@ class FileRequest {
             }
             elseif(
                 in_array(
-                    $extension,
+                    $file_extension_lowercase,
                     $object->config('error.extension.js')
                 )
             ){
@@ -534,18 +534,18 @@ class FileRequest {
             }
             elseif(
                 in_array(
-                    $extension,
+                    $file_extension_lowercase,
                     $object->config('error.extension.json')
                 )
             ){
                 $contentType = 'application/json';
                 Handler::header('Content-Type: ' . $contentType, null, true);
-                echo '{
-    "file" : "' . $file . '",
-    "extension" : "' . $extension . '",
-    "contentType" : "' . $contentType . '",
-    "message" : "Error: cannot find file."
-}';
+                $json = [];
+                $json['message'] = 'HTTP/1.0 404 Not Found';
+                $json['file'] = $file;
+                $json['extension'] = $file_extension;
+                $json['contentType'] = $contentType;
+                echo Core::object($json, Core::OBJECT_JSON);
             }
         }
         if($logger){
