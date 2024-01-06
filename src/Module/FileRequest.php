@@ -335,7 +335,7 @@ class FileRequest {
                     Handler::header("HTTP/1.1 200 OK");
                     $gm = gmdate('D, d M Y H:i:s T', $mtime);
                     Handler::header('Last-Modified: '. $gm);
-                    Handler::header('Content-Type: ' . $contentType);
+                    //Handler::header('Content-Type: ' . $contentType);
                     Handler::header('ETag: ' . $etag . '-' . $gm);
                     Handler::header('Cache-Control: public');
                     if(array_key_exists('HTTP_ORIGIN', $_SERVER)){
