@@ -394,11 +394,9 @@ class FileRequest {
                     !empty($ram_maxsize)
                 ){
                     $ram_maxsize = File::size_calculation($ram_maxsize);
-                    ddd($ram_maxsize);
                     if($size > $ram_maxsize){
                         return $read;
                     }
-
                 }
                 $file_extension_allow = $object->config('ramdisk.file.extension.allow');
                 $file_extension_deny = $object->config('ramdisk.file.extension.deny');
