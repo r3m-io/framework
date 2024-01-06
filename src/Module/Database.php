@@ -82,31 +82,25 @@ class Database {
             $logger->pushHandler(new StreamHandler($object->config('project.dir.log') . 'sql.log', Logger::DEBUG));
             $logger->pushProcessor(new PsrLogMessageProcessor(null, true));
             $object->logger($logger->getName(), $logger);
-            $logger->info('Logger initialised.');
+            if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
+                $logger->info('Logger initialised.');
+            }
             $config->setMiddlewares([new Logging\Middleware($logger)]);
         }
         if(
             property_exists($connection, 'driver') &&
             $connection->driver === 'pdo_sqlite' &&
             property_exists($connection, 'path') &&
-            File::exist($connection->path)
+            !File::exist($connection->path)
         ){
             $dir = Dir::name($connection->path);
             Dir::create($dir, Dir::CHMOD);
-            File::delete($connection->path);
             $command = 'sqlite3 ' . $connection->path . ' "VACUUM;"';
             exec($command);
-            if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
-                exec('chmod 777 ' . $dir);
-                exec('chmod 666 ' . $connection->path);
-                exec('chown www-data:www-data ' . $dir);
-                exec('chown www-data:www-data ' . $connection->path);
-            } else {
-                exec('chmod 750 ' . $dir);
-                exec('chmod 640 ' . $connection->path);
-                exec('chown www-data:www-data ' . $dir);
-                exec('chown www-data:www-data ' . $connection->path);
-            }
+            File::permission($object, [
+                'dir' => $dir,
+                'file' => $connection->path
+            ]);
         }
         $connection = Core::object($connection, CORE::OBJECT_ARRAY);
         $connection = DriverManager::getConnection($connection, $config, new EventManager());
@@ -130,7 +124,10 @@ class Database {
         if(array_key_exists('name', $options)){
             $name = $options['name'];
         }
-        $entityManager = $object->get(Database::NAME . '.entityManager.' . $name . '.' . $environment);
+        $app_cache = $object->get(App::CACHE);
+        if($app_cache){
+            $entityManager = $app_cache->get(Database::NAME . '.entityManager.' . $name . '.' . $environment);
+        }
         if(!empty($entityManager)){
             return $entityManager;
         }
@@ -150,24 +147,28 @@ class Database {
             $parameters = [];
             $parameters[] = $object->config('doctrine.proxy.dir');
             $parameters = Config::parameters($object, $parameters);
+            $proxy_dir = false;
             if(array_key_exists(0, $parameters)){
-                $proxyDir = $parameters[0];
+                $proxy_dir = $parameters[0];
             }
             $cache = null;
-            $config = ORMSetup::createAnnotationMetadataConfiguration($paths, false, $proxyDir, $cache);
-
-            if(!empty($connection['logging'])){
-                $logger = new Logger(Database::LOGGER_DOCTRINE);
-                $logger->pushHandler(new StreamHandler($object->config('project.dir.log') . 'sql.log', Logger::DEBUG));
-                $logger->pushProcessor(new PsrLogMessageProcessor(null, true));
-                $object->logger($logger->getName(), $logger);
-                $logger->info('Logger initialised.');
-                $config->setMiddlewares([new Logging\Middleware($logger)]);
+            if($proxy_dir) {
+                $config = ORMSetup::createAnnotationMetadataConfiguration($paths, false, $proxy_dir, $cache);
+                if (!empty($connection['logging'])) {
+                    $logger = new Logger(Database::LOGGER_DOCTRINE);
+                    $logger->pushHandler(new StreamHandler($object->config('project.dir.log') . 'sql.log', Logger::DEBUG));
+                    $logger->pushProcessor(new PsrLogMessageProcessor(null, true));
+                    $object->logger($logger->getName(), $logger);
+                    if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
+                        $logger->info('Logger initialised.');
+                    }
+                    $config->setMiddlewares([new Logging\Middleware($logger)]);
+                }
+                $connection = DriverManager::getConnection($connection, $config, new EventManager());
+                $em = EntityManager::create($connection, $config);
+                $app_cache->set(Database::NAME . '.entityManager.' . $name . '.' . $environment, $em);
+                return $em;
             }
-            $connection = DriverManager::getConnection($connection, $config, new EventManager());
-            $em = EntityManager::create($connection, $config);
-            $object->set(Database::NAME .'.entityManager.' . $name . '.' . $environment, $em);
-            return $em;
         }
         return null;
     }

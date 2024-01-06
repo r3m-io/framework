@@ -140,7 +140,8 @@ class Cache extends Controller {
      * @throws ObjectException
      * @throws Exception
      */
-    private static function garbage(App $object){
+    private static function garbage(App $object): void
+    {
         $start = microtime(true);
         $command = $object->parameter($object, __FUNCTION__, 1);
         $options = App::options($object);
@@ -218,8 +219,6 @@ class Cache extends Controller {
                                     }
                                 }
                             }
-
-
                             $duration = microtime(true) - $start;
                             if($seconds){
                                 echo 'Garbage Collector: amount freed: ' . $counter . ' size: ' . $size_freed . ' bytes seconds: ' . $seconds . PHP_EOL;

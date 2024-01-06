@@ -3,6 +3,8 @@
 <head>
     <title>HTTP/1.0 501 Not Implemented: {{$exception.file}}</title>
     <style>
+        {{require(config('framework.dir.view') + 'Http/Head/Style.rcss')}}
+        /*
         body, html, section {
             margin: 0;
             padding: 0;
@@ -57,6 +59,7 @@
         td.class {
             font-weight: bold;
         }
+         */
     </style>
 </head>
 <body>
