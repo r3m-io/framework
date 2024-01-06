@@ -365,6 +365,9 @@ class FileRequest {
                             header("Access-Control-Allow-Origin: {$origin}");
                         }
                         elseif($logger){
+                            //if domain.url != origin
+                            d($origin);
+                            ddd($object->config('domain'));
                             $object->logger($logger)->info('Cors is not allowed for: ', [ $origin ]);
                         }
                     }
