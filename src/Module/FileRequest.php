@@ -170,6 +170,7 @@ class FileRequest {
                 $logger = $object->config('project.log.debug');
             }
         }
+        $logger_error = $object->config('project.log.error');
         $request = $object->data(App::REQUEST);
         $input = $request->data('request');
         $dir = str_replace(['../', '..'], '', Dir::name($input));
@@ -212,11 +213,12 @@ class FileRequest {
                 }
             }
             if($public_directory === false){
-                if($logger){
-                    $object->logger($logger)->info('host.file.request needs server.public configured...', [$public]);
+                if($logger_error){
+                    $object->logger($logger_error)->error('host.file.request needs server.public configured...', [$public]);
                 }
                 $location = [];
             }
+
             foreach($location as $nr => $url){
                 if(
                     stristr(
@@ -224,8 +226,8 @@ class FileRequest {
                         $object->config('ds') . $public_directory . $object->config('ds')
                     ) === false
                 ){
-                    if($logger){
-                        $object->logger($logger)->info('host.file.request contains directory outside server.public...', [$url]);
+                    if($logger_error){
+                        $object->logger($logger_error)->error('host.file.request contains directory outside server.public...', [$url]);
                     }
                     unset($location[$nr]);
                 }
@@ -278,7 +280,7 @@ class FileRequest {
                     '_' .
                     Autoload::name_reducer(
                         $object,
-                        str_replace('/', '_', $dir),
+                        str_replace($object->config('ds'), '_', $dir),
                         $object->config('cache.fileRequest.url.directory_length'),
                         $object->config('cache.fileRequest.url.directory_separator'),
                         $object->config('cache.fileRequest.url.directory_pop_or_shift')
@@ -317,8 +319,8 @@ class FileRequest {
                 $mtime = File::mtime($url);
                 $contentType = $object->config('contentType.' . $file_extension_lowercase);
                 if(empty($contentType)){
-                    if($logger){
-                        $object->logger($logger)->info('HTTP/1.0 415 Unsupported Media Type', [ $file, $file_extension]);
+                    if($logger_error){
+                        $object->logger($logger_error)->error('HTTP/1.0 415 Unsupported Media Type', [ $file, $file_extension]);
                     }
                     Handler::header('HTTP/1.0 415 Unsupported Media Type', 415);
                     if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
@@ -331,6 +333,7 @@ class FileRequest {
                     }
                     exit();
                 }
+                $match = substr($object->config('domain.url'), 0, -1);
                 if(!headers_sent()){
                     Handler::header("HTTP/1.1 200 OK");
                     $gm = gmdate('D, d M Y H:i:s T', $mtime);
@@ -342,11 +345,11 @@ class FileRequest {
                         $origin = $_SERVER['HTTP_ORIGIN'];
                         if(Server::cors_is_allowed($object, $origin)){
                             header("Access-Control-Allow-Origin: {$origin}");
-                        } elseif($logger){
+                        }
+                        elseif($origin !== $match){
                             //if domain.url != origin
-                            $match = substr($object->config('domain.url'), 0, -1);
-                            if($origin !== $match){
-                                $object->logger($logger)->info('Cors is not allowed for: ', [ $origin ]);
+                            if($logger_error){
+                                $object->logger($logger_error)->error('Cors is not allowed for: ', [ $origin ]);
                             }
                         }
                     }
@@ -357,24 +360,23 @@ class FileRequest {
                             $explode = explode('/', $origin[1], 2);    //bugfix samsung browser ?
                             $origin = $origin[0] . '://' . $explode[0];
                         } else {
-                            if($logger){
-                                $object->logger($logger)->error('Wrong HTTP_REFERER', [ $origin ]);
+                            if($logger_error){
+                                $object->logger($logger_error)->error('Wrong HTTP_REFERER', [ $origin ]);
                             }
                             exit();
                         }
                         if(Server::cors_is_allowed($object, $origin)){
                             header("Access-Control-Allow-Origin: {$origin}");
                         }
-                        elseif($logger){
+                        elseif($origin !== $match){
                             //if domain.url != origin
-                            $match = substr($object->config('domain.url'), 0, -1);
-                            if($origin !== $match){
-                                $object->logger($logger)->info('Cors is not allowed for: ', [ $origin ]);
+                            if($logger_error){
+                                $object->logger($logger_error)->error('Cors is not allowed for: ', [ $origin ]);
                             }
                         }
                     }
-                    elseif($logger){
-                        $object->logger($logger)->info('No HTTP_REFERER & HTTP_ORIGIN');
+                    elseif($logger_error){
+                        $object->logger($logger_error)->error('No HTTP_REFERER & HTTP_ORIGIN');
                     }
                 }
                 elseif($logger) {
@@ -481,9 +483,6 @@ class FileRequest {
                 return $read;
             }
         }
-        if($logger){
-            $object->logger($logger)->error('File doesn\'t exists', [ $url ]);
-        }
         Handler::header('HTTP/1.0 404 Not Found', 404);
         if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
             if(is_array($location)){
@@ -548,8 +547,8 @@ class FileRequest {
                 echo Core::object($json, Core::OBJECT_JSON);
             }
         }
-        if($logger){
-            $object->logger($logger)->error('HTTP/1.0 404 Not Found', $location);
+        if($logger_error){
+            $object->logger($logger_error)->error('HTTP/1.0 404 Not Found', $location);
         }
         exit();
     }
