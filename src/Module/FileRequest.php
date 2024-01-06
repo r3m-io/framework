@@ -390,12 +390,15 @@ class FileRequest {
                 }
                 $size = File::size($url);
                 $ram_maxsize = $object->config('ramdisk.file.size.max');
-                ddd($ram_maxsize);
                 if(
-                    !empty($ram_maxsize) &&
-                    $size > $ram_maxsize
+                    !empty($ram_maxsize)
                 ){
-                    return $read;
+                    $ram_maxsize = File::size_calculation($ram_maxsize);
+                    ddd($ram_maxsize);
+                    if($size > $ram_maxsize){
+                        return $read;
+                    }
+
                 }
                 $file_extension_allow = $object->config('ramdisk.file.extension.allow');
                 $file_extension_deny = $object->config('ramdisk.file.extension.deny');
