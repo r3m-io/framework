@@ -13,12 +13,6 @@ namespace R3m\Io\Module;
 use R3m\Io\App;
 use R3m\Io\Config;
 
-use R3m\Io\System\Node;
-
-use R3m\Io\Exception\DirectoryCreateException;
-use R3m\Io\Exception\FileWriteException;
-use R3m\Io\Exception\ObjectException;
-
 use Exception;
 
 use R3m\Io\Exception\LocateException;
@@ -137,7 +131,7 @@ class FileRequest {
      * @throws LocateException
      * @throws Exception
      */
-    public static function get(App $object)
+    public static function get(App $object): string | bool
     {
         if (
             array_key_exists('REQUEST_METHOD', $_SERVER) &&
@@ -490,6 +484,9 @@ class FileRequest {
                     $location[$key] .= $file;
                 }
             }
+            if($logger_error){
+                $object->logger($logger_error)->error('HTTP/1.0 404 Not Found', [ $location ]);
+            }
             throw new LocateException('Cannot find location for file...', $location);
         } else {
             if(
@@ -528,6 +525,7 @@ class FileRequest {
                 )
             ){
                 if($object->config('server.http.error.404')){
+                    //might need to add content type.
                     echo 'console.error("HTTP/1.0 404 Not Found",  "' . $file . '");';
                 }
             }
@@ -537,7 +535,7 @@ class FileRequest {
                     $object->config('error.extension.json')
                 )
             ){
-                $contentType = 'application/json';
+                $contentType = $object->config('contentType.json');
                 Handler::header('Content-Type: ' . $contentType, null, true);
                 $json = [];
                 $json['message'] = 'HTTP/1.0 404 Not Found';

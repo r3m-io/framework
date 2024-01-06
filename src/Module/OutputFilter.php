@@ -29,6 +29,7 @@ class OutputFilter extends Main {
 
     const NAME = 'OutputFilter';
     const OBJECT = 'System.Output.Filter';
+    const ROLE_HAS_PERMISSION = 'System:Output:Filter:list';
 
     public function __construct(App $object){
         $this->object($object);
@@ -53,7 +54,8 @@ class OutputFilter extends Main {
         $object->get(App::OUTPUTFILTER)->set(OutputFilter::OBJECT, $list);
     }
 
-    public static function off(App $object, $record, $options=[]){
+    public static function off(App $object, $record, $options=[]): void
+    {
         //needs rewrite
         /*
         $action = $record->get('action');
@@ -117,7 +119,8 @@ class OutputFilter extends Main {
      * @throws ObjectException
      * @throws Exception
      */
-    public static function trigger(App $object, Destination $destination, $options=[]){
+    public static function trigger(App $object, Destination $destination, $options=[]): mixed
+    {
         $filters = $object->get(App::OUTPUTFILTER)->data(OutputFilter::OBJECT);
         $response = null;
         if(empty($filters)){
@@ -137,8 +140,6 @@ class OutputFilter extends Main {
                         is_array($filter->options->controller)
                     ){
                         //output filters need route match
-                        d($filter);
-                        d($destination->get('uuid'));
                         if(
                             (
                                 $destination->has('uuid') &&
@@ -154,7 +155,6 @@ class OutputFilter extends Main {
                                 $route = new stdClass();
                                 $route->controller = $controller;
                                 $route = Route::controller($route);
-                                d($route);
                                 if(
                                     property_exists($route, 'controller') &&
                                     property_exists($route, 'function')
@@ -202,7 +202,7 @@ class OutputFilter extends Main {
         if(!$role_system){
             return;
         }
-        if(!$node->role_has_permission($role_system, 'System:Output:Filter:list')){
+        if(!$node->role_has_permission($role_system, OutputFilter::ROLE_HAS_PERMISSION)){
             return;
         }
         $response = $node->list(

@@ -199,7 +199,8 @@ class Logger {
     /**
      * @throws Exception
      */
-    public static function alert($message=null, $context=[], $channel=''){
+    public static function alert($message=null, $context=[], $channel=''): void
+    {
         $object = App::instance();
         if(empty($channel)){
             $channel = $object->config('project.log.name');
@@ -215,7 +216,8 @@ class Logger {
     /**
      * @throws Exception
      */
-    public static function critical($message=null, $context=[], $channel=''){
+    public static function critical($message=null, $context=[], $channel=''): void
+    {
         $object = App::instance();
         if(empty($channel)){
             $channel = $object->config('project.log.error');
@@ -231,7 +233,8 @@ class Logger {
     /**
      * @throws Exception
      */
-    public static function debug($message=null, $context=[], $channel=''){
+    public static function debug($message=null, $context=[], $channel=''): void
+    {
         $object = App::instance();
         if(empty($channel)){
             $channel = $object->config('project.log.name');
@@ -246,7 +249,8 @@ class Logger {
     /**
      * @throws Exception
      */
-    public static function emergency($message=null, $context=[], $channel=''){
+    public static function emergency($message=null, $context=[], $channel=''): void
+    {
         $object = App::instance();
         if(empty($channel)){
             $channel = $object->config('project.log.error');
@@ -261,7 +265,8 @@ class Logger {
     /**
      * @throws Exception
      */
-    public static function error($message=null, $context=[], $channel=''){
+    public static function error($message=null, $context=[], $channel=''): void
+    {
         $object = App::instance();
         if(empty($name)){
             $channel = $object->config('project.log.error');
@@ -276,7 +281,8 @@ class Logger {
     /**
      * @throws Exception
      */
-    public static function info($message=null, $context=[], $channel=''){
+    public static function info($message=null, $context=[], $channel=''): void
+    {
         $object = App::instance();
         if(empty($channel)){
             $channel = $object->config('project.log.name');
@@ -291,7 +297,8 @@ class Logger {
     /**
      * @throws Exception
      */
-    public static function notice($message=null, $context=[], $channel=''){
+    public static function notice($message=null, $context=[], $channel=''): void
+    {
         $object = App::instance();
         if(empty($channel)){
             $channel = $object->config('project.log.name');
@@ -306,7 +313,8 @@ class Logger {
     /**
      * @throws Exception
      */
-    public static function warning($message=null, $context=[], $channel=''){
+    public static function warning($message=null, $context=[], $channel=''): void
+    {
         $object = App::instance();
         if(empty($channel)){
             $channel = $object->config('project.log.name');

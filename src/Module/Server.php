@@ -10,8 +10,10 @@
  */
 namespace R3m\Io\Module;
 
-use Exception;
 use R3m\Io\App;
+use R3m\Io\Config;
+
+use Exception;
 
 class Server {
 
@@ -29,9 +31,10 @@ class Server {
      */
     public static function cors(App $object): void
     {
-        $logger = $object->config(' project.log.security');
-        if(!$logger){
-            $logger = $object->config(' project.log.name');
+        $logger_security = $object->config(' project.log.security');
+        $logger = false;
+        if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
+            $logger = $object->config(' project.log.debug');
         }
         header("HTTP/1.1 200 OK");
         if (array_key_exists('HTTP_ORIGIN', $_SERVER)) {
@@ -45,9 +48,6 @@ class Server {
                     header('Access-Control-Allow-Credentials: true');
                 }
                 header("Access-Control-Allow-Origin: {$origin}");
-                if($logger){
-                    $object->logger($logger)->debug('Make Access');
-                }
             }
         }
         if (
@@ -92,9 +92,11 @@ class Server {
             } else {
                 header('Access-Control-Max-Age: 86400');    // cache for 1 day
             }
-            if($logger){
-                $object->logger($logger)->debug('REQUEST_METHOD: ', [ $_SERVER['REQUEST_METHOD'] ]);
-                $object->logger($logger)->debug('REQUEST: ', [ Core::object($object->request(), Core::OBJECT_ARRAY) ]);
+            if($logger_security){
+                $object->logger($logger_security)->info('Request: ', [ $_SERVER['REQUEST_METHOD'], Core::object($object->request(), Core::OBJECT_ARRAY) ]);
+            }
+            elseif($logger){
+                $object->logger($logger)->info('Request: ', [ $_SERVER['REQUEST_METHOD'], Core::object($object->request(), Core::OBJECT_ARRAY) ]);
             }
             exit(0);
         }
@@ -113,9 +115,10 @@ class Server {
      */
     public static function cors_is_allowed(App $object, $origin=''): bool
     {
-        $logger = $object->config('project.log.security');
-        if(!$logger){
-            $logger = $object->config('project.log.name');
+        $logger_security = $object->config('project.log.security');
+        $logger = false;
+        if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
+            $logger = $object->config('project.log.debug');
         }
         $origin = rtrim($origin, '/');
         $origin = explode('://', $origin);
@@ -177,14 +180,17 @@ class Server {
                 }
             }
         }
-        if($logger){
-            $object->logger($logger)->debug('Cors rejected...');
+        if($logger_security){
+            $object->logger($logger_security)->notice('Cors rejected for origin: ' . $origin);
         }
-
+        elseif($logger){
+            $object->logger($logger)->debug('Cors rejected for origin: ' . $origin);
+        }
         return false;
     }
 
-    public static function token(){
+    public static function token(): ?string
+    {
         if(array_key_exists('HTTP_AUTHORIZATION', $_SERVER)){
             $explode = explode('Bearer ', $_SERVER['HTTP_AUTHORIZATION'], 2);
             if(array_key_exists(1, $explode)){

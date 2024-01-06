@@ -33,6 +33,8 @@ class Event extends Main {
     const LIST = 'list';
     const RECORD = 'record';
 
+    const ROLE_HAS_PERMISSION = 'System:Event:list';
+
     public function __construct(App $object){
         $this->object($object);
     }
@@ -56,7 +58,8 @@ class Event extends Main {
         $object->get(App::EVENT)->set(Event::OBJECT, $list);
     }
 
-    public static function off(App $object, $action, $options=[]){
+    public static function off(App $object, $action, $options=[]): void
+    {
         //reinplement this
         /*
         $list = $object->get(App::EVENT)->get('event');
@@ -118,12 +121,13 @@ class Event extends Main {
      * @throws ObjectException
      * @throws Exception
      */
-    public static function trigger(App $object, $action, $options=[]){
+    public static function trigger(App $object, $action, $options=[]): void
+    {
         $events = $object->get(App::EVENT)->select(Event::OBJECT, [
             'action' => $action
         ]);
         if(empty($events)){
-            return null;
+            return;
         }
         if(is_array($events)){
             foreach($events as $event){
@@ -191,7 +195,7 @@ class Event extends Main {
         if(!$role_system){
             return;
         }
-        if(!$node->role_has_permission($role_system, 'System:Event:list')){
+        if(!$node->role_has_permission($role_system, Event::ROLE_HAS_PERMISSION)){
             return;
         }
         $response = $node->list(

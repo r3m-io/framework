@@ -26,12 +26,9 @@ class File {
     const CHMOD = 0640;
     const TYPE = 'File';
     const SCHEME_HTTP = 'http';
-
     const USER_WWW = 'www-data';
-
     const STRING = 'string';
     const ARRAY = 'array';
-
     const SIZE = 'size';
     const BYTE = 'byte';
     const BYTES = 'bytes';
@@ -79,7 +76,8 @@ class File {
         return str_replace('\\\/', '/', rtrim($directory,'\\\/')) . '/';
     }
 
-    public static function mtime($url=''){
+    public static function mtime($url=''): bool | int | null
+    {
         try {
             return @filemtime($url); //added @ async deletes & reads can cause triggers otherways
         } catch(Exception $exception){
@@ -88,7 +86,8 @@ class File {
 
     }
 
-    public static function atime($url=''){
+    public static function atime($url=''): bool | int | null
+    {
         try {
             return @fileatime($url); //added @ async deletes & reads can cause triggers otherways
         } catch (Exception $exception){
@@ -143,15 +142,12 @@ class File {
 
     public static function exist($url): bool
     {
-        if($url == '/'){
+        if(!is_string($url)){
+            return false;
+        }
+        elseif($url == '/'){
             return file_exists($url);
         } else {
-            if(is_object($url)){
-                $debug = debug_backtrace(true);
-                d($debug[0]['file'] . ':' . $debug[0]['line']);
-                d($debug[1]['file'] . ':' . $debug[1]['line']);
-                ddd($url);
-            }
             $url = rtrim($url, '/');
             return file_exists($url);
         }
@@ -164,7 +160,7 @@ class File {
         }
         if($atime === null){
             try {
-                return @touch($url, $time); //wsdl not working
+                return @touch($url, $time); //wsdl1 not working
             } catch (Exception $exception){
                 return false;
             }
@@ -180,7 +176,7 @@ class File {
     /**
      * @throws Exception
      */
-    public static function info(App $object, stdClass $node): stdClass
+    public static function info(App $object, stdClass $node): object
     {
         $rev = strrev($node->name);
         $explode = explode('.', $rev, 2);
@@ -188,7 +184,7 @@ class File {
             $ext = strrev($explode[0]);
             $node->extension = $ext;
             $node->filetype = ucfirst($ext) . ' ' . strtolower(File::TYPE);
-            $node->contentType = $object->config('contentType.' . $ext);
+            $node->contentType = $object->config('contentType.' . strtolower($ext));
         } else {
             $node->extension = '';
             if($node->type === Dir::TYPE){
@@ -308,7 +304,6 @@ class File {
                     } catch (Exception  | ErrorException $exception){
                         return false;
                     }
-
                 }
             } elseif(
                 !$exist &&
@@ -319,7 +314,6 @@ class File {
                 } catch (Exception | ErrorException $exception){
                     return false;
                 }
-
             }
         }
         elseif(File::is($source)){
@@ -338,7 +332,7 @@ class File {
     }
 
 
-    public static function put($url, $data, $flags=LOCK_EX, $return='size'): bool|int
+    public static function put($url, $data, $flags=LOCK_EX, $return='size'): bool | int
     {
         $size = file_put_contents($url, $data, $flags);
         switch($return){
@@ -359,7 +353,8 @@ class File {
      * @throws FileWriteException
      * @bug may write wrong files in Parse:Build:write in a multithreading situation . solution use file::put
      */
-    public static function write($url='', $data='', $return='size'){
+    public static function write($url='', $data='', $return='size'): bool | int
+    {
         $url = (string) $url;
         $data = (string) $data;
         return File::put($url, $data, LOCK_EX, $return);
@@ -368,7 +363,8 @@ class File {
     /**
      * @throws FileAppendException
      */
-    public static function append($url='', $data=''){
+    public static function append($url='', $data=''): bool|int
+    {
         $url = (string) $url;
         $data = (string) $data;
         $resource = @fopen($url, 'a');
@@ -449,9 +445,9 @@ class File {
     {
         if(File::exist($url)){
             $read = File::read($url);
-            $data = explode("\r", $read);
+            $data = explode(PHP_EOL, $read);
             if($include_return === true){
-                return end($data) . "\r";
+                return end($data) . PHP_EOL;
             } else {
                 return end($data);
             }
@@ -485,7 +481,7 @@ class File {
     {
         try {
             $url = rtrim($url, '/');
-            return @unlink($url); //added @ async deletes & reads can cause triggers otherways
+            return @unlink($url); //added @ async deletes & reads can cause triggers other ways
         } catch (Exception $exception){
             return false;
         }
@@ -526,8 +522,7 @@ class File {
             ],
             $filename
         );
-        $filename = basename($filename, $extension);
-        return $filename;
+        return basename($filename, $extension);
     }
 
     public static function extension_remove($filename='', $extension=[]): string
@@ -594,9 +589,6 @@ class File {
             return 0;
         }
         $number = round($number, 2);
-        if($b){
-            $number = $number;
-        }
         if($k){
             $number = $number * 1024;
         }
@@ -618,6 +610,9 @@ class File {
         return $number;
     }
 
+    /**
+     * @throws Exception
+     */
     public static function upload(Data $upload, $target): bool
     {
         return move_uploaded_file($upload->data('tmp_name'), $target . $upload->data('name'));
@@ -674,5 +669,4 @@ class File {
             }
         }
     }
-
 }

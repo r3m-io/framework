@@ -35,7 +35,6 @@ class Parse {
         '#key',
         '#attribute'
     ];
-
     private $object;
     private $storage;
     private $build;
@@ -50,6 +49,9 @@ class Parse {
 
     private $counter = 0;
 
+    /**
+     * @throws ObjectException
+     */
     public function __construct($object, $storage=null){
         $this->object($object);
         $this->configure();
@@ -97,7 +99,6 @@ class Parse {
         if(empty($template)){
             $config->data('dictionary.template', Parse::TEMPLATE);
         }
-//        d($config);
         if(
             $config->data('ramdisk.url') &&
             empty($config->data('ramdisk.is.disabled'))
@@ -128,81 +129,96 @@ class Parse {
         }
     }
 
-    public function useThis($useThis=null){
+    public function useThis($useThis=null): mixed
+    {
         if($useThis !== null){
             $this->use_this = $useThis;
         }
         return $this->use_this;
     }
 
-    public function object(App $object=null){
+    public function object(App $object=null): ?App
+    {
         if($object !== null){
             $this->setObject($object);
         }
         return $this->getObject();
     }
 
-    private function setObject(App $object=null){
+    private function setObject(App $object=null): void
+    {
         $this->object= $object;
     }
 
-    private function getObject(){
+    private function getObject(): ?App
+    {
         return $this->object;
     }
 
-    public function limit($limit=null){
+    public function limit($limit=null): mixed
+    {
         if($limit !== null){
             $this->setLimit($limit);
         }
         return $this->getLimit();
     }
 
-    public function setLimit($limit=null){
+    public function setLimit($limit=null): void
+    {
         $this->limit= $limit;
     }
 
-    private function getLimit(){
+    private function getLimit(): mixed
+    {
         return $this->limit;
     }
 
-    public function storage($storage=null){
+    public function storage(Data $storage=null): ?Data
+    {
         if($storage !== null){
             $this->setStorage($storage);
         }
         return $this->getStorage();
     }
 
-    private function setStorage($storage=null){
+    private function setStorage(Data $storage=null): void
+    {
         $this->storage = $storage;
     }
 
-    private function getStorage(){
+    private function getStorage(): ?Data
+    {
         return $this->storage;
     }
 
-    public function build($build=null){
+    public function build(Build $build=null): ?Build
+    {
         if($build !== null){
             $this->setBuild($build);
         }
         return $this->getBuild();
     }
 
-    private function setBuild($build=null){
+    private function setBuild(Build $build=null): void
+    {
         $this->build= $build;
     }
 
-    private function getBuild(){
+    private function getBuild(): ?Build
+    {
         return $this->build;
     }
 
-    public function cache_dir($cache_dir=null){
+    public function cache_dir($cache_dir=null): ?string
+    {
         if($cache_dir !== null){
             $this->cache_dir = $cache_dir;
         }
         return $this->cache_dir;
     }
 
-    public function local($depth=0, $local=null){
+    public function local($depth=0, $local=null): ?object
+    {
         if($this->local === null){
             $this->local = [];
         }
@@ -218,14 +234,16 @@ class Parse {
         return null;
     }
 
-    public function is_assign($is_assign=null){
+    public function is_assign($is_assign=null): ?bool
+    {
         if($is_assign !== null){
             $this->is_assign = $is_assign;
         }
         return $this->is_assign;
     }
 
-    public function halt_literal($halt_literal=null){
+    public function halt_literal($halt_literal=null): ?bool
+    {
         if($halt_literal !== null){
             $this->halt_literal = $halt_literal;
         }
@@ -255,7 +273,7 @@ class Parse {
         return $string;
     }
 
-    public static function unset(stdClass $object, stdClass $unset): stdClass
+    public static function unset(object $object, object $unset): object
     {
         foreach($object as $key => $value){
             if(
@@ -276,7 +294,8 @@ class Parse {
      * @throws FileWriteException
      * @throws Exception
      */
-    public function compile($string='', $data=[], $storage=null, $depth=null, $is_debug=false){
+    public function compile($string='', $data=[], $storage=null, $depth=null, $is_debug=false): mixed
+    {
         $object = $this->object();
         if($storage === null){            
             $storage = $this->storage(new Data());
@@ -444,7 +463,7 @@ class Parse {
                 $string = literal::apply($storage, $string);
             }
             $string = Parse::replace_raw($string);
-            $string = str_replace('/*{{R3M}}*/', '{R3M}', $string); //css files
+            $string = str_replace('/*{{R3M}}*/', '{R3M}', $string); //rcss files
             $string = str_replace('{{ R3M }}', '{R3M}', $string);
             $string = str_replace('{{R3M}}', '{R3M}', $string);
             $explode = explode('{R3M}', $string, 2);
@@ -531,7 +550,6 @@ class Parse {
                     }
                 }
             }
-            $id = $object->config(Config::POSIX_ID);
             $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
             $exists = class_exists($class);
             if($exists){
@@ -574,7 +592,11 @@ class Parse {
         return $string;
     }
 
-    public static function readback($object, $parse, $type=null){
+    /**
+     * @throws Exception
+     */
+    public static function readback($object, $parse, $type=null): mixed
+    {
         $data = $parse->storage()->data($type);
         if(is_array($data)){
             foreach($data as $key => $value){

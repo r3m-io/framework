@@ -92,7 +92,8 @@ class Dir {
         return is_dir($url);
     }
 
-    public static function size($url, $recursive=false){
+    public static function size($url, $recursive=false): bool | int
+    {
         if(!Dir::is($url)){
             return false;
         }
@@ -136,7 +137,7 @@ class Dir {
     {
         $node = $this->node();
         if(!isset($node)){
-            $node = new stdClass();
+            $node = (object) [];
         }
         if(!isset($node->ignore)){
             $node->ignore = [];
@@ -196,7 +197,7 @@ class Dir {
                     if($entry == '.' || $entry == '..'){
                         continue;
                     }
-                    $file = new stdClass();
+                    $file = (object) [];
                     $file->url = $url . $entry;
                     if(is_dir($file->url)){
                         $file->url .= Dir::SEPARATOR;
@@ -308,16 +309,19 @@ class Dir {
         }
         return rmdir($dir);
     }
-    public function node($node=null){
+    public function node($node=null): mixed
+    {
         if($node !== null){
             $this->setNode($node);
         }
         return $this->getNode();
     }
-    private function setNode($node=null){
+    private function setNode($node=null): void
+    {
         $this->node = $node;
     }
-    private function getNode(){
+    private function getNode(): mixed
+    {
         return $this->node;
     }
 

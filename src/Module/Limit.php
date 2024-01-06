@@ -10,20 +10,23 @@
  */
 namespace R3m\Io\Module;
 
-use stdClass;
 use Exception;
-use R3m\Io\App;
-use R3m\Io\Config;
 
 class Limit extends Data{
     const LIMIT = 20;
     const MAX = 1000;
 
+    /**
+     * @throws Exception
+     */
     public static function list($list): Limit
     {
         return new Limit($list);
     }
 
+    /**
+     * @throws Exception
+     */
     public function with($limit=[], $options=[]): array
     {
         $preserve_keys = false;

@@ -10,8 +10,6 @@
  */
 namespace R3m\Io\Module;
 
-use stdClass;
-
 use R3m\Io\App;
 use R3m\Io\Config;
 
@@ -45,8 +43,9 @@ class Validate {
     /**
      * @throws Exception
      */
-    public static function validate(App $object, $validate, $extra=false){
-        $extension = $object->config('extension.php');  
+    public static function validate(App $object, object $validate, $extra=false): object
+    {
+        $extension = $object->config('extension.php');
         $test = [];
         foreach($validate as $field => $list){
             $is_optional = false;
@@ -152,7 +151,10 @@ class Validate {
                 }
             }
         }        
-        if(property_exists($validate, 'test')){
+        if(
+            property_exists($validate, 'test') &&
+            is_array($validate->test)
+        ){
             $validate->test = array_merge($test, $validate->test);
         } else {
             $validate->test = $test;

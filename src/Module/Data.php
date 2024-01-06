@@ -29,6 +29,9 @@ class Data {
 
     private $is_debug = false;
 
+    /**
+     * @throws Exception
+     */
     public function __construct($data=null){
         $this->data($data);
     }
@@ -134,7 +137,7 @@ class Data {
      * @throws ObjectException
      * @throws Exception
      */
-    public static function flags($data): stdClass
+    public static function flags($data): object
     {
         $flags = (object) [];
         foreach($data as $nr => $parameter){
@@ -172,8 +175,9 @@ class Data {
 
     /**
      * @throws ObjectException
+     * @throws Exception
      */
-    public static function options($data): stdClass
+    public static function options($data): object
     {
         $options = (object) [];
         foreach($data as $nr => $parameter){
@@ -446,6 +450,9 @@ class Data {
         return Core::object_delete($attribute, $this->data());
     }
 
+    /**
+     * @throws Exception
+     */
     public function is_empty(): bool
     {
         $data = $this->data();
@@ -455,6 +462,9 @@ class Data {
         return false;
     }
 
+    /**
+     * @throws Exception
+     */
     public function clear(): void
     {
         $data = $this->data();
@@ -490,6 +500,9 @@ class Data {
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public function index($attribute=null): int
     {
         $get = $this->get($attribute);
@@ -521,7 +534,8 @@ class Data {
     /**
      * @throws Exception
      */
-    public function patch_nested_key($data=null, $result=null, $prefix=''){
+    public function patch_nested_key($data=null, $result=null, $prefix=''): mixed
+    {
         if($result === null){
             $result = new Data();
             $result->do_not_nest_key($this->do_not_nest_key());
@@ -568,7 +582,7 @@ class Data {
      * @throws Exception
      * @throws DirectoryCreateException
      */
-    public function write($url='', $return=File::SIZE): bool|int
+    public function write($url='', $return=File::SIZE): bool | int
     {
         $dir = Dir::name($url);
         Dir::create($dir);

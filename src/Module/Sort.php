@@ -17,6 +17,9 @@ class Sort extends Data {
     const DESC = 'DESC';
 
 
+    /**
+     * @throws Exception
+     */
     public static function list($list): Sort
     {
         return new Sort($list);
@@ -207,7 +210,6 @@ class Sort extends Data {
                     foreach($data->data() as $result_key => $list){
                         foreach($list as $list_key => $node) {
                             foreach ($sort as $attribute => $record) {
-                                $data->is_debug(true);
                                 $value = $data->data($result_key . '.' . $list_key . '.' . $attribute);
                                 if(is_scalar($value)){
                                     if (is_array($node)) {

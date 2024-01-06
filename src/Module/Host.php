@@ -48,8 +48,6 @@ class Host {
         $key = 'host.port';
         $port = Host::port();
         $object->config($key, $port);
-
-//        $config = $object->data(App::NAMESPACE . '.' . Config::NAME);
         $key = 'host.dir.root';
         if(empty($subdomain)){
             $sentence = Core::ucfirst_sentence(
@@ -170,7 +168,7 @@ class Host {
         return $host;
     }
 
-    public static function domain($host=''): bool|string|null
+    public static function domain($host=''): bool | string | null
     {
         if(empty($host)){
             if(isset($_SERVER['HTTP_HOST'])){
@@ -188,7 +186,7 @@ class Host {
         return false;
     }
 
-    public static function subdomain($host=''): bool|string
+    public static function subdomain($host=''): bool | string
     {
         if(empty($host)){
             if(isset($_SERVER['HTTP_HOST'])){
@@ -207,7 +205,7 @@ class Host {
         return false;
     }
 
-    public static function port($host=''): bool|int
+    public static function port($host=''): bool | int
     {
         if(empty($host)){
             if(isset($_SERVER['SERVER_PORT'])) {
@@ -229,7 +227,7 @@ class Host {
         return false;
     }
 
-    public static function extension($host=''): bool|string
+    public static function extension($host=''): bool | string
     {
         if(empty($host)){
             if(isset($_SERVER['HTTP_HOST'])){
@@ -291,17 +289,15 @@ class Host {
         $subdomain = Host::subdomain();
         $domain = Host::domain();
         $extension = Host::extension();
-        $explode = explode('.', $subdomain);
-        foreach($explode as $possibility){
-            if(!intval($possibility) > 0){
-                return false;
+        $host = $subdomain . '.' . $domain . '.' . $extension;
+        $explode = explode('.', $host);
+        foreach($explode as $possibility) {
+            $split = str_split($possibility);
+            foreach ($split as $char) {
+                if (!is_numeric($char)) {
+                    return false;
+                }
             }
-        }
-        if(!intval($domain) > 0){
-            return false;
-        }
-        if(!intval($extension) > 0){
-            return false;
         }
         return true;
     }
@@ -312,7 +308,8 @@ class Host {
      * @throws FileWriteException
      * @throws Exception
      */
-    public static function map(App $object, Node $node, $name){
+    public static function map(App $object, Node $node, $name): bool | object
+    {
         $ttl = $object->config('host.default.ttl.' . $object->config('framework.environment'));
         if(!$ttl){
             $ttl = Cache::TEN_MINUTES;
@@ -373,7 +370,6 @@ class Host {
                     ]
                 );
             }
-
         }
         if(
             is_array($map) &&
@@ -390,7 +386,8 @@ class Host {
      * @throws FileWriteException
      * @throws Exception
      */
-    public static function get(App $object, Node $node, $name, $map=false){
+    public static function get(App $object, Node $node, $name, $map=false): bool | object
+    {
         $host = false;
         $ttl = $object->config('host.default.ttl.' . $object->config('framework.environment'));
         if(!$ttl){

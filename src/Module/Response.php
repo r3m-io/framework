@@ -11,8 +11,11 @@
 namespace R3m\Io\Module;
 
 use R3m\Io\App;
+
 use stdClass;
+
 use Exception;
+
 use R3m\Io\Exception\ObjectException;
 
 class Response {
@@ -22,7 +25,6 @@ class Response {
     const TYPE_OBJECT = 'object';
     const TYPE_OBJECT_LINE = 'object-line';
     const TYPE_FILE = 'file';
-
     const STATUS_OK = 200;
     const STATUS_CREATED = 201;
     const STATUS_ACCEPTED = 202;
@@ -30,7 +32,6 @@ class Response {
     const STATUS_NO_CONTENT = 204;
     const STATUS_RESET_CONTENT = 205;
     const STATUS_PARTIAL_CONTENT = 206;
-
     const STATUS_BAD_REQUEST = 400;
     const STATUS_UNAUTHORIZED = 401;
     const STATUS_PAYMENT_REQUIRED = 402;
@@ -49,7 +50,6 @@ class Response {
     const STATUS_UNSUPPORTED_MEDIA_TYPE = 415;
     const STATUS_REQUEST_RANGE_NOT_SATISFIABLE = 416;
     const STATUS_EXPECTATION_FAILED = 417;
-
     const STATUS_INTERNAL_SERVER_ERROR = 500;
     const STATUS_NOT_IMPLEMENTED = 501;
     const STATUS_BAD_GATEWAY = 502;
@@ -73,7 +73,8 @@ class Response {
      * @throws ObjectException
      * @throws Exception
      */
-    public static function output(App $object, Response $response){
+    public static function output(App $object, Response $response): mixed
+    {
         $type = $response->type();
         if($type === null &&  $object->data(App::CONTENT_TYPE) === App::CONTENT_TYPE_JSON){
             $type = Response::TYPE_OBJECT;
@@ -83,7 +84,7 @@ class Response {
         }
         $status = $response->status();
         if($type === Response::TYPE_CLI){
-
+            //left blank
         } else {
             if(!Handler::header('has', 'Status')){
                 Handler::header('Status: ' . $status, $status, true);
@@ -189,63 +190,75 @@ class Response {
         return null;
     }
 
-    public function data($data=null){
+    public function data($data=null): mixed
+    {
         if($data !== null){
             $this->setData($data);
         }
         return $this->getData();
     }
 
-    private function setData($data=null){
+    private function setData($data=null): void
+    {
         $this->data = $data;
     }
 
-    private function getData(){
+    private function getData(): mixed
+    {
         return $this->data;
     }
 
-    public function type($type=null){
+    public function type($type=null): ?string
+    {
         if($type !== null){
             $this->setType($type);
         }
         return $this->getType();
     }
 
-    private function setType($type=null){
+    private function setType($type=null): void
+    {
         $this->type = $type;
     }
 
-    private function getType(){
+    private function getType(): ?string
+    {
         return $this->type;
     }
 
-    public function status($status=null){
+    public function status($status=null): ?int
+    {
         if($status !== null){
             $this->setStatus($status);
         }
         return $this->getStatus();
     }
 
-    private function setStatus($status=null){
+    private function setStatus($status=null): void
+    {
         $this->status = $status;
     }
 
-    private function getStatus(){
+    private function getStatus(): ?int
+    {
         return $this->status;
     }
 
-    public function header($header=null){
+    public function header($header=null): ?array
+    {
         if($header !== null){
             $this->setHeader($header);
         }
         return $this->getHeader();
     }
 
-    private function setHeader($header=null){
+    private function setHeader($header=null): void
+    {
         $this->header = $header;
     }
 
-    private function getHeader(){
+    private function getHeader(): ?array
+    {
         return $this->header;
     }
 }

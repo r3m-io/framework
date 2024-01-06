@@ -10,17 +10,19 @@
  */
 namespace R3m\Io\Module;
 
-use ErrorException;
-use Exception;
 use R3m\Io\App;
+
 use R3m\Io\Exception\ObjectException;
+
+use ErrorException;
 
 class SharedMemory {
 
     /**
      * @throws ObjectException
      */
-    public static function read(App $object, $url, $offset=0, $length=0){
+    public static function read(App $object, $url, $offset=0, $length=0): mixed
+    {
         $data = null;
         $connect = null;
         try {
@@ -99,7 +101,10 @@ class SharedMemory {
     public static function write(App $object, $url, $data='', $permission=File::CHMOD): int
     {
         try {
-            if(is_array($data) || is_object($data)){
+            if(
+                is_array($data) ||
+                is_object($data)
+            ){
                 $data = Core::object($data, Core::OBJECT_JSON_LINE);
             }
             if(!is_string($data)){

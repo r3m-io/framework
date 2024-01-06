@@ -12,7 +12,10 @@ namespace R3m\Io\Module;
 
 use R3m\Io\App;
 use R3m\Io\Config;
+
 use R3m\Io\Node\Model\Node;
+
+use Exception;
 
 class Domain {
     const SCHEME_HTTP = 'http';
@@ -24,7 +27,7 @@ class Domain {
     ];
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public static function configure(App $object): bool
     {

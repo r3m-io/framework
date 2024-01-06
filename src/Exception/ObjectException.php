@@ -20,6 +20,7 @@ class ObjectException extends Exception {
         $string = parent::__toString();
         $string .= PHP_EOL;
         $string .= $this->getMessage();
+
         $string .= PHP_EOL;
         return $string;
     }

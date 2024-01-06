@@ -15,7 +15,6 @@ use stdClass;
 use R3m\Io\App;
 
 use R3m\Io\Module\Data as Storage;
-use R3m\Io\Module\Response;
 use R3m\Io\Module\Template\Main;
 
 use R3m\Io\Node\Model\Node;
@@ -30,11 +29,11 @@ class Middleware extends Main {
 
     const NAME = 'Middleware';
     const OBJECT = 'System.Middleware';
+    const ROLE_HAS_PERMISSION = 'System:Middleware:list';
 
     public function __construct(App $object){
         $this->object($object);
     }
-
 
     /**
      * @throws Exception
@@ -195,7 +194,7 @@ class Middleware extends Main {
         if(!$role_system){
             return;
         }
-        if(!$node->role_has_permission($role_system, 'System:Middleware:list')){
+        if(!$node->role_has_permission($role_system, Middleware::ROLE_HAS_PERMISSION)){
             return;
         }
         $response = $node->list(

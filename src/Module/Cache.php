@@ -188,6 +188,7 @@ class Cache {
      */
     public static function key(App $object, $options=[]): ?string
     {
+        $logger_error = $object->config('project.log.error');
         if(!array_key_exists('name', $options)){
             return null;
         }
@@ -265,6 +266,9 @@ class Cache {
             if($request){
                 $request = $request->data();
             } else {
+                if($logger_error){
+                    $object->logger($logger_error)->error('Request is missing in route data');
+                }
                 throw new Exception('Request is missing in route data');
             }
             $list = [];

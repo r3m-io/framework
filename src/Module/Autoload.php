@@ -170,11 +170,12 @@ class Autoload {
             }
         }
         $object = $this->object();
+        $logger = false;
         if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
-            $logger = $object->config('project.log.name');
-            if($logger){
-                $object->logger($logger)->info('Registering autoloader', [$method, $prepend]);
-            }
+            $logger = $object->config('project.log.debug');
+        }
+        if($logger){
+            $object->logger($logger)->info('Registering autoloader', [$method, $prepend]);
         }
         return spl_autoload_register(array($this, $method), true, $prepend);
     }
@@ -359,6 +360,7 @@ class Autoload {
     public static function name_reducer(App $object, $name='', $length=100, $separator='_', $pop_or_shift='pop'): string
     {
         $name_length = strlen($name);
+        $logger_error = $object->config('project.log.error');
         if($name_length >= $length){
             $explode = explode($separator, $name);
             $explode = array_unique($explode);
@@ -379,6 +381,9 @@ class Autoload {
                             array_shift($explode);
                         break;
                         default:
+                            if($logger_error){
+                                $object->logger($logger_error)->info('cannot reduce name with: ' . $pop_or_shift);
+                            }
                             throw new Exception('cannot reduce name with: ' . $pop_or_shift);
                     }
                     $tmp = implode('_', $explode);
@@ -473,13 +478,13 @@ class Autoload {
      * @throws Exception
      */
     public function locate($load=null, $is_data=false){
-
         $dir = $this->cache_dir();
         $url = $dir . Autoload::FILE;
         $load = ltrim($load, '\\');
         $prefixList = $this->getPrefixList();
         $fileList = [];
         $object = $this->object();
+        $logger_error = $object->config('project.log.error');
         if($object->config('ramdisk.url')){
             $dir_temp = $object->config('ramdisk.url') .
                 $object->config('posix.id') .
@@ -519,11 +524,8 @@ class Autoload {
                     $item['file'] = implode('.', $tmp);
                 }
                 elseif($is_data === false) {
-                    if($object->config('project.log.error')){
-                        $object->logger($object->config('project.log.error'))->error('Autoload error, cannot load (' . $load .') class. (Prefix not initialized)');
-                    }
-                    elseif($object->config('project.log.name')){
-                        $object->logger($object->config('project.log.name'))->error('Autoload error, cannot load (' . $load .') class. (Prefix not initialized)');
+                    if($logger_error){
+                        $object->logger($logger_error)->error('Autoload error, cannot load (' . $load .') class. (Prefix not initialized)');
                     }
                     continue; //changed @ 2023-11-16
                     /*
@@ -838,31 +840,6 @@ class Autoload {
     /**
      * @throws Exception
      */
-    public static function ramdisk_prefix(App $object, $content='', $file=''): bool
-    {
-        $prefix = $object->config('ramdisk.autoload.prefix');
-        d($prefix);
-        d($file);
-//        d($content);
-        return true;
-        /*
-        $is_exclude = false;
-        $exclude_prefix = $object->config('ramdisk.autoload.prefix');
-        if(
-            !empty($exclude_prefix) &&
-            is_array($exclude_prefix)
-        ){
-            foreach($exclude_prefix as $needle){
-                if(stristr($prefix, $needle) !== false){
-                    $is_exclude = true;
-                    break;
-                }
-            }
-        }
-        return $is_exclude;
-        */
-    }
-
     public static function ramdisk_exclude_load(App $object, $load=''): bool
     {
         $is_exclude = false;

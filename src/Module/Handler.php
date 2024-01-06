@@ -60,7 +60,12 @@ class Handler {
     const UPLOAD_ERR_EXTENSION = 'A PHP extension stopped the file upload.';
 
 
-    public static function request_configure(App $object){
+    /**
+     * @throws ObjectException
+     * @throws Exception
+     */
+    public static function request_configure(App $object): void
+    {
         $object->data(
             App::NAMESPACE . '.' .
             Handler::NAME_REQUEST . '.' .
@@ -73,19 +78,6 @@ class Handler {
             Handler::NAME_INPUT,
             Handler::request_input()
         );
-        /*
-        $request = Core::deep_clone(
-            $object->get(
-                App::NAMESPACE . '.' .
-                Handler::NAME_REQUEST . '.' .
-                Handler::NAME_INPUT
-            )->data()
-        );
-        $object->config(
-            'request',
-            $request
-        );
-        */
         $object->data(
             App::NAMESPACE . '.' .
             Handler::NAME_REQUEST . '.' .
@@ -94,7 +86,7 @@ class Handler {
         );
     }
 
-    private static function request_header(): stdClass
+    private static function request_header(): object
     {
         //check if cli
         if(defined('IS_CLI')){
@@ -105,20 +97,19 @@ class Handler {
         }
     }
 
-    public static function header($string='', $http_response_code=null, $replace=true){
+    public static function header($string='', $http_response_code=null, $replace=true): mixed
+    {
         if(empty($string)){
             return headers_list();
         }
         if(
             $string == 'delete' &&
-            $http_response_code !== null &&
             is_string($http_response_code)
         ){
             header_remove($http_response_code);
         }
         elseif(
             $string == 'has' &&
-            $http_response_code !== null &&
             is_string($http_response_code)
         ){
           $list = headers_list();
@@ -136,7 +127,6 @@ class Handler {
         }
         elseif(
             $string == 'get' &&
-            $http_response_code !== null &&
             is_string($http_response_code)
         ){
             $list = headers_list();
@@ -150,7 +140,7 @@ class Handler {
             if(array_key_exists($http_response_code, $header_list)){
                 return $header_list[$http_response_code];
             }
-            return;
+            return null;
         }
         elseif($http_response_code !== null){
             if(!headers_sent()){
@@ -161,6 +151,7 @@ class Handler {
                 header($string, $replace);
             }
         }
+        return null;
     }
 
     private static function addErrorMessage($object, $record): array
@@ -202,7 +193,7 @@ class Handler {
         return $record;
     }
 
-    private static function request_file(App $object): stdClass
+    private static function request_file(App $object): object
     {
         $nodeList = array();
         foreach ($_FILES as $category => $list){
@@ -370,10 +361,10 @@ class Handler {
     /**
      * @throws Exception
      */
-    public static function method(){
+    public static function method(): string
+    {
         if(array_key_exists('REQUEST_METHOD', $_SERVER)){
-            $method = $_SERVER['REQUEST_METHOD'];
-            return $method;
+            return $_SERVER['REQUEST_METHOD'];
         }
         elseif(defined('IS_CLI')){
             return Handler::METHOD_CLI;
@@ -402,7 +393,8 @@ class Handler {
     /**
      * @throws Exception
      */
-    public static function session($attribute=null, $value=null){
+    public static function session($attribute=null, $value=null): mixed
+    {
         if($attribute == Handler::SESSION_HAS && $value === null){
             return isset($_SESSION);
         }
@@ -848,7 +840,8 @@ class Handler {
         }
     }
 
-    public static function cookie($attribute=null, $value=null, $duration=null){
+    public static function cookie($attribute=null, $value=null, $duration=null): mixed
+    {
         $result = '';
         $cookie = [];
         if($attribute !== null) {

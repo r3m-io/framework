@@ -44,7 +44,12 @@ class Controller {
      * @throws ObjectException
      * @throws Exception
      */
-    public static function autoload(App $object, Data $read=null){
+    public static function autoload(App $object, Data $read=null): void
+    {
+        $logger = false;
+        if($object->config('framework.environment') == Config::MODE_DEVELOPMENT){
+            $logger = $object->config('project.log.debug');
+        }
         $autoload = $object->data(App::AUTOLOAD_R3M);
         if($read === null){
             $url = $object->config('controller.dir.data') . 'Config' . $object->config('extension.json');
@@ -61,8 +66,8 @@ class Controller {
                         $addPrefix  = Core::object($record, Core::OBJECT_ARRAY);
                         $addPrefix = Config::parameters($object, $addPrefix);
                         $autoload->addPrefix($addPrefix['prefix'], $addPrefix['directory']);
-                        if($object->config('project.log.name')){
-                            $object->logger($object->config('project.log.name'))->info('New namespace: ' . $addPrefix['prefix'], [ $addPrefix ]);
+                        if($logger){
+                            $object->logger($logger)->info('New namespace: ' . $addPrefix['prefix'], [ $addPrefix ]);
                         }
                     }
                 }
@@ -87,6 +92,9 @@ class Controller {
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public static function plugin(App $object, $dir='', $type=Controller::PREPEND): void
     {
         $plugin = $object->config('parse.dir.plugin');
@@ -109,6 +117,9 @@ class Controller {
         $object->config('parse.dir.plugin', $plugin);
     }
 
+    /**
+     * @throws Exception
+     */
     public static function validator(App $object, $dir='', $type=Controller::PREPEND): void
     {
         $validator = $object->config('validate.dir.validator');
@@ -137,7 +148,9 @@ class Controller {
      * @throws ObjectException
      * @throws Exception
      */
-    public static function locate(App $object, $template=null){
+    public static function locate(App $object, $template=null): string
+    {
+        $logger_error = $object->config('project.log.error');
         $temp = $object->data('template');
         $called = '';
         $url = false;
@@ -190,6 +203,9 @@ class Controller {
             if(defined($called .'::DIR')){
                 $dir = $called::DIR;
             } else {
+                if($logger_error){
+                    $object->logger($logger_error)->info('Please define const DIR = __DIR__ . DIRECTORY_SEPARATOR; in the controller (' . $called . ').');
+                }
                 throw new Exception('Please define const DIR = __DIR__ . DIRECTORY_SEPARATOR; in the controller (' . $called . ').');
             }
             $name = $template;
@@ -199,6 +215,9 @@ class Controller {
             if(defined($called .'::DIR')){
                 $dir = $called::DIR;
             } else {
+                if($logger_error){
+                    $object->logger($logger_error)->info('Please define const DIR = __DIR__ . DIRECTORY_SEPARATOR; in the controller (' . $called . ').');
+                }
                 throw new Exception('Please define const DIR = __DIR__ . DIRECTORY_SEPARATOR; in the controller (' . $called . ').');
             }
         }
@@ -341,7 +360,7 @@ class Controller {
                 $object->config('ds') .
                 Autoload::name_reducer(
                     $object,
-                    str_replace('/', '_', $first),
+                    str_replace($object->config('ds'), '_', $first),
                     $object->config('cache.controller.url.name_length'),
                     $object->config('cache.controller.url.name_separator'),
                     $object->config('cache.controller.url.name_pop_or_shift')
@@ -385,7 +404,6 @@ class Controller {
                     File::touch($view_url, filemtime($file));
                     $read->set(sha1($view_url) . '.url', $file);
                     $read->write($config_url);
-
                     exec('chmod 640 ' . $view_url);
                     exec('chmod 640 ' . $config_url);
                 }
@@ -394,10 +412,14 @@ class Controller {
             }
         }
         if(empty($url)){
+            if($logger_error){
+                $object->logger($logger_error)-error('Cannot find view file ('. $name . ')');
+            }
             if (
                 $config->data(Config::DATA_FRAMEWORK_ENVIRONMENT) === Config::MODE_INIT ||
                 $config->data(Config::DATA_FRAMEWORK_ENVIRONMENT) === Config::MODE_DEVELOPMENT
             ){
+
                 throw new LocateException('Cannot find view file ('. $name . ')', $list);
             } else {
                 throw new LocateException('Cannot find view file ('. $name . ')');
@@ -406,7 +428,11 @@ class Controller {
         return $url;
     }
 
-    public static function configure(App $object, $caller=null){
+    /**
+     * @throws Exception
+     */
+    public static function configure(App $object, $caller=null): void
+    {
         $config = $object->data(App::CONFIG);
         $key = Config::DATA_PARSE_DIR_TEMPLATE;
         $value = $config->data(Config::DATA_HOST_DIR_CACHE) . Controller::PARSE . $config->data('ds') . Controller::TEMPLATE . $config->data('ds');
@@ -642,8 +668,9 @@ class Controller {
      * @throws UrlEmptyException
      * @throws UrlNotExistException
      * @throws FileWriteException
+     * @throws Exception
      */
-    public static function response(App $object, $url, $data=null)
+    public static function response(App $object, $url, $data=null): mixed
     {
         if(empty($url)){
             throw new UrlEmptyException('Url is empty');
@@ -691,6 +718,7 @@ class Controller {
     /**
      * @throws ObjectException
      * @throws FileWriteException
+     * @throws Exception
      */
     public static function parse_read(App $object, $url): void
     {
@@ -703,11 +731,16 @@ class Controller {
     /**
      * @throws UrlEmptyException
      */
-    public static function redirect($url=''){
+    public static function redirect($url=''): void
+    {
         Core::redirect($url);
     }
 
-    public static function route(App $object, $name, $options=[]){
+    /**
+     * @throws Exception
+     */
+    public static function route(App $object, $name, $options=[]): mixed
+    {
         return $object->route()::find($object, $name, $options);
     }
 }
