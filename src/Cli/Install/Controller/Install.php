@@ -93,10 +93,6 @@ class Install extends Controller {
             $node->role_system_create('r3m_io/boot');
             $node->role_system_create('r3m_io/node');
             $node->role_system_create('r3m_io/route');
-            //move below to setups
-//            $node->role_system_create('r3m_io/config');
-//            $node->role_system_create('r3m_io/event');
-//            $node->role_system_create('r3m_io/autoload');
         }
         if(
             $package->has('copy') &&
@@ -111,8 +107,6 @@ class Install extends Controller {
                     !empty($copy->from) &&
                     !empty($copy->to)
                 ){
-//                    $parse = new Parse($object, $object->data());
-//                    $copy->to = $parse->compile($copy->to, $object->data());
                     if(File::exist($copy->from)){
                         if(Dir::is($copy->from)){
                             Dir::create($copy->to, Dir::CHMOD);
@@ -175,8 +169,6 @@ class Install extends Controller {
                     property_exists($copy, 'from') &&
                     property_exists($copy, 'to')
                 ){
-//                    $parse = new Parse($object, $object->data());
-//                    $copy->to = $parse->compile($copy->to, $object->data());
                     if(File::exist($copy->from)){
                         if(Dir::is($copy->from)){
                             Dir::create($copy->to, Dir::CHMOD);
@@ -420,8 +412,6 @@ class Install extends Controller {
         if($output){
             echo $output;
         }
-        // add to installation, but cannot do it here, node isn't yet installed
-//        $command = '{{binary()}} r3m_io/node create -class=System.Installation -name=' . $key . ' -ctime=' . time() . ' -mtime=' . time();
         echo 'Press ctrl-c to stop the installation...' . PHP_EOL;
         $command_options = [];
         foreach($options as $option => $value){
@@ -461,11 +451,11 @@ class Install extends Controller {
                 }
                 echo $command . PHP_EOL;
                 Core::execute($object, $command, $output, $notification);
-                if($output){
-                    echo $output;
+                if(!empty($output)){
+                    echo rtrim($output, PHP_EOL) . PHP_EOL;
                 }
-                if($notification){
-                    echo $notification;
+                if(!empty($notification)){
+                    echo rtrim($notification, PHP_EOL) . PHP_EOL;
                 }
             }
         }
@@ -479,11 +469,11 @@ class Install extends Controller {
             }
             echo $command . PHP_EOL;
             Core::execute($object, $command, $output, $notification);
-            if($output){
-                echo $output;
+            if(!empty($output)){
+                echo rtrim($output, PHP_EOL) . PHP_EOL;
             }
-            if($notification){
-                echo $notification;
+            if(!empty($notification)){
+                echo rtrim($notification, PHP_EOL) . PHP_EOL;
             }
         }
         Event::trigger($object, 'cli.install', [
