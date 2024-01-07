@@ -74,7 +74,7 @@ class Parse {
         $config = $this->object()->data(App::NAMESPACE . '.' . Config::NAME);
         $dir_plugin = $config->data('project.dir.plugin');
         if(empty($dir_plugin)){
-            $config->data('project.dir.plugin', $config->data('project.dir.root') . Parse::PLUGIN . $config->data('ds'));
+            $config->data('project.dir.plugin', $config->data('project.dir.source') . Parse::PLUGIN . $config->data('ds'));
         }
         $dir_plugin = $config->data('host.dir.plugin');
         if(empty($dir_plugin)){
