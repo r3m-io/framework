@@ -489,8 +489,6 @@ class FileRequest {
             }
             throw new LocateException('Cannot find location for file...', $location);
         } else {
-            d($file_extension_lowercase);
-            ddd($object->config('error'));
             if(
                 in_array(
                     $file_extension_lowercase,
