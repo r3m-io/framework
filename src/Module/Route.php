@@ -1301,7 +1301,7 @@ class Route extends Data {
         if(is_array($default_route) || is_object($default_route)){
             foreach($default_route as $record){
                 $path = strtolower($record);
-                $control = File::ucfirst(str_replace(':', '.', $record) . '.control');
+                $control = File::ucfirst($record . '.control');
                 $control = substr($control, 0, -8);
                 $attribute = 'r3m-io-cli-' . $path;
                 $item = new stdClass();
