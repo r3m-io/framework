@@ -1574,7 +1574,7 @@ class Core
     {
 //        Core::interactive(); //maybe dangerous in template generation, it flushes directly and doesn't return parse.
         if(empty($object)){
-            return;
+            return null;
         }
         if(is_string($return) && $return !== 'child'){
             if($return === 'root'){
