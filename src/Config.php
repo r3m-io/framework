@@ -730,21 +730,21 @@ class Config extends Data {
         $this->data($key, $value);
         $key = Config::DATA_PROJECT_DIR_EVENT;
         $value =
-            $this->data(Config::DATA_PROJECT_DIR_ROOT) .
+            $this->data(Config::DATA_PROJECT_DIR_SOURCE) .
             $this->data(Config::DICTIONARY . '.' . Config::EVENT) .
             $this->data(Config::DS)
         ;
         $this->data($key, $value);
         $key = Config::DATA_PROJECT_DIR_MIDDLEWARE;
         $value =
-            $this->data(Config::DATA_PROJECT_DIR_ROOT) .
+            $this->data(Config::DATA_PROJECT_DIR_SOURCE) .
             $this->data(Config::DICTIONARY . '.' . Config::MIDDLEWARE) .
             $this->data(Config::DS)
         ;
         $this->data($key, $value);
         $key = Config::DATA_PROJECT_DIR_OUTPUT_FILTER;
         $value =
-            $this->data(Config::DATA_PROJECT_DIR_ROOT) .
+            $this->data(Config::DATA_PROJECT_DIR_SOURCE) .
             $this->data(Config::DICTIONARY . '.' . Config::OUTPUT_FILTER) .
             $this->data(Config::DS)
         ;
@@ -759,7 +759,7 @@ class Config extends Data {
 
         $key = Config::DATA_PROJECT_DIR_CLI;
         $value =
-            $this->data(Config::DATA_PROJECT_DIR_ROOT) .
+            $this->data(Config::DATA_PROJECT_DIR_SOURCE) .
             $this->data(Config::DICTIONARY . '.' . Config::CLI) .
             $this->data(Config::DS)
         ;
@@ -796,23 +796,16 @@ class Config extends Data {
             $this->data(Config::DS)
         ;
         $this->data($key, $value);
-
-        $key = Config::DATA_PROJECT_DIR_EXECUTE;
-        $value =
-            $this->data(Config::DATA_PROJECT_DIR_ROOT) .
-            $this->data(Config::DICTIONARY . '.' . Config::EXECUTE) .
-            $this->data(Config::DS)
-        ;
         $key = Config::DATA_PROJECT_DIR_COMPONENT;
         $value =
-            $this->data(Config::DATA_PROJECT_DIR_ROOT) .
+            $this->data(Config::DATA_PROJECT_DIR_SOURCE) .
             $this->data(Config::DICTIONARY . '.' . Config::COMPONENT) .
             $this->data(Config::DS)
         ;
         $this->data($key, $value);
         $key = Config::DATA_PROJECT_DIR_VALIDATOR;
         $value =
-            $this->data(Config::DATA_PROJECT_DIR_ROOT) .
+            $this->data(Config::DATA_PROJECT_DIR_SOURCE) .
             $this->data(Config::DICTIONARY . '.' . Config::VALIDATOR) .
             $this->data(Config::DS)
         ;
