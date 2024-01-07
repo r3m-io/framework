@@ -413,7 +413,7 @@ class Controller {
         }
         if(empty($url)){
             if($logger_error){
-                $object->logger($logger_error)-error('Cannot find view file ('. $name . ')');
+                $object->logger($logger_error)->error('Cannot find view file ('. $name . ')');
             }
             if (
                 $config->data(Config::DATA_FRAMEWORK_ENVIRONMENT) === Config::MODE_INIT ||
