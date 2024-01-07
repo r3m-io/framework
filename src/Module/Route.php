@@ -824,7 +824,7 @@ class Route extends Data {
     public static function controller(object $route): object
     {
         if(property_exists($route, 'controller')){
-            ddd($route);
+            d($route);
             $is_double_colon = str_contains($route->controller, ':');
             if($is_double_colon){
                 $controller = explode(':', $route->controller);
