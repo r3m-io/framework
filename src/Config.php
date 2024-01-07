@@ -59,6 +59,8 @@ class Config extends Data {
     const VALUE_MOUNT = 'Mount';
     const ASSET = 'Asset';
     const VALUE_ASSET = 'Asset';
+    const EXCEPTION = 'Exception';
+    const VALUE_EXCEPTION = 'Exception';
     const BACKUP = 'Backup';
     const VALUE_BACKUP = 'Backup';
     const BINARY = 'Binary';
@@ -152,6 +154,7 @@ class Config extends Data {
     const DATA_PROJECT_DIR_SOURCE =  Config::DATA_PROJECT_DIR . '.' . 'source';
     const DATA_PROJECT_DIR_MOUNT =  Config::DATA_PROJECT_DIR . '.' . 'mount';
     const DATA_PROJECT_DIR_ASSET =  Config::DATA_PROJECT_DIR . '.' . 'asset';
+    const DATA_PROJECT_DIR_EXCEPTION =  Config::DATA_PROJECT_DIR . '.' . 'exception';
     const DATA_PROJECT_DIR_BACKUP =  Config::DATA_PROJECT_DIR . '.' . 'backup';
     const DATA_PROJECT_DIR_DATA =  Config::DATA_PROJECT_DIR . '.' . 'data';
     const DATA_PROJECT_DIR_NODE =  Config::DATA_PROJECT_DIR . '.' . 'node';
@@ -250,6 +253,11 @@ class Config extends Data {
             $config->data(Config::DATA_PROJECT_VOLUME, $volume->data('volume'));
             $key = Config::DATA_PROJECT_DIR_ASSET;
             $value = $volume->data('volume.dir.asset');
+            if($value){
+                $config->data($key, $value);
+            }
+            $key = Config::DATA_PROJECT_DIR_EXCEPTION;
+            $value = $volume->data('volume.dir.exception');
             if($value){
                 $config->data($key, $value);
             }
@@ -540,6 +548,10 @@ class Config extends Data {
         $value = Config::VALUE_ASSET;
         $this->data($key, $value);
 
+        $key = Config::DICTIONARY . '.' . Config::EXCEPTION;
+        $value = Config::VALUE_EXCEPTION;
+        $this->data($key, $value);
+
         $key = Config::DICTIONARY . '.' . Config::BACKUP;
         $value = Config::VALUE_BACKUP;
         $this->data($key, $value);
@@ -693,6 +705,14 @@ class Config extends Data {
         $value =
             $this->data(Config::DATA_PROJECT_DIR_SOURCE) .
             $this->data(Config::DICTIONARY . '.' . Config::ASSET) .
+            $this->data(Config::DS)
+        ;
+        $this->data($key, $value);
+
+        $key = Config::DATA_PROJECT_DIR_EXCEPTION;
+        $value =
+            $this->data(Config::DATA_PROJECT_DIR_SOURCE) .
+            $this->data(Config::DICTIONARY . '.' . Config::EXCEPTION) .
             $this->data(Config::DS)
         ;
         $this->data($key, $value);
