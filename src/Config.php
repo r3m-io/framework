@@ -691,7 +691,7 @@ class Config extends Data {
 
         $key = Config::DATA_PROJECT_DIR_ASSET;
         $value =
-            $this->data(Config::DATA_PROJECT_DIR_MOUNT) .
+            $this->data(Config::DATA_PROJECT_DIR_SOURCE) .
             $this->data(Config::DICTIONARY . '.' . Config::ASSET) .
             $this->data(Config::DS)
         ;
