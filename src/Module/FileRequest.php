@@ -518,9 +518,8 @@ class FileRequest {
                     true
                 )
             ){
-                if($object->config('server.http.error.404')){
-                    echo "HTTP/1.0 404 Not Found: " . $file . PHP_EOL;
-                }
+                echo "HTTP/1.0 404 Not Found: " . $file . PHP_EOL;
+
             }
             elseif(
                 in_array(
@@ -529,10 +528,7 @@ class FileRequest {
                     true
                 )
             ){
-                if($object->config('server.http.error.404')){
-                    //might need to add content type.
-                    echo 'console.error("HTTP/1.0 404 Not Found",  "' . $file . '");';
-                }
+                echo 'console.error("HTTP/1.0 404 Not Found",  "' . $file . '");';
             }
             elseif(
                 in_array(
