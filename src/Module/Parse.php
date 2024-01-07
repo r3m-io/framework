@@ -173,7 +173,7 @@ class Parse {
         return $this->limit;
     }
 
-    public function storage(Data $storage=null): ?Data
+    public function storage(object $storage=null): ?object
     {
         if($storage !== null){
             $this->setStorage($storage);
@@ -181,12 +181,12 @@ class Parse {
         return $this->getStorage();
     }
 
-    private function setStorage(Data $storage=null): void
+    private function setStorage(object $storage=null): void
     {
         $this->storage = $storage;
     }
 
-    private function getStorage(): ?Data
+    private function getStorage(): ?object
     {
         return $this->storage;
     }

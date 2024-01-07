@@ -1086,7 +1086,7 @@ class Build {
         return $this->parse;
     }
 
-    public function storage(Data $object=null): ?Data
+    public function storage(object $object=null): ?object
     {
         if($object !== null){
             $this->setStorage($object);
@@ -1094,12 +1094,12 @@ class Build {
         return $this->getStorage();
     }
 
-    private function setStorage(Data $object=null): void
+    private function setStorage(object $object=null): void
     {
         $this->storage = $object;
     }
 
-    private function getStorage(): ?Data
+    private function getStorage(): ?object
     {
         return $this->storage;
     }
