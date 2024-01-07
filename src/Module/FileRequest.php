@@ -526,6 +526,8 @@ class FileRequest {
                     true
                 )
             ){
+                $contentType = $object->config('contentType.' . $file_extension_lowercase);
+                Handler::header('Content-Type: ' . $contentType, null, true);
                 echo 'console.error("HTTP/1.0 404 Not Found",  "' . $file . '");';
             }
             elseif(
