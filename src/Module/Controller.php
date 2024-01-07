@@ -97,6 +97,7 @@ class Controller {
      */
     public static function plugin(App $object, $dir='', $type=Controller::PREPEND): void
     {
+        d($dir);
         $plugin = $object->config('parse.dir.plugin');
         if(empty($plugin)){
             $plugin = [];
