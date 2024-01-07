@@ -1293,6 +1293,9 @@ class Route extends Data {
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public static function framework(App $object): void
     {
         $route = $object->data(App::ROUTE);
@@ -1300,8 +1303,9 @@ class Route extends Data {
         $priority = 1000;
         if(is_array($default_route) || is_object($default_route)){
             foreach($default_route as $record){
+                d($record);
                 $path = strtolower($record);
-                $control = File::ucfirst($record . '.control');
+                $control = Controller::ucfirst($record . '.control');
                 $control = substr($control, 0, -8);
                 $attribute = 'r3m-io-cli-' . $path;
                 $item = new stdClass();
