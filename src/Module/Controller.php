@@ -500,7 +500,7 @@ class Controller {
             $config->data(Config::DS)
         );
         $config->data(Config::DATA_HOST_DIR_PLUGIN_2,
-            $config->data(Config::DATA_PROJECT_DIR_ROOT) .
+            $config->data(Config::DATA_PROJECT_DIR_SOURCE) .
             $config->data(
                 Config::DICTIONARY .
                 '.' .
