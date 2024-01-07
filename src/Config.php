@@ -171,6 +171,7 @@ class Config extends Data {
     const DATA_PROJECT_DIR_LOG =  Config::DATA_PROJECT_DIR . '.' . 'log';
     const DATA_PROJECT_DIR_EXECUTE =  Config::DATA_PROJECT_DIR . '.' . 'execute';
     const DATA_PROJECT_DIR_COMPONENT =  Config::DATA_PROJECT_DIR . '.' . 'component';
+    const DATA_PROJECT_DIR_VALIDATE =  Config::DATA_PROJECT_DIR . '.' . 'validate';
     const DATA_PROJECT_DIR_VALIDATOR =  Config::DATA_PROJECT_DIR . '.' . 'validator';
     const DATA_PROJECT_VOLUME = 'project.volume';
     const DATA_CONTROLLER = 'controller';
@@ -328,6 +329,11 @@ class Config extends Data {
             }
             $key = Config::DATA_PROJECT_DIR_SOURCE;
             $value = $volume->data('volume.dir.source');
+            if($value){
+                $config->data($key, $value);
+            }
+            $key = Config::DATA_PROJECT_DIR_VALIDATE;
+            $value = $volume->data('volume.dir.validate');
             if($value){
                 $config->data($key, $value);
             }
@@ -820,6 +826,13 @@ class Config extends Data {
         $value =
             $this->data(Config::DATA_PROJECT_DIR_SOURCE) .
             $this->data(Config::DICTIONARY . '.' . Config::COMPONENT) .
+            $this->data(Config::DS)
+        ;
+        $this->data($key, $value);
+        $key = Config::DATA_PROJECT_DIR_VALIDATE;
+        $value =
+            $this->data(Config::DATA_PROJECT_DIR_SOURCE) .
+            $this->data(Config::DICTIONARY . '.' . Config::VALIDATE) .
             $this->data(Config::DS)
         ;
         $this->data($key, $value);
