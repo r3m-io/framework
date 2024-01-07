@@ -537,7 +537,7 @@ class FileRequest {
                     true
                 )
             ){
-                $contentType = $object->config('contentType.json');
+                $contentType = $object->config('contentType.' . $file_extension_lowercase);
                 Handler::header('Content-Type: ' . $contentType, null, true);
                 $json = [];
                 $json['message'] = 'HTTP/1.0 404 Not Found';
