@@ -1303,7 +1303,6 @@ class Route extends Data {
         $priority = 1000;
         if(is_array($default_route) || is_object($default_route)){
             foreach($default_route as $record){
-                d($record);
                 $path = strtolower(str_replace(['.', ':'], ['-','-'], $record));
                 $control = Core::ucfirst_sentence($record,':');
                 $attribute = 'r3m-io-cli-' . $path;
