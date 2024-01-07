@@ -123,7 +123,8 @@ class Core
                 [
                     Core::SHELL_DETACHED,
                     Core::SHELL_PROCESS
-                ]
+                ],
+                true
             )
         ) {
             $pid = pcntl_fork();
@@ -1906,10 +1907,12 @@ class Core
         if(
             $compile === true &&
             in_array(
-                $scope, [
+                $scope,
+                [
                     'object',
                     'scope:object'
-                ]
+                ],
+                true
             )
         ){
             $read = Core::object_select(

@@ -155,7 +155,7 @@ class Parse {
         return $this->object;
     }
 
-    public function limit($limit=null): mixed
+    public function limit($limit=null): ?array
     {
         if($limit !== null){
             $this->setLimit($limit);
@@ -168,7 +168,7 @@ class Parse {
         $this->limit= $limit;
     }
 
-    private function getLimit(): mixed
+    private function getLimit(): ?array
     {
         return $this->limit;
     }

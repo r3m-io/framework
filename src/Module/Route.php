@@ -81,10 +81,10 @@ class Route extends Data {
                 }
                 $allowed_host[] = $host;
             }
-            if(in_array($url, $disallowed_host)){
+            if(in_array($url, $disallowed_host, true)){
                 return false;
             }
-            if(in_array($url, $allowed_host)){
+            if(in_array($url, $allowed_host, true)){
                 return $select;
             }
         }
@@ -777,7 +777,7 @@ class Route extends Data {
                         $exist = class_exists($className);
                         if(
                             $exist &&
-                            in_array('cast', get_class_methods($className))
+                            in_array('cast', get_class_methods($className), true)
                         ){
                             $value = $className::cast($object, urldecode($attribute[$nr]));
                         } else {

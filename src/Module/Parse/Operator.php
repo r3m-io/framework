@@ -10,8 +10,9 @@
  */
 namespace R3m\Io\Module\Parse;
 
-use Exception;
 use R3m\Io\Module\Data;
+
+use Exception;
 
 class Operator {
 
@@ -28,7 +29,11 @@ class Operator {
         return false;
     }
 
-    public static function get($token=[]){
+    /**
+     * @throws Exception
+     */
+    public static function get($token=[]): bool | array
+    {
         $get = false;
         if($get === false){
             $get = Operator::get_by_type($token, Token::TYPE_IS_MULTIPLY);
@@ -102,7 +107,8 @@ class Operator {
     /**
      * @throws Exception
      */
-    private static function get_by_type_3($token=[], $type=''){
+    private static function get_by_type_3($token=[], $type=''): bool | array
+    {
         if(empty($type)){
             throw new Exception('Type cannot be empty');
         }
@@ -124,7 +130,8 @@ class Operator {
     /**
      * @throws Exception
      */
-    private static function get_by_type_2($token=[], $type=''){
+    private static function get_by_type_2($token=[], $type=''): bool | array
+    {
         if(empty($type)){
             throw new Exception('Type cannot be empty');
         }
@@ -155,7 +162,8 @@ class Operator {
     /**
      * @throws Exception
      */
-    private static function get_by_type($token=[], $type=''){
+    private static function get_by_type($token=[], $type=''): bool | array
+    {
         if(empty($type)){
             throw new Exception('Type cannot be empty');
         }
@@ -208,10 +216,8 @@ class Operator {
                 $is_variable !== false &&
                 $is_object_operator !== false
             ){
-                throw new exception('Possible "." exprected at "->" line: '.$is_object_operator['row'].' column: '.$is_object_operator['column']);
+                throw new exception('Possible "." expected at "->" line: '.$is_object_operator['row'].' column: '.$is_object_operator['column']);
             }
-            d($token);
-            d($statement);
             throw new exception('Statement must be an array in Operator::remove');
         }
         
@@ -221,7 +227,7 @@ class Operator {
     /**
      * @throws Exception
      */
-    public static function create($build, Data $storage, $statement=[], &$depth=0): array
+    public static function create(Build $build, Data $storage, $statement=[], &$depth=0): array
     {
         $assign_key = null;
         $left = null;

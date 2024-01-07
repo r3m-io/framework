@@ -10,16 +10,16 @@
  */
 namespace R3m\Io\Module\Parse;
 
-use Exception;
 use R3m\Io\Module\Data;
-use R3m\Io\Module\Core;
+
+use Exception;
 
 class Variable {
 
     /**
      * @throws Exception
      */
-    public static function count_assign($build, Data $storage, $token=[], $is_result=false): string
+    public static function count_assign(Build $build, Data $storage, $token=[], $is_result=false): string
     {
         $count = array_shift($token);
         $variable = array_shift($token);
@@ -48,7 +48,8 @@ class Variable {
     /**
      * @throws Exception
      */
-    private static function getArrayAttribute($build, Data $storage, $variable=[]){
+    private static function getArrayAttribute(Build $build, Data $storage, $variable=[]): string
+    {
         $execute = [];
         if(array_key_exists('array', $variable['variable'])){
             foreach($variable['variable']['array'] as $nr => $list){
@@ -158,7 +159,7 @@ class Variable {
     /**
      * @throws Exception
      */
-    public static function assign($build, Data $storage, $token=[], $is_result=false): string
+    public static function assign(Build $build, Data $storage, $token=[], $is_result=false): string
     {
         $variable = array_shift($token);
         if(!array_key_exists('variable', $variable)){
@@ -249,7 +250,7 @@ class Variable {
         return $token;
     }
 
-    public static function is_count($build, Data $storage, $token=[]): array
+    public static function is_count(Build $build, Data $storage, $token=[]): array
     {
         $count = null;
         foreach($token as $nr => $record){
@@ -268,7 +269,7 @@ class Variable {
     /**
      * @throws Exception
      */
-    public static function define($build, Data $storage, $token=[]): string
+    public static function define(Build $build, Data $storage, $token=[]): string
     {
         $variable = array_shift($token);
         if(!array_key_exists('variable', $variable)){
@@ -355,7 +356,7 @@ class Variable {
     /**
      * @throws Exception
      */
-    public static function getValue($build, Data $storage, $token=[], $is_result=false)
+    public static function getValue(Build $build, Data $storage, $token=[], $is_result=false)
     {
         $set_max = 1024;
         $set_counter = 0;

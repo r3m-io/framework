@@ -24,11 +24,11 @@ use R3m\Io\Module\Dir;
 use R3m\Io\Module\File;
 use R3m\Io\Module\Parse;
 use R3m\Io\Module\Event;
-use R3m\Io\Module\Server;
 use R3m\Io\Module\SharedMemory;
 
 use Exception;
 
+use R3m\Io\Exception\DirectoryCreateException;
 use R3m\Io\Exception\ObjectException;
 use R3m\Io\Exception\PluginNotFoundException;
 use R3m\Io\Exception\PluginNotAllowedException;
@@ -99,25 +99,14 @@ class Build {
         $debug_url = $this->object()->data('controller.dir.data') . 'Debug.info';
         $this->storage()->data('debug.url', $debug_url);
         $dir_plugin = $config->data(Config::DATA_PARSE_DIR_PLUGIN);
-        /*
-        ddd($dir_plugin);
-        $dir_plugin = [];
-        if(empty($dir_plugin)){
-            $dir_plugin = [];
-            $dir_plugin[] = $config->data('controller.dir.plugin');
-            $dir_plugin[] = $config->data('host.dir.plugin');
-            $dir_plugin[] = $config->data('host.dir.plugin-2');
-            $dir_plugin[] = $config->data('project.dir.plugin');
-            $dir_plugin[] = $config->data('framework.dir.plugin');
-        }
-        */
         $this->storage()->data('plugin', $dir_plugin);
     }
 
     /**
      * @throws Exception
      */
-    public function create($type='', $tree=[], $document=[], $options=[]){
+    public function create($type='', $tree=[], $document=[], $options=[]): array
+    {
         switch($type){
             case 'header' :
                 return $this->createHeader($document);
@@ -151,7 +140,8 @@ class Build {
         return str_repeat("\t", $this->indent);
     }
 
-    public function limit($limit=null){
+    public function limit($limit=null): ?array
+    {
         if($limit !== null){
             $this->setLimit($limit);
         }
@@ -163,7 +153,8 @@ class Build {
         $this->limit= $limit;
     }
 
-    private function getLimit(){
+    private function getLimit(): ?array
+    {
         return $this->limit;
     }
 
@@ -377,13 +368,21 @@ class Build {
                 (
                     is_array($limit) &&
                     array_key_exists('function', $limit) &&
-                    in_array($function_name, $limit['function']) &&
+                    in_array(
+                        $function_name,
+                        $limit['function'],
+                        true
+                    ) &&
                     $function_count >= 1
                 ) ||
                 (
                     is_array($limit) &&
                     array_key_exists('modifier', $limit) &&
-                    in_array($modifier_name, $limit['modifier']) &&
+                    in_array(
+                        $modifier_name,
+                        $limit['modifier'],
+                        true
+                    ) &&
                     $modifier_count >= 1
                 )
             ){
@@ -545,8 +544,6 @@ class Build {
                         }
                     }
                 } else {
-                    $debug = debug_backtrace(true);
-                    ddd($debug);
                     throw new Exception('Configure parse.dir.plugin');
                 }
                 if($exist === false){
@@ -608,6 +605,7 @@ class Build {
      * @throws FileAppendException
      * @throws FileMoveException
      * @throws ObjectException
+     * @throws DirectoryCreateException
      */
     public function write($url, $document=[], $string=''): string
     {
@@ -628,7 +626,11 @@ class Build {
         return $write;
     }
 
-    public static function getPluginMultiline(App $object){
+    /**
+     * @throws Exception
+     */
+    public static function getPluginMultiline(App $object): ?array
+    {
         return $object->config('parse.plugin.multi_line');
     }
 
@@ -672,7 +674,8 @@ class Build {
                 $is_tag === false &&
                 !in_array(
                     $record['type'],
-                    Token::NOT_TYPE_ECHO
+                    Token::NOT_TYPE_ECHO,
+                    true
                 )
             ){
                 if($remove_newline && $data->data('r3m.io.parse.compile.remove_newline') !== false){
@@ -764,7 +767,8 @@ class Build {
                         if(
                             in_array(
                                 $select['method']['name'],
-                                $multi_line
+                                $multi_line,
+                            true
                             //capture.append
                             )
                         ){
@@ -805,7 +809,8 @@ class Build {
                                     [
                                         'break',
                                         'continue'
-                                    ]
+                                    ],
+                                    true
                                 )
                             ){
                                 $run[] = $this->indent() . $control . ';';
@@ -840,7 +845,8 @@ class Build {
                         if(
                             !in_array(
                                 $select['tag']['name'],
-                                $multi_line
+                                $multi_line,
+                            true
                             //'/capture.append'
                             )
                         ){
@@ -859,7 +865,6 @@ class Build {
                         break;
                     default:
                         if($type !== null){
-                            d($selection);
                             throw new Exception('type (' . $type . ') value (' . $select['value'] . ')undefined in source: ' . $this->storage()->data('source') . ' on line: ' . $record['row']);
                         }
                 }
@@ -905,7 +910,8 @@ class Build {
                 if(
                     in_array(
                         $record['method']['php_name'],
-                        $method
+                        $method,
+                        true
                     )
                 ){
                     return Build::METHOD_CONTROL;
@@ -920,7 +926,8 @@ class Build {
                         $record['value'],
                         [
                             'else'
-                        ]
+                        ],
+                        true
                     )
                 ){
                     return Build::ELSE;
@@ -950,6 +957,7 @@ class Build {
     /**
      * @throws PluginNotAllowedException
      * @throws PluginNotFoundException
+     * @throws Exception
      */
     private function createRequire($document=[]): array
     {
@@ -962,6 +970,9 @@ class Build {
         return $document;
     }
 
+    /**
+     * @throws Exception
+     */
     private function createHeader($document=[]): array
     {
         if(empty($document)){
@@ -976,7 +987,7 @@ class Build {
         $document[] = ' * @license                  MIT';
         $document[] = ' * @note                     Auto generated file, do not modify!';
         $document[] = ' * @author                   R3m\Io\Module\Parse\Build';
-        $document[] = ' * @author                   Remco van der Velde remco@universeorange.com';
+        $document[] = ' * @author                   Remco van der Velde development@universeorange.com';
         if($this->storage()->data('parent')){
             $document[] = ' * @parent                   ' . $this->storage()->data('parent');
         }
@@ -992,6 +1003,9 @@ class Build {
         return $document;
     }
 
+    /**
+     * @throws Exception
+     */
     public function meta($options=[]): array
     {
         $config = $this->object()->data(App::CONFIG);
@@ -1036,52 +1050,62 @@ class Build {
         return $meta;
     }
 
-    public function object($object=null){
+    public function object(App $object=null): ?App
+    {
         if($object !== null){
             $this->setObject($object);
         }
         return $this->getObject();
     }
 
-    private function setObject($object=null){
+    private function setObject(App $object=null): void
+    {
         $this->object = $object;
     }
 
-    private function getObject(){
+    private function getObject(): ?App
+    {
         return $this->object;
     }
 
-    public function parse($parse=null){
+    public function parse(Parse $parse=null): ?Parse
+    {
         if($parse !== null){
             $this->setParse($parse);
         }
         return $this->getParse();
     }
 
-    private function setParse($parse=null){
+    private function setParse(Parse $parse=null): void
+    {
         $this->parse = $parse;
     }
 
-    private function getParse(){
+    private function getParse(): ?Parse
+    {
         return $this->parse;
     }
 
-    public function storage($object=null){
+    public function storage(Data $object=null): ?Data
+    {
         if($object !== null){
             $this->setStorage($object);
         }
         return $this->getStorage();
     }
 
-    private function setStorage($object=null){
+    private function setStorage(Data $object=null): void
+    {
         $this->storage = $object;
     }
 
-    private function getStorage(){
+    private function getStorage(): ?Data
+    {
         return $this->storage;
     }
 
-    public function cache_dir($cache_dir=null){
+    public function cache_dir($cache_dir=null): ?string
+    {
         if($cache_dir !== null){
             $this->cache_dir = $cache_dir;
         }
@@ -1204,6 +1228,9 @@ class Build {
         return $tree;
     }
 
+    /**
+     * @throws Exception
+     */
     private function requireModifier($tree=[]): array
     {
         $storage = $this->storage();
@@ -1230,6 +1257,9 @@ class Build {
         return $tree;
     }
 
+    /**
+     * @throws Exception
+     */
     private function requireFunction($tree=[]): array
     {
         $storage = $this->storage();
@@ -1242,7 +1272,8 @@ class Build {
                 if(
                     !in_array(
                         $record['method']['name'],
-                        $method
+                        $method,
+                        true
                     )
                 ){
                     $name = 'function_' . str_replace('.', '_', $record['method']['name']);
@@ -1253,7 +1284,8 @@ class Build {
                     if(
                         in_array(
                             $record['method']['name'],
-                            $multi_line
+                            $multi_line,
+                            true
                         )
                     ){
                         $name = 'function_' . str_replace('.', '_', $record['method']['name']);

@@ -18,7 +18,8 @@ class Code {
     /**
      * @throws Exception
      */
-    public static function result(Build $build, Data $storage, $type='', $selection=[], &$extra=''){
+    public static function result(Build $build, Data $storage, $type='', $selection=[], &$extra=''): mixed
+    {
         $result = '';
         switch($type){
             case Build::VARIABLE_ASSIGN :
@@ -32,9 +33,9 @@ class Code {
             break;
             case '' :
                 if(empty($selection)){
-                    return;
+                    return null;
                 } else {
-                    dd($selection);
+                    throw new Exception('type not defined, (' . $type .')');
                 }
             default:
                 throw new Exception('type not defined, (' . $type .')');

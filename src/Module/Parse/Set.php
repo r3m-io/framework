@@ -10,8 +10,6 @@
  */
 namespace R3m\Io\Module\Parse;
 
-use R3m\Io\Module\Logger;
-
 class Set {
 
     public static function has($token=[]): bool
@@ -52,7 +50,8 @@ class Set {
         return $set;
     }
 
-    public static function target($token=[]){
+    public static function target($token=[]): ?int
+    {
         $highest = Set::highest($token);
         foreach($token as $nr => $record){
             if(

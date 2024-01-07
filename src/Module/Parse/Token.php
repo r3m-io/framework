@@ -10,13 +10,13 @@
  */
 namespace R3m\Io\Module\Parse;
 
-use Exception;
-use R3m\Io\App;
 use R3m\Io\Config;
+
 use R3m\Io\Module\Core;
 use R3m\Io\Module\Data;
 use R3m\Io\Module\File;
-use R3m\Io\Module\Logger;
+
+use Exception;
 
 class Token {
     const TYPE_NULL = 'null';
@@ -426,9 +426,6 @@ class Token {
                         $record['direction'] = Token::DIRECTION_RTL;
                         return $record;
                 }
-//                $options
-
-
                 $record['is_operator'] = false;
                 break;
         }
@@ -485,7 +482,6 @@ class Token {
                 $next_next = $nr + 2;
             }
             if(array_key_exists('extra_operators', $options)){
-                $testvalue = false;
                 if($next !== null && $next_next !== null){
                     $test_value = $record['value'] . $token[$next]['value'] . $token[$next_next]['value'];
                     if(
@@ -531,7 +527,8 @@ class Token {
             if(
             in_array(
                 $record['type'],
-                Token::TYPE_SINGLE
+                Token::TYPE_SINGLE,
+                true
             )
             ){
                 //1
@@ -954,7 +951,8 @@ class Token {
                         Token::TYPE_COMMENT,
                         Token::TYPE_DOC_COMMENT,
                         Token::TYPE_COMMENT_CLOSE,
-                    ]
+                    ],
+                    true
                 )
             ){
                 $is_outside = true;
@@ -978,7 +976,8 @@ class Token {
                         [
                             Token::TYPE_QUOTE_DOUBLE_STRING,
 //                            Token::TYPE_WHITESPACE
-                        ]
+                        ],
+                        true
                     )
                 ){
                     $is_outside = true;
@@ -1322,7 +1321,8 @@ class Token {
                 if(
                     in_array(
                         $record['type'],
-                        Token::TYPE_NAME_BREAK
+                        Token::TYPE_NAME_BREAK,
+                        true
                     )
                 ){
                     $token[$is_tag_close_nr]['tag']['name'] = strtolower($tag_close);
@@ -1348,7 +1348,8 @@ class Token {
                             Token::TYPE_COMMA,
                             Token::TYPE_CURLY_CLOSE,
                             Token::TYPE_CURLY_OPEN
-                        ]
+                        ],
+                        true
                     )
                 ){
                     $variable_nr = null;
@@ -1361,7 +1362,8 @@ class Token {
                         $record['type'],
                         [
                             Token::TYPE_BRACKET_SQUARE_OPEN
-                        ]
+                        ],
+                        true
                     )
                 ){
                     if($variable_array_depth === 0){
@@ -1380,7 +1382,8 @@ class Token {
                         $record['type'],
                         [
                             Token::TYPE_BRACKET_SQUARE_CLOSE
-                        ]
+                        ],
+                        true
                     )
                 ){
                     $variable_array_depth--;
@@ -1564,12 +1567,6 @@ class Token {
                             $token[$variable_nr]['variable']['attribute'] .= $record['value'];
                             $token[$variable_nr]['value'] = $value;
                         }
-                        if(stristr($value, '$li.data.rename}') !== false){
-                            d($quote_double_toggle);
-                            d($record);
-                            d($token[$variable_nr]);
-                            die;
-                        }
                         unset($token[$variable_nr]['variable']['has_modifier']);
                         $variable_nr = null;
                         $variable_array_level = 0;
@@ -1622,7 +1619,8 @@ class Token {
                     elseif(
                         in_array(
                             $token[$next_next]['value'],
-                            Token::TYPE_ASSIGN
+                            Token::TYPE_ASSIGN,
+                            true
                         )
                     ){
                         $value .= $record['value'];
@@ -1662,7 +1660,8 @@ class Token {
                     (
                         in_array(
                             $record['type'],
-                            Token::TYPE_NAME_BREAK
+                            Token::TYPE_NAME_BREAK,
+                            true
                         ) ||
                         $record['is_operator'] === true
                     ) &&
@@ -1677,10 +1676,6 @@ class Token {
                     $token[$variable_nr]['variable']['attribute'] .= $record['value'];
                     $value .= $record['value'];                    
                     $token[$variable_nr]['value'] = $value;
-                    if($value === '$node.name}'){
-                        d($token);
-                        ddd('found');
-                    }
                     unset($token[$nr]);
                     $previous_nr = $nr;
                     continue;
@@ -1697,10 +1692,6 @@ class Token {
                 $token[$variable_nr]['variable']['is_assign'] = false;
                 $value = $record['value'];
                 $variable_array_value = '';
-                if($value === '$node.name}'){
-                    d($token);
-                    ddd('found');
-                }
                 continue;
             }
             elseif(
@@ -1923,7 +1914,8 @@ class Token {
                             elseif(
                                 in_array(
                                     $token[$i]['type'],
-                                    Token::TYPE_NAME_BREAK_METHOD
+                                    Token::TYPE_NAME_BREAK_METHOD,
+                                    true
                                 ) ||
                                 $token[$i]['is_operator'] === true &&
                                 $token[$i]['type'] !== Token::TYPE_COLON
@@ -2117,7 +2109,8 @@ class Token {
     /**
      * @throws Exception
      */
-    public static function compare($record=[], $match=[], $options=[]){
+    public static function compare($record=[], $match=[], $options=[]): bool
+    {
         if(array_key_exists('operator', $options)){
             switch ($options['operator']){
                 case '===' :

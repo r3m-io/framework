@@ -10,12 +10,10 @@
  */
 namespace R3m\Io\Module\Parse;
 
-use stdClass;
-use Exception;
-use R3m\Io\App;
 use R3m\Io\Module\Data;
 use R3m\Io\Module\Core;
-use R3m\Io\Module\Parse;
+
+use Exception;
 
 class Method {
     const WHERE_BEFORE = 'before';
@@ -53,7 +51,8 @@ class Method {
                             $item['value'],
                             [
                                 '=>'
-                            ]
+                            ],
+                            true
                         )
                     ){
                         $is_key_value = true;
@@ -67,7 +66,8 @@ class Method {
                             [
                                 'as',
                                 '=>'
-                            ]
+                            ],
+                            true
                         )
                     ){
                         $as_is = true;
@@ -110,10 +110,11 @@ class Method {
             if(
                 in_array(
                     $record['method']['name'],
-                    $multi_line                    
+                    $multi_line,
+                    true
                 )
             ){                
-                $list = [];                
+                $list = [];
                 foreach($record['method']['attribute'] as $nr => $token){
                     if(!array_key_exists($nr, $list)){
                         $list[$nr] = '';
@@ -230,7 +231,8 @@ class Method {
                         'switch',
                         'break',
                         'continue'
-                    ]
+                    ],
+                    true
                 )
             ){
                 $name = $record['method']['name'];
@@ -254,7 +256,8 @@ class Method {
                         [
                             'break',
                             'continue'
-                        ]
+                        ],
+                        true
                     )
                 ){
                     if(empty($attribute)){
@@ -351,7 +354,8 @@ class Method {
             if(
                 in_array(
                     $record['method']['name'],
-                    $multi_line
+                    $multi_line,
+                    true
                 )
             ){
                 $list = [];
@@ -432,7 +436,7 @@ class Method {
                 }
                 return $data;
             default:
-                throw new Exception('Unkown method in getAssign (' . $where . ')');
+                throw new Exception('Unknown method in getAssign (' . $where . ')');
         }
     }
 
@@ -487,7 +491,8 @@ class Method {
                     $record['method']['name'],
                     [
                         'trait'
-                    ]
+                    ],
+                    true
                 )
             ){
                 $attribute = current($record['method']['attribute'][0]);
@@ -544,7 +549,8 @@ class Method {
                     [
                         'capture.append',
                         'capture.prepend'
-                    ]
+                    ],
+                    true
                 )
             ){
                 $attribute = current($record['method']['attribute'][0]);

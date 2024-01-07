@@ -492,7 +492,8 @@ class FileRequest {
             if(
                 in_array(
                     $file_extension_lowercase,
-                    $object->config('error.extension.tpl')
+                    $object->config('error.extension.tpl'),
+                    true
                 )
             ){
                 if($object->config('server.http.error.404')){
@@ -511,7 +512,8 @@ class FileRequest {
             elseif(
                 in_array(
                     $file_extension_lowercase,
-                    $object->config('error.extension.text')
+                    $object->config('error.extension.text'),
+                    true
                 )
             ){
                 if($object->config('server.http.error.404')){
@@ -521,7 +523,8 @@ class FileRequest {
             elseif(
                 in_array(
                     $file_extension_lowercase,
-                    $object->config('error.extension.js')
+                    $object->config('error.extension.js'),
+                    true
                 )
             ){
                 if($object->config('server.http.error.404')){
@@ -532,7 +535,8 @@ class FileRequest {
             elseif(
                 in_array(
                     $file_extension_lowercase,
-                    $object->config('error.extension.json')
+                    $object->config('error.extension.json'),
+                    true
                 )
             ){
                 $contentType = $object->config('contentType.json');

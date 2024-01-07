@@ -22,7 +22,6 @@ use R3m\Io\Node\Model\Node;
 use Exception;
 
 use R3m\Io\Exception\ObjectException;
-use R3m\Io\Exception\FileWriteException;
 
 class Config extends Data {
     const DIR = __DIR__ . '/';
@@ -35,125 +34,85 @@ class Config extends Data {
     const MODE_STAGING = 'staging';
     const MODE_TEST = 'test';
     const MODE_REPLICA = 'replica';
-
-
     const DATA = 'data';
     const VALUE_DATA = 'Data';
 
     const MIDDLEWARE = 'middleware';
     const VALUE_MIDDLEWARE = 'Middleware';
-
     const EVENT = 'event';
     const VALUE_EVENT = 'Event';
     const OUTPUT_FILTER = 'output.filter';
     const VALUE_OUTPUT_FILTER = 'Output/Filter';
-
     const PUBLIC = 'public';
     const VALUE_PUBLIC = 'Public';
-
     const DOMAIN = 'domain';
     const VALUE_DOMAIN = 'Domain';
-
     const HOST = 'host';
     const VALUE_HOST = 'Host';
-
     const TEMP = 'temp';
     const VALUE_TEMP = '/tmp/r3m/io/';
-
     const CACHE = 'cache';
     const VALUE_CACHE = 'Cache';
-
     const SOURCE = 'Source';
     const VALUE_SOURCE = 'src';
-
     const MOUNT = 'Mount';
     const VALUE_MOUNT = 'Mount';
-
     const ASSET = 'Asset';
     const VALUE_ASSET = 'Asset';
-
     const BACKUP = 'Backup';
     const VALUE_BACKUP = 'Backup';
-
     const BINARY = 'Binary';
     const VALUE_BINARY = 'Bin';
-
     const CLI = 'cli';
     const VALUE_CLI = 'Cli';
-
     const MODULE = 'module';
     const VALUE_MODULE = 'Module';
-
     const FRAMEWORK = 'framework';
     const VALUE_FRAMEWORK = 'r3m_io/framework';
-
     const ENVIRONMENT = 'environment';
     const VALUE_ENVIRONMENT = Config::MODE_INIT;
-
     const FUNCTION = 'function';
     const VALUE_FUNCTION = 'Function';
-
     const PLUGIN = 'plugin';
     const VALUE_PLUGIN = 'Plugin';
-
     const CONTROLLER = 'controller';
     const VALUE_CONTROLLER = 'Controller';
-
     const VALIDATE = 'validate';
     const VALUE_VALIDATE = 'Validate';
-
     const DS = 'ds';
     const VALUE_DS = DIRECTORY_SEPARATOR;
-
     const VIEW = 'view';
     const VALUE_VIEW = 'View';
-
     const MODEL = 'model';
     const VALUE_MODEL = 'Model';
-
     const COMPONENT = 'component';
     const VALUE_COMPONENT = 'Component';
-
     const PACKAGE = 'package';
     const VALUE_PACKAGE = 'Package';
-
     const INSTALLATION = 'installation';
     const VALUE_INSTALLATION = 'Installation';
-
     const ENTITY = 'entity';
     const VALUE_ENTITY = 'Entity';
-
     const REPOSITORY = 'repository';
     const VALUE_REPOSITORY = 'Repository';
-
     const SERVICE = 'service';
     const VALUE_SERVICE = 'Service';
-
     const NODE = 'node';
     const VALUE_NODE = 'Node';
-
     const TRANSLATION = 'translation';
     const VALUE_TRANSLATION = 'Translation';
-
     const LOCALHOST_EXTENSION = 'localhost.extension';
     const VALUE_LOCALHOST_EXTENSION = 'local';
-
     const LOG = 'log';
     const VALUE_LOG = 'Log';
-
     const EXECUTE = 'execute';
     const VALUE_EXECUTE = 'Execute';
-
     const VALIDATOR = 'validator';
     const VALUE_VALIDATOR = 'Validator';
-
     const ROUTE = 'Route.json';
     const CONFIG = 'Config.json';
-
     const DICTIONARY = 'dictionary';
-
     const DATA_PDO = 'pdo';
-
     const DATA_DIR_VENDOR = 'dir.vendor';
     const DATA_FRAMEWORK_VERSION = 'framework.version';
     const DATA_FRAMEWORK_BUILT = 'framework.built';
@@ -171,9 +130,7 @@ class Config extends Data {
     const DATA_FRAMEWORK_DIR_VALIDATE =  Config::DATA_FRAMEWORK_DIR . '.' . 'validate';
     const DATA_FRAMEWORK_DIR_VALIDATOR =  Config::DATA_FRAMEWORK_DIR . '.' . 'validator';
     const DATA_FRAMEWORK_DIR_VIEW =  Config::DATA_FRAMEWORK_DIR . '.' . 'view';
-
     const DATA_FRAMEWORK_ENVIRONMENT = 'framework.environment';
-
     const DATA_HOST_DIR = 'host.dir';
     const DATA_HOST_DIR_ROOT = Config::DATA_HOST_DIR . '.' . 'root';
     const DATA_HOST_DIR_CACHE = Config::DATA_HOST_DIR . '.' . 'cache';
@@ -181,13 +138,11 @@ class Config extends Data {
     const DATA_HOST_DIR_PUBLIC = Config::DATA_HOST_DIR . '.' . 'public';
     const DATA_HOST_DIR_PLUGIN = Config::DATA_HOST_DIR . '.' . 'plugin';
     const DATA_HOST_DIR_PLUGIN_2 = Config::DATA_HOST_DIR . '.' . 'plugin-2';
-
     const DATA_PARSE_DIR = 'parse.dir';
     const DATA_PARSE_DIR_TEMPLATE = Config::DATA_PARSE_DIR . '.' . 'template';
     const DATA_PARSE_DIR_COMPILE = Config::DATA_PARSE_DIR . '.' . 'compile';
     const DATA_PARSE_DIR_CACHE = Config::DATA_PARSE_DIR . '.' . 'cache';
     const DATA_PARSE_DIR_PLUGIN = Config::DATA_PARSE_DIR . '.' . 'plugin';
-
     const DATA_PROJECT_ROUTE_FILENAME = 'project.route.filename';
     const DATA_PROJECT_ROUTE_URL = 'project.route.url';
     const DATA_PROJECT_DIR = 'project.dir';
@@ -214,9 +169,7 @@ class Config extends Data {
     const DATA_PROJECT_DIR_EXECUTE =  Config::DATA_PROJECT_DIR . '.' . 'execute';
     const DATA_PROJECT_DIR_COMPONENT =  Config::DATA_PROJECT_DIR . '.' . 'component';
     const DATA_PROJECT_DIR_VALIDATOR =  Config::DATA_PROJECT_DIR . '.' . 'validator';
-
     const DATA_PROJECT_VOLUME = 'project.volume';
-
     const DATA_CONTROLLER = 'controller';
     const DATA_CONTROLLER_CLASS = 'controller.class';
     const DATA_CONTROLLER_NAME = 'controller.name';
@@ -236,11 +189,11 @@ class Config extends Data {
     const DATA_CONTROLLER_DIR_VIEW = Config::DATA_CONTROLLER_DIR . '.' .'view';
     const DATA_CONTROLLER_DIR_COMPONENT = Config::DATA_CONTROLLER_DIR . '.' .'component';
     const DATA_CONTROLLER_DIR_PUBLIC = Config::DATA_CONTROLLER_DIR . '.' .'public';
-
     const DATA_ROUTE = 'route';
     const DATA_ROUTE_PREFIX = Config::DATA_ROUTE . '.' . 'prefix';
-
     const POSIX_ID = 'posix.id';
+
+    CONST WWW_DATA_DIR = 33;
 
     /**
      * @throws ObjectException
@@ -396,7 +349,7 @@ class Config extends Data {
         $node = new Node($object);
         $class = Config::OBJECT;
         $dir_cache = false;
-        if($object->config('posix.id') === 0){
+        if($object->config(Config::POSIX_ID) === 0){
             $dir_temp = $object->config('framework.dir.temp');
             $dir =
                 $dir_temp .
@@ -407,7 +360,7 @@ class Config extends Data {
                 Dir::Create($dir);
             }
             $dir_www = $dir_temp .
-                33 .
+                Config::WWW_DATA_DIR .
                 $object->config('ds')
             ;
             $dir_cache =
@@ -425,7 +378,7 @@ class Config extends Data {
                 Dir::create($dir_cache, Dir::CHMOD);
             }
         }
-        elseif($object->config('posix.id') === 33){
+        elseif($object->config('posix.id') === Config::WWW_DATA_DIR){
             $dir_temp = $object->config('framework.dir.temp');
             $dir =
                 $dir_temp .

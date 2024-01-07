@@ -19,7 +19,7 @@ class Literal {
     /**
      * @throws Exception
      */
-    public static function apply(Data $data, $string='')
+    public static function apply(Data $data, $string=''): ?string
     {
         if(is_null($string)){
             return null;
@@ -48,7 +48,8 @@ class Literal {
     /**
      * @throws Exception
      */
-    public static function restore(Data $data, $string=''){
+    public static function restore(Data $data, $string=''): mixed
+    {
         if(is_object($string)){
             foreach($string as $key => $value){
                 $string->{$key} = Literal::restore($data, $value);

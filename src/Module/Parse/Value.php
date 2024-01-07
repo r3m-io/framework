@@ -10,10 +10,8 @@
  */
 namespace R3m\Io\Module\Parse;
 
-use R3m\Io\Module\Core;
-
 use R3m\Io\Module\Data;
-use R3m\Io\Module\File;
+
 use Exception;
 
 class Value {
@@ -27,7 +25,8 @@ class Value {
     /**
      * @throws Exception
      */
-    public static function get($build, Data $storage, $record=[]){
+    public static function get(Build $build, Data $storage, $record=[]): mixed
+    {
         switch($record['type']){
             case Token::TYPE_INT :
             case Token::TYPE_FLOAT :
@@ -103,10 +102,6 @@ class Value {
                 $record['value'] = str_replace('\\\'', '\'', $record['value']);
                 $record['value'] = str_replace('\'', '\\\'', $record['value']);
                 if($record['depth'] > 0){
-                    // $write = File::read($storage->data('debug.url'));
-                    // $string = Core::object($record, 'json');
-                    // $write .= $string . "\n";
-                    // File::write($storage->data('debug.url'), $write);
                     return '$this->parse()->compile(\'' . substr($record['value'], 1, -1) . '\', [], $this->storage())';
                 }
                 elseif(!empty($record['is_assign'])){
@@ -139,7 +134,7 @@ class Value {
             case Token::TYPE_WHITESPACE :
             case Token::TYPE_CURLY_CLOSE :
             case Token::TYPE_CURLY_OPEN :
-                return;
+                return null;
             case Token::TYPE_NUMBER :
                 $debug = debug_backtrace(true);
                 d($debug);

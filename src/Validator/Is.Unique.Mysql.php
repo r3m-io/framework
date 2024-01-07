@@ -20,6 +20,7 @@ use R3m\Io\Exception\FileWriteException;
  * @throws FileWriteException
  * @throws \Doctrine\ORM\Exception\ORMException
  * @throws \Doctrine\ORM\ORMException
+ * @throws Exception
  */
 function validate_is_unique_mysql(App $object, $string='', $field='', $argument=''): bool
 {
