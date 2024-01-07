@@ -1304,9 +1304,8 @@ class Route extends Data {
         if(is_array($default_route) || is_object($default_route)){
             foreach($default_route as $record){
                 d($record);
-                $path = strtolower($record);
-                $control = Controller::ucfirst($record . '.control');
-                $control = substr($control, 0, -8);
+                $path = strtolower(str_replace(['.', ':'], ['-','-'], $record));
+                $control = Core::ucfirst_sentence($record,':');
                 $attribute = 'r3m-io-cli-' . $path;
                 $item = new stdClass();
                 $item->path = $path . '/';
