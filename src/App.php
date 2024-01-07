@@ -358,8 +358,8 @@ class App extends Data {
                                 ') triggered.'
                             );
                         }
-                        d($object->data());
-ddd($object->data(App::CACHE));
+//                        d($object->data());
+//ddd($object->data(App::CACHE));
                         $result = $controller::{$function}($object);
                         Event::trigger($object, 'app.run.route.controller', [
                             'destination' => $destination,
