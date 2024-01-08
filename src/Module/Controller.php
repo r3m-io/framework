@@ -703,7 +703,6 @@ class Controller {
         d($original);
         $read = $parse->compile($read, $data, $parse->storage());
         d($read);
-        die;
         Parse::readback($object, $parse, App::SCRIPT);
         Parse::readback($object, $parse, App::LINK);
         return $read;
