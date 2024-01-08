@@ -827,7 +827,7 @@ class Config extends Data {
 
         $key = Config::DATA_PROJECT_DIR_PLUGIN;
         $value =
-            $this->data(Config::DATA_PROJECT_DIR_ROOT) .
+            $this->data(Config::DATA_PROJECT_DIR_SOURCE) .
             $this->data(Config::DICTIONARY . '.' . Config::PLUGIN) .
             $this->data(Config::DS)
         ;
