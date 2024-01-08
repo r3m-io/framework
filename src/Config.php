@@ -896,7 +896,7 @@ class Config extends Data {
 
         $key = Config::DATA_FRAMEWORK_DIR_EXCEPTION;
         $value =
-            $this->data(Config::DATA_FRAMEWORK_DIR_ROOT) .
+            $this->data(Config::DATA_FRAMEWORK_DIR_SOURCE) .
             $this->data(Config::DICTIONARY . '.' . Config::EXCEPTION) .
             $this->data(Config::DS)
         ;
