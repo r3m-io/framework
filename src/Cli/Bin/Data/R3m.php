@@ -27,7 +27,8 @@ $autoload = require $autoload;
 try {
     $config = new Config(
         [
-            'dir.vendor' => $dir_vendor
+            'dir.vendor' => $dir_vendor,
+            'time.start' => microtime(true),
         ]
     );
     $app = new App($autoload, $config);

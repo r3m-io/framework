@@ -96,7 +96,6 @@ class App extends Data {
         $this->data(App::MIDDLEWARE, new Data());
         $this->data(App::OUTPUTFILTER, new Data());
         $this->data(App::CACHE, new Data());
-        $this->config('time.start', microtime(true));
         App::is_cli();
         require_once __DIR__ . '/Debug.php';
         require_once __DIR__ . '/Error.php';
