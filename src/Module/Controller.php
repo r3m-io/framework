@@ -481,15 +481,6 @@ class Controller {
                 ) .
             $config->data(Config::DS)
         );
-        $config->data(Config::DATA_CONTROLLER_DIR_FUNCTION,
-            $config->data(Config::DATA_CONTROLLER_DIR_ROOT) .
-            $config->data(
-                Config::DICTIONARY .
-                '.' .
-                Config::FUNCTION
-            ) .
-            $config->data(Config::DS)
-        );
         $config->data(Config::DATA_HOST_DIR_PLUGIN,
             Dir::name($config->data(Config::DATA_CONTROLLER_DIR_ROOT)) .
             $config->data(

@@ -123,6 +123,7 @@ class Config extends Data {
     const DATA_FRAMEWORK_DIR_VENDOR = Config::DATA_FRAMEWORK_DIR . '.' . 'vendor';
     const DATA_FRAMEWORK_DIR_SOURCE = Config::DATA_FRAMEWORK_DIR . '.' . 'source';
     const DATA_FRAMEWORK_DIR_DATA = Config::DATA_FRAMEWORK_DIR . '.' . 'data';
+    const DATA_FRAMEWORK_DIR_EXCEPTION = Config::DATA_FRAMEWORK_DIR . '.' . 'exception';
     const DATA_FRAMEWORK_DIR_CLI = Config::DATA_FRAMEWORK_DIR . '.' . 'cli';
     const DATA_FRAMEWORK_DIR_CACHE = Config::DATA_FRAMEWORK_DIR . '.' . 'cache';
     const DATA_FRAMEWORK_DIR_TEMP = Config::DATA_FRAMEWORK_DIR . '.' . 'temp';
@@ -167,7 +168,6 @@ class Config extends Data {
     const DATA_PROJECT_DIR_HOST =  Config::DATA_PROJECT_DIR . '.' . 'host';
     const DATA_PROJECT_DIR_DOMAIN =  Config::DATA_PROJECT_DIR . '.' . 'domain';
     const DATA_PROJECT_DIR_PLUGIN =  Config::DATA_PROJECT_DIR . '.' . 'plugin';
-    const DATA_PROJECT_DIR_FUNCTION =  Config::DATA_PROJECT_DIR . '.' . 'function';
     const DATA_PROJECT_DIR_LOG =  Config::DATA_PROJECT_DIR . '.' . 'log';
     const DATA_PROJECT_DIR_EXECUTE =  Config::DATA_PROJECT_DIR . '.' . 'execute';
     const DATA_PROJECT_DIR_COMPONENT =  Config::DATA_PROJECT_DIR . '.' . 'component';
@@ -284,6 +284,16 @@ class Config extends Data {
             }
             $key = Config::DATA_PROJECT_DIR_DOMAIN;
             $value = $volume->data('volume.dir.domain');
+            if($value){
+                $config->data($key, $value);
+            }
+            $key = Config::DATA_PROJECT_DIR_PLUGIN;
+            $value = $volume->data('volume.dir.plugin');
+            if($value){
+                $config->data($key, $value);
+            }
+            $key = Config::DATA_PROJECT_DIR_EXCEPTION;
+            $value = $volume->data('volume.dir.exception');
             if($value){
                 $config->data($key, $value);
             }
@@ -815,6 +825,14 @@ class Config extends Data {
         ;
         $this->data($key, $value);
 
+        $key = Config::DATA_PROJECT_DIR_PLUGIN;
+        $value =
+            $this->data(Config::DATA_PROJECT_DIR_ROOT) .
+            $this->data(Config::DICTIONARY . '.' . Config::PLUGIN) .
+            $this->data(Config::DS)
+        ;
+        $this->data($key, $value);
+
         $key = Config::DATA_PROJECT_DIR_LOG;
         $value =
             $this->data(Config::DATA_PROJECT_DIR_ROOT) .
@@ -843,7 +861,6 @@ class Config extends Data {
             $this->data(Config::DS)
         ;
         $this->data($key, $value);
-
         $key = Config::DATA_PROJECT_ROUTE_FILENAME;
         $value = Config::ROUTE;
         $this->data($key, $value);
@@ -874,6 +891,14 @@ class Config extends Data {
         $key = Config::DATA_FRAMEWORK_DIR_TEMP;
         $value =
             $this->data(Config::DICTIONARY . '.' . Config::TEMP)
+        ;
+        $this->data($key, $value);
+
+        $key = Config::DATA_FRAMEWORK_DIR_EXCEPTION;
+        $value =
+            $this->data(Config::DATA_FRAMEWORK_DIR_ROOT) .
+            $this->data(Config::DICTIONARY . '.' . Config::EXCEPTION) .
+            $this->data(Config::DS)
         ;
         $this->data($key, $value);
 
