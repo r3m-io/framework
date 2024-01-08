@@ -332,6 +332,7 @@ class Method {
             $record['value'] = $result;
             $record['type'] = Token::TYPE_CODE;
         }
+        d($record);
         return $record;
     }
 
