@@ -309,9 +309,6 @@ class Parse {
             foreach($string as $key => $value){
                 $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
             }
-            if(str_contains($string, '{{require($this.#rootNode.template.url)}}')){
-                ddd($string);
-            }
             return $string;
         }
         elseif(is_object($string)){
@@ -385,9 +382,6 @@ class Parse {
                 if($unset && is_object($unset)) {
                     $string = Parse::unset($string, $unset);
                 }
-            }
-            if(str_contains($string, '{{require($this.#rootNode.template.url)}}')){
-                ddd($string);
             }
             return $string;
         }
