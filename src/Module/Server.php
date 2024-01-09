@@ -129,9 +129,10 @@ class Server {
         } else {
             return false;
         }
-        d($origin);
-        d($object->config('host'));
-        d($object->config('domain'));
+        $match_origin = 'https://' . $origin . '/';
+        if($match_origin === $object->config('domain.url')){
+            return true;
+        }
         $host_list = $object->config('server.cors.domain');
         if(is_array($host_list)){
             foreach($host_list as $host){
