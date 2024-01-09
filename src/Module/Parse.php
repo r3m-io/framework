@@ -381,7 +381,6 @@ class Parse {
             }
             $string_object = Core::deep_clone($string);
             $parentKey = $this->key;
-            d($string_object);
             foreach($string_object as $key => $value){
                 if(
                     $this->useThis() === true &&
@@ -449,7 +448,6 @@ class Parse {
             return $string;
         }
         elseif($type === 'string' && stristr($string, '{') === false){
-            d($string);
             return $string;
         } else {
             //this section takes at least 5 msec per document: file:put 2msec, memcache::put 2msec, rest 1msec
@@ -494,14 +492,15 @@ class Parse {
             if($file_exist){
                 $file_mtime = File::mtime($url);
             }
-            $file_mtime = false; //debug mode, remove...
             if($file_exist && $file_mtime === $mtime){
                 //cache file
                 $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
                 $template = new $class(new Parse($this->object()), $storage);
+                /*
                 if(empty($this->halt_literal())){
                     $string = Literal::apply($storage, $string);
-                }                
+                }
+                */
                 $string = $template->run();
                 if(empty($this->halt_literal())){
                     $string = Literal::restore($storage, $string);
@@ -509,9 +508,6 @@ class Parse {
                 $storage->data('delete', 'this');
                 if($this->object()->config('project.log.name')){
                     $this->object->logger($this->object()->config('project.log.name'))->info('cache file: ' . $url . ' mtime: ' . $mtime);
-                }
-                if(str_contains($string, '{{require($this.#rootNode.template.url)}}')){
-                    ddd($string);
                 }
                 return $string;
             }
@@ -656,9 +652,6 @@ class Parse {
         }
         elseif(is_numeric($string)){
             return $string + 0;
-        }
-        if(str_contains($string, '{{require($this.#rootNode.template.url)}}')){
-            ddd($string);
         }
         return $string;
     }
