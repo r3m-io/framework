@@ -643,7 +643,6 @@ class Parse {
                     'exception' => $exception
                 ]);
                 throw $exception;
-
             }
         }
         if($string === 'null'){
