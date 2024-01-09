@@ -1155,7 +1155,6 @@ class Route extends Data {
                         $response['list'][$name] = $record;
                     }
                 }
-                d($response);
                 $route->data(Core::object_merge($route->data(), $response['list']));
                 //maybe re-sort on priority-name
             }
@@ -1190,6 +1189,7 @@ class Route extends Data {
                 is_array($response) &&
                 array_key_exists('list', $response)
             ){
+                d($response);
                 if(is_array($response['list'])){
                     foreach($response['list'] as $name => $record){
                         $record = Route::item_path($object, $record);
