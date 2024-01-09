@@ -21,7 +21,6 @@ use R3m\Io\Module\File;
  * @throws Exception
  */
 function function_require(Parse $parse, Data $data, $url='', $storage=[]){
-    d($url);
     $object = $parse->object();
     $cache_url = false;
     $cache_dir = false;
