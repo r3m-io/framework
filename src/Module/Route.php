@@ -858,9 +858,10 @@ class Route extends Data {
         $explode = explode('/', $route->path);
         array_pop($explode);
         $attribute = $select->attribute;
-        d($attribute);
-        d($explode);
         if(empty($attribute)){
+            if(!empty($explode)){
+                return false;
+            }
             return true;
         }
         $path_attribute = [];
@@ -878,8 +879,6 @@ class Route extends Data {
             if(array_key_exists($nr, $attribute) === false){
                 return false;
             }
-            d($part);
-            d($attribute[$nr]);
             if(strtolower($part) != strtolower($attribute[$nr])){
                 return false;
             }
