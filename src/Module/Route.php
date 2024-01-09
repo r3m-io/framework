@@ -859,6 +859,8 @@ class Route extends Data {
         array_pop($explode);
         $attribute = $select->attribute;
         if(empty($attribute)){
+            d($attribute);
+            d($attribute);
             if(!empty($explode)){
                 return false;
             }
