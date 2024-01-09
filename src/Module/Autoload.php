@@ -515,7 +515,7 @@ class Autoload {
                 if($logger_error){
                     $object->logger($logger_error)->error('', [$load, $item ]);
                 }
-                if (strpos($load, $item['prefix']) === 0) {
+                if (str_starts_with($load, $item['prefix'])) {
                     $item['file'] =
                     trim(substr($load, strlen($item['prefix'])),'\\');
                     $item['file'] =
