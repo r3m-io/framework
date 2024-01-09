@@ -350,7 +350,7 @@ class Variable {
                 }
             }
         }
-        d($define);
+//        d($define);
         return $define;
     }
 
