@@ -1056,7 +1056,6 @@ class Route extends Data {
         if($is_match === false){
             return $is_match;
         }
-//        $route = Route::add_localhost($object, $route);
         $is_match = Route::is_match_by_host($object, $route, $select);
         if($is_match === false){
             return $is_match;
