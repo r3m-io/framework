@@ -512,6 +512,9 @@ class Autoload {
                     continue;
                 }
                 $item['file'] = false;
+                if($logger_error){
+                    $object->logger($logger_error)->error('', [$load, $item ]);
+                }
                 if (strpos($load, $item['prefix']) === 0) {
                     $item['file'] =
                     trim(substr($load, strlen($item['prefix'])),'\\');
@@ -525,7 +528,7 @@ class Autoload {
                 }
                 elseif($is_data === false) {
                     if($logger_error){
-                        $object->logger($logger_error)->error('Autoload error, cannot load (' . $load .') class. (Prefix not initialized)', [ $prefixList ]);
+                        $object->logger($logger_error)->error('Autoload error, cannot load (' . $load .') class. (Prefix not initialized)');
                     }
                     continue; //changed @ 2023-11-16
                     /*
