@@ -525,7 +525,7 @@ class Autoload {
                 }
                 elseif($is_data === false) {
                     if($logger_error){
-                        $object->logger($logger_error)->error('Autoload error, cannot load (' . $load .') class. (Prefix not initialized)');
+                        $object->logger($logger_error)->error('Autoload error, cannot load (' . $load .') class. (Prefix not initialized)', [ $prefixList ]);
                     }
                     continue; //changed @ 2023-11-16
                     /*
