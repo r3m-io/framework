@@ -859,15 +859,11 @@ class Route extends Data {
         $explode = explode('/', $route->path);
         array_pop($explode);
         $attribute = $select->attribute;
-        if(empty($attribute)){
-            d($attribute);
-            d($explode);
+        if(empty($attribute) && $route->path === '/'){
+            return true;
+        }
+        elseif(empty($attribute)){
             if(!empty($explode)){
-                /*
-                if(count($explode) === 1 && empty($explode[0])){
-                    return false;
-                }
-                */
                 return false;
             }
             return true;
