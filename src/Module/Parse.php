@@ -309,6 +309,9 @@ class Parse {
             foreach($string as $key => $value){
                 $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
             }
+            if(str_contains($string, '{{require($this.#rootNode.template.url)}}')){
+                ddd($string);
+            }
             return $string;
         }
         elseif(is_object($string)){
@@ -383,6 +386,9 @@ class Parse {
                     $string = Parse::unset($string, $unset);
                 }
             }
+            if(str_contains($string, '{{require($this.#rootNode.template.url)}}')){
+                ddd($string);
+            }
             return $string;
         }
         elseif(stristr($string, '{') === false){
@@ -444,6 +450,9 @@ class Parse {
                 $storage->data('delete', 'this');
                 if($this->object()->config('project.log.name')){
                     $this->object->logger($this->object()->config('project.log.name'))->info('cache file: ' . $url . ' mtime: ' . $mtime);
+                }
+                if(str_contains($string, '{{require($this.#rootNode.template.url)}}')){
+                    ddd($string);
                 }
                 return $string;
             }
@@ -589,6 +598,9 @@ class Parse {
         }
         elseif(is_numeric($string)){
             return $string + 0;
+        }
+        if(str_contains($string, '{{require($this.#rootNode.template.url)}}')){
+            ddd($string);
         }
         return $string;
     }
