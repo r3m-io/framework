@@ -27,8 +27,7 @@ class Method {
         if($record['type'] != Token::TYPE_METHOD){
             return $record;
         }
-        if($storage->data('is.debug')){
-        }
+        d($record);
         $attribute = '';
         if(
             !array_key_exists('attribute', $record['method'])
