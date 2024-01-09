@@ -598,6 +598,7 @@ class Parse {
         if(str_contains($string, '{{require($this.#rootNode.template.url)}}')){
             ddd($string);
         }
+        d($string);
         return $string;
     }
 
