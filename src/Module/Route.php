@@ -855,7 +855,6 @@ class Route extends Data {
         if(!property_exists($route, 'path')){
             return false;
         }
-        d($route->path);
         $explode = explode('/', $route->path);
         array_pop($explode);
         $attribute = $select->attribute;
