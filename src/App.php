@@ -639,10 +639,10 @@ class App extends Data {
     private function setLogger($name='', LoggerInterface $logger=null): void
     {
         if(empty($name)){
-            $name = $this->config('project.log.name');
+            $name = $this->config('project.log.debug');
         }
         if(empty($name)){
-            throw new Exception('PLease configure project.log.name or provide a name');
+            throw new Exception('PLease configure project.log.debug or provide a name');
         }
         $name = ucfirst($name);
         $this->logger[$name] = $logger;
@@ -654,14 +654,10 @@ class App extends Data {
     private function getLogger($name=''): LoggerInterface
     {
         if(empty($name)){
-            $name = $this->config('project.log.name');
+            $name = $this->config('project.log.debug');
         }
         if(empty($name)){
-            $debug = debug_backtrace(true);
-            d($debug[0]['file'] . ' ' . $debug[0]['line']);
-            d($debug[1]['file'] . ' ' . $debug[1]['line']);
-            d($debug[2]['file'] . ' ' . $debug[2]['line']);
-            throw new Exception('PLease configure project.log.name or provide a name');
+            throw new Exception('PLease configure project.log.debug or provide a name');
         }
         $name = ucfirst($name);
         if(array_key_exists($name, $this->logger)){
