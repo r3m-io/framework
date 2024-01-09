@@ -512,9 +512,6 @@ class Autoload {
                     continue;
                 }
                 $item['file'] = false;
-                if($logger_error){
-                    $object->logger($logger_error)->error('', [$load, $item ]);
-                }
                 if (str_starts_with($load, $item['prefix'])) {
                     $item['file'] =
                     trim(substr($load, strlen($item['prefix'])),'\\');
