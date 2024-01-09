@@ -163,16 +163,16 @@ class Event extends Main {
                                     if($object->config('project.log.error')){
                                         $object->logger($object->config('project.log.error'))->error('LocateException', [ $route, (string) $exception ]);
                                     }
-                                    elseif($object->config('project.log.name')){
-                                        $object->logger($object->config('project.log.name'))->error('LocateException', [ $route, (string) $exception ]);
+                                    elseif($object->config('project.log.app')){
+                                        $object->logger($object->config('project.log.app'))->error('LocateException', [ $route, (string) $exception ]);
                                     }
                                 }
                                 catch(Exception $exception){
                                     if($object->config('project.log.error')){
                                         $object->logger($object->config('project.log.error'))->error('Exception', [ $route, (string) $exception ]);
                                     }
-                                    elseif($object->config('project.log.name')){
-                                        $object->logger($object->config('project.log.name'))->error('Exception', [ $route, (string) $exception ]);
+                                    elseif($object->config('project.log.app')){
+                                        $object->logger($object->config('project.log.app'))->error('Exception', [ $route, (string) $exception ]);
                                     }
                                 }
                             }

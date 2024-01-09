@@ -31,7 +31,8 @@ class Logger {
                     property_exists($record, 'default') &&
                     !empty($record->default)
                 ){
-                    $object->config('project.log.name', $name);
+                    //disabled strange setting, use app as default
+//                    $object->config('project.log.name', $name);
                 }
                 if(
                     property_exists($record, 'is') &&
@@ -188,7 +189,9 @@ class Logger {
                                 $object->config('project.log.' . $logName, $withName);
                             }
                             $object->logger($channel->getName(), $channel);
-                            $object->logger($channel->getName())->info('Channel initialised.', [$withName]);
+                            if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
+                                $object->logger($channel->getName())->info('Channel initialised.', [$withName]);
+                            }
                         }
                     }
                 }
@@ -203,7 +206,7 @@ class Logger {
     {
         $object = App::instance();
         if(empty($channel)){
-            $channel = $object->config('project.log.name');
+            $channel = $object->config('project.log.app');
         } else {
             $channel = ucfirst($channel);
         }
@@ -237,7 +240,7 @@ class Logger {
     {
         $object = App::instance();
         if(empty($channel)){
-            $channel = $object->config('project.log.name');
+            $channel = $object->config('project.log.debug');
         } else {
             $channel = ucfirst($channel);
         }
@@ -285,7 +288,7 @@ class Logger {
     {
         $object = App::instance();
         if(empty($channel)){
-            $channel = $object->config('project.log.name');
+            $channel = $object->config('project.log.app');
         } else {
             $channel = ucfirst($channel);
         }
@@ -301,7 +304,7 @@ class Logger {
     {
         $object = App::instance();
         if(empty($channel)){
-            $channel = $object->config('project.log.name');
+            $channel = $object->config('project.log.app');
         } else {
             $channel = ucfirst($channel);
         }
@@ -317,7 +320,7 @@ class Logger {
     {
         $object = App::instance();
         if(empty($channel)){
-            $channel = $object->config('project.log.name');
+            $channel = $object->config('project.log.app');
         } else {
             $channel = ucfirst($channel);
         }

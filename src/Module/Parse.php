@@ -506,8 +506,13 @@ class Parse {
                     $string = Literal::restore($storage, $string);
                 }
                 $storage->data('delete', 'this');
-                if($this->object()->config('project.log.name')){
-                    $this->object->logger($this->object()->config('project.log.name'))->info('cache file: ' . $url . ' mtime: ' . $mtime);
+                if(
+                    $this->object()->config('framework.environment') === Config::MODE_DEVELOPMENT &&
+                    $this->object()->config('project.log.debug')
+                ){
+                    $this->object->logger($this->object()->config('project.log.debug'))
+                        ->info('cache file: ' . $url . ' mtime: ' . $mtime)
+                    ;
                 }
                 return $string;
             }
