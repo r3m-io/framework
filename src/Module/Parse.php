@@ -340,6 +340,7 @@ class Parse {
             }
             $string_object = Core::deep_clone($string);
             $parentKey = $this->key;
+            d($string_object);
             foreach($string_object as $key => $value){
                 if(
                     $this->useThis() === true &&
