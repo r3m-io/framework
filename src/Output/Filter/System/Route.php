@@ -16,7 +16,6 @@ class Route extends Controller {
             !empty($response) &&
             is_array($response)
         ){
-            d($response);
             foreach($response as $nr => $record){
                 if(
                     is_array($record) &&

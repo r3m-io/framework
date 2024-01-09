@@ -1189,7 +1189,6 @@ class Route extends Data {
                 is_array($response) &&
                 array_key_exists('list', $response)
             ){
-                d($response);
                 if(is_array($response['list'])){
                     foreach($response['list'] as $name => $record){
                         $record = Route::item_path($object, $record);
