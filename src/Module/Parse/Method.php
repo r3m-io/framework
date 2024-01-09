@@ -27,7 +27,6 @@ class Method {
         if($record['type'] != Token::TYPE_METHOD){
             return $record;
         }
-        d($record);
         $attribute = '';
         if(
             !array_key_exists('attribute', $record['method'])
@@ -331,7 +330,6 @@ class Method {
             $record['value'] = $result;
             $record['type'] = Token::TYPE_CODE;
         }
-        d($record);
         return $record;
     }
 
