@@ -296,7 +296,24 @@ class Parse {
      */
     public function compile($string='', $data=[], $storage=null, $depth=null, $is_debug=false): mixed
     {
-        if(($string === null || $string === '')){
+        $type = gettype($string);
+        if(
+            $string === null ||
+            $string === '' ||
+            $type === 'boolean' ||
+            $type === 'integer' ||
+            $type === 'double' ||
+            $type === 'resource' ||
+            $type === 'unknown type' ||
+            (
+                $type === 'array' &&
+                empty($string)
+            ) ||
+            (
+                $type === 'object' &&
+                empty((array) $string)
+            )
+        ){
             return $string;
         }
         $object = $this->object();
@@ -308,13 +325,13 @@ class Parse {
         } else {
             $storage->data($data);
         }
-        if(is_array($string)){
+        if($type === 'array'){
             foreach($string as $key => $value){
                 $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
             }
             return $string;
         }
-        elseif(is_object($string)){
+        elseif($type === 'object'){
             $reserved_keys = [];
             if($this->useThis() === true){
                 $source = $storage->data('r3m.io.parse.view.source');
@@ -389,7 +406,7 @@ class Parse {
             }
             return $string;
         }
-        elseif(stristr($string, '{') === false){
+        elseif($type === 'string' && stristr($string, '{') === false){
             d($string);
             return $string;
         } else {
