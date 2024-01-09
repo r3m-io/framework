@@ -667,7 +667,6 @@ class Route extends Data {
             return $select;
         }
         $current = false;
-        d($data);
         foreach($data as $name => $record){
             if(!is_object($record)){
                 continue;
@@ -679,7 +678,6 @@ class Route extends Data {
                 continue;
             }
             $match = Route::is_match($object, $record, $select);
-            d($match);
             if($match === true){
                 $current = $record;
                 $current->name = $name;
