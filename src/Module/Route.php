@@ -1123,7 +1123,7 @@ class Route extends Data {
                             'method' => 'CLI',
                         ],
                         'sort' => [
-                            'options.priority' => 'ASC',
+                            'priority' => 'ASC',
                             'name' => 'ASC',
                         ],
                         'limit' => '*',
@@ -1173,7 +1173,7 @@ class Route extends Data {
                         ]
                     ],
                     'sort' => [
-                        'options.priority' => 'ASC',
+                        'priority' => 'ASC',
                         'name' => 'ASC',
                     ],
                     'limit' => '*',
