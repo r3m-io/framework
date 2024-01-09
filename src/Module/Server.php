@@ -129,6 +129,8 @@ class Server {
         } else {
             return false;
         }
+        d($origin);
+        d($object->config('domain.url'));
         $host_list = $object->config('server.cors.domain');
         if(is_array($host_list)){
             foreach($host_list as $host){
