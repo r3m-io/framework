@@ -327,7 +327,28 @@ class Parse {
         }
         if($type === 'array'){
             foreach($string as $key => $value){
-                $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
+                $value_type = gettype($value);
+                if(
+                    $value === null ||
+                    $value === '' ||
+                    $value_type === 'boolean' ||
+                    $value_type === 'integer' ||
+                    $value_type === 'double' ||
+                    $value_type === 'resource' ||
+                    $value_type === 'unknown type' ||
+                    (
+                        $value_type === 'array' &&
+                        empty($value)
+                    ) ||
+                    (
+                        $value_type === 'object' &&
+                        empty((array) $value)
+                    )
+                ){
+                    $string[$key] = $value;
+                } else {
+                    $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
+                }
             }
             return $string;
         }
@@ -376,8 +397,29 @@ class Parse {
                     $this->key = $key;
                     $attribute = $this->object()->config('parse.read.object.this.attribute');
                     $string->{$attribute} = $key;
-                    $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
-                    $string->{$key} = $value;
+                    $value_type = gettype($value);
+                    if(
+                        $value === null ||
+                        $value === '' ||
+                        $value_type === 'boolean' ||
+                        $value_type === 'integer' ||
+                        $value_type === 'double' ||
+                        $value_type === 'resource' ||
+                        $value_type === 'unknown type' ||
+                        (
+                            $value_type === 'array' &&
+                            empty($value)
+                        ) ||
+                        (
+                            $value_type === 'object' &&
+                            empty((array) $value)
+                        )
+                    ){
+                        $string->{$key} = $value;
+                    } else {
+                        $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
+                        $string->{$key} = $value;
+                    }
                 } catch (Exception | ParseError $exception){
                     Event::trigger($object, 'parse.compile.exception', [
                         'string' => $string,
