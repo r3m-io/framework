@@ -65,7 +65,7 @@ class Database {
      */
     public static function connect(App $object, $config, $connection=[]): EntityManager
     {
-        $connection = Core::object($connection, CORE::OBJECT_OBJECT);
+        $connection = Core::object($connection, Core::OBJECT_OBJECT);
         if(property_exists($connection, 'path')){
             $parameters = [];
             $parameters[] = $connection->path;
@@ -102,7 +102,7 @@ class Database {
                 'file' => $connection->path
             ]);
         }
-        $connection = Core::object($connection, CORE::OBJECT_ARRAY);
+        $connection = Core::object($connection, Core::OBJECT_ARRAY);
         $connection = DriverManager::getConnection($connection, $config, new EventManager());
         return EntityManager::create($connection, $config);
     }
