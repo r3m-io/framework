@@ -8,7 +8,7 @@
  * @changeLog
  *  -    all
  */
-namespace R3m\Io\Cli\RamDisk\Controller;
+namespace R3m\Io\Cli\Ramdisk\Controller;
 
 use R3m\Io\App;
 
@@ -26,10 +26,10 @@ class Ramdisk extends Controller {
     const DIR = __DIR__;
     const NAME = 'Ramdisk';
     const INFO = [
-        '{{binary()}} ramdisk clear                  | RamDisk clear',
-        '{{binary()}} ramdisk mount <size>           | RamDisk allocation',
-        '{{binary()}} ramdisk speedtest              | RamDisk speedtest',
-        '{{binary()}} ramdisk unmount                | RamDisk unmount'
+        '{{binary()}} ramdisk clear                  | Ramdisk clear',
+        '{{binary()}} ramdisk mount <size>           | Ramdisk allocation',
+        '{{binary()}} ramdisk speedtest              | Ramdisk speedtest',
+        '{{binary()}} ramdisk unmount                | Ramdisk unmount'
     ];
 
     /**
@@ -47,7 +47,7 @@ class Ramdisk extends Controller {
                 case 'unmount':
                 case 'speedtest':
                 case 'clear':
-                    $name = RamDisk::name(strtolower($command), RamDisk::NAME);
+                    $name = Ramdisk::name(strtolower($command), Ramdisk::NAME);
                 break;
                 default:
                     $exception = new Exception('Unknown ramdisk command...');
@@ -58,8 +58,8 @@ class Ramdisk extends Controller {
                     throw $exception;
             }
             if($name){
-                $url = RamDisk::locate($object, $name);
-                $response = RamDisk::response($object, $url);
+                $url = Ramdisk::locate($object, $name);
+                $response = Ramdisk::response($object, $url);
                 Event::trigger($object, 'cli.' . strtolower(Ramdisk::NAME) . '.' . strtolower($command), [
                     'name' => $name,
                     'url' => $url
