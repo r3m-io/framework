@@ -201,5 +201,6 @@ class Server {
                 return $explode[1];
             }
         }
+        return null;
     }
 }
