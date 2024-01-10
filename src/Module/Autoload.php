@@ -501,7 +501,7 @@ class Autoload {
             ;
         }
         if(!Dir::is($dir_temp)){
-            Dir::create($dir_temp, DIR::CHMOD);
+            Dir::create($dir_temp, Dir::CHMOD);
         }
         if(!empty($prefixList)){
             foreach($prefixList as $nr => $item){
