@@ -838,6 +838,7 @@ class Handler {
         } else {
             return $_SESSION;
         }
+        return null;
     }
 
     public static function cookie($attribute=null, $value=null, $duration=null): mixed

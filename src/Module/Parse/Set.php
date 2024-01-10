@@ -64,6 +64,7 @@ class Set {
                 return $nr;
             }
         }
+        return null;
     }
 
     public static function replace($token=[], $set=[], $target=0): array
