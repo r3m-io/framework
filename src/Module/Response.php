@@ -174,11 +174,11 @@ class Response {
                         $status <= Response::STATUS_HTTP_VERSION_NOT_SUPPORTED
                     )
                 ){
-                    echo CLi::tput('color', Cli::COLOR_RED);
+                    echo Cli::tput('color', Cli::COLOR_RED);
                     echo 'ERROR' . PHP_EOL;
                     echo str_repeat('_', Cli::tput('width')) . PHP_EOL;
                     echo $data;
-                    echo CLi::tput('reset');
+                    echo Cli::tput('reset');
                 } else {
                     echo $data;
                 }
