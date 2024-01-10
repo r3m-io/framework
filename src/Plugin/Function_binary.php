@@ -10,7 +10,11 @@
  */
 use R3m\Io\Module\Parse;
 use R3m\Io\Module\Data;
+use R3m\Io\Module\Core;
 
+/**
+ * @throws Exception
+ */
 function function_binary(Parse $parse, Data $data){
    $object = $parse->object();
    return Core::binary($object);

@@ -15,11 +15,11 @@ use R3m\Io\Module\Data;
 
 use R3m\Io\Exception\UrlEmptyException;
 
-function function_redirect(Parse $parse, Data $data, $url=null){
+function function_redirect(Parse $parse, Data $data, string $url=null): ?string{
     try {
-        return Core::redirect($url);
+        Core::redirect($url);
     } catch(Exception | UrlEmptyException $exception){
         return $exception->getMessage();
     }
-
+    return null;
 }

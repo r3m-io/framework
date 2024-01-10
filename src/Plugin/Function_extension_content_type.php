@@ -11,10 +11,13 @@
 use R3m\Io\Module\Parse;
 use R3m\Io\Module\Data;
 
-function function_extension_content_type(Parse $parse, Data $data, $extension=''){
+/**
+ * @throws Exception
+ */
+function function_extension_content_type(Parse $parse, Data $data, string $extension=''){
     $object = $parse->object();
     if(substr($extension,0, 1) === '.'){
         $extension = substr($extension, 1);
     }
-    return $object->config('contentType.' . strtololwer($extension));
+    return $object->config('contentType.' . strtolower($extension));
 }

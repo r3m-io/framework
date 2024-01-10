@@ -10,7 +10,11 @@
  */
 use R3m\Io\Module\Parse;
 use R3m\Io\Module\Data;
+use R3m\Io\Module\Core;
 
+/**
+ * @throws \R3m\Io\Exception\ObjectException
+ */
 function modifier_object(Parse $parse, Data $data, $value){
     return Core::object($value, Core::OBJECT_OBJECT);
 }
