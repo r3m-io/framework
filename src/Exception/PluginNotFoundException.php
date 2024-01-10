@@ -15,6 +15,7 @@ use R3m\Io\Module\File;
 use R3m\Io\Module\Parse;
 
 use Exception;
+use Throwable;
 
 class PluginNotFoundException extends Exception {
 
