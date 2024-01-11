@@ -156,6 +156,7 @@ class Controller {
         $url = false;
         $name = null;
         $list = [];
+        $dir = '';
         if(
             !empty($template) &&
             is_object($template) &&

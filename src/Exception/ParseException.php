@@ -65,6 +65,7 @@ class ParseException extends Exception {
         $object = $this->object();
         $options = $this->getOptions();
         $result = [];
+        $read = false;
         $explode = explode('on line', $this->getMessage());
         if(array_key_exists(1, $explode)) {
             $tmp = explode(PHP_EOL, $explode[1]);

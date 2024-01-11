@@ -1484,6 +1484,7 @@ class Core
             return null;
         }
         $keys = [];
+        $keys_attribute_list = [];
         while(!empty($attributeList)){
             foreach($attributeList as $key_attribute => $value_attribute) {
                 $is_collect[] = $key_attribute;
