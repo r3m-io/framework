@@ -15,7 +15,7 @@ use R3m\Io\Module\Data;
 
 use R3m\Io\Exception\UrlEmptyException;
 
-function function_redirect(Parse $parse, Data $data, string $url=null): ?string{
+function function_redirect(Parse $parse, Data $data, $url=null): ?string{
     try {
         Core::redirect($url);
     } catch(Exception | UrlEmptyException $exception){

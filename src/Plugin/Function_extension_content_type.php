@@ -14,7 +14,8 @@ use R3m\Io\Module\Data;
 /**
  * @throws Exception
  */
-function function_extension_content_type(Parse $parse, Data $data, string $extension=''){
+function function_extension_content_type(Parse $parse, Data $data, $extension=''): ?string
+{
     $object = $parse->object();
     if(substr($extension,0, 1) === '.'){
         $extension = substr($extension, 1);
