@@ -12,10 +12,10 @@ use R3m\Io\Module\Parse;
 use R3m\Io\Module\Data;
 
 function function_array_sort(Parse $parse, Data $data, $list=[], $order='asc'){
-    if(!strtolower(substr($order, 0, 3)) === 'asc'){
-        rsort($list, SORT_NATURAL);
-    } else {
+    if(strtolower(substr($order, 0, 3)) === 'asc'){
         sort($list, SORT_NATURAL);
+    } else {
+        rsort($list, SORT_NATURAL);
     }
     return $list;
 }
