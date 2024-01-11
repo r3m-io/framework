@@ -136,6 +136,7 @@ class Operator {
             throw new Exception('Type cannot be empty');
         }
         $operator = [];
+        $previous= null;
         $previous_nr = null;
         foreach($token as $nr => $record){
             if(
@@ -169,6 +170,7 @@ class Operator {
         }
         $operator = [];
         $previous_nr = null;
+        $previous= null;
         foreach($token as $nr => $record){
             if(
                 $record['type'] == $type &&

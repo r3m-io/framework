@@ -272,6 +272,8 @@ class Variable {
     public static function define(Build $build, Data $storage, $token=[]): string
     {
         $variable = array_shift($token);
+        $object = $build->object();
+        $is_variable = false;
         if(!array_key_exists('variable', $variable)){
             return '';
         }
@@ -301,7 +303,15 @@ class Variable {
                     }
 
                 } else {
-                    ddd($value);
+                    $logger = $object->config('project.log.debug') ?? $object->config('project.log.app');
+                    if($logger){
+                        $object->logger($logger)->debug('Variable define error', [
+                            'value' => $value,
+                            'token' => $token,
+                            'variable' => $variable,
+                            'list' => $list,
+                        ]);
+                    }
                 }
             }
             if($is_variable){
