@@ -155,7 +155,10 @@ class Data extends Controller {
                     if($file->type === File::TYPE){
                         $file->extension = File::extension($file->name);
                         $file->basename = File::basename($file->name, '.' . $file->extension);
-                        if(empty($includes) && empty($excludes)){
+                        if(
+                            empty($includes) &&
+                            empty($excludes)
+                        ){
                             if($file->extension === 'zip'){
                                 $dir_data = $object->config('project.dir.data') .
                                     File::basename($file->name, $object->config('extension.zip')) .
@@ -187,7 +190,10 @@ class Data extends Controller {
                                 }
                             }
                         }
-                        elseif(!empty($includes) && empty($excludes)){
+                        elseif(
+                            !empty($includes) &&
+                            empty($excludes)
+                        ){
                             if(
                                 in_array(
                                     $file->basename,
@@ -221,7 +227,10 @@ class Data extends Controller {
                                 }
                             }
                         }
-                        elseif(empty($includes) && !empty($excludes)){
+                        elseif(
+                            empty($includes) &&
+                            !empty($excludes)
+                        ){
                             if(
                                 in_array(
                                     $file->basename,
@@ -257,7 +266,10 @@ class Data extends Controller {
                                 }
                             }
                         }
-                        elseif(!empty($includes) && !empty($excludes)){
+                        elseif(
+                            !empty($includes) &&
+                            !empty($excludes)
+                        ){
                             if(
                                 in_array(
                                     $file->basename,
