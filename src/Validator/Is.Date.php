@@ -30,9 +30,16 @@ function validate_is_date(App $object, $string='', $field='', $argument=''): boo
             if(count($explode) !== 2){
                 return false;
             }
-            $explode[0] = $explode[0] + 0;
-            $explode[1] = $explode[1] + 0;
-            if($explode[1] < 1 || $explode[1] > 12){
+            if(
+                is_numeric($explode[0]) &&
+                is_numeric($explode[1])
+            ){
+                $explode[0] = $explode[0] + 0;
+                $explode[1] = $explode[1] + 0;
+                if($explode[1] < 1 || $explode[1] > 12){
+                    return false;
+                }
+            } else {
                 return false;
             }
             $string = strtotime($string . '-01');
@@ -41,19 +48,33 @@ function validate_is_date(App $object, $string='', $field='', $argument=''): boo
             if(count($explode) !== 3){
                 return false;
             }
-            $explode[0] = $explode[0] + 0;
-            $explode[1] = $explode[1] + 0;
-            $explode[2] = $explode[2] + 0;
-            if($explode[1] < 1 || $explode[1] > 12){
-                return false;
-            }
-            if($explode[2] < 1 || $explode[2] > 31){
+            if(
+                is_numeric($explode[0]) &&
+                is_numeric($explode[1]) &&
+                is_numeric($explode[2])
+            ){
+                $explode[0] = $explode[0] + 0;
+                $explode[1] = $explode[1] + 0;
+                $explode[2] = $explode[2] + 0;
+                if($explode[1] < 1 || $explode[1] > 12){
+                    return false;
+                }
+                if($explode[2] < 1 || $explode[2] > 31){
+                    return false;
+                }
+            } else {
                 return false;
             }
             $string = strtotime($string);
             break;
         case 'y-m-d h':
             $explode_date = explode(' ', $string);
+            if(count($explode_date) !== 2){
+                return false;
+            }
+            if(!is_numeric($explode_date[1])){
+                return false;
+            }
             $explode_date[1] = $explode_date[1] + 0;
             if($explode_date[1] < 0 || $explode_date[1] > 23){
                 return false;
@@ -62,20 +83,40 @@ function validate_is_date(App $object, $string='', $field='', $argument=''): boo
             if(count($explode) !== 3){
                 return false;
             }
-            $explode[0] = $explode[0] + 0;
-            $explode[1] = $explode[1] + 0;
-            $explode[2] = $explode[2] + 0;
-            if($explode[1] < 1 || $explode[1] > 12){
-                return false;
-            }
-            if($explode[2] < 1 || $explode[2] > 31){
+            if(
+                is_numeric($explode[0]) &&
+                is_numeric($explode[1]) &&
+                is_numeric($explode[2])
+            ){
+                $explode[0] = $explode[0] + 0;
+                $explode[1] = $explode[1] + 0;
+                $explode[2] = $explode[2] + 0;
+                if($explode[1] < 1 || $explode[1] > 12){
+                    return false;
+                }
+                if($explode[2] < 1 || $explode[2] > 31){
+                    return false;
+                }
+            } else {
                 return false;
             }
             $string = strtotime($string . ':00:00');
             break;
         case 'y-m-d h:i':
             $explode_date = explode(' ', $string);
+            if(count($explode_date) !== 2){
+                return false;
+            }
             $temp = explode(':', $explode_date[1]);
+            if(count($temp) !== 2){
+                return false;
+            }
+            if(!is_numeric($temp[0])){
+                return false;
+            }
+            if(!is_numeric($temp[1])){
+                return false;
+            }
             $temp[0] = $temp[0] + 0;
             $temp[1] = $temp[1] + 0;
             if($temp[0] < 0 || $temp[0] > 23){
@@ -88,20 +129,43 @@ function validate_is_date(App $object, $string='', $field='', $argument=''): boo
             if(count($explode) !== 3){
                 return false;
             }
-            $explode[0] = $explode[0] + 0;
-            $explode[1] = $explode[1] + 0;
-            $explode[2] = $explode[2] + 0;
-            if($explode[1] < 1 || $explode[1] > 12){
-                return false;
-            }
-            if($explode[2] < 1 || $explode[2] > 31){
+            if(
+                is_numeric($explode[0]) &&
+                is_numeric($explode[1]) &&
+                is_numeric($explode[2])
+            ){
+                $explode[0] = $explode[0] + 0;
+                $explode[1] = $explode[1] + 0;
+                $explode[2] = $explode[2] + 0;
+                if($explode[1] < 1 || $explode[1] > 12){
+                    return false;
+                }
+                if($explode[2] < 1 || $explode[2] > 31){
+                    return false;
+                }
+            } else {
                 return false;
             }
             $string = strtotime($string . ':00');
             break;
         case 'y-m-d h:i:s':
             $explode_date = explode(' ', $string);
+            if(count($explode_date) !== 2){
+                return false;
+            }
             $temp = explode(':', $explode_date[1]);
+            if(count($temp) !== 3){
+                return false;
+            }
+            if(!is_numeric($temp[0])){
+                return false;
+            }
+            if(!is_numeric($temp[1])){
+                return false;
+            }
+            if(!is_numeric($temp[2])){
+                return false;
+            }
             $temp[0] = $temp[0] + 0;
             $temp[1] = $temp[1] + 0;
             $temp[2] = $temp[2] + 0;
@@ -118,13 +182,21 @@ function validate_is_date(App $object, $string='', $field='', $argument=''): boo
             if(count($explode) !== 3){
                 return false;
             }
-            $explode[0] = $explode[0] + 0;
-            $explode[1] = $explode[1] + 0;
-            $explode[2] = $explode[2] + 0;
-            if($explode[1] < 1 || $explode[1] > 12){
-                return false;
-            }
-            if($explode[2] < 1 || $explode[2] > 31){
+            if(
+                is_numeric($explode[0]) &&
+                is_numeric($explode[1]) &&
+                is_numeric($explode[2])
+            ){
+                $explode[0] = $explode[0] + 0;
+                $explode[1] = $explode[1] + 0;
+                $explode[2] = $explode[2] + 0;
+                if($explode[1] < 1 || $explode[1] > 12){
+                    return false;
+                }
+                if($explode[2] < 1 || $explode[2] > 31){
+                    return false;
+                }
+            } else {
                 return false;
             }
             $string = strtotime($string);
