@@ -6,9 +6,12 @@
 use R3m\Io\Module\Parse;
 use R3m\Io\Module\Data;
 
+/**
+ * @throws Exception
+ */
 function function_logger_info(Parse $parse, Data $data, $message=null, $context=[], $channel=''){
     $object = $parse->object();
-    if(empty($name)){
+    if(empty($channel)){
         $channel = $object->config('project.log.error');
     }
     if($channel){
