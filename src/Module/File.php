@@ -61,7 +61,6 @@ class File {
 
     public static function is_resource($url=''): bool
     {
-        $url = rtrim($url, '/');
         return is_resource($url);
     }
 
