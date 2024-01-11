@@ -307,6 +307,8 @@ class Sort extends Data {
 
     public function uuid_compare_ascending($a, $b): int
     {
+        $object_a = null;
+        $object_b = null;
         if(is_array($a)){
             $object_a = reset($a);
         }
