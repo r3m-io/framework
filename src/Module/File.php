@@ -304,10 +304,7 @@ class File {
                         return false;
                     }
                 }
-            } elseif(
-                !$exist &&
-                $overwrite === false
-            ){
+            } elseif($overwrite === false){
                 try {
                     return @rename($source, $destination);
                 } catch (Exception | ErrorException $exception){
