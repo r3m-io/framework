@@ -108,31 +108,31 @@ class Autoload {
                 Autoload::NAME .
                 $object->config('ds')
             ;
-            if($cache_dir){
-                $class_dir = $object->config('ramdisk.url') .
-                    $object->config(Config::POSIX_ID) .
-                    $object->config('ds') .
-                    'Class' .
-                    $object->config('ds')
-                ;
-                $object->config('autoload.cache.class', $class_dir);
-                $compile_dir = $object->config('ramdisk.url') .
-                    $object->config(Config::POSIX_ID) .
-                    $object->config('ds') .
-                    'Compile' .
-                    $object->config('ds')
-                ;
-                $object->config('autoload.cache.compile', $compile_dir);
-                if(!is_dir($object->config('ramdisk.url'))){
-                    mkdir($object->config('ramdisk.url'), 0750, true);
-                    if(empty($object->config(Config::POSIX_ID))){
-                        exec('chown www-data:www-data ' . $object->config('ramdisk.url'));
-                    }
-                }
-                if(!is_dir($class_dir)){
-                    mkdir($class_dir,0750, true);
+
+            $class_dir = $object->config('ramdisk.url') .
+                $object->config(Config::POSIX_ID) .
+                $object->config('ds') .
+                'Class' .
+                $object->config('ds')
+            ;
+            $object->config('autoload.cache.class', $class_dir);
+            $compile_dir = $object->config('ramdisk.url') .
+                $object->config(Config::POSIX_ID) .
+                $object->config('ds') .
+                'Compile' .
+                $object->config('ds')
+            ;
+            $object->config('autoload.cache.compile', $compile_dir);
+            if(!is_dir($object->config('ramdisk.url'))){
+                mkdir($object->config('ramdisk.url'), 0750, true);
+                if(empty($object->config(Config::POSIX_ID))){
+                    exec('chown www-data:www-data ' . $object->config('ramdisk.url'));
                 }
             }
+            if(!is_dir($class_dir)){
+                mkdir($class_dir,0750, true);
+            }
+
         }
         if(empty($cache_dir)){
             $cache_dir = $object->config('autoload.cache.directory');
