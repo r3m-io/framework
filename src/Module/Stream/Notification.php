@@ -115,149 +115,147 @@ class Notification {
                     is_array($stream->create->filter)
                 ) {
                     $filters = $stream->create->filter;
-                    if ($filters) {
-                        foreach ($filters as $filter) {
-                            if (
-                                property_exists($filter, 'document') &&
-                                !empty($filter->document) &&
-                                is_array($filter->document)
-                            ) {
-                                foreach ($filter->document as $uuid) {
-                                    $require = $dir_require . $uuid . '.stream';
-                                    if (File::exist($require)) {
-                                        $read = File::read($require);
-                                        $tree = Token::tree('{' . $read . '}', [
-                                            'with_whitespace' => true
-                                        ]);
-                                        $require_tokens = [];
-                                        foreach ($tree as $require_token) {
-                                            $require_tokens[] = $require_token;
-                                        }
-                                        if (
-                                            property_exists($filter, 'where') &&
-                                            !empty($filter->where) &&
-                                            is_array($filter->where)
-                                        ) {
-                                            foreach ($filter->where as $where) {
-                                                if (
-                                                    property_exists($where, 'token') &&
-                                                    $where->token === 'token' &&
-                                                    property_exists($where, 'operator')
-                                                ) {
-                                                    switch ($where->operator) {
-                                                        case '===' :
-                                                            foreach ($require_tokens as $nr => $record) {
-                                                                $record = Core::object($record, Core::OBJECT_ARRAY);
-                                                                $notification = [];
-                                                                if (array_key_exists($nr, $notifications)) {
-                                                                    $notification = $notifications[$nr];
-                                                                }
-                                                                $is_match = Token::compare($record, $notification, [
-                                                                    'operator' => '==='
-                                                                ]);
-                                                                if ($is_match) {
-
-                                                                } else {
-                                                                    unset($notifications[$nr]);
-                                                                    unset($require_tokens[$nr]);
-                                                                }
-                                                            }
-                                                            break;
-                                                        case '!==' :
-                                                            foreach ($require_tokens as $nr => $record) {
-                                                                $record = Core::object($record, Core::OBJECT_ARRAY);
-                                                                $notification = [];
-                                                                if (array_key_exists($nr, $notifications)) {
-                                                                    $notification = $notifications[$nr];
-                                                                }
-                                                                $is_match = Token::compare($record, $notification, [
-                                                                    'operator' => '==='
-                                                                ]);
-                                                                if ($is_match) {
-                                                                    unset($notifications[$nr]);
-                                                                    unset($require_tokens[$nr]);
-                                                                }
-                                                            }
-                                                            break;
-                                                    }
-                                                }
-                                                if (
-                                                    property_exists($where, 'key') &&
-                                                    property_exists($where, $where->key) &&
-                                                    property_exists($where, 'operator')
-                                                ) {
-                                                    $key = $where->key;
-                                                    switch ($where->operator) {
-                                                        case '===' :
-                                                            foreach ($require_tokens as $nr => $record) {
-                                                                $record = Core::object($record, Core::OBJECT_ARRAY);
-                                                                if ($record[$key] === $where->$key) {
-                                                                    unset($notifications[$nr]);
-                                                                    unset($require_tokens[$nr]);
-                                                                }
-                                                            }
-                                                            break;
-                                                        case '!==' :
-                                                            foreach ($require_tokens as $nr => $record) {
-                                                                $record = Core::object($record, Core::OBJECT_ARRAY);
-                                                                if ($record[$key] !== $where->$key) {
-                                                                    unset($notifications[$nr]);
-                                                                    unset($require_tokens[$nr]);
-                                                                }
-                                                            }
-                                                            break;
-                                                        case 'in.array' :
-                                                            foreach ($require_tokens as $nr => $record) {
-                                                                $record = Core::object($record, Core::OBJECT_ARRAY);
-                                                                if (
-                                                                    !in_array(
-                                                                        $record[$key],
-                                                                        $where->$key,
-                                                                        true
-                                                                    )
-                                                                ) {
-                                                                    unset($notifications[$nr]);
-                                                                    unset($require_tokens[$nr]);
-                                                                }
-                                                            }
-                                                            break;
-                                                        case '!in.array' :
-                                                            foreach ($require_tokens as $nr => $record) {
-                                                                $record = Core::object($record, Core::OBJECT_ARRAY);
-                                                                if (
-                                                                    in_array(
-                                                                        $record[$key],
-                                                                        $where->$key,
-                                                                        true
-                                                                    )
-                                                                ) {
-                                                                    unset($notifications[$nr]);
-                                                                    unset($require_tokens[$nr]);
-                                                                }
-                                                            }
-                                                            break;
-                                                        default:
-                                                            throw new Exception('Unknown operator in where filter...');
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        if (count($notifications) >= 1) {
-                                            //is_new = true
-                                        } else {
-                                            $is_new = false;
-                                            break 3;
-                                        }
-                                    } else {
-                                        $documents = $filter->document;
-                                        foreach ($documents as $nr => $document) {
-                                            if ($document === $uuid) {
-                                                unset($documents[$nr]);
-                                            }
-                                        }
-                                        $filter->document = $documents;
-                                        $config->write($url);
+                    foreach ($filters as $filter) {
+                        if (
+                            property_exists($filter, 'document') &&
+                            !empty($filter->document) &&
+                            is_array($filter->document)
+                        ) {
+                            foreach ($filter->document as $uuid) {
+                                $require = $dir_require . $uuid . '.stream';
+                                if (File::exist($require)) {
+                                    $read = File::read($require);
+                                    $tree = Token::tree('{' . $read . '}', [
+                                        'with_whitespace' => true
+                                    ]);
+                                    $require_tokens = [];
+                                    foreach ($tree as $require_token) {
+                                        $require_tokens[] = $require_token;
                                     }
+                                    if (
+                                        property_exists($filter, 'where') &&
+                                        !empty($filter->where) &&
+                                        is_array($filter->where)
+                                    ) {
+                                        foreach ($filter->where as $where) {
+                                            if (
+                                                property_exists($where, 'token') &&
+                                                $where->token === 'token' &&
+                                                property_exists($where, 'operator')
+                                            ) {
+                                                switch ($where->operator) {
+                                                    case '===' :
+                                                        foreach ($require_tokens as $nr => $record) {
+                                                            $record = Core::object($record, Core::OBJECT_ARRAY);
+                                                            $notification = [];
+                                                            if (array_key_exists($nr, $notifications)) {
+                                                                $notification = $notifications[$nr];
+                                                            }
+                                                            $is_match = Token::compare($record, $notification, [
+                                                                'operator' => '==='
+                                                            ]);
+                                                            if ($is_match) {
+
+                                                            } else {
+                                                                unset($notifications[$nr]);
+                                                                unset($require_tokens[$nr]);
+                                                            }
+                                                        }
+                                                        break;
+                                                    case '!==' :
+                                                        foreach ($require_tokens as $nr => $record) {
+                                                            $record = Core::object($record, Core::OBJECT_ARRAY);
+                                                            $notification = [];
+                                                            if (array_key_exists($nr, $notifications)) {
+                                                                $notification = $notifications[$nr];
+                                                            }
+                                                            $is_match = Token::compare($record, $notification, [
+                                                                'operator' => '==='
+                                                            ]);
+                                                            if ($is_match) {
+                                                                unset($notifications[$nr]);
+                                                                unset($require_tokens[$nr]);
+                                                            }
+                                                        }
+                                                        break;
+                                                }
+                                            }
+                                            if (
+                                                property_exists($where, 'key') &&
+                                                property_exists($where, $where->key) &&
+                                                property_exists($where, 'operator')
+                                            ) {
+                                                $key = $where->key;
+                                                switch ($where->operator) {
+                                                    case '===' :
+                                                        foreach ($require_tokens as $nr => $record) {
+                                                            $record = Core::object($record, Core::OBJECT_ARRAY);
+                                                            if ($record[$key] === $where->$key) {
+                                                                unset($notifications[$nr]);
+                                                                unset($require_tokens[$nr]);
+                                                            }
+                                                        }
+                                                        break;
+                                                    case '!==' :
+                                                        foreach ($require_tokens as $nr => $record) {
+                                                            $record = Core::object($record, Core::OBJECT_ARRAY);
+                                                            if ($record[$key] !== $where->$key) {
+                                                                unset($notifications[$nr]);
+                                                                unset($require_tokens[$nr]);
+                                                            }
+                                                        }
+                                                        break;
+                                                    case 'in.array' :
+                                                        foreach ($require_tokens as $nr => $record) {
+                                                            $record = Core::object($record, Core::OBJECT_ARRAY);
+                                                            if (
+                                                                !in_array(
+                                                                    $record[$key],
+                                                                    $where->$key,
+                                                                    true
+                                                                )
+                                                            ) {
+                                                                unset($notifications[$nr]);
+                                                                unset($require_tokens[$nr]);
+                                                            }
+                                                        }
+                                                        break;
+                                                    case '!in.array' :
+                                                        foreach ($require_tokens as $nr => $record) {
+                                                            $record = Core::object($record, Core::OBJECT_ARRAY);
+                                                            if (
+                                                                in_array(
+                                                                    $record[$key],
+                                                                    $where->$key,
+                                                                    true
+                                                                )
+                                                            ) {
+                                                                unset($notifications[$nr]);
+                                                                unset($require_tokens[$nr]);
+                                                            }
+                                                        }
+                                                        break;
+                                                    default:
+                                                        throw new Exception('Unknown operator in where filter...');
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (count($notifications) >= 1) {
+                                        //is_new = true
+                                    } else {
+                                        $is_new = false;
+                                        break 3;
+                                    }
+                                } else {
+                                    $documents = $filter->document;
+                                    foreach ($documents as $nr => $document) {
+                                        if ($document === $uuid) {
+                                            unset($documents[$nr]);
+                                        }
+                                    }
+                                    $filter->document = $documents;
+                                    $config->write($url);
                                 }
                             }
                         }
