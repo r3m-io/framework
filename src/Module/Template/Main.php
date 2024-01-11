@@ -94,7 +94,7 @@ class Main {
 	    return $variable1 - $variable2;
 	}
 
-	protected function assign_plus_equal($variable1=null, $variable2=null): int | float
+	protected function assign_plus_equal($variable1=null, $variable2=null): int | float | string
     {
         if(is_string($variable1)){
             return $variable1 . $variable2;
@@ -224,7 +224,7 @@ class Main {
 	    return $variable1 <= $variable2;
 	}
 
-	protected function value_smaller_smaller($variable1=null, $variable2=null): bool
+	protected function value_smaller_smaller($variable1=null, $variable2=null): bool | int
     {
 	    return $variable1 << $variable2;
 	}
@@ -239,7 +239,7 @@ class Main {
 	    return $variable1 >= $variable2;
 	}
 
-	protected function value_greater_greater($variable1=null, $variable2=null): bool
+	protected function value_greater_greater($variable1=null, $variable2=null): bool | int
     {
 	    return $variable1 >> $variable2;
 	}

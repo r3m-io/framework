@@ -37,18 +37,18 @@ class Data {
     }
 
     /**
-     * @example
+     * @param object $data
+     * @param string $parameter
+     * @param int $offset
+     * @return NULL|boolean|string
+     *@example
      *
      * cli: r3m test test2 test.csv
      * Data::parameter($object->data('request.input'), 'test2', -1)
      * App::parameter(App $object, 'test2', -1)
      *
-     * @param object $data
-     * @param string $parameter
-     * @param number $offset
-     * @return NULL|boolean|string
      */
-    public static function parameter($data, $parameter, $offset=0): mixed
+    public static function parameter(object $data, string $parameter, int $offset=0): null | bool | string
     {
         $result = null;
         $value = null;

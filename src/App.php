@@ -707,9 +707,9 @@ class App extends Data {
         return $this->data(App::REQUEST)->data($attribute, $value);        
     }
 
-    public static function parameter($object, $parameter='', $offset=0): mixed
+    public static function parameter(object $data, string $parameter, int $offset=0): mixed
     {
-        return parent::parameter($object->data(App::REQUEST)->data(), $parameter, $offset);
+        return parent::parameter($data->data(App::REQUEST)->data(), $parameter, $offset);
     }
 
     /**
@@ -959,7 +959,7 @@ class App extends Data {
     /**
      * @throws Exception
      */
-    public static function flags($object): stdClass
+    public static function flags($object): object
     {
         $flags = $object->data(App::FLAGS);
         if(empty($flags)){
@@ -972,7 +972,7 @@ class App extends Data {
     /**
      * @throws Exception
      */
-    public static function options($object): stdClass
+    public static function options($object): object
     {
         $options = $object->data(App::OPTIONS);
         if(empty($options)){

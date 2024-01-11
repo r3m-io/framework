@@ -98,7 +98,7 @@ class SharedMemory {
         }
     }
 
-    public static function write(App $object, $url, $data='', $permission=File::CHMOD): int
+    public static function write(App $object, $url, $data='', $permission=File::CHMOD): false | int
     {
         try {
             if(
