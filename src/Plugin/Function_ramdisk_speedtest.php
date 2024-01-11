@@ -22,8 +22,8 @@ function function_ramdisk_speedtest(Parse $parse, Data $data){
     if (!empty($id)){
         throw new Exception('RamDisk speedtest can only be run by root...');
     }
-    $url = $object->config('ramdisk.url') . 'speedtest';
-    if($url){
+    if($object->config('ramdisk.url')){
+        $url = $object->config('ramdisk.url') . 'speedtest';
         $command = 'dd if=/dev/zero of=' . $url . 'zero bs=4k count=100000';
         Core::execute($object, $command, $output, $notification);
         echo 'Write:' . PHP_EOL;
