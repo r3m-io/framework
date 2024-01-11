@@ -85,7 +85,10 @@ class Validate {
                 ){
                     $value = Core::object($value, Core::OBJECT_ARRAY);
                 }
-                if($is_optional && empty($value)){
+                if(
+                    $is_optional &&
+                    empty($value)
+                ){
                     $function = 'optional';
                     if(empty($test[$field][$function])){
                         $test[$field][$function] = [];

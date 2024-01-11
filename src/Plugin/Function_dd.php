@@ -25,7 +25,7 @@ function function_dd(Parse $parse, Data $data, $debug=null){
     ){
         $debug = $data->data();
     }
-    $trace = debug_backtrace(true);    
+    $trace = debug_backtrace(1);
     if(!defined('IS_CLI')){
         echo '<pre class="priya-debug">' . PHP_EOL;
     }

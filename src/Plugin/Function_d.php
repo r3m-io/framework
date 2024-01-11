@@ -12,7 +12,7 @@ use R3m\Io\Module\Parse;
 use R3m\Io\Module\Data;
 
 function function_d(Parse $parse, Data $data, $debug=null){
-    $trace = debug_backtrace(true);
+    $trace = debug_backtrace(1);
 //    ob_start();
     if(!defined('IS_CLI')){
         echo '<pre class="priya-debug">' . PHP_EOL;
