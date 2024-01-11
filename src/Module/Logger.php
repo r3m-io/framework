@@ -271,7 +271,7 @@ class Logger {
     public static function error($message=null, $context=[], $channel=''): void
     {
         $object = App::instance();
-        if(empty($name)){
+        if(empty($channel)){
             $channel = $object->config('project.log.error');
         } else {
             $channel = ucfirst($channel);

@@ -182,10 +182,7 @@ class Host {
         }
         if($include_scheme) {
             $scheme = Host::scheme();
-            $host = '';
-            if(isset($scheme) && isset($domain)){
-                $host = $scheme . '://' . $domain . '/';
-            }
+            $host = $scheme . '://' . $domain . '/';
         } else {
             $host = $domain;
         }
@@ -467,7 +464,7 @@ class Host {
             }
         }
         elseif(
-            !empty($map) &&
+            is_object($map) &&
             property_exists($map, 'destination') &&
             !empty($map->destination)
         ) {

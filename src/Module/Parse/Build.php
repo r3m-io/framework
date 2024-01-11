@@ -744,11 +744,12 @@ class Build {
                         $remove_newline = true;
                         break;
                     case Build::VARIABLE_DEFINE :
-                        $extra = '';
-                        $define = Variable::define($this, $storage, $selection, $extra);
+                        $define = Variable::define($this, $storage, $selection);
+                        /*
                         if($extra){
                             $run[] = $this->indent() . $extra . PHP_EOL;
                         }
+                        */
                         $run[] = $this->indent() . '$variable = ' . $define . ';';
                         $run[] = $this->indent() . 'if (is_object($variable)){ return $variable; }';
                         $run[] = $this->indent() . 'elseif (is_array($variable)){ return $variable; }';
@@ -1086,7 +1087,7 @@ class Build {
         return $this->parse;
     }
 
-    public function storage(object $object=null): ?object
+    public function storage(Data $object=null): ?Data
     {
         if($object !== null){
             $this->setStorage($object);
@@ -1094,12 +1095,12 @@ class Build {
         return $this->getStorage();
     }
 
-    private function setStorage(object $object=null): void
+    private function setStorage(Data $object=null): void
     {
         $this->storage = $object;
     }
 
-    private function getStorage(): ?object
+    private function getStorage(): ?Data
     {
         return $this->storage;
     }
@@ -1119,6 +1120,9 @@ class Build {
     {
         $object = $this->object();
         $storage = $this->storage();
+        if(!$storage){
+            return $string;
+        }
         $url = $storage->data('url');
         if($string !== null && $url === null){
             $key = sha1($string);
@@ -1234,6 +1238,9 @@ class Build {
     private function requireModifier($tree=[]): array
     {
         $storage = $this->storage();
+        if(!$storage){
+            return $tree;
+        }
         foreach($tree as $nr => $record){
             if(
                 $record['type'] == Token::TYPE_VARIABLE &&
@@ -1263,6 +1270,9 @@ class Build {
     private function requireFunction($tree=[]): array
     {
         $storage = $this->storage();
+        if(!$storage){
+            return $tree;
+        }
         foreach($tree as $nr => $record){
             if($record['type'] == Token::TYPE_METHOD){
                 $multi_line = Build::getPluginMultiline($this->object());

@@ -360,7 +360,6 @@ class Variable {
                 }
             }
         }
-//        d($define);
         return $define;
     }
 

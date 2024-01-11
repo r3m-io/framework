@@ -571,6 +571,7 @@ class Method {
         $break = '';
         $tag = '';
         $depth = 0;
+        $is_curly_close = null;
         foreach($tree as $nr => $record){
             if($nr == $key){
                 $is_collect = true;

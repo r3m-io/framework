@@ -868,7 +868,7 @@ class Handler {
                         elseif(
                             property_exists($value, 'parameters') &&
                             property_exists($value, 'value') &&
-                            is_array($value->paramaters)
+                            is_array($value->parameters)
                         ){
                             Handler::cookie($key, $value->value, $value->parameters);
                         }
@@ -878,9 +878,7 @@ class Handler {
                             Handler::cookie($key, $value->value);
                         }
                     }
-                    if(isset($_COOKIE)){
-                        return $_COOKIE;
-                    }
+                    return $_COOKIE;
                 }
             } else {
                 if ($value !== null) {
