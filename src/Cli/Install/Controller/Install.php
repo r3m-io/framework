@@ -24,11 +24,6 @@ use R3m\Io\Node\Model\Node;
 
 use Exception;
 
-use R3m\Io\Exception\LocateException;
-use R3m\Io\Exception\UrlEmptyException;
-use R3m\Io\Exception\UrlNotExistException;
-use R3m\Io\Exception\RouteExistException;
-
 class Install extends Controller {
     const DIR = __DIR__;
     const NAME = 'Install';
@@ -37,7 +32,8 @@ class Install extends Controller {
     /**
      * @throws Exception
      */
-    public static function run(App $object){
+    public static function run(App $object): void
+    {
         $id = $object->config(Config::POSIX_ID);
         $options = App::options($object);
         $key = App::parameter($object, 'install', 1);
@@ -68,14 +64,6 @@ class Install extends Controller {
             $url,
             'package.' . $key
         );
-        if(empty($package)){
-            $exception = new Exception('Package: ' . $key . PHP_EOL);
-            Event::trigger($object, 'cli.install', [
-                'key' => $key,
-                'exception' => $exception
-            ]);
-            throw $exception;
-        }
         if($package->has('composer')){
             Dir::change($object->config('project.dir.root'));
             Core::execute($object, $package->get('composer'), $output, $notification);
@@ -110,14 +98,9 @@ class Install extends Controller {
                     if(File::exist($copy->from)){
                         if(Dir::is($copy->from)){
                             Dir::create($copy->to, Dir::CHMOD);
-                            if($object->config(Config::POSIX_ID) === 0){
-                                $command = 'chown www-data:www-data ' . $copy->to;
-                                exec($command);
-                                if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
-                                    $command = 'chmod 777 ' . $copy->to;
-                                    exec($command);
-                                }
-                            }
+                            File::permission($object, [
+                                'to' => $copy->to
+                            ]);
                             $dir = new Dir();
                             $read = $dir->read($copy->from, true);
                             if(is_array($read)){
@@ -125,14 +108,9 @@ class Install extends Controller {
                                     if($file->type === Dir::TYPE){
                                         $create = str_replace($copy->from, $copy->to, $file->url);
                                         Dir::create($create, Dir::CHMOD);
-                                        if($object->config(Config::POSIX_ID) === 0){
-                                            $command = 'chown www-data:www-data ' . $create;
-                                            exec($command);
-                                        }
-                                        if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
-                                            $command = 'chmod 777 ' . $create;
-                                            exec($command);
-                                        }
+                                        File::permission($object, [
+                                            'create' => $create
+                                        ]);
                                     }
                                 }
                                 foreach($read as $file){
@@ -150,14 +128,9 @@ class Install extends Controller {
                                                 File::delete($to);
                                             }
                                             File::copy($file->url, $to);
-                                            if($object->config(Config::POSIX_ID) === 0){
-                                                $command = 'chown www-data:www-data ' . $to;
-                                                exec($command);
-                                            }
-                                            if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
-                                                $command = 'chmod 666 ' . $to;
-                                                exec($command);
-                                            }
+                                            File::permission($object, [
+                                                'to' => $to
+                                            ]);
                                         }
                                     }
                                 }
@@ -172,27 +145,13 @@ class Install extends Controller {
                     if(File::exist($copy->from)){
                         if(Dir::is($copy->from)){
                             Dir::create($copy->to, Dir::CHMOD);
-                            if($object->config(Config::POSIX_ID) === 0){
-                                $command = 'chown www-data:www-data ' . $copy->to;
-                                exec($command);
-                                if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
-                                    $command = 'chmod 777 ' . $copy->to;
-                                    exec($command);
-                                }
-                            }
+                            File::permission($object, ['to' => $copy->to]);
                             $dir = new Dir();
                             $read = $dir->read($copy->from, true);
                             foreach($read as $file){
                                 if($file->type === Dir::TYPE){
                                     Dir::create($file->url, Dir::CHMOD);
-                                    if($object->config(Config::POSIX_ID) === 0){
-                                        $command = 'chown www-data:www-data ' . $create;
-                                        exec($command);
-                                    }
-                                    if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
-                                        $command = 'chmod 777 ' . $create;
-                                        exec($command);
-                                    }
+                                    File::permission($object, ['url' => $file->url]);
                                 }
                             }
                             foreach($read as $file){
@@ -213,14 +172,7 @@ class Install extends Controller {
                                             File::delete($to);
                                         }
                                         File::copy($file->url, $to);
-                                        if($object->config(Config::POSIX_ID) === 0){
-                                            $command = 'chown www-data:www-data ' . $to;
-                                            exec($command);
-                                        }
-                                        if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
-                                            $command = 'chmod 666 ' . $to;
-                                            exec($command);
-                                        }
+                                        File::permission($object, ['to' => $to]);
                                     }
                                 }
                             }
