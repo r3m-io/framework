@@ -707,7 +707,7 @@ class App extends Data {
         return $this->data(App::REQUEST)->data($attribute, $value);        
     }
 
-    public static function parameter(object $data, string $parameter, int $offset=0): mixed
+    public static function parameter(object $data, string $parameter, int $offset=0): null|bool|string
     {
         return parent::parameter($data->data(App::REQUEST)->data(), $parameter, $offset);
     }
@@ -999,6 +999,9 @@ class App extends Data {
         return Handler::cookie($attribute, $value, $duration);
     }
 
+    /**
+     * @throws Exception
+     */
     public function upload($number=null): Data
     {
         if($number === null){
