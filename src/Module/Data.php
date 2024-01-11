@@ -52,11 +52,17 @@ class Data {
     {
         $result = null;
         $value = null;
-        if(is_string($parameter) && stristr($parameter, '\\')){
+        if(
+            is_string($parameter) &&
+            stristr($parameter, '\\')
+        ){
             //classname adjustment
             $parameter = basename(str_replace('\\', '//', $parameter));
         }
-        if(is_numeric($parameter) && is_object($data)){
+        if(
+            is_numeric($parameter) &&
+            is_object($data)
+        ){
             if(property_exists($data, $parameter)){
                 $param = $data->{$parameter};
                 $result = $param;
