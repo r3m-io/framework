@@ -579,7 +579,7 @@ class File {
         $e = str_contains(strtolower($calculation), 'e');
         $number = false;
         if (preg_match('/[0-9]+(?:\.[0-9]+)?/', $calculation, $matches)) {
-            $number = $matches[0];
+            $number = (float) $matches[0];
         }
         if($number === false){
             return 0;
