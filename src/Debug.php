@@ -8,6 +8,9 @@
  * @changeLog
  *  -    all
  */
+
+use JetBrains\PhpStorm\NoReturn;
+
 if(!function_exists('d')){
     function d($data=null): void
     {
@@ -24,6 +27,7 @@ if(!function_exists('d')){
 }
 
 if(!function_exists('dd')){
+    #[NoReturn]
     function dd($data=null): void
     {
         $trace = debug_backtrace(1);
@@ -40,6 +44,7 @@ if(!function_exists('dd')){
 }
 
 if(!function_exists('ddd')){
+    #[NoReturn]
     function ddd($data=null): void
     {
         $trace = debug_backtrace(1);
