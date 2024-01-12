@@ -90,7 +90,7 @@ class Cli {
         return exec('tput lines');
     }
 
-    public static function tput($tput='', $arguments=[]): string
+    public static function tput($tput='', $arguments=[]): int | string
     {
         if(!is_array($arguments)){
             $arguments = (array) $arguments;
