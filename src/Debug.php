@@ -9,8 +9,9 @@
  *  -    all
  */
 if(!function_exists('d')){
-    function d($data=null){
-        $trace = debug_backtrace(true);
+    function d($data=null): void
+    {
+        $trace = debug_backtrace(1);
         if(!defined('IS_CLI')){
             echo '<pre class="priya-debug">' . PHP_EOL;
         }
@@ -23,8 +24,9 @@ if(!function_exists('d')){
 }
 
 if(!function_exists('dd')){
-    function dd($data=null){
-        $trace = debug_backtrace(true);
+    function dd($data=null): void
+    {
+        $trace = debug_backtrace(1);
         if(!defined('IS_CLI')){
             echo '<pre class="priya-debug">' . PHP_EOL;
         }
@@ -38,8 +40,9 @@ if(!function_exists('dd')){
 }
 
 if(!function_exists('ddd')){
-    function ddd($data=null){
-        $trace = debug_backtrace(true);
+    function ddd($data=null): void
+    {
+        $trace = debug_backtrace(1);
         if(!defined('IS_CLI')){
             echo '<pre class="priya-debug">';
         }
