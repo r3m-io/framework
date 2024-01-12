@@ -460,7 +460,7 @@ class Route extends Data {
             $input = Route::input($object);
             $select = new stdClass();
             $select->parameter = $input->data();
-            $key = 0;
+            $key = '0';
             if(property_exists($select->parameter, $key)){
                 $select->attribute = explode($object->config('ds'), $select->parameter->{$key});
             } else {
