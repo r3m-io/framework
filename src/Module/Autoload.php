@@ -675,7 +675,7 @@ class Autoload {
             }
             $object = new stdClass();
             $object->load = $load;
-            $debug = debug_backtrace(true);
+            $debug = debug_backtrace(1);
             $output = [];
             for($i=0; $i < 5; $i++){
                 if(!isset($debug[$i])){

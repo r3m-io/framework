@@ -546,33 +546,28 @@ class Data {
             $data = $this->data();
         }
         foreach($data as $key => $value){
-            if(
-                is_array($value) ||
-                is_object($value)
-            ){
+            if(is_scalar($value)){
+                if($prefix !== '') {
+                    $result->set($prefix . '.' . $key, $value);
+                } else {
+                    $result->set($key, $value);
+                }
+            } else {
                 foreach($value as $value_key => $value_value){
-                    if(
-                        is_array($value_value) ||
-                        is_object($value_key)
-                    ){
+                    if(is_scalar($value_value)){
+                        if($prefix !== '') {
+                            $result->set($prefix . '.' . $key . '.' . $value_key, $value_value);
+                        } else {
+                            $result->set($key . '.' . $value_key, $value_value);
+                        }
+                    } else {
                         if($prefix !== ''){
                             $this->patch_nested_key($value_value, $result, $prefix . '.' . $key . '.' . $value_key);
                         } else {
                             $this->patch_nested_key($value_value, $result, $key . '.' . $value_key);
                         }
                     }
-                    elseif($prefix !== '') {
-                        $result->set($prefix . '.' . $key . '.' . $value_key, $value_value);
-                    } else {
-                        $result->set($key . '.' . $value_key, $value_value);
-                    }
                 }
-            }
-            elseif($prefix !== '') {
-                $result->set($prefix . '.' . $key, $value);
-            }
-            else {
-                $result->set($key, $value);
             }
         }
         return $result->data();
