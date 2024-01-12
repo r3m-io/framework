@@ -48,7 +48,7 @@ class Data {
      * App::parameter(App $object, 'test2', -1)
      *
      */
-    public static function parameter(array|object $data, string $parameter, int $offset=0): null | bool | string
+    public static function parameter(array|object $data, string|int $parameter, int $offset=0): null | bool | string
     {
         $result = null;
         $value = null;
@@ -70,65 +70,61 @@ class Data {
                 $result = null;
             }
         } else {
-            if(
-                is_array($data) ||
-                is_object($data)
-            ){
-                foreach($data as $key => $param){
-                    if(is_numeric($key)){
-                        if(substr($param, 0, 2) === '-'){
-                            continue;
-                        }
-                        $param = rtrim($param);
-                        $tmp = explode('=', $param);
-                        if(count($tmp) > 1){
-                            $param = array_shift($tmp);
-                            $value = implode('=', $tmp);
-                        }
-                        if(strtolower($param) == strtolower($parameter)){
-                            if($offset !== 0){
-                                if(property_exists($data, ($key + $offset))){
-                                    if(is_scalar($data->{($key + $offset)})){
-                                        $value = trim($data->{($key + $offset)});
-                                    } else {
-                                        $value = $data->{($key + $offset)};
-                                    }
+            foreach($data as $key => $param){
+                if(is_numeric($key)){
+                    if(substr($param, 0, 2) === '-'){
+                        continue;
+                    }
+                    $param = rtrim($param);
+                    $tmp = explode('=', $param);
+                    if(count($tmp) > 1){
+                        $param = array_shift($tmp);
+                        $value = implode('=', $tmp);
+                    }
+                    if(strtolower($param) == strtolower($parameter)){
+                        if($offset !== 0){
+                            if(property_exists($data, ($key + $offset))){
+                                if(is_scalar($data->{($key + $offset)})){
+                                    $value = trim($data->{($key + $offset)});
                                 } else {
-                                    $result = null;
-                                    break;
+                                    $value = $data->{($key + $offset)};
                                 }
-                            }
-                            if(isset($value) && $value !== null){
-                                $result = $value;
                             } else {
-                                $result = true;
-                                return $result;
+                                $result = null;
+                                break;
                             }
-                            break;
                         }
-                        $value = null;
-                    }
-                    elseif($key == $parameter){
-                        if($offset < 0){
-                            while($offset < 0){
-                                $param = prev($data);
-                                $offset++;
-                            }
-                            return $param;
-                        }
-                        elseif($offset == 0){
-                            return $param;
+                        if(isset($value) && $value !== null){
+                            $result = $value;
                         } else {
-                            while($offset > 0){
-                                $param = next($data);
-                                $offset--;
-                            }
-                            return $param;
+                            $result = true;
+                            return $result;
                         }
+                        break;
                     }
-                    $pointer = next($data);
+                    $value = null;
                 }
+                elseif($key == $parameter){
+                    if($offset < 0){
+                        while($offset < 0){
+                            $param = prev($data);
+                            $offset++;
+                        }
+                        return $param;
+                    }
+                    elseif($offset == 0){
+                        return $param;
+                    } else {
+                        while($offset > 0){
+                            $param = next($data);
+                            $offset--;
+                        }
+                        return $param;
+                    }
+                }
+                $pointer = next($data);
             }
+
         }
         if($result === null || is_bool($result)){
             return $result;

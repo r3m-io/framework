@@ -707,7 +707,7 @@ class App extends Data {
         return $this->data(App::REQUEST)->data($attribute, $value);        
     }
 
-    public static function parameter(object|array $data, string $parameter, int $offset=0): null|bool|string
+    public static function parameter(object|array $data, string|int $parameter, int $offset=0): null|bool|string
     {
         return parent::parameter($data->data(App::REQUEST)->data(), $parameter, $offset);
     }
@@ -959,7 +959,7 @@ class App extends Data {
     /**
      * @throws Exception
      */
-    public static function flags(App $object): object
+    public static function flags($object): object
     {
         $flags = $object->data(App::FLAGS);
         if(empty($flags)){
