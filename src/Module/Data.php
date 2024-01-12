@@ -83,11 +83,11 @@ class Data {
                     }
                     if(strtolower($param) == strtolower($parameter)){
                         if($offset !== 0){
-                            if(property_exists($data, ($key + $offset))){
+                            if(property_exists($data, (string) ($key + $offset))){
                                 if(is_scalar($data->{($key + $offset)})){
-                                    $value = trim($data->{($key + $offset)});
+                                    $value = trim($data->{(string) ($key + $offset)});
                                 } else {
-                                    $value = $data->{($key + $offset)};
+                                    $value = $data->{(string) ($key + $offset)};
                                 }
                             } else {
                                 $result = null;
