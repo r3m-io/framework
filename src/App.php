@@ -715,7 +715,7 @@ class App extends Data {
     /**
      * @throws Exception
      */
-    private static function flags_options($object): void
+    private static function flags_options(App $object): void
     {
         $data = $object->data(App::REQUEST)->data();
         $options = (object) [];
@@ -959,7 +959,7 @@ class App extends Data {
     /**
      * @throws Exception
      */
-    public static function flags($object): object
+    public static function flags(App $object): object
     {
         $flags = $object->data(App::FLAGS);
         if(empty($flags)){

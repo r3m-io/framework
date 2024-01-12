@@ -176,7 +176,7 @@ class Response {
                 ){
                     echo Cli::tput('color', Cli::COLOR_RED);
                     echo 'ERROR' . PHP_EOL;
-                    echo str_repeat('_', Cli::tput('width')) . PHP_EOL;
+                    echo str_repeat('_', (int) Cli::tput('width')) . PHP_EOL;
                     echo $data;
                     echo Cli::tput('reset');
                 } else {
