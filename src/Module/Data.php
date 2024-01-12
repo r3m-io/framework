@@ -48,7 +48,7 @@ class Data {
      * App::parameter(App $object, 'test2', -1)
      *
      */
-    public static function parameter(array|object $data, string|int $parameter, int $offset=0): null | bool | string
+    public static function parameter($data, $parameter, $offset=0): null | bool | string
     {
         $result = null;
         $value = null;
