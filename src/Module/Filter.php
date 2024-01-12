@@ -596,19 +596,19 @@ class Filter extends Data {
                                 }
                                 elseif(is_array($value)){
                                     foreach($value as $value_key => $value_value){
+                                        $record_value = (string) $record['value'];
                                         if($value_value === ''){
                                             continue;
                                         }
                                         elseif(
                                             is_string($value_value) &&
-                                            is_string($record['value']) &&
                                             stristr(
                                                 substr(
                                                     $value_value,
                                                     0,
-                                                    strlen($record['value'])
+                                                    strlen($record_value)
                                                 ),
-                                                $record['value']
+                                                $record_value
                                             ) !== false
                                         ) {
                                             $skip = true;
