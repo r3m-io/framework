@@ -601,6 +601,7 @@ class Filter extends Data {
                                         }
                                         elseif(
                                             is_string($value_value) &&
+                                            is_string($record['value']) &&
                                             stristr(
                                                 substr(
                                                     $value_value,
