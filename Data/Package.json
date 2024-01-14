@@ -27,6 +27,62 @@
         ]
       }
     },
+    "r3m_io/boot" : {
+      "composer" : "composer require {{$this.#key}}:dev-main",
+      "route" : [
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
+      ],
+      "copy" : [
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Package/",
+          "to" : "{{package.dir(config('project.dir.package'), $this.#parentNode.#key)}}",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Node/",
+          "to" : "{{config('project.dir.node')}}",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Data/",
+          "to" : "{{config('project.dir.data')}}",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Event/",
+          "to" : "{{config('project.dir.event')}}",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Middleware/",
+          "to" : "{{config('project.dir.middleware')}}",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Output/Filter/",
+          "to" : "{{config('project.dir.output.filter')}}",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Validate/",
+          "to" : "{{config('project.dir.validate')}}",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Validator/",
+          "to" : "{{config('project.dir.validator')}}",
+          "recursive": true
+        }
+      ],
+      "command" : [
+        "{{binary()}} {{$this.#key}} setup"
+      ],
+      "update" : {
+        "command" : [
+          "{{binary()}} {{$this.#parentNode.#key}} update"
+        ]
+      }
+    },
     "r3m_io/config" : {
       "composer" : "composer require {{$this.#key}}:dev-main",
       "route" : [
@@ -202,37 +258,6 @@
         {
           "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Data/Node/",
           "to" : "{{config('project.dir.data')}}Node/",
-          "recursive": true
-        }
-      ],
-      "command" : [
-        "{{binary()}} {{$this.#key}} setup"
-      ],
-      "update" : {
-        "command" : [
-          "{{binary()}} {{$this.#parentNode.#key}} update"
-        ]
-      }
-    },
-    "r3m_io/boot" : {
-      "composer" : "composer require {{$this.#key}}:dev-main",
-      "route" : [
-        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
-      ],
-      "copy" : [
-        {
-          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Package/",
-          "to" : "{{package.dir(config('project.dir.package'), $this.#parentNode.#key)}}",
-          "recursive": true
-        },
-        {
-          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Node/",
-          "to" : "{{config('project.dir.node')}}",
-          "recursive": true
-        },
-        {
-          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Event/",
-          "to" : "{{config('project.dir.event')}}",
           "recursive": true
         }
       ],
