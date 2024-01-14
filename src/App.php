@@ -168,7 +168,7 @@ class App extends Data {
         Handler::request_configure($object);
         App::configure($object);
         Route::configure($object);
-        ddd($object->data(App::ROUTE));
+        d($object->data(App::ROUTE));
         $destination = false;
         $logger = false;
         if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
