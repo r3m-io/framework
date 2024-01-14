@@ -1161,6 +1161,7 @@ class Route extends Data {
             $object->data(App::ROUTE, $route);
         }
         elseif(!empty($host)) {
+            ddd($host);
             $node = new Node($object);
             $response = $node->list(
                 Route::OBJECT,
