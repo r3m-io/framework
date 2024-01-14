@@ -1108,10 +1108,7 @@ class Route extends Data {
             $route = new Route();
             $object->data(App::ROUTE, $route);
         }
-        d($object->config('domain'));
-        d($object->config('host'));
         $host = strtolower($object->config('host.name'));
-        d($host);
         if(empty($host) && Core::is_cli()){
             Route::framework($object);
             $node = new Node($object);
@@ -1164,7 +1161,6 @@ class Route extends Data {
             $object->data(App::ROUTE, $route);
         }
         elseif(!empty($host)) {
-            ddd($host);
             $node = new Node($object);
             $response = $node->list(
                 Route::OBJECT,
