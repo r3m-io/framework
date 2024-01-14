@@ -116,8 +116,10 @@ function function_require(Parse $parse, Data $data, $url='', $storage=[]){
                 }
                 $data->data('link', array_merge($link, $data_link));
             }
+            d('1');
             return $compile;
         } else {
+            d('2');
             $source = $data->data('r3m.io.parse.view.source.url');
             $data->data('r3m.io.parse.view.source.url', $url);
             $parse->storage()->data('r3m.io.parse.view.source.mtime', $mtime);
@@ -127,6 +129,7 @@ function function_require(Parse $parse, Data $data, $url='', $storage=[]){
             return $result;
         }
     } else {
+        d('3');
         $text = 'Require: file not found: ' . $url . ' in template: ' . $data->data('r3m.io.parse.view.source.url');
         throw new Exception($text);
     }    
