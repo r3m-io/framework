@@ -129,7 +129,7 @@ function function_require(Parse $parse, Data $data, $url='', $storage=[]){
             return $result;
         }
     } else {
-        d('3');
+        d('Require: file not found: ' . $url . ' in template: ' . $data->data('r3m.io.parse.view.source.url'));
         $text = 'Require: file not found: ' . $url . ' in template: ' . $data->data('r3m.io.parse.view.source.url');
         throw new Exception($text);
     }    
