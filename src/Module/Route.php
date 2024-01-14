@@ -1109,9 +1109,9 @@ class Route extends Data {
             $object->data(App::ROUTE, $route);
         }
         d($object->config('domain'));
-        ddd($object->config('host'));
+        d($object->config('host'));
         $host = strtolower($object->config('host.name'));
-        ddd($host);
+        d($host);
         if(empty($host) && Core::is_cli()){
             Route::framework($object);
             $node = new Node($object);
