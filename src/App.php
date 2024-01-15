@@ -117,6 +117,7 @@ class App extends Data {
     {
         $info = 'Logger: App initialised.';
         if(App::is_cli() === false){
+            d($object->config('server'));
             $domains = $object->config('server.cors.domains');
             ddd($domains);
             if(!empty($domains)){
