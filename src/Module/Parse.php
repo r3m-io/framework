@@ -585,8 +585,14 @@ class Parse {
                 'url' => $url,
             ]);
 //            d($tree);
-            $tree = $build->require('function', $tree);
-            $tree = $build->require('modifier', $tree);
+            try {
+                $tree = $build->require('function', $tree);
+                $tree = $build->require('modifier', $tree);
+            }
+            catch (Exception $exception){
+                ddd($exception);
+            }
+
             $build_storage = $build->storage();
             $document = $build_storage->data('document');
             if(empty($document)){
