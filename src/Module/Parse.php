@@ -644,6 +644,7 @@ class Parse {
                     }
                 }
                 catch (Exception $exception){
+                    d($string);
                     d($exception);
                     throw  $exception;
                 }
