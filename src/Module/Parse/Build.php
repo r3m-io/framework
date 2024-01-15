@@ -178,6 +178,7 @@ class Build {
         $document[] = $this->indent(2) . '}';
         $document[] = $this->indent(2) . 'catch(Exception $exception){';
         $document[] = $this->indent(3) . 'ob_end_clean();';
+        $document[] = $this->indent(3) . 'd($exception);';
         $document[] = $this->indent(3) . 'throw $exception;';
         $document[] = $this->indent(2) . '}';
         $document[] = $this->indent(1) . '}';
