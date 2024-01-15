@@ -519,7 +519,7 @@ class Parse {
                     return $string;
                 }
                 catch (Exception $exception){
-                    return $string . (string) $exception;
+                    return $exception;
                 }
 
             }
@@ -631,12 +631,8 @@ class Parse {
                 }
             }
             catch (Exception $exception){
-                d($exception);
-                throw $exception;
+                return $exception;
             }
-
-//            d($document);
-
             $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
             $exists = class_exists($class);
             if($exists){
@@ -651,7 +647,7 @@ class Parse {
                     }
                 }
                 catch (Exception $exception){
-                    $string .= (string) $exception;
+                    return $exception;
                 }
             } else {
                 $exception = new Exception('Class ('. $class .') doesn\'t exist');
