@@ -554,11 +554,6 @@ class Build {
                     throw new Exception('Configure parse.dir.plugin');
                 }
                 if($exist === false){
-                    d('5');
-                    $debug = debug_backtrace(1);
-                    d($debug[0]['file'] . ':' . $debug[0]['line'] . ':' . $debug[0]['function']);
-                    d($debug[1]['file'] . ':' . $debug[1]['line'] . ':' . $debug[1]['function']);
-                    d($debug[2]['file'] . ':' . $debug[2]['line'] . ':' . $debug[2]['function']);
                     $text = $name . ' near ' . $record['value'] . ' on line: ' . $record['row'] . ' column: ' . $record['column'] . ' in: ' . $storage->data('source');
                     $exception = new PluginNotFoundException('Function not found: ' . $text, $dir_plugin);
                     Event::trigger($object, 'parse.build.plugin.not_found', [
