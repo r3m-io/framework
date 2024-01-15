@@ -598,15 +598,21 @@ class Parse {
             if(empty($document)){
                 $document = [];
             }
-            $document = $build->create('header', $tree, $document);
-            $document = $build->create('class', $tree, $document);
-            $build->indent(2);
-            $document = $build->document($storage, $tree, $document);
-            $document = $build->create('run', $tree, $document);
-            $document = $build->create('require', $tree, $document);
-            $document = $build->create('use', $tree, $document);
-            $document = $build->create('trait', $tree, $document);
-            d($document);
+            try {
+                $document = $build->create('header', $tree, $document);
+                $document = $build->create('class', $tree, $document);
+                $build->indent(2);
+                $document = $build->document($storage, $tree, $document);
+                $document = $build->create('run', $tree, $document);
+                $document = $build->create('require', $tree, $document);
+                $document = $build->create('use', $tree, $document);
+                $document = $build->create('trait', $tree, $document);
+            }
+            catch (Exception $exception){
+                ddd($exception);
+            }
+
+//            d($document);
             $write = $build->write($url, $document, $string);
             if($mtime !== null){
                 $touch = File::touch($url, $mtime);
