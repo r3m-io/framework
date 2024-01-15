@@ -316,6 +316,7 @@ class Parse {
         ){
             return $string;
         }
+        $original = $string;
         $object = $this->object();
         if($storage === null){            
             $storage = $this->storage(new Data());
@@ -495,26 +496,33 @@ class Parse {
             if($file_exist && $file_mtime === $mtime){
                 //cache file
                 $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
-                $template = new $class(new Parse($this->object()), $storage);
-                /*
-                if(empty($this->halt_literal())){
-                    $string = Literal::apply($storage, $string);
+                try {
+                    $template = new $class(new Parse($this->object()), $storage);
+                    /*
+                    if(empty($this->halt_literal())){
+                        $string = Literal::apply($storage, $string);
+                    }
+                    */
+                    $string = $template->run();
+                    if(empty($this->halt_literal())){
+                        $string = Literal::restore($storage, $string);
+                    }
+                    $storage->data('delete', 'this');
+                    if(
+                        $this->object()->config('framework.environment') === Config::MODE_DEVELOPMENT &&
+                        $this->object()->config('project.log.debug')
+                    ){
+                        $this->object->logger($this->object()->config('project.log.debug'))
+                            ->info('cache file: ' . $url . ' mtime: ' . $mtime)
+                        ;
+                    }
+                    return $string;
                 }
-                */
-                $string = $template->run();
-                if(empty($this->halt_literal())){
-                    $string = Literal::restore($storage, $string);
+                catch (Exception $exception){
+                    d($exception);
+                    return $string . (string) $exception;
                 }
-                $storage->data('delete', 'this');
-                if(
-                    $this->object()->config('framework.environment') === Config::MODE_DEVELOPMENT &&
-                    $this->object()->config('project.log.debug')
-                ){
-                    $this->object->logger($this->object()->config('project.log.debug'))
-                        ->info('cache file: ' . $url . ' mtime: ' . $mtime)
-                    ;
-                }
-                return $string;
+
             }
             elseif(File::exist($url) && File::mtime($url) !== $mtime){
                 Event::trigger($object, 'parse.compile.opcache.invalidate', [
