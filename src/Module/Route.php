@@ -164,6 +164,8 @@ class Route extends Data {
             }
             $get->path = $old_path;
         }
+        d($object->config('domain'));
+        d($object->config('host'));
         if($path == '/'){
             $url = $object->config('host.name');
         } else {
