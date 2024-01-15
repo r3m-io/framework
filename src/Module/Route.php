@@ -101,7 +101,7 @@ class Route extends Data {
         }
         $logger = false;
         if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
-            $logger = $object->logger($object->config('project.log.debug'));
+            $logger = $object->config('project.log.debug');
         }
         $logger_error = $object->config('project.log.error');
         $route = $object->data(App::ROUTE);
