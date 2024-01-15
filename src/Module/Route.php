@@ -129,9 +129,6 @@ class Route extends Data {
                 throw new Exception('path & url are empty');
             }
         }
-        if(empty($get)){
-            return false;
-        }
         $get->path = str_replace([
             '{{',
             '}}',
