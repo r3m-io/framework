@@ -602,6 +602,26 @@ class Parse {
                 $document = $build->create('require', $tree, $document);
                 $document = $build->create('use', $tree, $document);
                 $document = $build->create('trait', $tree, $document);
+                $write = $build->write($url, $document, $string);
+                if($mtime !== null){
+                    $touch = File::touch($url, $mtime);
+                    opcache_invalidate($url, true);
+                    if(opcache_is_script_cached($url) === false){
+                        $status = opcache_get_status(true);
+                        if($status !== false){
+                            opcache_compile_file($url);
+                            Event::trigger($object, 'parse.compile.opcache.file', [
+                                'string' => $string,
+                                'data' => $data,
+                                'storage' => $storage,
+                                'depth' => $depth,
+                                'url' => $url,
+                                'url_mtime' => $file_mtime,
+                                'mtime' => $mtime
+                            ]);
+                        }
+                    }
+                }
             }
             catch (Exception $exception){
                 d($exception);
@@ -609,26 +629,7 @@ class Parse {
             }
 
 //            d($document);
-            $write = $build->write($url, $document, $string);
-            if($mtime !== null){
-                $touch = File::touch($url, $mtime);
-                opcache_invalidate($url, true);
-                if(opcache_is_script_cached($url) === false){
-                    $status = opcache_get_status(true);
-                    if($status !== false){
-                        opcache_compile_file($url);
-                        Event::trigger($object, 'parse.compile.opcache.file', [
-                            'string' => $string,
-                            'data' => $data,
-                            'storage' => $storage,
-                            'depth' => $depth,
-                            'url' => $url,
-                            'url_mtime' => $file_mtime,
-                            'mtime' => $mtime
-                        ]);
-                    }
-                }
-            }
+
             $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
             $exists = class_exists($class);
             if($exists){
