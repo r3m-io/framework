@@ -171,9 +171,15 @@ class Build {
         $document[] = $this->indent(0) . $storage->data('placeholder.traituse');
         $document[] = '';
         $document[] = $this->indent(1) . 'public function run(){';
-        $document[] = $this->indent(2) . 'ob_start();';
+        $document[] = $this->indent(2) . 'try {';
+        $document[] = $this->indent(3) . 'ob_start();';
         $document[] = $this->indent(0) . $storage->data('placeholder.run');
-        $document[] = $this->indent(2) . 'return ob_get_clean();';
+        $document[] = $this->indent(3) . 'return ob_get_clean();';
+        $document[] = $this->indent(2) . '}';
+        $document[] = $this->indent(2) . 'catch(Exception $exception){';
+        $document[] = $this->indent(3) . 'ob_end_clean();';
+        $document[] = $this->indent(3) . 'throw $exception;';
+        $document[] = $this->indent(2) . '}';
         $document[] = $this->indent(1) . '}';
         $document[] = '';
         $document[] = $this->indent(0) . $storage->data('placeholder.function');
