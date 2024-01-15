@@ -588,17 +588,12 @@ class Parse {
             try {
                 $tree = $build->require('function', $tree);
                 $tree = $build->require('modifier', $tree);
-            }
-            catch (Exception $exception){
-                ddd($exception);
-            }
+                $build_storage = $build->storage();
+                $document = $build_storage->data('document');
+                if(empty($document)){
+                    $document = [];
+                }
 
-            $build_storage = $build->storage();
-            $document = $build_storage->data('document');
-            if(empty($document)){
-                $document = [];
-            }
-            try {
                 $document = $build->create('header', $tree, $document);
                 $document = $build->create('class', $tree, $document);
                 $build->indent(2);
@@ -609,7 +604,7 @@ class Parse {
                 $document = $build->create('trait', $tree, $document);
             }
             catch (Exception $exception){
-                ddd($exception);
+                throw $exception;
             }
 
 //            d($document);
