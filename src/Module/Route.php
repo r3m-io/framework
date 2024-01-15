@@ -164,12 +164,10 @@ class Route extends Data {
             }
             $get->path = $old_path;
         }
-        d($object->config('domain'));
-        d($object->config('host'));
         if($path == '/'){
-            $url = $object->config('host.name');
+            $url = $object->config('domain.url');
         } else {
-            $url = $object->config('host.name') . $path;
+            $url = $object->config('domain.url') . $path;
         }
         if($logger){
             $object->logger($logger)->debug('route:find.url:', [$url]);
