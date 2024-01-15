@@ -129,15 +129,6 @@ class Route extends Data {
                 throw new Exception('path & url are empty');
             }
         }
-//        $get = $route::add_localhost($object, $get);
-        if(!empty($object->config('host.name'))  && property_exists($get, 'host')){
-            $host = explode(':', $object->config('host.name'), 3);
-            if(array_key_exists(2, $host)){
-                array_pop($host);
-            }
-            $host = implode(':', $host);
-            $get = $route::has_host($get, $host);
-        }
         if(empty($get)){
             return false;
         }
