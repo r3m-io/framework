@@ -72,6 +72,8 @@ class Route extends Data {
         $url = Host::remove_scheme($url);
         $allowed_host = [];
         $disallowed_host = [];
+        $debug = debug_backtrace(true);
+        d($debug);
         if(property_exists($select, 'host')){
             foreach($select->host as $host){
                 $host = strtolower($host);
