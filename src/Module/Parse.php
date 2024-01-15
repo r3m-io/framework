@@ -519,7 +519,6 @@ class Parse {
                     return $string;
                 }
                 catch (Exception $exception){
-                    d($exception);
                     return $string . (string) $exception;
                 }
 
