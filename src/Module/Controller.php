@@ -700,6 +700,7 @@ class Controller {
                 $data->rdelim = Controller::RDELIM;
             }
         }
+        d($data);
 //        $original = $read;
         $read = $parse->compile($read, $data, $parse->storage());
         Parse::readback($object, $parse, App::SCRIPT);
