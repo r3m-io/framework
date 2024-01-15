@@ -604,6 +604,7 @@ class Parse {
                 $document = $build->create('trait', $tree, $document);
             }
             catch (Exception $exception){
+                d($exception);
                 throw $exception;
             }
 
