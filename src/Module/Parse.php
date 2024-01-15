@@ -644,9 +644,7 @@ class Parse {
                     }
                 }
                 catch (Exception $exception){
-                    d($string);
-                    d($exception);
-                    throw  $exception;
+                    $string .= (string) $exception;
                 }
             } else {
                 $exception = new Exception('Class ('. $class .') doesn\'t exist');
