@@ -633,13 +633,19 @@ class Parse {
             $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
             $exists = class_exists($class);
             if($exists){
-                $template = new $class(new Parse($this->object()), $storage);
-                $string = $template->run();
-                if(empty($this->halt_literal())){
-                    $string = Literal::restore($storage, $string);
+                try {
+                    $template = new $class(new Parse($this->object()), $storage);
+                    $string = $template->run();
+                    if(empty($this->halt_literal())){
+                        $string = Literal::restore($storage, $string);
+                    }
+                    if($this->useThis() === true){
+                        $storage->data('delete', 'this');
+                    }
                 }
-                if($this->useThis() === true){
-                    $storage->data('delete', 'this');
+                catch (Exception $exception){
+                    d($exception);
+                    throw  $exception;
                 }
             } else {
                 $exception = new Exception('Class ('. $class .') doesn\'t exist');
