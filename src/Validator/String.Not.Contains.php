@@ -10,7 +10,7 @@
  */
 use R3m\Io\App;
 
-function validate_string_not_contains(App $object, $string='', $field='', $argument=''): bool
+function validate_string_not_contains(App $object, $string='', $field='', $argument='', $function=false): bool
 {
     if(empty($string)){
         return false;

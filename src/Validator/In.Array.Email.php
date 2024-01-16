@@ -18,7 +18,7 @@ use R3m\Io\Exception\ObjectException;
 /**
  * @throws ObjectException
  */
-function validate_in_array_email(App $object, $array=null, $field='', $argument=''): bool
+function validate_in_array_email(App $object, $array=null, $field='', $argument='', $function=false): bool
 {
     if(
         is_string($array) &&

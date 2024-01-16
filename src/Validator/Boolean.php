@@ -11,7 +11,7 @@
 
 use R3m\Io\App;
 
-function validate_boolean(App $object, $string='', $field='', $argument=''): bool
+function validate_boolean(App $object, $string='', $field='', $argument='', $function=false): bool
 {
     $bool = $string;
     if(

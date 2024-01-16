@@ -10,7 +10,7 @@
  */
 use R3m\Io\App;
 
-function validate_is_date(App $object, $string='', $field='', $argument=''): bool
+function validate_is_date(App $object, $string='', $field='', $argument='', $function=false): bool
 {
     if(is_object($argument) && property_exists($argument, 'format')){
         $format = $argument->format;

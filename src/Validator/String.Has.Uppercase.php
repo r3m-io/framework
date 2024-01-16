@@ -15,7 +15,7 @@ use R3m\Io\Module\Parse\Token;
 /**
  * @throws Exception
  */
-function validate_string_has_uppercase(App $object, $string='', $field='', $argument=''): bool
+function validate_string_has_uppercase(App $object, $string='', $field='', $argument='', $function=false): bool
 {
     $split = str_split($string);
     $test = [];

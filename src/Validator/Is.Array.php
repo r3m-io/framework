@@ -10,7 +10,7 @@
  */
 use R3m\Io\App;
 
-function validate_is_array(App $object, $array=[], $field='', $argument=''): bool
+function validate_is_array(App $object, $array=[], $field='', $argument='', $function=false): bool
 {
     return is_array($array);
 }

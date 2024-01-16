@@ -22,7 +22,7 @@ use R3m\Io\Exception\FileWriteException;
  * @throws \Doctrine\ORM\ORMException
  * @throws Exception
  */
-function validate_is_unique_mysql(App $object, $string='', $field='', $argument=''): bool
+function validate_is_unique_mysql(App $object, $string='', $field='', $argument='', $function=false): bool
 {
     $table = false;
     $field = false;

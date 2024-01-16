@@ -16,7 +16,7 @@ use R3m\Io\Module\Parse\Token;
 /**
  * @throws Exception
  */
-function validate_array_length(App $object, $array=[], $field='', $argument=''): bool
+function validate_array_length(App $object, $array=[], $field='', $argument='', $function=false): bool
 {
     if(empty($array)){
         return false;

@@ -14,7 +14,7 @@ use R3m\Io\App;
 /**
  * @throws Exception
  */
-function validate_string_has_dot(App $object, $string='', $field='', $options=''): bool
+function validate_string_has_dot(App $object, $string='', $field='', $options='', $function=false): bool
 {
     $explode = explode('.', $string, 2);
     if(count($explode) == 2){

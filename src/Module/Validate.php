@@ -43,8 +43,9 @@ class Validate {
     /**
      * @throws Exception
      */
-    public static function validate(App $object, object $validate, $extra=false): object
+    public static function validate(App $object, object $validate, $extra=false, $function=false): object
     {
+        $method = $function;
         $extension = $object->config('extension.php');
         $test = [];
         foreach($validate as $field => $list){
@@ -141,7 +142,7 @@ class Validate {
                             foreach($url_list as $url){
                                 if(File::exist($url)){
                                     require_once $url;
-                                    $test[$field][$function][] = $function($object, $value, $field, $argument);
+                                    $test[$field][$function][] = $function($object, $value, $field, $argument, $method);
                                     $is_found = true;
                                     break;
                                 }

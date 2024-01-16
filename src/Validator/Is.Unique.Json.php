@@ -16,7 +16,7 @@ use R3m\Io\Config;
  * @throws \R3m\Io\Exception\ObjectException
  * @throws Exception
  */
-function validate_is_unique_json(App $object, $string='', $field='', $argument=''): bool
+function validate_is_unique_json(App $object, $string='', $field='', $argument='', $function=false): bool
 {
     if($object->request('has', 'node.' . 'uuid')){
         $original_uuid = $object->request('node.' . 'uuid');

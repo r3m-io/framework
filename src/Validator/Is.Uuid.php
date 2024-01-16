@@ -12,7 +12,7 @@ use R3m\Io\App;
 
 use R3m\Io\Module\Core;
 
-function validate_is_uuid(App $object, $string='', $field='', $argument=''): bool
+function validate_is_uuid(App $object, $string='', $field='', $argument='', $function=false): bool
 {
     $is_uuid = Core::is_uuid($string);
     if($argument === false){

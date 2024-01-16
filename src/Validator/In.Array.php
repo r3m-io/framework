@@ -10,7 +10,7 @@
  */
 use R3m\Io\App;
 
-function validate_in_array(App $object, $in='', $field='', $array=''): bool
+function validate_in_array(App $object, $in='', $field='', $array='', $function=false): bool
 {
     if(empty($in)){
         return false;
