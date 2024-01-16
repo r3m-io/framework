@@ -217,6 +217,7 @@ class Handler {
                 }
             }
         }
+        ddd($nodelist);
         return Core::array_object($nodeList);
     }
 
