@@ -438,14 +438,29 @@ class File {
         }
     }
 
-    public static function tail($url, $n=1) : string
+    public static function tail($url, $n=1, $is_array=false) : string | array
     {
         if(File::exist($url)){
+            if($n < 1){
+                $n = 1;
+            }
             $n = (string) $n;
             $command = 'tail -n '. escapeshellarg($n) .' ' . escapeshellarg($url);
             exec($command, $output);
             $output = implode(PHP_EOL, $output);
-            return $output;
+            $output = explode("\r", $output);
+            $output = implode(PHP_EOL, $output);
+            $output = explode(PHP_EOL, $output);
+            $reverse = [];
+            for($i = 0; $i < $n; $i++){
+                $reverse[] = array_pop($output);
+            }
+            $output = array_reverse($reverse);
+            if($is_array){
+                return $output;
+            } else {
+                return implode(PHP_EOL, $output);
+            }
         }
         return '';
     }
