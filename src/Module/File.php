@@ -444,7 +444,10 @@ class File {
             $n = (string) $n;
             $command = 'tail -n '. $n .' ' . $url;
             exec($command, $output);
-            return implode(PHP_EOL, $output);
+
+            $output = implode(PHP_EOL, $output);
+            d($output);
+            return $output;
         }
         return '';
     }
