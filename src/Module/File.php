@@ -441,6 +441,7 @@ class File {
     public static function tail($url, $n=1) : string
     {
         if(File::exist($url)){
+            $n = (string) $n;
             $command = 'tail -n '. $n .' ' . $url;
             exec($command, $output);
             return implode(PHP_EOL, $output);
