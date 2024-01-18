@@ -443,7 +443,7 @@ class File {
         if(File::exist($url)){
             $command = 'tail -n '. $n .' ' . $url;
             exec($command, $output);
-            dd($output);
+            return implode(PHP_EOL, $output);
         }
         return '';
     }
