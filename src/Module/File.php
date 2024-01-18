@@ -438,17 +438,12 @@ class File {
         }
     }
 
-    public static function tail($url, $include_return=false) : string
+    public static function tail($url, $n=1) : string
     {
         if(File::exist($url)){
-            $file = new SplFileObject($url);
-            $file->seek(PHP_INT_MAX);
-            $data = $file->current();
-            if($include_return === true){
-                return $data . PHP_EOL;
-            } else {
-                return $data;
-            }
+            $command = 'tail -n '. $n .' ' . $url;
+            exec($command, $output);
+            dd($output);
         }
         return '';
     }
