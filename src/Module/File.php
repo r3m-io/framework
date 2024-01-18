@@ -10,6 +10,7 @@
  */
 namespace R3m\Io\Module;
 
+use SplFileObject;
 use stdClass;
 
 use R3m\Io\App;
@@ -440,14 +441,14 @@ class File {
     public static function tail($url, $include_return=false) : string
     {
         if(File::exist($url)){
-            $read = File::read($url);
-            $data = explode(PHP_EOL, $read);
+            $file = new SplFileObject($url);
+            $file->seek(PHP_INT_MAX);
+            $data = $file->current();
             if($include_return === true){
-                return end($data) . PHP_EOL;
+                return $data . PHP_EOL;
             } else {
-                return end($data);
+                return $data;
             }
-
         }
         return '';
     }
