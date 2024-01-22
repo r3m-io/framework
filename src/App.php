@@ -167,8 +167,6 @@ class App extends Data {
     public static function run(App $object): mixed
     {
         Handler::request_configure($object);
-
-//        d($object->data(App::ROUTE));
         $destination = false;
         $logger = false;
         if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
