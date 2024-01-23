@@ -24,7 +24,7 @@ use R3m\Io\Exception\UrlNotExistException;
 class Ln extends Controller {
     const DIR = __DIR__;
     const NAME = 'Ln';
-    const INFO = '{{binary()}} ln                             | ln creates a symlink if not exist';
+    const INFO = '{{binary()}} ln                             | ln creates a symlink if it does not exist';
 
     /**
      * @throws ObjectException
