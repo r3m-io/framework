@@ -122,7 +122,7 @@ class FileRequest {
         }
         $location[] = $object->config('domain.dir.public') .
             $dir;
-        $location[] = $object->config('project.asset.dir') .
+        $location[] = $object->config('project.dir.asset') .
             $object->config('dictionary.public') .
             $object->config('ds') .
             $dir
