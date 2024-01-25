@@ -74,7 +74,8 @@
         "docx": "application\/vnd.openxmlformats-officedocument.wordprocessingml.document",
         "pptx": "application\/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         "xml": "application\/xml",
-        "vob": "video\/vob"
+        "vob": "video\/vob",
+        "wasm": "application\/wasm"
     },
     "extension": {
         "txt": ".txt",
@@ -99,6 +100,7 @@
         "wma": ".wma",
         "ogg": ".ogg",
         "onnx": ".onnx",
+        "wasm": ".wasm",
         "zip": ".zip",
         "gz": ".gz",
         "rar": ".rar",
