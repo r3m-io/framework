@@ -661,7 +661,7 @@ class File {
     {
         if ($object->config(Config::POSIX_ID) === 0) {
             foreach ($options as $key => $value) {
-                $value = '\'' . escapeshellarg($value) . '\'';
+                $value = '\'' . escapeshellcmd($value) . '\'';
                 if (File::exist($value)) {
                     $command = 'chown www-data:www-data ' . $value;
                     exec($command);
@@ -670,7 +670,7 @@ class File {
         }
         if ($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
             foreach($options as $key => $value){
-                $value = '\'' . escapeshellarg($value) . '\'';
+                $value = '\'' . escapeshellcmd($value) . '\'';
                 if(Dir::is($value)){
                     $command = 'chmod 777 ' . $value;
                     exec($command);
