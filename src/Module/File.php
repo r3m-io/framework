@@ -659,32 +659,24 @@ class File {
      */
     public static function permission(App $object, $options): void
     {
-        d($options);
-        $debug = debug_backtrace(true);
-        d($debug[0]['file'] . ':' . $debug[0]['line'] . $debug[0]['function'] . '()');
-        d($debug[1]['file'] . ':' . $debug[1]['line'] . $debug[1]['function'] . '()');
-        d($debug[2]['file'] . ':' . $debug[2]['line'] . $debug[2]['function'] . '()');
         if ($object->config(Config::POSIX_ID) === 0) {
             foreach ($options as $key => $value) {
                 $value = '\'' . escapeshellarg($value) . '\'';
                 if (File::exist($value)) {
                     $command = 'chown www-data:www-data ' . $value;
-                    echo $command . PHP_EOL;
-                    d(escapeshellarg($value));
                     exec($command);
                 }
             }
         }
         if ($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
             foreach($options as $key => $value){
+                $value = '\'' . escapeshellarg($value) . '\'';
                 if(Dir::is($value)){
                     $command = 'chmod 777 ' . $value;
-                    d(escapeshellarg($value));
                     exec($command);
                 }
                 elseif(File::is($value)) {
                     $command = 'chmod 666 ' . $value;
-                    d(escapeshellarg($value));
                     exec($command);
                 }
             }
