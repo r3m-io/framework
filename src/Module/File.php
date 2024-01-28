@@ -666,25 +666,26 @@ class File {
         d($debug[2]['file'] . ':' . $debug[2]['line'] . $debug[2]['function'] . '()');
         if ($object->config(Config::POSIX_ID) === 0) {
             foreach ($options as $key => $value) {
+                $value = '\'' . escapeshellarg($value) . '\'';
                 if (File::exist($value)) {
-                    $command = 'chown www-data:www-data \'' . escapeshellarg($value) . '\'';
+                    $command = 'chown www-data:www-data ' . $value;
                     echo $command . PHP_EOL;
                     d(escapeshellarg($value));
-//                    exec($command);
+                    exec($command);
                 }
             }
         }
         if ($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
             foreach($options as $key => $value){
                 if(Dir::is($value)){
-                    $command = 'chmod 777 \'' . escapeshellarg($value) . '\'';
+                    $command = 'chmod 777 ' . $value;
                     d(escapeshellarg($value));
-//                    exec($command);
+                    exec($command);
                 }
                 elseif(File::is($value)) {
-                    $command = 'chmod 666 \'' . escapeshellarg($value) . '\'';
+                    $command = 'chmod 666 ' . $value;
                     d(escapeshellarg($value));
-//                    exec($command);
+                    exec($command);
                 }
             }
         }
