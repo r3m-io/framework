@@ -660,6 +660,10 @@ class File {
     public static function permission(App $object, $options): void
     {
         d($options);
+        $debug = debug_backtrace(true);
+        d($debug[0]['file'] . ':' . $debug[0]['line'] . $debug[0]['function'] . '()');
+        d($debug[1]['file'] . ':' . $debug[1]['line'] . $debug[1]['function'] . '()');
+        d($debug[2]['file'] . ':' . $debug[2]['line'] . $debug[2]['function'] . '()');
         if ($object->config(Config::POSIX_ID) === 0) {
             foreach ($options as $key => $value) {
                 if (File::exist($value)) {
