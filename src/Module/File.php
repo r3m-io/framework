@@ -660,7 +660,7 @@ class File {
         if ($object->config(Config::POSIX_ID) === 0) {
             foreach ($options as $key => $value) {
                 if (File::exist($value)) {
-                    $command = 'chown www-data:www-data ' . $value;
+                    $command = 'chown www-data:www-data \'' . $value . '\'';
                     exec($command);
                 }
             }
@@ -668,11 +668,11 @@ class File {
         if ($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
             foreach($options as $key => $value){
                 if(Dir::is($value)){
-                    $command = 'chmod 777 ' . $value;
+                    $command = 'chmod 777 \'' . $value . '\'';
                     exec($command);
                 }
                 elseif(File::is($value)) {
-                    $command = 'chmod 666 ' . $value;
+                    $command = 'chmod 666 \'' . $value . '\'';
                     exec($command);
                 }
             }

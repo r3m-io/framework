@@ -18,7 +18,13 @@ function function_property_list(Parse $parse, Data $data, $object, $allowed=[]){
             if(empty($allowed)){
                 $result[] = $attribute;
             }
-            elseif(in_array($attribute, $allowed, true)){
+            elseif(
+                in_array(
+                    $attribute,
+                    $allowed,
+                    true
+                )
+            ){
                 $result[] = $attribute;
             }
         }

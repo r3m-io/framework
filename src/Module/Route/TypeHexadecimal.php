@@ -13,7 +13,7 @@ namespace R3m\Io\Module\Route;
 
 use R3m\Io\App;
 
-class TypeHex {
+class TypeHexadecimal {
 
     public static function validate(App $object, $string=''): bool
     {

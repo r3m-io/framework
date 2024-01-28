@@ -44,12 +44,28 @@ class Handler {
     const COOKIE_DELETE = 'delete';
 
     const METHOD_CLI = 'CLI';
-
     const DELETE = 'DELETE';
     const GET = 'GET';
     const PATCH = 'PATCH';
     const POST = 'POST';
     const PUT = 'PUT';
+    const HEAD = 'HEAD';
+    const CONNECT = 'CONNECT';
+    const OPTIONS = 'OPTIONS';
+    const TRACE = 'TRACE';
+
+    const METHODS = [
+        Handler::DELETE,
+        Handler::GET,
+        Handler::PATCH,
+        Handler::POST,
+        Handler::PUT,
+        Handler::HEAD,
+        Handler::CONNECT,
+        Handler::OPTIONS,
+        Handler::TRACE
+    ];
+
 
     const UPLOAD_ERR_INI_SIZE = 'The uploaded file exceeds the upload_max_filesize directive in php.ini';
     const UPLOAD_ERR_FORM_SIZE = 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.';
@@ -364,7 +380,15 @@ class Handler {
     public static function method(): string
     {
         if(array_key_exists('REQUEST_METHOD', $_SERVER)){
-            return $_SERVER['REQUEST_METHOD'];
+            if(
+                in_array(
+                    $_SERVER['REQUEST_METHOD'],
+                    Handler::METHODS,
+                    true
+                )
+            ){
+                return $_SERVER['REQUEST_METHOD'];
+            }
         }
         elseif(defined('IS_CLI')){
             return Handler::METHOD_CLI;
