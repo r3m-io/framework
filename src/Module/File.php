@@ -670,7 +670,7 @@ class File {
                     $command = 'chown www-data:www-data \'' . escapeshellarg($value) . '\'';
                     echo $command . PHP_EOL;
                     d(escapeshellarg($value));
-                    exec($command);
+//                    exec($command);
                 }
             }
         }
@@ -679,12 +679,12 @@ class File {
                 if(Dir::is($value)){
                     $command = 'chmod 777 \'' . escapeshellarg($value) . '\'';
                     d(escapeshellarg($value));
-                    exec($command);
+//                    exec($command);
                 }
                 elseif(File::is($value)) {
                     $command = 'chmod 666 \'' . escapeshellarg($value) . '\'';
                     d(escapeshellarg($value));
-                    exec($command);
+//                    exec($command);
                 }
             }
         }
