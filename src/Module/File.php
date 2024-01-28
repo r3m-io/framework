@@ -663,6 +663,7 @@ class File {
                 if (File::exist($value)) {
                     $command = 'chown www-data:www-data \'' . escapeshellarg($value) . '\'';
                     echo $command . PHP_EOL;
+                    d(escapeshellarg($value));
                     exec($command);
                 }
             }
@@ -671,10 +672,12 @@ class File {
             foreach($options as $key => $value){
                 if(Dir::is($value)){
                     $command = 'chmod 777 \'' . escapeshellarg($value) . '\'';
+                    d(escapeshellarg($value));
                     exec($command);
                 }
                 elseif(File::is($value)) {
                     $command = 'chmod 666 \'' . escapeshellarg($value) . '\'';
+                    d(escapeshellarg($value));
                     exec($command);
                 }
             }
