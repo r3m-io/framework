@@ -661,6 +661,7 @@ class File {
             foreach ($options as $key => $value) {
                 if (File::exist($value)) {
                     $command = 'chown www-data:www-data \'' . escapeshellarg($value) . '\'';
+                    echo $command . PHP_EOL;
                     exec($command);
                 }
             }
