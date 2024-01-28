@@ -657,6 +657,7 @@ class File {
      */
     public static function permission(App $object, $options): void
     {
+        d($options);
         if ($object->config(Config::POSIX_ID) === 0) {
             foreach ($options as $key => $value) {
                 if (File::exist($value)) {
