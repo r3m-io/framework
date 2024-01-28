@@ -222,6 +222,7 @@ class File {
         } else {
             exec('chown ' . $owner . ':' . $group . ' ' . $url, $output);
         }
+        d($output);
         return true;
     }
 
@@ -325,6 +326,7 @@ class File {
 
     public static function chmod($url, $mode=0640): bool
     {
+        d($url);
         return chmod($url, $mode);
     }
 
