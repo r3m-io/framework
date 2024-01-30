@@ -174,10 +174,14 @@ class Build {
         $document[] = $this->indent(2) . 'try {';
         $document[] = $this->indent(3) . 'ob_start();';
         $document[] = $this->indent(0) . $storage->data('placeholder.run');
-        $document[] = $this->indent(3) . 'return ob_get_clean();';
+        $document[] = $this->indent(3) . 'if(ob_get_length() > 0){';
+        $document[] = $this->indent(4) . 'ob_end_clean();';
+        $document[] = $this->indent(3) . '}';
         $document[] = $this->indent(2) . '}';
         $document[] = $this->indent(2) . 'catch(Exception $exception){';
-        $document[] = $this->indent(3) . 'ob_end_clean();';
+        $document[] = $this->indent(3) . 'if(ob_get_length() > 0){';
+        $document[] = $this->indent(4) . 'ob_end_clean();';
+        $document[] = $this->indent(3) . '}';
 //        $document[] = $this->indent(3) . 'd($exception);'; //debug
         $document[] = $this->indent(3) . 'throw $exception;';
         $document[] = $this->indent(2) . '}';
