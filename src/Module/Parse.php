@@ -449,12 +449,8 @@ class Parse {
             return $string;
         }
         elseif($type === 'string' && stristr($string, '{') === false){
-            d($string);
             return $string;
         } else {
-            if(str_contains($string, 'Priya.js}')){
-                ddd($string);
-            }
             //this section takes at least 5 msec per document: file:put 2msec, memcache::put 2msec, rest 1msec
             $build = $this->build(new Build($this->object(), $this, $is_debug));
             $build->cache_dir($this->cache_dir());
