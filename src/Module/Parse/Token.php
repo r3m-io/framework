@@ -1700,7 +1700,8 @@ class Token {
             elseif(
                 $record['type'] === Token::TYPE_COMMENT &&
                 $quote_single_toggle === false &&
-                $quote_double_toggle === false
+                $quote_double_toggle === false &&
+                $token[$previous_nr]['type'] !== Token::TYPE_COLON
             ){
                 $comment_open_nr = $nr;
                 $previous_nr = $nr;
