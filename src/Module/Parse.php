@@ -355,6 +355,12 @@ class Parse {
                         $is_debug = true;
                     }
                     $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
+                    if(
+                        is_string($string[$key]) &&
+                        str_contains($string[$key], 'Priya.js')
+                    ){
+                        $is_debug = false;
+                    }
                 }
 
             }
