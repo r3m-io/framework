@@ -622,7 +622,7 @@ class Parse {
                         '[$ldelim-' . $uuid . ']',
                         '[$rdelim-' . $uuid . ']',
                     ],
-                    $explode[1]
+                    $string
                 );
                 $string = str_replace(
                     [
