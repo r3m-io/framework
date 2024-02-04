@@ -468,9 +468,6 @@ class Parse {
             }
             return $string;
         } else {
-            if($is_debug){
-                d('yes');
-            }
             //this section takes at least 5 msec per document: file:put 2msec, memcache::put 2msec, rest 1msec
             $build = $this->build(new Build($this->object(), $this, $is_debug));
             $build->cache_dir($this->cache_dir());
@@ -611,6 +608,9 @@ class Parse {
                 'object' => $object,
                 'url' => $url,
             ]);
+            if($is_debug){
+                ddd($tree);
+            }
 //            d($tree);
             try {
                 $tree = $build->require('function', $tree);
