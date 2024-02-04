@@ -605,48 +605,15 @@ class Parse {
                 );
                 $string = ltrim($string, " \t\n\r\0\x0B");
             } else {
-                if($storage->get('ldelim') === null){
-                    $storage->set('ldelim','{');
-                }
-                if($storage->get('rdelim') === null){
-                    $storage->set('rdelim','}');
-                }
-                $uuid = Core::uuid();
-                $storage->data('r3m.io.parse.compile.remove_newline', true);
-                $string = str_replace(
-                    [
-                        '{',
-                        '}',
-                    ],
-                    [
-                        '[$ldelim-' . $uuid . ']',
-                        '[$rdelim-' . $uuid . ']',
-                    ],
+                $string = str_replace([
+                    '{{',
+                    '}}'
+                ],[
+                    '{',
+                    '}'
+                ],
                     $string
                 );
-                $string = str_replace(
-                    [
-                        '[$ldelim-' . $uuid . ']',
-                        '[$rdelim-' . $uuid . ']',
-                    ],
-                    [
-                        '{$ldelim}',
-                        '{$rdelim}',
-                    ],
-                    $string
-                );
-                $string = str_replace(
-                    [
-                        '{$ldelim}{$ldelim}',
-                        '{$rdelim}{$rdelim}',
-                    ],
-                    [
-                        '{',
-                        '}',
-                    ],
-                    $string
-                );
-                $string = ltrim($string, " \t\n\r\0\x0B");
             }
             d($string);
             $tree = Token::tree($string, [
