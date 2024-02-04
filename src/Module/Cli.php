@@ -140,13 +140,13 @@ class Cli {
             case 'up' :
             case 'cuu' :
                 $amount = isset($arguments[0]) ? (int) $arguments[0] : 1;
-                $tput = 'cuu' . $amount;
+                $tput = 'cuu ' . $amount;
                 break;
             case 'cursor.down' :
             case 'down' :
             case 'cud' :
                 $amount = isset($arguments[0]) ? (int) $arguments[0] : 1;
-                $tput = 'cud' . $amount;
+                $tput = 'cud ' . $amount;
                 break;
             case 'cursor.position' :
             case 'position' :

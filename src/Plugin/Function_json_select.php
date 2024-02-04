@@ -17,20 +17,23 @@ use R3m\Io\Module\Core;
  * @throws \R3m\Io\Exception\ObjectException
  * @throws \R3m\Io\Exception\FileWriteException
  */
-function function_json_select(Parse $parse, Data $data, $url, $select=null, $compile=false){
+function function_json_select(Parse $parse, Data $data, $url, $select=null, $compile=false, $cache=true){
     $object = $parse->object();
-    if($object->config('project.log.name')){
-        $object->logger($object->config('project.log.name'))->notice('Deprecated: plugin json.select, use object.select');
-    }
-    if(File::exist($url)){
-        $read = File::read($url);
-        $read = Core::object($read);
-        if($compile){
-            $read = $parse->compile($read, [], $data);
+    if($compile){
+        if($cache){
+            $json = $object->parse_read($url, sha1($url));
+        } else {
+            $json = $object->parse_read($url);
         }
-        $json = new Data();
-        $json->data($read);
+    } else {
+        if($cache){
+            $json = $object->data_read($url, sha1($url));
+        } else {
+            $json = $object->data_read($url);
+        }
+    }
+    if($json){
         return $json->data($select);
     }
-    return '';
+    return null;
 }
