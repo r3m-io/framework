@@ -464,7 +464,9 @@ class FileRequest {
                     $ram_url
                 ){
                     //copy to ramdisk
-                    Dir::create($ram_dir);
+                    if(!Dir::is($ram_dir)){
+                        Dir::create($ram_dir, Dir::CHMOD);
+                    }
                     if(File::exist($ram_url)){
                         File::remove($ram_url);
                     }
