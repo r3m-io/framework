@@ -458,12 +458,12 @@ class Parse {
         }
         elseif($type === 'string' && stristr($string, '{') === false){
             if($is_debug){
-                ddd('no');
+                d('no');
             }
             return $string;
         } else {
             if($is_debug){
-                ddd('yes');
+                d('yes');
             }
             //this section takes at least 5 msec per document: file:put 2msec, memcache::put 2msec, rest 1msec
             $build = $this->build(new Build($this->object(), $this, $is_debug));
