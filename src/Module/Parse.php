@@ -351,6 +351,7 @@ class Parse {
                     $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                 }
             }
+            d($string);
             return $string;
         }
         elseif($type === 'object'){
