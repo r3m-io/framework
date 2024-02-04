@@ -605,17 +605,8 @@ class Parse {
                 );
                 $string = ltrim($string, " \t\n\r\0\x0B");
             } else {
-                $string = str_replace([
-                    '{{',
-                    '}}'
-                ],[
-                    '{',
-                    '}'
-                ],
-                    $string
-                );
+                d($string);
             }
-            d($string);
             $tree = Token::tree($string, [
                 'object' => $object,
                 'url' => $url,
@@ -625,7 +616,7 @@ class Parse {
                 d($tree);
             }
             */
-            d($tree);
+//            d($tree);
             try {
                 $tree = $build->require('function', $tree);
                 $tree = $build->require('modifier', $tree);
