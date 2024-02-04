@@ -605,6 +605,7 @@ class Parse {
                 );
                 $string = ltrim($string, " \t\n\r\0\x0B");
             }
+            d($string);
             $tree = Token::tree($string, [
                 'object' => $object,
                 'url' => $url,
