@@ -493,7 +493,6 @@ class Parse {
             if($file_exist){
                 $file_mtime = File::mtime($url);
             }
-            $mtime = false; //debug only
             if($file_exist && $file_mtime === $mtime){
                 //cache file
                 $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
