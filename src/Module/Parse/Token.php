@@ -1312,6 +1312,9 @@ class Token {
                     $comment_single_line_nr = null;
                 } else {
                     $token[$comment_single_line_nr]['value'] .= $record['value'];
+                    d('yes');
+                    d($record['value']);
+
                     unset($token[$nr]);
                     $previous_nr = $nr;
                     continue;
