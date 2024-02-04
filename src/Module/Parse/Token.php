@@ -1720,6 +1720,7 @@ class Token {
                 $quote_single_toggle === false &&
                 $quote_double_toggle === false
             ){
+                ddd($token);
                 $comment_single_line_nr = $nr;
                 $previous_nr = $nr;
                 continue;
