@@ -77,14 +77,6 @@ class Value {
                 return $record['value'];
             case Token::TYPE_CODE :
             case Token::TYPE_QUOTE_SINGLE :
-                $record['value'] = str_replace([
-                    '{$ldelim}',
-                    '{$rdelim}'
-                ],[
-                    '{',
-                    '}'
-                ], $record['value']);
-                return $record['value'];
             case Token::TYPE_STRING :
                 $record['value'] = str_replace([
                     '{$ldelim}',
@@ -93,8 +85,7 @@ class Value {
                     '{',
                     '}'
                 ], $record['value']);
-                //$record['value'] = str_replace('\\', '\\\\', $record['value']);
-                return '\'' . $record['value'] . '\''; //might need str_replace on quote_single (') to (\')
+                return $record['value'];
             case Token::TYPE_QUOTE_DOUBLE_STRING :
                 if(stristr($record['value'], '{') === false){                                        
                     return $record['value'];
