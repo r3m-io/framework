@@ -703,6 +703,7 @@ class Parse {
         elseif(is_numeric($string)){
             return $string + 0;
         }
+        d($string);
         return $string;
     }
 
