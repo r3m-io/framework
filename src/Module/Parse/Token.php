@@ -1700,8 +1700,7 @@ class Token {
             elseif(
                 $record['type'] === Token::TYPE_COMMENT &&
                 $quote_single_toggle === false &&
-                $quote_double_toggle === false &&
-                $token[$previous_nr]['type'] !== Token::TYPE_COLON
+                $quote_double_toggle === false
             ){
                 $comment_open_nr = $nr;
                 $previous_nr = $nr;
@@ -1719,9 +1718,9 @@ class Token {
             elseif(
                 $record['type'] === Token::TYPE_COMMENT_SINGLE_LINE &&
                 $quote_single_toggle === false &&
-                $quote_double_toggle === false
+                $quote_double_toggle === false &&
+                $token[$previous_nr]['type'] !== Token::TYPE_COLON
             ){
-                ddd($token);
                 $comment_single_line_nr = $nr;
                 $previous_nr = $nr;
                 continue;
