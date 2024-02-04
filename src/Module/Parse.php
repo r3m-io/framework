@@ -605,6 +605,8 @@ class Parse {
                 );
                 $string = ltrim($string, " \t\n\r\0\x0B");
             } else {
+                $string = str_replace('{{', '{', $string);
+                $string = str_replace('}}', '}', $string);
                 d($string);
             }
             $tree = Token::tree($string, [
