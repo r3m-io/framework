@@ -352,7 +352,7 @@ class Parse {
                         is_string($string[$key]) &&
                         str_contains($string[$key], 'Priya.js')
                     ){
-                        ddd($string);
+                        $is_debug = true;
                     }
                     $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                 }
@@ -457,8 +457,14 @@ class Parse {
             return $string;
         }
         elseif($type === 'string' && stristr($string, '{') === false){
+            if($is_debug){
+                ddd('no');
+            }
             return $string;
         } else {
+            if($is_debug){
+                ddd('yes');
+            }
             //this section takes at least 5 msec per document: file:put 2msec, memcache::put 2msec, rest 1msec
             $build = $this->build(new Build($this->object(), $this, $is_debug));
             $build->cache_dir($this->cache_dir());
