@@ -348,23 +348,9 @@ class Parse {
                 ){
                     $string[$key] = $value;
                 } else {
-                    if(
-                        is_string($string[$key]) &&
-                        str_contains($string[$key], 'Priya.js')
-                    ){
-                        $is_debug = true;
-                    }
                     $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
-                    if(
-                        is_string($string[$key]) &&
-                        str_contains($string[$key], 'Priya.js')
-                    ){
-                        $is_debug = false;
-                    }
                 }
-
             }
-            d($string);
             return $string;
         }
         elseif($type === 'object'){
@@ -463,9 +449,6 @@ class Parse {
             return $string;
         }
         elseif($type === 'string' && stristr($string, '{') === false){
-            if($is_debug){
-                d('no');
-            }
             return $string;
         } else {
             //this section takes at least 5 msec per document: file:put 2msec, memcache::put 2msec, rest 1msec
@@ -510,7 +493,6 @@ class Parse {
             if($file_exist){
                 $file_mtime = File::mtime($url);
             }
-            $mtime = false; //debug only
             if($file_exist && $file_mtime === $mtime){
                 //cache file
                 $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
@@ -605,20 +587,14 @@ class Parse {
                 );
                 $string = ltrim($string, " \t\n\r\0\x0B");
             } else {
+                //where probably in json
                 $string = str_replace('{{', '{', $string);
                 $string = str_replace('}}', '}', $string);
-                d($string);
             }
             $tree = Token::tree($string, [
                 'object' => $object,
                 'url' => $url,
             ]);
-            /*
-            if($is_debug){
-                d($tree);
-            }
-            */
-//            d($tree);
             try {
                 $tree = $build->require('function', $tree);
                 $tree = $build->require('modifier', $tree);
@@ -703,7 +679,6 @@ class Parse {
         elseif(is_numeric($string)){
             return $string + 0;
         }
-        d($string);
         return $string;
     }
 
