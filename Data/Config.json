@@ -35,6 +35,7 @@
         "response":"text\/plain",
         "txt": "text\/plain",
         "log": "text\/plain",
+        "ini": "text\/plain",
         "html": "text\/html",
         "tpl": "text\/html",
         "css": "text\/css",
@@ -80,6 +81,7 @@
     "extension": {
         "txt": ".txt",
         "log": ".log",
+        "ini": ".ini",
         "html": ".html",
         "css": ".css",
         "js": ".js",
