@@ -1719,7 +1719,7 @@ class Token {
                 $record['type'] === Token::TYPE_COMMENT_SINGLE_LINE &&
                 $quote_single_toggle === false &&
                 $quote_double_toggle === false &&
-                $token[$previous_nr]['type'] !== Token::TYPE_COLON
+                $token[$previous_nr]['type'] !== Token::TYPE_COLON //make exception for uris
             ){
                 $comment_single_line_nr = $nr;
                 $previous_nr = $nr;
