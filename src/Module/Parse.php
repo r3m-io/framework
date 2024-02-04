@@ -609,7 +609,7 @@ class Parse {
                 'url' => $url,
             ]);
             if($is_debug){
-                ddd($tree);
+                d($tree);
             }
 //            d($tree);
             try {
