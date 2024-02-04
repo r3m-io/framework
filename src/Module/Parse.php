@@ -609,10 +609,12 @@ class Parse {
                 'object' => $object,
                 'url' => $url,
             ]);
+            /*
             if($is_debug){
                 d($tree);
             }
-//            d($tree);
+            */
+            d($tree);
             try {
                 $tree = $build->require('function', $tree);
                 $tree = $build->require('modifier', $tree);
