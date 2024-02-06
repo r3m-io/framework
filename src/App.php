@@ -250,7 +250,7 @@ class App extends Data {
                                     $url,
                                     (object) [
                                         'exception' => (object) [
-                                            'class' => 'RouteException',
+                                            'className' => 'RouteException',
                                             'message' => '404 Not Found',
                                             'route' => $host . '/' . $object->request('request'),
                                             'file' => 'not-applicable',
