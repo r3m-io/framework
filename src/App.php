@@ -221,22 +221,22 @@ class App extends Data {
 //                                'Error' .
                                 $object->config('ds') .
                                 '404.tpl';
-                            if(File::exist($url)){
-                                ddd('yes');
-                            } else {
+                            if(!File::exist($url)){
                                 $url = $object->config('framework.dir.view') .
                                     'Http' .
                                     $object->config('ds') .
                                     'Exception' .
                                     $object->config('ds') .
                                     '404.tpl';
-                                ddd($url);
                             }
+                            $response = Controller::response($object, $url);
                             //404 not found error...
+                            /*
                             $response = new Response(
                                 "Website is not configured...",
                                 Response::TYPE_HTML
                             );
+                            */
                             Event::trigger($object, 'app.run.route.wildcard.error', [
                                 'destination' => false,
                                 'is_not_configured' => true
