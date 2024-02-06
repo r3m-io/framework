@@ -249,6 +249,7 @@ class Route extends Data {
         } else {
             $route =  $object->data(App::ROUTE);
             $request = $route->data(Route::SELECT_WILDCARD);
+            ddd($request);
             if(property_exists($request, 'request')){
                 $request->request = new Data($request->request);
             } else {
