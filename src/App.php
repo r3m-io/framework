@@ -181,7 +181,6 @@ class App extends Data {
                 Route::configure($object);
                 $destination = Route::request($object);
                 if ($destination === false) {
-                    $object->config('framework.environment', 'production');
                     if ($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
                         if($logger){
                             $object->logger($logger)->error('Couldn\'t determine route (' . $object->request('request') . ')...');
@@ -202,7 +201,7 @@ class App extends Data {
                             $object->config('ds') .
                             'Http' .
                             $object->config('ds') .
-                                'Error' .
+                            'Error' .
                             $object->config('ds') .
                             '404.tpl';
                         if(!File::exist($url)){
@@ -225,8 +224,6 @@ class App extends Data {
                             'src' .
                             $object->config('ds')
                         );
-                        //404 not found error...
-                        $object->config('framework.environment', Config::MODE_DEVELOPMENT);
                         $exception = new RouteNotExistException('404 Not Found (route: '. $host . '/' . $object->request('request') .')', 404);
                         $response = new Response(
                             Controller::response(
@@ -273,7 +270,7 @@ class App extends Data {
                                 $object->config('ds') .
                                 'Http' .
                                 $object->config('ds') .
-//                                'Error' .
+                                'Error' .
                                 $object->config('ds') .
                                 '404.tpl';
                             if(!File::exist($url)){
@@ -296,8 +293,6 @@ class App extends Data {
                                 'src' .
                                 $object->config('ds')
                             );
-                            //404 not found error...
-                            $object->config('framework.environment', Config::MODE_DEVELOPMENT);
                             $exception = new RouteNotExistException('404 Not Found (route: '. $host . '/' . $object->request('request') .')', 404);
                             $response = new Response(
                                 Controller::response(
