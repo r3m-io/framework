@@ -208,7 +208,7 @@ class App extends Data {
                             $object->config('ds') .
                             'Http' .
                             $object->config('ds') .
-                            'Error' .
+                            'Exception' .
                             $object->config('ds') .
                             '500.tpl';
                         if(!File::exist($url)){
