@@ -241,14 +241,11 @@ class App extends Data {
                                 'src' .
                                 $object->config('ds')
                             );
-                            $response = Controller::response($object, $url);
                             //404 not found error...
-                            /*
                             $response = new Response(
-                                "Website is not configured...",
+                                Controller::response($object, $url),
                                 Response::TYPE_HTML
                             );
-                            */
                             Event::trigger($object, 'app.run.route.wildcard.error', [
                                 'destination' => false,
                                 'is_not_configured' => true
