@@ -204,7 +204,7 @@ class App extends Data {
                             if($logger_error){
                                 $object->logger($logger_error)->error('Couldn\'t determine route (wildcard) (' . $object->request('request') . ')...');
                             }
-                            $url = $object->config('controller.dir');
+                            $url = $object->config('project.dir');
                             ddd($url);
                             //404 not found error...
                             $response = new Response(
