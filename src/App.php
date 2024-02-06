@@ -180,6 +180,7 @@ class App extends Data {
                 Route::configure($object);
                 $destination = Route::request($object);
                 if ($destination === false) {
+                    $object->config('framework.environment', 'production');
                     if ($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
                         if($logger){
                             $object->logger($logger)->error('Couldn\'t determine route (' . $object->request('request') . ')...');
@@ -203,6 +204,7 @@ class App extends Data {
                             if($logger_error){
                                 $object->logger($logger_error)->error('Couldn\'t determine route (wildcard) (' . $object->request('request') . ')...');
                             }
+                            //404 not found error...
                             $response = new Response(
                                 "Website is not configured...",
                                 Response::TYPE_HTML
