@@ -20,6 +20,10 @@
     <span>{{$exception.line}}</span><br>
     <label>Code: </label>
     <span>{{$exception.code}}</span><br>
+    {{if(!is.empty($exception.route))}}
+    <label>Route: </label>
+    <span>{{$exception.route}}</span><br>
+    {{/if}}
 </section>
 {{if(
 !is.empty($exception.location) &&
