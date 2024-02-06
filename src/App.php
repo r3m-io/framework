@@ -241,6 +241,7 @@ class App extends Data {
                                 'src' .
                                 $object->config('ds')
                             );
+                            ddd($object->request());
                             //404 not found error...
                             $response = new Response(
                                 Controller::response(
