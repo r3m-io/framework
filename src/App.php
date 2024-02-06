@@ -204,9 +204,9 @@ class App extends Data {
                             if($logger_error){
                                 $object->logger($logger_error)->error('Couldn\'t determine route (wildcard) (' . $object->request('request') . ')...');
                             }
-                            $subdomain = Host::subdomain();
-                            $domain = Host::domain();
-                            $extension = Host::extension();
+                            $subdomain = $object->config('host.subdomain');
+                            $domain = $object->config('host.domain');
+                            $extension = $object->config('host.extension');
                             $url = $object->config('project.dir.domain');
                             d($subdomain);
                             d($domain);
