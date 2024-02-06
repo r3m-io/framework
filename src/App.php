@@ -265,7 +265,7 @@ class App extends Data {
                             );
                             Event::trigger($object, 'app.run.route.wildcard.error', [
                                 'destination' => false,
-                                'exception' => $exception;
+                                'exception' => $exception
                             ]);
                             return Response::output($object, $response);
                         }
