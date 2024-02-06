@@ -186,13 +186,65 @@ class App extends Data {
                         if($logger){
                             $object->logger($logger)->error('Couldn\'t determine route (' . $object->request('request') . ')...');
                         }
-                        $exception = new Exception(
-                            'Couldn\'t determine route (' . $object->request('request') . ')...'
+                        $subdomain = $object->config('host.subdomain');
+                        $domain = $object->config('host.domain');
+                        $extension = $object->config('host.extension');
+                        $url = $object->config('project.dir.domain');
+                        if($subdomain){
+                            $host = $subdomain . '.' . $domain . '.' . $extension;
+                            $url .= ucfirst($subdomain) . '.' . ucfirst($domain) . '.' . ucfirst($extension);
+                        } else {
+                            $host = $domain . '.' . $extension;
+                            $url .= ucfirst($domain) . '.' . ucfirst($extension);
+                        }
+                        $url .= $object->config('ds') .
+                            'View' .
+                            $object->config('ds') .
+                            'Http' .
+                            $object->config('ds') .
+                                'Error' .
+                            $object->config('ds') .
+                            '404.tpl';
+                        if(!File::exist($url)){
+                            $url = $object->config('framework.dir.view') .
+                                'Http' .
+                                $object->config('ds') .
+                                'Exception' .
+                                $object->config('ds') .
+                                '404.tpl';
+                        }
+                        $object->config(
+                            'controller.dir.root',
+                            $object->config('project.dir.root') .
+                            'vendor' .
+                            $object->config('ds') .
+                            'r3m_io' .
+                            $object->config('ds') .
+                            'framework' .
+                            $object->config('ds') .
+                            'src' .
+                            $object->config('ds')
                         );
+                        //404 not found error...
+                        $object->config('framework.environment', Config::MODE_DEVELOPMENT);
+                        $exception = new RouteNotExistException('404 Not Found (route: '. $host . '/' . $object->request('request') .')', 404);
                         $response = new Response(
-                            App::exception_to_json($exception),
-                            Response::TYPE_JSON,
-                            Response::STATUS_NOT_IMPLEMENTED
+                            Controller::response(
+                                $object,
+                                $url,
+                                (object) [
+                                    'exception' => (object) [
+                                        'className' => get_class($exception),
+                                        'message' => $exception->getMessage(),
+                                        'route' => $host . '/' . $object->request('request'),
+                                        'file' => $exception->getFile(),
+                                        'line' => $exception->getLine(),
+                                        'code' => $exception->getCode(),
+                                        'trace' => $exception->getTrace()
+                                    ]
+                                ]
+                            ),
+                            Response::TYPE_HTML
                         );
                         Event::trigger($object, 'app.run.route.error', [
                             'destination' => false,
