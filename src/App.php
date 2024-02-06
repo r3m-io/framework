@@ -245,8 +245,16 @@ class App extends Data {
                             $response = new Response(
                                 Controller::response(
                                     $object,
-                                    $url)
-                                ,
+                                    $url,
+                                    (object) [
+                                        'exception' => (object) [
+                                            'message' => '404 Not Found',
+                                            'file' => $url,
+                                            'line' => 0,
+                                            'code' => 404
+                                        ]
+                                    ]
+                                ),
                                 Response::TYPE_HTML
                             );
                             Event::trigger($object, 'app.run.route.wildcard.error', [
