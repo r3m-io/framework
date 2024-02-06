@@ -229,6 +229,18 @@ class App extends Data {
                                     $object->config('ds') .
                                     '404.tpl';
                             }
+                            $object->config(
+                                'controller.dir.root',
+                                $object->config('project.dir.root') .
+                                'vendor' .
+                                $object->config('ds') .
+                                'r3m_io' .
+                                $object->config('ds') .
+                                'framework' .
+                                $object->config('ds') .
+                                'src' .
+                                $object->config('ds')
+                            );
                             $response = Controller::response($object, $url);
                             //404 not found error...
                             /*
