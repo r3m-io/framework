@@ -209,8 +209,10 @@ class App extends Data {
                             $extension = $object->config('host.extension');
                             $url = $object->config('project.dir.domain');
                             if($subdomain){
+                                $host = $subdomain . '.' . $domain . '.' . $extension;
                                 $url .= ucfirst($subdomain) . '.' . ucfirst($domain) . '.' . ucfirst($extension);
                             } else {
+                                $host = $domain . '.' . $extension;
                                 $url .= ucfirst($domain) . '.' . ucfirst($extension);
                             }
                             $url .= $object->config('ds') .
@@ -241,7 +243,6 @@ class App extends Data {
                                 'src' .
                                 $object->config('ds')
                             );
-                            ddd($object->request());
                             //404 not found error...
                             $response = new Response(
                                 Controller::response(
@@ -250,7 +251,8 @@ class App extends Data {
                                     (object) [
                                         'exception' => (object) [
                                             'message' => '404 Not Found',
-                                            'file' => $url,
+                                            'route' => $host . '/' . $object->request('request'),
+                                            'file' => 'not-applicable',
                                             'line' => 0,
                                             'code' => 404
                                         ]
