@@ -230,7 +230,7 @@ class App extends Data {
                                     $object->config('ds') .
                                     'Exception' .
                                     $object->config('ds') .
-                                    '501.tpl';
+                                    '500.tpl';
                             }
                             $object->config(
                                 'controller.dir.root',
