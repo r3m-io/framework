@@ -208,10 +208,23 @@ class App extends Data {
                             $domain = $object->config('host.domain');
                             $extension = $object->config('host.extension');
                             $url = $object->config('project.dir.domain');
-                            d($subdomain);
-                            d($domain);
-                            d($extension);
-                            ddd($url);
+                            if($subdomain){
+                                $url .= ucfirst($subdomain) . '.' . ucfirst($domain) . '.' . ucfirst($extension);
+                            } else {
+                                $url .= ucfirst($domain) . '.' . ucfirst($extension);
+                            }
+                            $url .= $object->config('ds') .
+                                'View' .
+                                $object->config('ds') .
+                                'Http' .
+                                $object->config('ds') .
+                                '404.tpl';
+                            if(File::exist($url)){
+                                ddd('yes');
+                            } else {
+                                $url = $object->config('framework.dir');
+                                ddd($url);
+                            }
                             //404 not found error...
                             $response = new Response(
                                 "Website is not configured...",
