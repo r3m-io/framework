@@ -218,11 +218,18 @@ class App extends Data {
                                 $object->config('ds') .
                                 'Http' .
                                 $object->config('ds') .
+                                'Error' .
+                                $object->config('ds') .
                                 '404.tpl';
                             if(File::exist($url)){
                                 ddd('yes');
                             } else {
-                                $url = $object->config('framework.dir');
+                                $url = $object->config('framework.dir.view') .
+                                    'Http' .
+                                    $object->config('ds') .
+                                    'Exception' .
+                                    $object->config('ds') .
+                                    '404.tpl';
                                 ddd($url);
                             }
                             //404 not found error...
