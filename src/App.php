@@ -245,7 +245,7 @@ class App extends Data {
                                 $object->config('ds')
                             );
                             //404 not found error...
-                            $exception = new RouteNotExistException('404 Not Found', 404);
+                            $exception = new RouteNotExistException('404 Not Found (route: '. $host . '/' . $object->request('request') .')', 404);
                             $response = new Response(
                                 Controller::response(
                                     $object,
@@ -265,7 +265,7 @@ class App extends Data {
                             );
                             Event::trigger($object, 'app.run.route.wildcard.error', [
                                 'destination' => false,
-                                'is_not_configured' => true
+                                'exception' => $exception;
                             ]);
                             return Response::output($object, $response);
                         }
