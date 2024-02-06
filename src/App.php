@@ -189,11 +189,18 @@ class App extends Data {
                         $domain = $object->config('host.domain');
                         $extension = $object->config('host.extension');
                         $url = $object->config('project.dir.domain');
+                        $port = $object->config('project.dir.port');
                         if($subdomain){
                             $host = $subdomain . '.' . $domain . '.' . $extension;
+                            if(!in_array($port, [80, 443], true)){
+                                $host .= ':' . $port;
+                            }
                             $url .= ucfirst($subdomain) . '.' . ucfirst($domain) . '.' . ucfirst($extension);
                         } else {
                             $host = $domain . '.' . $extension;
+                            if(!in_array($port, [80, 443], true)){
+                                $host .= ':' . $port;
+                            }
                             $url .= ucfirst($domain) . '.' . ucfirst($extension);
                         }
                         $url .= $object->config('ds') .
