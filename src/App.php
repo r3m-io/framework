@@ -221,7 +221,7 @@ class App extends Data {
                                 $object->config('ds') .
                                 'Http' .
                                 $object->config('ds') .
-                                'Error' .
+//                                'Error' .
                                 $object->config('ds') .
                                 '404.tpl';
                             if(!File::exist($url)){
@@ -230,7 +230,7 @@ class App extends Data {
                                     $object->config('ds') .
                                     'Exception' .
                                     $object->config('ds') .
-                                    '404.tpl';
+                                    '501.tpl';
                             }
                             $object->config(
                                 'controller.dir.root',

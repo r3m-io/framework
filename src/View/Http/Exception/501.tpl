@@ -20,7 +20,9 @@
     <span>{{$exception.line}}</span><br>
     <label>Code: </label>
     <span>{{$exception.code}}</span><br>
-</section><section name="source">
+</section>
+{{if(config('framework.environment') === 'development')}}
+<section name="source">
     <label>Source: </label><br>
     {{$source = file.read($exception.file)}}
     {{if($source)}}
@@ -76,5 +78,6 @@
         {{/for.each}}
     </table>
 </section>
+{{/if}}
 </body>
 </html>
