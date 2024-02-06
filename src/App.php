@@ -243,7 +243,10 @@ class App extends Data {
                             );
                             //404 not found error...
                             $response = new Response(
-                                Controller::response($object, $url),
+                                Controller::response(
+                                    $object,
+                                    $url)
+                                ,
                                 Response::TYPE_HTML
                             );
                             Event::trigger($object, 'app.run.route.wildcard.error', [
