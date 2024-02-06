@@ -189,7 +189,7 @@ class App extends Data {
                         $domain = $object->config('host.domain');
                         $extension = $object->config('host.extension');
                         $url = $object->config('project.dir.domain');
-                        $port = $object->config('project.dir.port');
+                        $port = $object->config('host.port');
                         if($subdomain){
                             $host = $subdomain . '.' . $domain . '.' . $extension;
                             if(!in_array($port, [80, 443], true)){
