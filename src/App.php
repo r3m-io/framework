@@ -258,7 +258,8 @@ class App extends Data {
                                             'route' => $host . '/' . $object->request('request'),
                                             'file' => $exception->getFile(),
                                             'line' => $exception->getLine(),
-                                            'code' => $exception->getCode()
+                                            'code' => $exception->getCode(),
+                                            'trace' => $exception->getTrace()
                                         ]
                                     ]
                                 ),
