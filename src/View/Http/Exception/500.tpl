@@ -46,7 +46,7 @@ is.set($exception.file)
     </table>
     {{/if}}
 </section>
-{{if(!is.empty($excpetion.trace))}}
+{{if(!is.empty($exception.trace))}}
 <section name="trace">
     <label>Trace: </label><br>
     <table>
