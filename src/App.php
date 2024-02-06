@@ -210,7 +210,7 @@ class App extends Data {
                             $object->config('ds') .
                             'Error' .
                             $object->config('ds') .
-                            '404.tpl';
+                            '500.tpl';
                         if(!File::exist($url)){
                             $url = $object->config('framework.dir.view') .
                                 'Http' .
