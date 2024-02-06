@@ -245,7 +245,7 @@ class App extends Data {
                                 $object->config('ds')
                             );
                             //404 not found error...
-//                            $object->config('framework.environment', 'development');
+                            $object->config('framework.environment', 'development');
                             $exception = new RouteNotExistException('404 Not Found (route: '. $host . '/' . $object->request('request') .')', 404);
                             $response = new Response(
                                 Controller::response(
