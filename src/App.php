@@ -10,6 +10,7 @@
  */
 namespace R3m\Io;
 
+use R3m\Io\Exception\RouteNotExistException;
 use stdClass;
 
 use R3m\Io\Module\Autoload;
@@ -244,18 +245,19 @@ class App extends Data {
                                 $object->config('ds')
                             );
                             //404 not found error...
+                            $exception = new RouteNotExistException('404 Not Found', 404);
                             $response = new Response(
                                 Controller::response(
                                     $object,
                                     $url,
                                     (object) [
                                         'exception' => (object) [
-                                            'className' => 'RouteException',
-                                            'message' => '404 Not Found',
+                                            'className' => get_class($exception),
+                                            'message' => $exception->getMessage(),
                                             'route' => $host . '/' . $object->request('request'),
-                                            'file' => 'not-applicable',
-                                            'line' => 0,
-                                            'code' => 404
+                                            'file' => $exception->getFile(),
+                                            'line' => $exception->getLine(),
+                                            'code' => $exception->getCode()
                                         ]
                                     ]
                                 ),
