@@ -23,7 +23,7 @@
 </section>
 {{if(
 config('framework.environment') === 'development' &&
-is.set($exception.file)
+!is.empty($exception.file)
 )}}
 <section name="source">
     <label>Source: </label><br>
@@ -46,7 +46,11 @@ is.set($exception.file)
     </table>
     {{/if}}
 </section>
-{{if(!is.empty($exception.trace))}}
+{{/if}}
+{{if(
+config('framework.environment') === 'development' &&
+!is.empty($exception.trace)
+)}}
 <section name="trace">
     <label>Trace: </label><br>
     <table>
@@ -83,7 +87,6 @@ is.set($exception.file)
         {{/for.each}}
     </table>
 </section>
-{{/if}}
 {{/if}}
 </body>
 </html>
