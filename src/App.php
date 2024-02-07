@@ -203,6 +203,10 @@ class App extends Data {
                             }
                             $url .= ucfirst($domain) . '.' . ucfirst($extension);
                         }
+                        $route = $host . '/';
+                        if($object->request('request') !== '/'){
+                            $route .= $object->request('request');
+                        }
                         $url .= $object->config('ds') .
                             'View' .
                             $object->config('ds') .
@@ -231,7 +235,7 @@ class App extends Data {
                             'src' .
                             $object->config('ds')
                         );
-                        $exception = new RouteNotExistException('404 Not Found (route: '. $host . '/' . $object->request('request') .')', 404);
+                        $exception = new RouteNotExistException('404 Not Found (route: '. $route .')', 404);
                         $response = new Response(
                             Controller::response(
                                 $object,
@@ -240,7 +244,7 @@ class App extends Data {
                                     'exception' => (object) [
                                         'className' => get_class($exception),
                                         'message' => $exception->getMessage(),
-                                        'route' => $host . '/' . $object->request('request'),
+                                        'route' => $route,
                                         'file' => $exception->getFile(),
                                         'line' => $exception->getLine(),
                                         'code' => $exception->getCode(),
