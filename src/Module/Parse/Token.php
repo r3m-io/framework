@@ -1373,6 +1373,7 @@ class Token {
                     $variable_array_depth++;
                     $array_depth++;
                     $token[$nr]['array_depth'] = $array_depth;
+                    $previous_nr = $nr;
                     continue;
                 }
                 elseif(
@@ -1477,6 +1478,7 @@ class Token {
                         $variable_array_start = null;
                     }
                     $variable_array_value .= $record['value'];
+                    $previous_nr = $nr;
                     continue;
                 }
                 elseif(
@@ -1485,6 +1487,7 @@ class Token {
                     $quote_single_toggle === false
                 ){
                     $variable_array_value .= $record['value'];
+                    $previous_nr = $nr;
                     continue;
                 }
                 if(
@@ -1692,6 +1695,7 @@ class Token {
                 $token[$variable_nr]['variable']['is_assign'] = false;
                 $value = $record['value'];
                 $variable_array_value = '';
+                $previous_nr = $nr;
                 continue;
             }
             elseif(
@@ -1886,6 +1890,7 @@ class Token {
                 if($record['curly_count'] > 0){
                     $depth--;
                 } else {
+                    $previous_nr = $nr;
                     continue; //no curly tags means no method
                 }
                 $is_start_method = false;
