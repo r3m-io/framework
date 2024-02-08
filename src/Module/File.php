@@ -222,7 +222,6 @@ class File {
         } else {
             exec('chown ' . $owner . ':' . $group . ' ' . $url, $output);
         }
-        d($output);
         return true;
     }
 
