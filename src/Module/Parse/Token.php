@@ -1725,6 +1725,8 @@ class Token {
                 if(empty($previous_nr) && $previous_nr !== 0){
                     d($token);
                     d($previous_nr);
+                    d($nr);
+                    d($record);
                     die;
                 }
                 $comment_single_line_nr = $nr;
