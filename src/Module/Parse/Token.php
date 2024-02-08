@@ -1722,7 +1722,7 @@ class Token {
                 $quote_double_toggle === false //&&
 //                $token[$previous_nr]['type'] !== Token::TYPE_COLON //make exception for uris
             ){
-                if(empty($previous_nr)){
+                if(empty($previous_nr) && $previous_nr !== 0){
                     d($token);
                     d($previous_nr);
                     die;
