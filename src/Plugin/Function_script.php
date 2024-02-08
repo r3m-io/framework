@@ -25,7 +25,6 @@ function function_script(Parse $parse, Data $data, $name='script', $script=null)
         $value[] = "\t\t\t" . '</script>';
     }
     elseif($name === 'module'){
-        $object->logger('project.log.app')->debug('script', [ $script] );
         $name = 'script';
         $value = [];
         $value[] = '<script type="module">';
