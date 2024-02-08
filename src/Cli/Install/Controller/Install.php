@@ -181,6 +181,7 @@ class Install extends Controller {
                 }
             }
         }
+        ddd($package);
         if(
             $package->has('route') &&
             is_array($package->get('route'))
