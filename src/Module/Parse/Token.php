@@ -1717,18 +1717,19 @@ class Token {
                 continue;
             }
             elseif(
-                $record['type'] === Token::TYPE_COMMENT_SINGLE_LINE &&
-                $quote_single_toggle === false &&
-                $quote_double_toggle === false //&&
-//                $token[$previous_nr]['type'] !== Token::TYPE_COLON //make exception for uris
+                (
+                    $record['type'] === Token::TYPE_COMMENT_SINGLE_LINE &&
+                    $quote_single_toggle === false &&
+                    $quote_double_toggle === false
+                ) ||
+                (
+                    $record['type'] === Token::TYPE_COMMENT_SINGLE_LINE &&
+                    $quote_single_toggle === false &&
+                    $quote_double_toggle === false &&
+                    isset($previous_nr) &&
+                    $token[$previous_nr]['type'] !== Token::TYPE_COLON //make exception for uris
+                )
             ){
-                if(empty($previous_nr) && $previous_nr !== 0){
-                    d($token);
-                    d($previous_nr);
-                    d($nr);
-                    d($record);
-                    die;
-                }
                 $comment_single_line_nr = $nr;
                 $previous_nr = $nr;
                 continue;
