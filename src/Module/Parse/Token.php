@@ -1720,7 +1720,8 @@ class Token {
                 (
                     $record['type'] === Token::TYPE_COMMENT_SINGLE_LINE &&
                     $quote_single_toggle === false &&
-                    $quote_double_toggle === false
+                    $quote_double_toggle === false &&
+                    !isset($previous_nr)
                 ) ||
                 (
                     $record['type'] === Token::TYPE_COMMENT_SINGLE_LINE &&
