@@ -478,6 +478,9 @@ class Autoload {
      * @throws Exception
      */
     public function locate($load=null, $is_data=false){
+        if(str_contains($load, 'Event\\R3m\\Io\\Framework\\Parse\\Build')){
+            ddd('found');
+        }
         $dir = $this->cache_dir();
         $url = $dir . Autoload::FILE;
         $load = ltrim($load, '\\');
@@ -560,7 +563,6 @@ class Autoload {
                     $fileList[$nr] = $this->fileList($item, $url);
                     if(is_array($fileList[$nr]) && empty($this->expose())){
                         foreach($fileList[$nr] as $file){
-                            clearstatcache();
                             File::append(
                                 $dir_temp .
                                 'Autoload.File.log',
