@@ -60,6 +60,7 @@ class Logger {
                         $parameters[] = $name;
                     }
                     $logger = new $record->options->class(...$parameters);
+                    d($record);
                     if(
                         property_exists($record, 'handler') &&
                         !empty($record->handler) &&
