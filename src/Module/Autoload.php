@@ -560,6 +560,7 @@ class Autoload {
                     $fileList[$nr] = $this->fileList($item, $url);
                     if(is_array($fileList[$nr]) && empty($this->expose())){
                         foreach($fileList[$nr] as $file){
+                            clearstatcache();
                             File::append(
                                 $dir_temp .
                                 'Autoload.File.log',
