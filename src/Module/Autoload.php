@@ -563,7 +563,7 @@ class Autoload {
                             File::append(
                                 $dir_temp .
                                 'Autoload.File.log',
-                                $file . PHP_EOL
+                                $file  . ' --> ' . file_exists($file) . PHP_EOL
                             );
                             if(file_exists($file)){
                                 if(
