@@ -60,7 +60,6 @@ class Logger {
                         $parameters[] = $name;
                     }
                     $logger = new $record->options->class(...$parameters);
-                    d($record);
                     if(
                         property_exists($record, 'handler') &&
                         !empty($record->handler) &&
@@ -174,7 +173,6 @@ class Logger {
                     $logName = lcfirst($logger->getName());
                     $object->logger($logger->getName(), $logger);
                     $object->config('project.log.' . $logName, $logger->getName());
-                    d($logger);
                     if(
                         property_exists($record, 'channel') &&
                         !empty($record->channel) &&
