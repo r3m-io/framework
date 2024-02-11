@@ -172,10 +172,8 @@ class Logger {
                     }
                     $logName = lcfirst($logger->getName());
                     $object->logger($logger->getName(), $logger);
-                    if($logName !== 'name'){
-                        $object->config('project.log.' . $logName, $logger->getName());
-//                        $object->logger($logger->getName())->info('Logger initialised.', [$logger->getName()]);
-                    }
+                    $object->config('project.log.' . $logName, $logger->getName());
+                    d($logger);
                     if(
                         property_exists($record, 'channel') &&
                         !empty($record->channel) &&
