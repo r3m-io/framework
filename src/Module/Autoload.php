@@ -561,6 +561,11 @@ class Autoload {
                     if(is_array($fileList[$nr]) && empty($this->expose())){
                         foreach($fileList[$nr] as $file){
                             if(file_exists($file)){
+                                File::append(
+                                    $dir_temp .
+                                    'Autoload.File.log',
+                                    $file . PHP_EOL
+                                );
                                 if(
                                     empty($object->config('ramdisk.is.disabled')) &&
                                     $object->config('autoload.cache.file.name')
