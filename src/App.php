@@ -172,7 +172,6 @@ class App extends Data {
         $logger = false;
         if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
             $logger = $object->config('project.log.debug');
-            $object->logger($logger)->error('Debug started (' . $object->request('request') . ')...');
         }
         $logger_error =  $object->config('project.log.error');
         try {
