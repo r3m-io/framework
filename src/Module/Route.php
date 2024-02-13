@@ -261,6 +261,7 @@ class Route extends Data {
                 $request->request = new Data();
             }
             Route::add_request($object, $request);
+            $request = Route::controller($request);
             return $route->current(new Destination($request));
         }
         return false;
