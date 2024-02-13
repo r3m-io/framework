@@ -262,7 +262,6 @@ class App extends Data {
                         return Response::output($object, $response);
                     } else {
                         $destination = Route::wildcard($object);
-                        ddd($destination);
                         if ($destination === false) {
                             if($logger_error){
                                 $object->logger($logger_error)->error('Couldn\'t determine route (wildcard) (' . $object->request('request') . ')...');
