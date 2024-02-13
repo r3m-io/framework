@@ -181,6 +181,7 @@ class App extends Data {
                 Route::configure($object);
                 $destination = Route::request($object);
                 if ($destination === false) {
+                    $object->config('framework.environment', Config::MODE_PRODUCTION);
                     if ($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
                         if($logger){
                             $object->logger($logger)->error('Couldn\'t determine route (' . $object->request('request') . ')...');
@@ -261,6 +262,7 @@ class App extends Data {
                         return Response::output($object, $response);
                     } else {
                         $destination = Route::wildcard($object);
+                        ddd($destination);
                         if ($destination === false) {
                             if($logger_error){
                                 $object->logger($logger_error)->error('Couldn\'t determine route (wildcard) (' . $object->request('request') . ')...');
