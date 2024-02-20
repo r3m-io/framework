@@ -237,7 +237,9 @@ class Dir {
         if(is_resource($handle)){
             closedir($handle);
         }
-        @chdir($cwd);
+        if(is_dir($cwd)){
+            @chdir($cwd);
+        }
         return $list;
     }
 
