@@ -77,8 +77,9 @@ class App extends Data {
     const FLAGS = App::NAMESPACE . '.' . Data::FLAGS;
     const OPTIONS = App::NAMESPACE . '.' . Data::OPTIONS;
     const REQUEST = App::NAMESPACE . '.' . Handler::NAME_REQUEST . '.' . Handler::NAME_INPUT;
-    const DATABASE = App::NAMESPACE . '.' . Database::NAME;
     const REQUEST_HEADER = App::NAMESPACE . '.' . Handler::NAME_REQUEST . '.' . Handler::NAME_HEADER;
+    const REQUEST_FILE = App::NAMESPACE . '.' . Handler::NAME_REQUEST . '.' . Handler::NAME_FILE;
+    const DATABASE = App::NAMESPACE . '.' . Database::NAME;
 
     const AUTOLOAD_COMPOSER = App::NAMESPACE . '.' . 'Autoload' . '.' . 'Composer';
     const AUTOLOAD_R3M = App::NAMESPACE . '.' . 'Autoload' . '.' . App::R3M;
