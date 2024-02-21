@@ -242,38 +242,38 @@ class Autoload {
             $found = false;
             foreach($list as $record){
                 if(
-                    $record['prefix'] == $prefix &&
-                    $record['directory'] == $directory
+                    $record['prefix'] === $prefix &&
+                    $record['directory'] === $directory
                 ){
                     $found = true;
                     break;
                 }
             }
             if(!$found){
-                $list[]  = array(
+                $list[]  = [
                     'prefix' => $prefix,
                     'directory' => $directory
-                );
+                ];
             }
         } else {
             $found = false;
             foreach($list as $record){
                 if(
-                    $record['prefix'] == $prefix &&
-                    $record['directory'] == $directory &&
+                    $record['prefix'] === $prefix &&
+                    $record['directory'] === $directory &&
                     !empty($record['extension']) &&
-                    $record['extension'] == $extension
+                    $record['extension'] === $extension
                 ){
                     $found = true;
                     break;
                 }
             }
             if(!$found){
-                $list[]  = array(
+                $list[]  = [
                     'prefix' => $prefix,
                     'directory' => $directory,
                     'extension' => $extension
-                );
+                ];
             }
         }
         $this->setPrefixList($list);
@@ -292,38 +292,38 @@ class Autoload {
             $found = false;
             foreach($list as $record){
                 if(
-                    $record['prefix'] == $prefix &&
-                    $record['directory'] == $directory
+                    $record['prefix'] === $prefix &&
+                    $record['directory'] === $directory
                 ){
                     $found = true;
                     break;
                 }
             }
             if(!$found){
-                $prepend[]  = array(
+                $prepend[] = [
                     'prefix' => $prefix,
                     'directory' => $directory
-                );
+                ];
             }
         } else {
             $found = false;
             foreach($list as $record){
                 if(
-                    $record['prefix'] == $prefix &&
-                    $record['directory'] == $directory &&
+                    $record['prefix'] === $prefix &&
+                    $record['directory'] === $directory &&
                     !empty($record['extension']) &&
-                    $record['extension'] == $extension
+                    $record['extension'] === $extension
                 ){
                     $found = true;
                     break;
                 }
             }
             if(!$found){
-                $prepend[]  = array(
+                $prepend[]  = [
                     'prefix' => $prefix,
                     'directory' => $directory,
                     'extension' => $extension
-                );
+                ];
             }
         }
         foreach($list as $record){
@@ -332,7 +332,7 @@ class Autoload {
         $this->setPrefixList($prepend);
     }
 
-    private function setPrefixList($list = array()): void
+    private function setPrefixList($list = []): void
     {
         $this->prefixList = $list;
     }
@@ -471,20 +471,6 @@ class Autoload {
         foreach($data as $nr => $file){
             $result[$file] = $file;
         }
-        d($item);
-
-        if(str_contains($item['directory'], '0/Compile')){
-            $debug = debug_backtrace(1);
-            d($debug[0]['file'] . ':' . $debug[0]['line'] . $debug[0]['function']);
-            d($debug[1]['file'] . ':' . $debug[1]['line'] . $debug[1]['function']);
-            if(array_key_exists(2, $debug) && array_key_exists('file', $debug[2])){
-                d($debug[2]['file'] . ':' . $debug[2]['line'] . $debug[2]['function']);
-            }
-        }
-
-        d($url);
-
-        d($result);
         return $result;
     }
 
