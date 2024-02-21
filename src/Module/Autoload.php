@@ -470,12 +470,15 @@ class Autoload {
         foreach($data as $nr => $file){
             $result[$file] = $file;
         }
+        d($item);
+        /*
         if(str_contains($item['directory'], '0/Compile')){
             $debug = debug_backtrace(1);
             ddd($debug);
         }
+        */
         d($url);
-        d($item);
+
         d($result);
         return $result;
     }
