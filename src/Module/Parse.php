@@ -644,6 +644,7 @@ class Parse {
                 d($exception);
                 return $exception;
             }
+            d('yes');
             $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
             $exists = class_exists($class);
             if($exists){
