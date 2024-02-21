@@ -646,6 +646,7 @@ class Parse {
             }
             d('yes');
             $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
+            d($class);
             $exists = class_exists($class);
             d($exists);
             if($exists){
