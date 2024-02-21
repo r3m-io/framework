@@ -661,6 +661,7 @@ class Parse {
                     }
                 }
                 catch (Exception $exception){
+                    d($exception);
                     return $exception;
                 }
             } else {
@@ -675,9 +676,11 @@ class Parse {
                     'mtime' => $mtime,
                     'exception' => $exception
                 ]);
+                d($exception);
                 throw $exception;
             }
         }
+        d($string);
         if($string === 'null'){
             return null;
         }
