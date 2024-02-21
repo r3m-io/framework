@@ -485,6 +485,7 @@ class Autoload {
         $fileList = [];
         $object = $this->object();
         $logger_error = $object->config('project.log.error');
+        $logger_debug = $object->config('project.log.debug');
         if($object->config('ramdisk.url')){
             $dir_temp = $object->config('ramdisk.url') .
                 $object->config('posix.id') .
@@ -560,11 +561,16 @@ class Autoload {
                     $fileList[$nr] = $this->fileList($item, $url);
                     if(is_array($fileList[$nr]) && empty($this->expose())){
                         foreach($fileList[$nr] as $file){
+                            if($logger_error){
+                                $object->logger($logger_error)->info('Autoload file: ' . $file, [is_readable($file) , file_exists($file)]);
+                            }
+                            /*
                             File::append(
                                 $dir_temp .
                                 'Autoload.File.log',
                                 $file  . ' --> ' . is_readable($file) . '-' .file_exists($file) . PHP_EOL
                             );
+                            */
                             if(file_exists($file)){
                                 if(
                                     empty($object->config('ramdisk.is.disabled')) &&
