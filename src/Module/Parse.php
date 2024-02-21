@@ -649,6 +649,9 @@ class Parse {
                 try {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = $template->run();
+                    if($is_debug){
+                        d($string);
+                    }
                     if(empty($this->halt_literal())){
                         $string = Literal::restore($storage, $string);
                     }
