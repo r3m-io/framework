@@ -641,6 +641,7 @@ class Parse {
                 }
             }
             catch (Exception $exception){
+                d($exception);
                 return $exception;
             }
             $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
