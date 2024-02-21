@@ -470,6 +470,7 @@ class Autoload {
         foreach($data as $nr => $file){
             $result[$file] = $file;
         }
+        d($result);
         return $result;
     }
 
