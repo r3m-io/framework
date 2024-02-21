@@ -452,6 +452,7 @@ class Parse {
             return $string;
         }
         elseif($type === 'string' && stristr($string, '{') === false){
+            d($string);
             return $string;
         } else {
             //this section takes at least 5 msec per document: file:put 2msec, memcache::put 2msec, rest 1msec
@@ -593,6 +594,7 @@ class Parse {
                 //where probably in json
                 $string = str_replace('{{', '{', $string);
                 $string = str_replace('}}', '}', $string);
+                d($string);
             }
             $tree = Token::tree($string, [
                 'object' => $object,
