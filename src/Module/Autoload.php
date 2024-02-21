@@ -471,12 +471,14 @@ class Autoload {
             $result[$file] = $file;
         }
         d($item);
-        /*
+
         if(str_contains($item['directory'], '0/Compile')){
             $debug = debug_backtrace(1);
-            ddd($debug);
+            d($debug[0]['file'] . ':' . $debug[0]['line'] . $debug[0]['function']);
+            d($debug[1]['file'] . ':' . $debug[1]['line'] . $debug[1]['function']);
+            d($debug[2]['file'] . ':' . $debug[2]['line'] . $debug[2]['function']);
         }
-        */
+
         d($url);
 
         d($result);
