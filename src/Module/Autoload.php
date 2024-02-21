@@ -471,6 +471,7 @@ class Autoload {
             $result[$file] = $file;
         }
         d($url);
+        d($item);
         d($result);
         return $result;
     }
