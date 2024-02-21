@@ -1316,7 +1316,6 @@ class App extends Data {
                 $data = clone $this->data();
                 unset($data->{App::NAMESPACE});
                 $read = $parse->compile(Core::object($read), $data, $parse->storage(), null, true);
-                d($read);
                 $data = new Data($read);
                 $readback = [
                     'script',
