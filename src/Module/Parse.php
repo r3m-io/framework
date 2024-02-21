@@ -317,6 +317,9 @@ class Parse {
             return $string;
         }
         $original = $string;
+        if($is_debug){
+            d($original);
+        }
         $object = $this->object();
         if($storage === null){            
             $storage = $this->storage(new Data());
