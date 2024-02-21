@@ -647,38 +647,38 @@ class Parse {
             d('yes');
             $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
             d($class);
-            $exists = class_exists($class);
-            d($exists);
-            if($exists){
-                try {
+            try {
+                $exists = class_exists($class);
+                d($exists);
+                if ($exists) {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = $template->run();
                     d($string);
-                    if(empty($this->halt_literal())){
+                    if (empty($this->halt_literal())) {
                         $string = Literal::restore($storage, $string);
                     }
-                    if($this->useThis() === true){
+                    if ($this->useThis() === true) {
                         $storage->data('delete', 'this');
                     }
-                }
-                catch (Exception $exception){
+                } else {
+                    $exception = new Exception('Class (' . $class . ') doesn\'t exist');
+                    Event::trigger($object, 'parse.compile.exception', [
+                        'string' => $string,
+                        'data' => $data,
+                        'storage' => $storage,
+                        'depth' => $depth,
+                        'url' => $url,
+                        'url_mtime' => $file_mtime,
+                        'mtime' => $mtime,
+                        'exception' => $exception
+                    ]);
                     d($exception);
-                    return $exception;
+                    throw $exception;
                 }
-            } else {
-                $exception = new Exception('Class ('. $class .') doesn\'t exist');
-                Event::trigger($object, 'parse.compile.exception', [
-                    'string' => $string,
-                    'data' => $data,
-                    'storage' => $storage,
-                    'depth' => $depth,
-                    'url' => $url,
-                    'url_mtime' => $file_mtime,
-                    'mtime' => $mtime,
-                    'exception' => $exception
-                ]);
+            }
+            catch (Exception $exception){
                 d($exception);
-                throw $exception;
+                return $exception;
             }
         }
         d($string);
