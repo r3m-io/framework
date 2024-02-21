@@ -54,6 +54,7 @@ class Autoload {
     {
         $autoload = new Autoload();
         $autoload->object($object);
+        $autoload->setPrefixList([]);
         if(
             empty($object->config('ramdisk.is.disabled')) &&
             !empty($object->config('ramdisk.url'))
