@@ -497,11 +497,6 @@ class Parse {
                 //cache file
                 $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
                 try {
-                    d($file_exist);
-                    d($file_mtime);
-                    d($mtime);
-                    d($url);
-                    d($class);
                     $template = new $class(new Parse($this->object()), $storage);
                     /*
                     if(empty($this->halt_literal())){
