@@ -317,9 +317,6 @@ class Parse {
             return $string;
         }
         $original = $string;
-        if($is_debug){
-            d($original);
-        }
         $object = $this->object();
         if($storage === null){            
             $storage = $this->storage(new Data());
@@ -593,15 +590,11 @@ class Parse {
                 //where probably in json
                 $string = str_replace('{{', '{', $string);
                 $string = str_replace('}}', '}', $string);
-                d($string);
             }
             $tree = Token::tree($string, [
                 'object' => $object,
                 'url' => $url,
             ]);
-            if($is_debug){
-                d($tree);
-            }
             try {
                 $tree = $build->require('function', $tree);
                 $tree = $build->require('modifier', $tree);
@@ -641,19 +634,14 @@ class Parse {
                 }
             }
             catch (Exception $exception){
-                d($exception);
                 return $exception;
             }
-            d('yes');
             $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
-            d($class);
             try {
                 $exists = class_exists($class);
-                d($exists);
                 if ($exists) {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = $template->run();
-                    d($string);
                     if (empty($this->halt_literal())) {
                         $string = Literal::restore($storage, $string);
                     }
@@ -672,16 +660,13 @@ class Parse {
                         'mtime' => $mtime,
                         'exception' => $exception
                     ]);
-                    d($exception);
                     throw $exception;
                 }
             }
             catch (Exception $exception){
-                d($exception);
                 return $exception;
             }
         }
-        d($string);
         if($string === 'null'){
             return null;
         }
