@@ -1166,15 +1166,24 @@ class App extends Data {
         } else {
             throw new Exception('File not found: ' . $url);
         }
-        $require = $this->config('require');
-        if(empty($require)){
-            $require = [];
+        $require_url = $this->config('require.url');
+        $require_mtime = $this->config('require.mtime');
+        if(empty($require_url)){
+            $require_url = [];
+            $require_mtime = [];
         }
-        $require[] = (object) [
-            'url' => $url,
-            'mtime' => $mtime
-        ];
-        $this->config('require', $require);
+        if(
+            !in_array(
+                $url,
+                $require_url,
+                true
+            )
+        ){
+            $require_url[] = $url;
+            $require_mtime[] = $mtime;
+            $this->config('require.url', $require_url);
+            $this->config('require.mtime', $require_mtime);
+        }
         $parse = new Parse($this);
         $data = new Data();
         $data->data($this->data());
@@ -1210,15 +1219,24 @@ class App extends Data {
         } else {
             throw new Exception('File not found: ' . $url);
         }
-        $require = $this->config('require');
-        if(empty($require)){
-            $require = [];
+        $require_url = $this->config('require.url');
+        $require_mtime = $this->config('require.mtime');
+        if(empty($require_url)){
+            $require_url = [];
+            $require_mtime = [];
         }
-        $require[] = (object) [
-            'url' => $url,
-            'mtime' => $mtime
-        ];
-        $this->config('require', $require);
+        if(
+            !in_array(
+                $url,
+                $require_url,
+                true
+            )
+        ){
+            $require_url[] = $url;
+            $require_mtime[] = $mtime;
+            $this->config('require.url', $require_url);
+            $this->config('require.mtime', $require_mtime);
+        }
         $parse = new Parse($this);
         $data = new Data();
         $data->data($this->data());
@@ -1255,15 +1273,24 @@ class App extends Data {
         } else {
             throw new Exception('File not found: ' . $url);
         }
-        $require = $this->config('require');
-        if(empty($require)){
-            $require = [];
+        $require_url = $this->config('require.url');
+        $require_mtime = $this->config('require.mtime');
+        if(empty($require_url)){
+            $require_url = [];
+            $require_mtime = [];
         }
-        $require[] = (object) [
-            'url' => $url,
-            'mtime' => $mtime
-        ];
-        $this->config('require', $require);
+        if(
+            !in_array(
+                $url,
+                $require_url,
+                true
+            )
+        ){
+            $require_url[] = $url;
+            $require_mtime[] = $mtime;
+            $this->config('require.url', $require_url);
+            $this->config('require.mtime', $require_mtime);
+        }
         $parse = new Parse($this);
         $data = new Data();
         $data->data($this->data());
@@ -1303,15 +1330,24 @@ class App extends Data {
         if(File::exist($url)){
             $read = File::read($url);
             $mtime = File::mtime($url);
-            $require = $this->config('require');
-            if(empty($require)){
-                $require = [];
+            $require_url = $this->config('require.url');
+            $require_mtime = $this->config('require.mtime');
+            if(empty($require_url)){
+                $require_url = [];
+                $require_mtime = [];
             }
-            $require[] = (object) [
-                'url' => $url,
-                'mtime' => $mtime
-            ];
-            $this->config('require', $require);
+            if(
+                !in_array(
+                    $url,
+                    $require_url,
+                    true
+                )
+            ){
+                $require_url[] = $url;
+                $require_mtime[] = $mtime;
+                $this->config('require.url', $require_url);
+                $this->config('require.mtime', $require_mtime);
+            }
             if($read){
                 try {
                     $data = new Data();
@@ -1361,15 +1397,24 @@ class App extends Data {
             if($read){
                 $mtime = File::mtime($url);
                 $parse = new Parse($this);
-                $require = $this->config('require');
-                if(empty($require)){
-                    $require = [];
+                $require_url = $this->config('require.url');
+                $require_mtime = $this->config('require.mtime');
+                if(empty($require_url)){
+                    $require_url = [];
+                    $require_mtime = [];
                 }
-                $require[] = (object) [
-                    'url' => $url,
-                    'mtime' => $mtime
-                ];
-                $this->config('require', $require);
+                if(
+                    !in_array(
+                        $url,
+                        $require_url,
+                        true
+                    )
+                ){
+                    $require_url[] = $url;
+                    $require_mtime[] = $mtime;
+                    $this->config('require.url', $require_url);
+                    $this->config('require.mtime', $require_mtime);
+                }
                 $parse->storage()->data('r3m.io.parse.view.url', $url);
                 $parse->storage()->data('r3m.io.parse.view.mtime', $mtime);
                 $this->data('ldelim', '{');

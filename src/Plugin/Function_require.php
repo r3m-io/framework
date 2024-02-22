@@ -71,15 +71,24 @@ function function_require(Parse $parse, Data $data, $url='', $storage=[]){
             }
         }
     }
-    $require = $object->config('require');
-    if(empty($require)){
-        $require = [];
+    $require_url = $object->config('require.url');
+    $require_mtime = $object->config('require.mtime');
+    if(empty($require_url)){
+        $require_url = [];
+        $require_mtime = [];
     }
-    $require[] = (object) [
-        'url' => $url,
-        'mtime' => $mtime
-    ];
-    $object->config('require', $require);
+    if(
+        !in_array(
+            $url,
+            $require_url,
+            true
+        )
+    ){
+        $require_url[] = $url;
+        $require_mtime[] = $mtime;
+        $object->config('require.url', $require_url);
+        $object->config('require.mtime', $require_mtime);
+    }
     $read = File::read($url);
     if(
         $is_cache_url === false &&
