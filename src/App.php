@@ -1178,7 +1178,14 @@ class App extends Data {
                 $require_url,
                 true
             ) &&
-            !str_contains($url, $this->config('ramdisk.url'))
+            !str_contains(
+                $url,
+                $this->config('ramdisk.url') .
+                $this->config(Config::POSIX_ID) .
+                $this->config('ds') .
+                $this->config('dictionary.parse') .
+                $this->config('ds')
+            )
         ){
             $require_url[] = $url;
             $require_mtime[] = $mtime;
@@ -1232,7 +1239,14 @@ class App extends Data {
                 $require_url,
                 true
             ) &&
-            !str_contains($url, $this->config('ramdisk.url'))
+            !str_contains(
+                $url,
+                $this->config('ramdisk.url') .
+                $this->config(Config::POSIX_ID) .
+                $this->config('ds') .
+                $this->config('dictionary.parse') .
+                $this->config('ds')
+            )
         ){
             $require_url[] = $url;
             $require_mtime[] = $mtime;
@@ -1287,7 +1301,14 @@ class App extends Data {
                 $require_url,
                 true
             ) &&
-            !str_contains($url, $this->config('ramdisk.url'))
+            !str_contains(
+                $url,
+                $this->config('ramdisk.url') .
+                $this->config(Config::POSIX_ID) .
+                $this->config('ds') .
+                $this->config('dictionary.parse') .
+                $this->config('ds')
+            )
         ){
             $require_url[] = $url;
             $require_mtime[] = $mtime;
@@ -1345,7 +1366,14 @@ class App extends Data {
                     $require_url,
                     true
                 ) &&
-                !str_contains($url, $this->config('ramdisk.url'))
+                !str_contains(
+                    $url,
+                    $this->config('ramdisk.url') .
+                    $this->config(Config::POSIX_ID) .
+                    $this->config('ds') .
+                    $this->config('dictionary.parse') .
+                    $this->config('ds')
+                )
             ){
                 $require_url[] = $url;
                 $require_mtime[] = $mtime;
@@ -1412,6 +1440,14 @@ class App extends Data {
                         $url,
                         $require_url,
                         true
+                    ) &&
+                    !str_contains(
+                        $url,
+                        $this->config('ramdisk.url') .
+                        $this->config(Config::POSIX_ID) .
+                        $this->config('ds') .
+                        $this->config('dictionary.parse') .
+                        $this->config('ds')
                     )
                 ){
                     $require_url[] = $url;

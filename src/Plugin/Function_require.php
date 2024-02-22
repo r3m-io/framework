@@ -83,7 +83,14 @@ function function_require(Parse $parse, Data $data, $url='', $storage=[]){
             $require_url,
             true
         ) &&
-        !str_contains($url, $object->config('ramdisk.url'))
+        !str_contains(
+            $url,
+            $object->config('ramdisk.url') .
+            $object->config(Config::POSIX_ID) .
+            $object->config('ds') .
+            $object->config('dictionary.parse') .
+            $object->config('ds')
+        )
     ){
         $require_url[] = $url;
         $require_mtime[] = $mtime;
