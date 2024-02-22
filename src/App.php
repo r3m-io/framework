@@ -1161,6 +1161,20 @@ class App extends Data {
      */
     public function data_select($url, $select=null): Data
     {
+        if(File::exist($url)){
+            $mtime = File::mtime($url);
+        } else {
+            throw new Exception('File not found: ' . $url);
+        }
+        $require = $this->config('require');
+        if(empty($require)){
+            $require = [];
+        }
+        $require[] = (object) [
+            'url' => $url,
+            'mtime' => $mtime
+        ];
+        $this->config('require', $require);
         $parse = new Parse($this);
         $data = new Data();
         $data->data($this->data());
@@ -1191,6 +1205,20 @@ class App extends Data {
      */
     public function parse_select($url, $select=null, $scope='scope:object'): Data
     {
+        if(File::exist($url)){
+            $mtime = File::mtime($url);
+        } else {
+            throw new Exception('File not found: ' . $url);
+        }
+        $require = $this->config('require');
+        if(empty($require)){
+            $require = [];
+        }
+        $require[] = (object) [
+            'url' => $url,
+            'mtime' => $mtime
+        ];
+        $this->config('require', $require);
         $parse = new Parse($this);
         $data = new Data();
         $data->data($this->data());
@@ -1222,6 +1250,20 @@ class App extends Data {
      */
     public function object_select($url, $select=null, $compile=false, $scope='scope:object'): mixed
     {
+        if(File::exist($url)){
+            $mtime = File::mtime($url);
+        } else {
+            throw new Exception('File not found: ' . $url);
+        }
+        $require = $this->config('require');
+        if(empty($require)){
+            $require = [];
+        }
+        $require[] = (object) [
+            'url' => $url,
+            'mtime' => $mtime
+        ];
+        $this->config('require', $require);
         $parse = new Parse($this);
         $data = new Data();
         $data->data($this->data());
@@ -1260,6 +1302,16 @@ class App extends Data {
         }
         if(File::exist($url)){
             $read = File::read($url);
+            $mtime = File::mtime($url);
+            $require = $this->config('require');
+            if(empty($require)){
+                $require = [];
+            }
+            $require[] = (object) [
+                'url' => $url,
+                'mtime' => $mtime
+            ];
+            $this->config('require', $require);
             if($read){
                 try {
                     $data = new Data();
@@ -1309,6 +1361,15 @@ class App extends Data {
             if($read){
                 $mtime = File::mtime($url);
                 $parse = new Parse($this);
+                $require = $this->config('require');
+                if(empty($require)){
+                    $require = [];
+                }
+                $require[] = (object) [
+                    'url' => $url,
+                    'mtime' => $mtime
+                ];
+                $this->config('require', $require);
                 $parse->storage()->data('r3m.io.parse.view.url', $url);
                 $parse->storage()->data('r3m.io.parse.view.mtime', $mtime);
                 $this->data('ldelim', '{');

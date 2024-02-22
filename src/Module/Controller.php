@@ -683,8 +683,7 @@ class Controller {
             'url' => $url,
             'mtime' => $mtime
         ];
-        ddd($object->config());
-        $object->config('r3m.io.require', $require);
+        $object->config('require', $require);
         if(empty($data)){
             $object->data(Controller::PROPERTY_LDELIM, Controller::LDELIM);
             $object->data(Controller::PROPERTY_RDELIM, Controller::RDELIM);
