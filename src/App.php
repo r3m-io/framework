@@ -1177,7 +1177,8 @@ class App extends Data {
                 $url,
                 $require_url,
                 true
-            )
+            ) &&
+            !str_contains($url, $this->config('ramdisk.url'))
         ){
             $require_url[] = $url;
             $require_mtime[] = $mtime;
@@ -1230,7 +1231,8 @@ class App extends Data {
                 $url,
                 $require_url,
                 true
-            )
+            ) &&
+            !str_contains($url, $this->config('ramdisk.url'))
         ){
             $require_url[] = $url;
             $require_mtime[] = $mtime;
@@ -1284,7 +1286,8 @@ class App extends Data {
                 $url,
                 $require_url,
                 true
-            )
+            ) &&
+            !str_contains($url, $this->config('ramdisk.url'))
         ){
             $require_url[] = $url;
             $require_mtime[] = $mtime;
@@ -1341,7 +1344,8 @@ class App extends Data {
                     $url,
                     $require_url,
                     true
-                )
+                ) &&
+                !str_contains($url, $this->config('ramdisk.url'))
             ){
                 $require_url[] = $url;
                 $require_mtime[] = $mtime;
