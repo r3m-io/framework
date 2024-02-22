@@ -675,6 +675,16 @@ class Controller {
         $parse = new Parse($object);
         $parse->storage()->data(Controller::PROPERTY_VIEW_URL, $url);
         $parse->storage()->data(Controller::PROPERTY_VIEW_MTIME, $mtime);
+        $require = $object->config('r3m.io.require');
+        if(empty($require)) {
+            $require = [];
+        }
+        $require[] = (object) [
+            'url' => $url,
+            'mtime' => $mtime
+        ];
+        ddd($object->config());
+        $object->config('r3m.io.require', $require);
         if(empty($data)){
             $object->data(Controller::PROPERTY_LDELIM, Controller::LDELIM);
             $object->data(Controller::PROPERTY_RDELIM, Controller::RDELIM);
@@ -703,7 +713,6 @@ class Controller {
         $read = $parse->compile($read, $data, $parse->storage());
         Parse::readback($object, $parse, App::SCRIPT);
         Parse::readback($object, $parse, App::LINK);
-        ddd($parse->storage());
         return $read;
     }
 
