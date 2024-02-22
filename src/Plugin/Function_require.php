@@ -88,7 +88,7 @@ function function_require(Parse $parse, Data $data, $url='', $storage=[]){
             $object->config('ramdisk.url') .
             $object->config(Config::POSIX_ID) .
             $object->config('ds') .
-            $object->config('dictionary.parse') .
+            'Parse' .
             $object->config('ds')
         )
     ){
