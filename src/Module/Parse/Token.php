@@ -746,6 +746,8 @@ class Token {
                 sha1($string) .
                 $object->config('extension.json');
             $read = $object->data_read($url);
+            $require = $object->config('require');
+            ddd($require);
             if(
                 File::mtime($options['url']) === File::mtime($url) &&
                 $read && $read->get('string') === $string
