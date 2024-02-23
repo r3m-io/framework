@@ -1166,32 +1166,30 @@ class App extends Data {
         } else {
             throw new Exception('File not found: ' . $url);
         }
-        $require_url = $this->config('require.url');
-        $require_mtime = $this->config('require.mtime');
-        if(empty($require_url)){
-            $require_url = [];
-            $require_mtime = [];
+        $require_disabled = $this->config('require.disabled');
+        if($require_disabled){
+            //nothing
+        } else {
+            $require_url = $this->config('require.url');
+            $require_mtime = $this->config('require.mtime');
+            if(empty($require_url)){
+                $require_url = [];
+                $require_mtime = [];
+            }
+            if(
+                !in_array(
+                    $url,
+                    $require_url,
+                    true
+                )
+            ){
+                $require_url[] = $url;
+                $require_mtime[] = $mtime;
+                $this->config('require.url', $require_url);
+                $this->config('require.mtime', $require_mtime);
+            }
         }
-        if(
-            !in_array(
-                $url,
-                $require_url,
-                true
-            ) &&
-            !str_contains(
-                $url,
-                $this->config('ramdisk.url') .
-                $this->config(Config::POSIX_ID) .
-                $this->config('ds') .
-                'Parse' .
-                $this->config('ds')
-            )
-        ){
-            $require_url[] = $url;
-            $require_mtime[] = $mtime;
-            $this->config('require.url', $require_url);
-            $this->config('require.mtime', $require_mtime);
-        }
+
         $parse = new Parse($this);
         $data = new Data();
         $data->data($this->data());
@@ -1227,31 +1225,28 @@ class App extends Data {
         } else {
             throw new Exception('File not found: ' . $url);
         }
-        $require_url = $this->config('require.url');
-        $require_mtime = $this->config('require.mtime');
-        if(empty($require_url)){
-            $require_url = [];
-            $require_mtime = [];
-        }
-        if(
-            !in_array(
-                $url,
-                $require_url,
-                true
-            ) &&
-            !str_contains(
-                $url,
-                $this->config('ramdisk.url') .
-                $this->config(Config::POSIX_ID) .
-                $this->config('ds') .
-                'Parse' .
-                $this->config('ds')
-            )
-        ){
-            $require_url[] = $url;
-            $require_mtime[] = $mtime;
-            $this->config('require.url', $require_url);
-            $this->config('require.mtime', $require_mtime);
+        $require_disabled = $this->config('require.disabled');
+        if($require_disabled){
+            //nothing
+        } else {
+            $require_url = $this->config('require.url');
+            $require_mtime = $this->config('require.mtime');
+            if(empty($require_url)){
+                $require_url = [];
+                $require_mtime = [];
+            }
+            if(
+                !in_array(
+                    $url,
+                    $require_url,
+                    true
+                )
+            ){
+                $require_url[] = $url;
+                $require_mtime[] = $mtime;
+                $this->config('require.url', $require_url);
+                $this->config('require.mtime', $require_mtime);
+            }
         }
         $parse = new Parse($this);
         $data = new Data();
@@ -1289,31 +1284,28 @@ class App extends Data {
         } else {
             throw new Exception('File not found: ' . $url);
         }
-        $require_url = $this->config('require.url');
-        $require_mtime = $this->config('require.mtime');
-        if(empty($require_url)){
-            $require_url = [];
-            $require_mtime = [];
-        }
-        if(
-            !in_array(
-                $url,
-                $require_url,
-                true
-            ) &&
-            !str_contains(
-                $url,
-                $this->config('ramdisk.url') .
-                $this->config(Config::POSIX_ID) .
-                $this->config('ds') .
-                'Parse' .
-                $this->config('ds')
-            )
-        ){
-            $require_url[] = $url;
-            $require_mtime[] = $mtime;
-            $this->config('require.url', $require_url);
-            $this->config('require.mtime', $require_mtime);
+        $require_disabled = $this->config('require.disabled');
+        if($require_disabled){
+            //nothing
+        } else {
+            $require_url = $this->config('require.url');
+            $require_mtime = $this->config('require.mtime');
+            if(empty($require_url)){
+                $require_url = [];
+                $require_mtime = [];
+            }
+            if(
+                !in_array(
+                    $url,
+                    $require_url,
+                    true
+                )
+            ){
+                $require_url[] = $url;
+                $require_mtime[] = $mtime;
+                $this->config('require.url', $require_url);
+                $this->config('require.mtime', $require_mtime);
+            }
         }
         $parse = new Parse($this);
         $data = new Data();
@@ -1354,31 +1346,28 @@ class App extends Data {
         if(File::exist($url)){
             $read = File::read($url);
             $mtime = File::mtime($url);
-            $require_url = $this->config('require.url');
-            $require_mtime = $this->config('require.mtime');
-            if(empty($require_url)){
-                $require_url = [];
-                $require_mtime = [];
-            }
-            if(
-                !in_array(
-                    $url,
-                    $require_url,
-                    true
-                ) &&
-                !str_contains(
-                    $url,
-                    $this->config('ramdisk.url') .
-                    $this->config(Config::POSIX_ID) .
-                    $this->config('ds') .
-                    'Parse' .
-                    $this->config('ds')
-                )
-            ){
-                $require_url[] = $url;
-                $require_mtime[] = $mtime;
-                $this->config('require.url', $require_url);
-                $this->config('require.mtime', $require_mtime);
+            $require_disabled = $this->config('require.disabled');
+            if($require_disabled){
+                //nothing
+            } else {
+                $require_url = $this->config('require.url');
+                $require_mtime = $this->config('require.mtime');
+                if(empty($require_url)){
+                    $require_url = [];
+                    $require_mtime = [];
+                }
+                if(
+                    !in_array(
+                        $url,
+                        $require_url,
+                        true
+                    )
+                ){
+                    $require_url[] = $url;
+                    $require_mtime[] = $mtime;
+                    $this->config('require.url', $require_url);
+                    $this->config('require.mtime', $require_mtime);
+                }
             }
             if($read){
                 try {
@@ -1429,31 +1418,28 @@ class App extends Data {
             if($read){
                 $mtime = File::mtime($url);
                 $parse = new Parse($this);
-                $require_url = $this->config('require.url');
-                $require_mtime = $this->config('require.mtime');
-                if(empty($require_url)){
-                    $require_url = [];
-                    $require_mtime = [];
-                }
-                if(
-                    !in_array(
-                        $url,
-                        $require_url,
-                        true
-                    ) &&
-                    !str_contains(
-                        $url,
-                        $this->config('ramdisk.url') .
-                        $this->config(Config::POSIX_ID) .
-                        $this->config('ds') .
-                        'Parse' .
-                        $this->config('ds')
-                    )
-                ){
-                    $require_url[] = $url;
-                    $require_mtime[] = $mtime;
-                    $this->config('require.url', $require_url);
-                    $this->config('require.mtime', $require_mtime);
+                $require_disabled = $this->config('require.disabled');
+                if($require_disabled){
+                    //nothing
+                } else {
+                    $require_url = $this->config('require.url');
+                    $require_mtime = $this->config('require.mtime');
+                    if(empty($require_url)){
+                        $require_url = [];
+                        $require_mtime = [];
+                    }
+                    if(
+                        !in_array(
+                            $url,
+                            $require_url,
+                            true
+                        )
+                    ){
+                        $require_url[] = $url;
+                        $require_mtime[] = $mtime;
+                        $this->config('require.url', $require_url);
+                        $this->config('require.mtime', $require_mtime);
+                    }
                 }
                 $parse->storage()->data('r3m.io.parse.view.url', $url);
                 $parse->storage()->data('r3m.io.parse.view.mtime', $mtime);
