@@ -730,6 +730,7 @@ class Token {
             $object = $options['object'];
         }
         $url = false;
+        $dir = false;
         if(
             $object &&
             $object->config('ramdisk.parse.tree') &&
