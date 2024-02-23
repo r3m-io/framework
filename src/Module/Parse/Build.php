@@ -623,8 +623,10 @@ class Build {
         $this->storage()->data('time.duration', $this->storage()->data('time.end') - $this->storage()->data('time.start'));
         $write = str_replace($this->storage()->data('placeholder.generation.time'), round($this->storage()->data('time.duration') * 1000, 2). ' msec', $write);
         $dir = Dir::name($url, Dir::CHMOD);
-        Dir::create($dir);
+        Dir::create($dir, Dir::CHMOD);
         File::put($url, $write);
+        d($dir);
+        d($url);
         exec('chmod 640 ' . $url);
         $object = $this->object();
         Event::trigger($object, 'parse.build.write', [
