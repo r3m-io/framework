@@ -618,6 +618,7 @@ class Build {
      */
     public function write($url, $document=[], $string=''): string
     {
+        $object = $this->object();
         $write = implode("\n", $document);
         $this->storage()->data('time.end', microtime(true));
         $this->storage()->data('time.duration', $this->storage()->data('time.end') - $this->storage()->data('time.start'));
@@ -625,10 +626,14 @@ class Build {
         $dir = Dir::name($url);
         Dir::create($dir, Dir::CHMOD);
         File::put($url, $write);
-        d($dir);
-        d($url);
         exec('chmod 640 ' . $url);
-        $object = $this->object();
+        if(
+            Config::posix_id() === 0 &&
+            Config::posix_id() !== $object->config(Config::POSIX_ID)
+        ){
+            exec('chown www-data:www-data ' . $dir);
+            exec('chown www-data:www-data ' . $url);
+        }
         Event::trigger($object, 'parse.build.write', [
             'url' => $url,
             'string' => $string,
