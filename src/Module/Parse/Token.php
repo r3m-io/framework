@@ -773,10 +773,15 @@ class Token {
             $data->set('url', $options['url']);
             $data->write($url);
             File::touch($url, File::mtime($options['url']));
-            File::permission($object, [
-                'dir' => $dir,
-                'url' => $url
-            ]);
+            if(
+                Config::posix_id() === 0 &&
+                Config::posix_id() !== $object->config(Config::POSIX_ID)
+            ){
+                if($dir){
+                    exec('chown www-data:www-data ' . $dir);
+                }
+                exec('chown www-data:www-data ' . $url);
+            }
         }
         return $token;
     }
