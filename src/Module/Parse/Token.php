@@ -773,6 +773,10 @@ class Token {
             $data->set('url', $options['url']);
             $data->write($url);
             File::touch($url, File::mtime($options['url']));
+            File::permission($object, [
+                'dir' => $dir,
+                'url' => $url
+            ]);
         }
         return $token;
     }
