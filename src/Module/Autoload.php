@@ -126,14 +126,19 @@ class Autoload {
             $object->config('autoload.cache.compile', $compile_dir);
             if(!is_dir($object->config('ramdisk.url'))){
                 mkdir($object->config('ramdisk.url'), 0750, true);
-                if(empty($object->config(Config::POSIX_ID))){
+                if(Config::posix_id() === 0){
                     exec('chown www-data:www-data ' . $object->config('ramdisk.url'));
                 }
             }
             if(!is_dir($class_dir)){
                 mkdir($class_dir,0750, true);
+                if(
+                    Config::posix_id() === 0 &&
+                    Config::posix_id() !== $object->config(Config::POSIX_ID)
+                ){
+                    exec('chown www-data:www-data ' . $class_dir);
+                }
             }
-
         }
         if(empty($cache_dir)){
             $cache_dir = $object->config('autoload.cache.directory');
@@ -504,6 +509,12 @@ class Autoload {
         }
         if(!Dir::is($dir_temp)){
             Dir::create($dir_temp, Dir::CHMOD);
+            if(
+                Config::posix_id() === 0 &&
+                Config::posix_id() !== $object->config('posix.id')
+            ){
+                exec('chown www-data:www-data ' . $dir_temp);
+            }
         }
         if(!empty($prefixList)){
             foreach($prefixList as $nr => $item){
@@ -618,6 +629,12 @@ class Autoload {
                                             $dirname = dirname($object->config('autoload.cache.file.name'));
                                             if(!is_dir($dirname)){
                                                 mkdir($dirname, 0750, true);
+                                                if(
+                                                    Config::posix_id() === 0 &&
+                                                    Config::posix_id() !== $object->config(Config::POSIX_ID)
+                                                ){
+                                                    exec('chown www-data:www-data ' . $dirname);
+                                                }
                                             }
                                             $read = file_get_contents($file);
                                             if(Autoload::ramdisk_exclude_content($object, $read, $file)){
@@ -626,17 +643,34 @@ class Autoload {
                                                 //save to file
                                                 file_put_contents($object->config('autoload.cache.file.name'), $read);
                                                 touch($object->config('autoload.cache.file.name'), filemtime($file));
-
+                                                if(
+                                                    Config::posix_id() === 0 &&
+                                                    Config::posix_id() !== $object->config(Config::POSIX_ID)
+                                                ){
+                                                    exec('chown www-data:www-data ' . $object->config('autoload.cache.file.name'));
+                                                }
                                                 //save file reference for filemtime comparison
                                                 $mtime[sha1($object->config('autoload.cache.file.name'))] = $file;
                                                 if(!is_dir($config_dir)){
                                                     mkdir($config_dir, 0750, true);
+                                                    if(
+                                                        Config::posix_id() === 0 &&
+                                                        Config::posix_id() !== $object->config(Config::POSIX_ID)
+                                                    ){
+                                                        exec('chown www-data:www-data ' . $config_dir);
+                                                    }
                                                 }
                                                 $write = json_encode($mtime, JSON_PRETTY_PRINT | JSON_PRESERVE_ZERO_FRACTION);
                                                 file_put_contents($config_url, $write);
                                                 $object->set(sha1($config_url), $mtime);
                                                 exec('chmod 640 ' . $object->config('autoload.cache.file.name'));
                                                 exec('chmod 640 ' . $config_url);
+                                                if(
+                                                    Config::posix_id() === 0 &&
+                                                    Config::posix_id() !== $object->config(Config::POSIX_ID)
+                                                ){
+                                                    exec('chown www-data:www-data ' . $config_url);
+                                                }
                                             }
                                         }
                                     }
@@ -731,6 +765,12 @@ class Autoload {
                 $this->write($url, $this->read);
                 if(file_exists($url)) {
                     exec('chmod 640 ' . $url);
+                    if(
+                        Config::posix_id() === 0 &&
+                        Config::posix_id() !== $object->config(Config::POSIX_ID)
+                    ){
+                        exec('chown www-data:www-data ' . $url);
+                    }
                 }
             }
         }
@@ -749,6 +789,12 @@ class Autoload {
             $this->write($url, $prefixList);
             if(file_exists($url)) {
                 exec('chmod 640 ' . $url);
+                if(
+                    Config::posix_id() === 0 &&
+                    Config::posix_id() !== $object->config(Config::POSIX_ID)
+                ){
+                    exec('chown www-data:www-data ' . $url);
+                }
             }
         }
     }

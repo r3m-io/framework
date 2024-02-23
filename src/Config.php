@@ -225,8 +225,12 @@ class Config extends Data {
                 $this->data($attribute, $value);
             }
         }
-        $id = posix_geteuid();
-        $this->data(Config::POSIX_ID, $id);
+        $this->data(Config::POSIX_ID, Config::posix_id());
+    }
+
+    public static function posix_id(): int
+    {
+        return posix_geteuid();
     }
 
     /**
