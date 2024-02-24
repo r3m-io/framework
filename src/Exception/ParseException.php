@@ -13,6 +13,7 @@ namespace R3m\Io\Exception;
 use R3m\Io\App;
 
 use R3m\Io\Module\Cli;
+use R3m\Io\Module\Core;
 use R3m\Io\Module\File;
 
 use Throwable;
@@ -78,7 +79,7 @@ class ParseException extends Exception {
                 for ($i = $line_nr - 5; $i <= $line_nr + 5; $i++) {
                     if (array_key_exists($i, $explode)) {
                         if($i === $line_nr - 1){
-                            if($object->config('is.exception')){
+                            if(Core::is_cli()){
                                 $explode[$i] = Cli::color(null, ['r'=> 200, 'g' => 0, 'b' => 0]) . $explode[$i] . Cli::tput('init');
                             } else {
                                 $explode[$i] = '<span style="color: #A00000;">' . $explode[$i] . '</span>';
@@ -97,13 +98,10 @@ class ParseException extends Exception {
         $string .= PHP_EOL .
             PHP_EOL
         ;
-        if($object->config('is.exception')){
+        if(Core::is_cli()){
             $title = 'Code: ';
             $width = Cli::width();
             $title_length = strlen($title);
-            d($object->config('is'));
-            d($width);
-            ddd($title_length);
             $width = $width - $title_length;
             $title .= str_repeat(' ', $width);
             $string .= Cli::color(null, ['r'=> 200, 'g' => 0, 'b' => 0]) . $title . Cli::tput('init') . PHP_EOL;
@@ -115,7 +113,7 @@ class ParseException extends Exception {
             $string .= PHP_EOL .
                 PHP_EOL
             ;
-            if($object->config('is.exception')){
+            if(Core::is_cli()){
                 $title = 'Source: ';
                 $width = Cli::width();
                 $title_length = strlen($title);
@@ -127,7 +125,7 @@ class ParseException extends Exception {
             }
             $string .= $source;
         }
-        if($object->config('is.exception')){
+        if(Core::is_cli()){
             $output = [];
             $output[] = $string;
             $output[] = '';
