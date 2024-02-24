@@ -101,6 +101,8 @@ class ParseException extends Exception {
             $title = 'Code: ';
             $width = Cli::width();
             $title_length = strlen($title);
+            d($width);
+            ddd($title_length);
             $width = $width - $title_length;
             $title .= str_repeat(' ', $width);
             $string .= Cli::color(null, ['r'=> 200, 'g' => 0, 'b' => 0]) . $title . Cli::tput('init') . PHP_EOL;
