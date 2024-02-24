@@ -532,6 +532,9 @@ class File {
             ],
             $filename
         );
+        if(!str_starts_with($extension, '.')){
+            $extension = '.' . $extension;
+        }
         return basename($filename, $extension);
     }
 
