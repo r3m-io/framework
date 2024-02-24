@@ -101,6 +101,7 @@ class ParseException extends Exception {
             $title = 'Code: ';
             $width = Cli::width();
             $title_length = strlen($title);
+            d($object->config('is'));
             d($width);
             ddd($title_length);
             $width = $width - $title_length;
