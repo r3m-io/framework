@@ -156,7 +156,7 @@
       "copy" : [
         {
           "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Entity/",
-          "to" :  "{{config('project.dir.entity')}}",
+          "to" :  "{{config('project.dir.source')}}Entity/",
           "recursive": true
         },
         {
