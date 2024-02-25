@@ -144,6 +144,9 @@ class Install extends Controller {
                 ){
                     if(File::exist($copy->from)){
                         if(Dir::is($copy->from)){
+                            if(empty($copy->to)){
+                                ddd($copy);
+                            }
                             Dir::create($copy->to, Dir::CHMOD);
                             File::permission($object, ['to' => $copy->to]);
                             $dir = new Dir();
