@@ -147,6 +147,63 @@
         ]
       }
     },
+    "r3m_io/email" : {
+      "composer" : "composer require {{$this.#key}}:dev-main",
+      "route" : [
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
+      ],
+      "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
+      "copy" : [
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Entity/",
+          "to" :  "{{config('project.dir.entity')}}",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Event/",
+          "to" :  "{{config('project.dir.event')}}",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Migration/",
+          "to" : "{{config('project.dir.source')}}Migration/",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Node/",
+          "to" : "{{config('project.dir.node')}}",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Package/",
+          "to" :  "{{package.dir(config('project.dir.package'), $this.#parentNode.#key)}}",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Repository/",
+          "to" :  "{{config('project.dir.source')}}Repository/",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/ToArray/",
+          "to" :  "{{config('project.dir.source')}}ToArray/",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Validate/",
+          "to" :  "{{config('project.dir.source')}}Validate/",
+          "recursive": true
+        }
+      ],
+      "command" : [
+        "{{binary()}} {{$this.#key}} setup"
+      ],
+      "update" : {
+        "command" : [
+          "{{binary()}} {{$this.#parentNode.#key}} update"
+        ]
+      }
+    },
     "r3m_io/log" : {
       "composer" : "composer require {{$this.#key}}:dev-main",
       "route" : [
