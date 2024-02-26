@@ -185,8 +185,8 @@
           "recursive": true
         },
         {
-          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/ToArray/",
-          "to" :  "{{config('project.dir.source')}}ToArray/",
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Expose/",
+          "to" :  "{{config('project.dir.source')}}Expose/",
           "recursive": true
         },
         {
