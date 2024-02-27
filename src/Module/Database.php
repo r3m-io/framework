@@ -117,6 +117,7 @@ class Database {
         if(empty($environment)){
             $environment = Config::MODE_DEVELOPMENT;
         }
+        $options = Core::object($options, Core::OBJECT_ARRAY);
         if(array_key_exists('environment', $options)){
             $environment = $options['environment'];
         }
