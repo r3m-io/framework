@@ -154,7 +154,7 @@ class Database {
             }
             $cache = null;
             if($proxy_dir) {
-                $config = ORMSetup::createAnnotationMetadataConfiguration($paths, false, $proxy_dir, $cache);
+                $config = ORMSetup::createAttributeMetadataConfiguration($paths, false, $proxy_dir, $cache);
                 if (!empty($connection['logging'])) {
                     $logger = new Logger(Database::LOGGER_DOCTRINE);
                     $logger->pushHandler(new StreamHandler($object->config('project.dir.log') . 'sql.log', Logger::DEBUG));
@@ -165,8 +165,8 @@ class Database {
                     }
                     $config->setMiddlewares([new Logging\Middleware($logger)]);
                 }
-                $connection = DriverManager::getConnection($connection, $config, new EventManager());
-                $em = EntityManager::create($connection, $config);
+                $connection = DriverManager::getConnection($connection, $config);
+                $em = new EntityManager($connection, $config);
                 $app_cache->set(Database::NAME . '.entityManager.' . $name . '.' . $environment, $em);
                 return $em;
             }
