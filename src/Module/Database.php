@@ -166,7 +166,8 @@ class Database {
                     $config->setMiddlewares([new Logging\Middleware($logger)]);
                 }
                 $connection = DriverManager::getConnection($connection, $config);
-                $em = new EntityManager($connection, $config);
+                $eventManager = new EventManager();
+                $em = new EntityManager($connection, $config, $eventManager);
                 $app_cache->set(Database::NAME . '.entityManager.' . $name . '.' . $environment, $em);
                 return $em;
             }

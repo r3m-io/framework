@@ -36,6 +36,7 @@
         "txt": "text\/plain",
         "log": "text\/plain",
         "ini": "text\/plain",
+        "sh": "text\/plain",
         "html": "text\/html",
         "tpl": "text\/html",
         "css": "text\/css",
@@ -128,7 +129,8 @@
         "lock": ".lock",
         "btree": ".btree",
         "connect": ".connect",
-        "response": ".response"
+        "response": ".response",
+        "sh": ".sh"
     },
     "error": {
         "extension": {
