@@ -110,6 +110,18 @@ class Server {
         }
     }
 
+    public static function origin(){
+        if (array_key_exists('HTTP_ORIGIN', $_SERVER)) {
+            $origin = $_SERVER['HTTP_ORIGIN'];
+        }
+        elseif(array_key_exists('HTTP_REFERER', $_SERVER)){
+            $origin = rtrim($_SERVER['HTTP_REFERER'], '/');
+        } else {
+            $origin = '*';
+        }
+        return $origin;
+    }
+
     /**
      * @throws Exception
      */
