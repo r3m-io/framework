@@ -483,10 +483,6 @@ class Config extends Data {
         ){
             $object->config(Core::object_merge($object->config(), $response['node']));
         }
-//        $dir = $object->config('project.volume.dir.data') . 'App' . $object->config('ds');
-//        $object->config('app.config.dir', $dir);
-//        $object->config('app.route.url', $object->config('app.config.dir') . 'Route' . $object->config('extension.json'));
-//        $object->config('app.secret.url', $object->config('app.config.dir') . 'Secret' . $object->config('extension.json'));
     }
 
     /**
