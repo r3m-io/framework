@@ -436,6 +436,38 @@ class Config extends Data {
         if(!$node->role_has_permission($role_system, 'System:Config:record')){
             return;
         }
+        $key_options = [
+            'relation' => true,
+            'ramdisk' => true,
+            'ramdisk_dir' => $dir_cache,
+            'limit' => 1,
+            'page' => 1,
+            'function' => 'record',
+            'memory' => false,
+            'sort' => [
+                'uuid' => 'ASC'
+            ],
+            'parse' => false,
+            'transaction' => false,
+            'lock' => false,
+            'key' => null,
+            'role' => $role_system,
+        ];
+        $key = sha1(Core::object($key_options, Core::OBJECT_JSON));
+        $name = 'System.Config';
+        $ramdisk_dir_node = $dir_cache .
+            'Node' .
+            $object->config('ds')
+        ;
+        $ramdisk_url_node = $ramdisk_dir_node .
+            $name .
+            '.' .
+            $key .
+            $object->config('extension.json')
+        ;
+        d($ramdisk_url_node);
+        d(File::exist($ramdisk_url_node));
+
         $response = $node->record($class, $role_system, $options);
         if(
             $response &&
