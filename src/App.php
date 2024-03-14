@@ -94,10 +94,11 @@ class App extends Data {
     public function __construct($autoload, $config){
         $this->data(App::AUTOLOAD_COMPOSER, $autoload);
         $this->data(App::CONFIG, $config);
-        $this->data(App::EVENT, new Data());
-        $this->data(App::MIDDLEWARE, new Data());
-        $this->data(App::OUTPUTFILTER, new Data());
-        $this->data(App::CACHE, new Data());
+        $data = new Data();
+        $this->data(App::EVENT, clone $data);
+        $this->data(App::MIDDLEWARE, clone $data);
+        $this->data(App::OUTPUTFILTER, clone $data);
+        $this->data(App::CACHE, clone $data);
         App::is_cli();
         require_once __DIR__ . '/Debug.php';
         require_once __DIR__ . '/Error.php';
