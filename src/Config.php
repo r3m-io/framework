@@ -465,11 +465,14 @@ class Config extends Data {
             $key .
             $object->config('extension.json')
         ;
+        $response = false;
         if(File::exist($ramdisk_url_node)){
-            $response = (array) $object->data_read($ramdisk_url_node);
-            ddd($response);
-            if(array_key_exists('list', $response)){
-                $response['node'] = reset($response['list']);
+            $data = $object->data_read($ramdisk_url_node);
+            if($data){
+                $response = (array) $data->data('response');
+                if(array_key_exists('list', $response)){
+                    $response['node'] = reset($response['list']);
+                }
             }
         } else {
             $response = $node->record($class, $role_system, $options);
