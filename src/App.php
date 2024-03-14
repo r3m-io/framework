@@ -103,7 +103,7 @@ class App extends Data {
         require_once __DIR__ . '/Debug.php';
         require_once __DIR__ . '/Error.php';
         $duration = microtime(true) - $this->config('time.start');
-        ddd($duration * 1000 . ' msec');
+        d($duration * 1000 . ' msec');
         Config::configure($this);
         Logger::configure($this);
         Host::configure($this);
@@ -113,6 +113,8 @@ class App extends Data {
         OutputFilter::configure($this);
         Autoload::configure($this);
         Autoload::ramdisk_configure($this);
+        $duration = microtime(true) - $this->config('time.start');
+        ddd($duration * 1000 . ' msec');
     }
 
     /**
