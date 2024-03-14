@@ -183,6 +183,8 @@ class App extends Data {
         try {
             $file = FileRequest::get($object);
             if ($file === false) {
+                $duration = microtime(true) - $object->config('time.start');
+                d($duration * 1000 . ' msec');
                 App::configure($object);
                 Route::configure($object);
                 $duration = microtime(true) - $object->config('time.start');
