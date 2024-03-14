@@ -103,18 +103,34 @@ class App extends Data {
         require_once __DIR__ . '/Debug.php';
         require_once __DIR__ . '/Error.php';
         $duration = microtime(true) - $this->config('time.start');
-        d($duration * 1000 . ' msec');
+        d('1:' . $duration * 1000 . ' msec');
         Config::configure($this);
+        $duration = microtime(true) - $this->config('time.start');
+        d('2:' . $duration * 1000 . ' msec');
         Logger::configure($this);
+        $duration = microtime(true) - $this->config('time.start');
+        d('3:' . $duration * 1000 . ' msec');
         Host::configure($this);
+        $duration = microtime(true) - $this->config('time.start');
+        d('4:' . $duration * 1000 . ' msec');
         Domain::configure($this);
+        $duration = microtime(true) - $this->config('time.start');
+        d('5:' . $duration * 1000 . ' msec');
         Event::configure($this);
+        $duration = microtime(true) - $this->config('time.start');
+        d('6:' . $duration * 1000 . ' msec');
         Middleware::configure($this);
+        $duration = microtime(true) - $this->config('time.start');
+        d('7:' . $duration * 1000 . ' msec');
         OutputFilter::configure($this);
+        $duration = microtime(true) - $this->config('time.start');
+        d('8:' .$duration * 1000 . ' msec');
         Autoload::configure($this);
+        $duration = microtime(true) - $this->config('time.start');
+        d('9:' .$duration * 1000 . ' msec');
         Autoload::ramdisk_configure($this);
         $duration = microtime(true) - $this->config('time.start');
-        d($duration * 1000 . ' msec');
+        d('10:' .$duration * 1000 . ' msec');
     }
 
     /**
