@@ -466,7 +466,8 @@ class Config extends Data {
             $object->config('extension.json')
         ;
         if(File::exist($ramdisk_url_node)){
-            $response = $object->data_read($ramdisk_url_node);
+            $response = (array) $object->data_read($ramdisk_url_node);
+            ddd($response);
             if(array_key_exists('list', $response)){
                 $response['node'] = reset($response['list']);
             }
