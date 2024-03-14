@@ -179,12 +179,8 @@ class App extends Data {
         try {
             $file = FileRequest::get($object);
             if ($file === false) {
-                $duration = microtime(true) - $object->config('time.start');
-                d($duration * 1000 . ' msec');
                 App::configure($object);
                 Route::configure($object);
-                $duration = microtime(true) - $object->config('time.start');
-                d($duration * 1000 . ' msec');
                 $destination = Route::request($object);
                 if ($destination === false) {
                     $object->config('framework.environment', Config::MODE_PRODUCTION);
@@ -424,8 +420,6 @@ class App extends Data {
                 }
                 elseif(!empty($destination->get('controller'))){
                     $duration = microtime(true) - $object->config('time.start');
-//                    $duration = microtime(true) - $object->config('time.start');
-                    ddd($duration * 1000 . ' msec');
                     if($logger){
                         $object->logger($logger)->info('Controller duration: ' . $duration * 1000 . ' msec');
                     }
