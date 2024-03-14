@@ -466,11 +466,13 @@ class Config extends Data {
             $key .
             $object->config('extension.json')
         ;
-        d($ramdisk_url_node);
-        d(File::exist($ramdisk_url_node));
-        $duration = microtime(true) - $object->config('time.start');
-        d($duration * 1000 . 'msec');
-        $response = $node->record($class, $role_system, $options);
+        if(File::exist($ramdisk_url_node)){
+            $response = File::read($ramdisk_url_node);
+            ddd($response);
+        } else {
+            $response = $node->record($class, $role_system, $options);
+        }
+
         if(
             $response &&
             array_key_exists('node', $response)
