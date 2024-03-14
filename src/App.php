@@ -102,35 +102,15 @@ class App extends Data {
         App::is_cli();
         require_once __DIR__ . '/Debug.php';
         require_once __DIR__ . '/Error.php';
-        $duration = microtime(true) - $this->config('time.start');
-        d('1:' . $duration * 1000 . ' msec'); //0.7
         Config::configure($this);
-        $duration = microtime(true) - $this->config('time.start');
-        d('2:' . $duration * 1000 . ' msec'); //2.77 - 2 ms
         Logger::configure($this);
-        $duration = microtime(true) - $this->config('time.start');
-        d('3:' . $duration * 1000 . ' msec'); //4.22 - 1.5 ms
         Host::configure($this);
-        $duration = microtime(true) - $this->config('time.start');
-        d('4:' . $duration * 1000 . ' msec'); //4.75 - 0.5 ms
         Domain::configure($this);
-        $duration = microtime(true) - $this->config('time.start');
-        d('5:' . $duration * 1000 . ' msec'); //4.96 - 0.2 ms
         Event::configure($this);
-        $duration = microtime(true) - $this->config('time.start');
-        d('6:' . $duration * 1000 . ' msec'); // 5.81 - 0.8 ms
         Middleware::configure($this);
-        $duration = microtime(true) - $this->config('time.start');
-        d('7:' . $duration * 1000 . ' msec'); // 6.4 - 0.6 ms
         OutputFilter::configure($this);
-        $duration = microtime(true) - $this->config('time.start');
-        d('8:' .$duration * 1000 . ' msec'); // 7.17 - 0.7 ms
         Autoload::configure($this);
-        $duration = microtime(true) - $this->config('time.start');
-        d('9:' .$duration * 1000 . ' msec'); // 8.44 - 1.3 ms
         Autoload::ramdisk_configure($this);
-        $duration = microtime(true) - $this->config('time.start');
-        d('10:' .$duration * 1000 . ' msec'); // 8.45 - 0.01 ms
     }
 
     /**
