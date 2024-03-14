@@ -453,6 +453,7 @@ class Config extends Data {
             'key' => null,
             'role' => $role_system,
         ];
+        d($key_options);
         $key = sha1(Core::object($key_options, Core::OBJECT_JSON));
         $name = 'System.Config';
         $ramdisk_dir_node = $dir_cache .
