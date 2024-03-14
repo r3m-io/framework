@@ -419,7 +419,9 @@ class App extends Data {
                 }
                 elseif(!empty($destination->get('controller'))){
                     $duration = microtime(true) - $object->config('time.start');
-                    ddd($duration * 1000 . ' msec');
+                    if($logger){
+                        $object->logger($logger)->info('Controller duration: ' . $duration * 1000 . ' msec');
+                    }
                     App::contentType($object);
                     App::controller($object, $destination);
                     $controller = $destination->get('controller');
