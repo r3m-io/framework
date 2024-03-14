@@ -453,7 +453,6 @@ class Config extends Data {
             'key' => null,
             'role' => $role_system->uuid,
         ];
-        d($key_options);
         $key = sha1(Core::object($key_options, Core::OBJECT_JSON));
         $name = 'System.Config';
         $ramdisk_dir_node = $dir_cache .
@@ -468,11 +467,12 @@ class Config extends Data {
         ;
         if(File::exist($ramdisk_url_node)){
             $response = File::read($ramdisk_url_node);
-            ddd($response);
+            if(array_key_exists('list', $response)){
+                $response['node'] = reset($response['list']);
+            }
         } else {
             $response = $node->record($class, $role_system, $options);
         }
-
         if(
             $response &&
             array_key_exists('node', $response)
