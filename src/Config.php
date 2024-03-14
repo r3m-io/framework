@@ -451,7 +451,7 @@ class Config extends Data {
             'transaction' => false,
             'lock' => false,
             'key' => null,
-            'role' => $role_system,
+            'role' => $role_system->uuid,
         ];
         d($key_options);
         $key = sha1(Core::object($key_options, Core::OBJECT_JSON));
