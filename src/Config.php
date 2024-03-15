@@ -436,6 +436,7 @@ class Config extends Data {
         if(!$node->role_has_permission($role_system, 'System:Config:record')){
             return;
         }
+        /*
         $key_options = [
             'relation' => true,
             'ramdisk' => true,
@@ -487,6 +488,8 @@ class Config extends Data {
         } else {
             $response = $node->record($class, $role_system, $options);
         }
+        */
+        $response = $node->record($class, $role_system, $options);
         if(
             $response &&
             array_key_exists('node', $response)
