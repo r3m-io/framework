@@ -466,7 +466,17 @@ class Config extends Data {
             $object->config('extension.json')
         ;
         $response = false;
-        if(File::exist($ramdisk_url_node)){
+        $data_url = $object->config('project.dir.node') .
+            'Data' .
+            $object->config('ds') .
+            $name .
+            $object->config('extension.json')
+        ;
+        $mtime = File::mtime($data_url);
+        if(
+            File::exist($ramdisk_url_node) &&
+            File::mtime($ramdisk_url_node) === $mtime
+        ){
             $data = $object->data_read($ramdisk_url_node);
             if($data){
                 $response = (array) $data->data('response');
