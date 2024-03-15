@@ -436,59 +436,6 @@ class Config extends Data {
         if(!$node->role_has_permission($role_system, 'System:Config:record')){
             return;
         }
-        /*
-        $key_options = [
-            'relation' => true,
-            'ramdisk' => true,
-            'ramdisk_dir' => $dir_cache,
-            'limit' => 1,
-            'page' => 1,
-            'function' => 'record',
-            'memory' => false,
-            'sort' => [
-                'uuid' => 'ASC'
-            ],
-            'parse' => false,
-            'transaction' => false,
-            'lock' => false,
-            'key' => null,
-            'role' => $role_system->uuid,
-        ];
-        $key = sha1(Core::object($key_options, Core::OBJECT_JSON));
-        $name = 'System.Config';
-        $ramdisk_dir_node = $dir_cache .
-            'Node' .
-            $object->config('ds')
-        ;
-        $ramdisk_url_node = $ramdisk_dir_node .
-            $name .
-            '.' .
-            $key .
-            $object->config('extension.json')
-        ;
-        $response = false;
-        $data_url = $object->config('project.dir.node') .
-            'Data' .
-            $object->config('ds') .
-            $name .
-            $object->config('extension.json')
-        ;
-        $mtime = File::mtime($data_url);
-        if(
-            File::exist($ramdisk_url_node) &&
-            File::mtime($ramdisk_url_node) === $mtime
-        ){
-            $data = $object->data_read($ramdisk_url_node);
-            if($data){
-                $response = (array) $data->data('response');
-                if(array_key_exists('list', $response)){
-                    $response['node'] = reset($response['list']);
-                }
-            }
-        } else {
-            $response = $node->record($class, $role_system, $options);
-        }
-        */
         $response = $node->record($class, $role_system, $options);
         if(
             $response &&
