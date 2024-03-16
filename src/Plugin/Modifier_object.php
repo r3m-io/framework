@@ -15,6 +15,6 @@ use R3m\Io\Module\Core;
 /**
  * @throws \R3m\Io\Exception\ObjectException
  */
-function modifier_object(Parse $parse, Data $data, $value){
-    return Core::object($value, Core::OBJECT_OBJECT);
+function modifier_object(Parse $parse, Data $data, $value, $output=Core::OBJECT_OBJECT){
+    return Core::object($value, $output);
 }
