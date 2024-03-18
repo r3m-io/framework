@@ -59,6 +59,12 @@ class Validate {
                 $is_optional = true;
             }
             $test[$field] = [];
+            $is_loaded_field = $object->config('validate.is.loaded.field') ?? [];
+            $is_loaded_function = $object->config('validate.is.loaded.function') ?? [];
+            $is_loaded_url = $object->config('validate.is.loaded.url') ?? [];
+            d($is_loaded_field);
+            d($is_loaded_function);
+            d($is_loaded_url);
             if(is_object($list)){
                 $validate->{$field} = Validate::validate($object, $list, $field);
                 if(property_exists($validate->{$field}, 'test')){
@@ -144,6 +150,12 @@ class Validate {
                                     require_once $url;
                                     $test[$field][$function][] = $function($object, $value, $field, $argument, $method);
                                     $is_found = true;
+                                    $is_loaded_url[] = $url;
+                                    $is_loaded_field[] = $field;
+                                    $is_loaded_function[] = $function;
+                                    $object->config('validate.is.loaded.url', $is_loaded_url);
+                                    $object->config('validate.is.loaded.field', $is_loaded_field);
+                                    $object->config('validate.is.loaded.function', $is_loaded_function);
                                     break;
                                 }
                             }
