@@ -53,18 +53,11 @@ class Validate {
             if($field == 'test'){
                 continue;
             }
-
             if(substr($field, 0, 1) === '?'){
                 $field = substr($field, 1);
                 $is_optional = true;
             }
             $test[$field] = [];
-            $is_loaded_field = $object->config('validate.is.loaded.field') ?? [];
-            $is_loaded_function = $object->config('validate.is.loaded.function') ?? [];
-            $is_loaded_url = $object->config('validate.is.loaded.url') ?? [];
-            d($is_loaded_field);
-            d($is_loaded_function);
-            d($is_loaded_url);
             if(is_object($list)){
                 $validate->{$field} = Validate::validate($object, $list, $field);
                 if(property_exists($validate->{$field}, 'test')){
@@ -110,57 +103,55 @@ class Validate {
                             $name = Controller::name($key);
                             $key = 'validate' . '.' . $key;
                             $function = str_replace('.', '_', $key);
-                            $url_list = (array) $object->config('validate.dir.validator');
-                            if(empty($url_list)){
-                                $url_list = [];
+                            if(function_exists($function)){
+                                $test[$field][$function][] = $function($object, $value, $field, $argument, $method);
                             } else {
-                                foreach($url_list as $url_nr => $url_value){
-                                    $url_list[$url_nr] .= $name . $extension;
+                                $url_list = (array) $object->config('validate.dir.validator');
+                                if(empty($url_list)){
+                                    $url_list = [];
+                                } else {
+                                    foreach($url_list as $url_nr => $url_value){
+                                        $url_list[$url_nr] .= $name . $extension;
+                                    }
                                 }
-                            }
-                            $url_list[] = $object->config('controller.dir.validator') .
-                                $name .
-                                $extension
-                            ;
-                            $url_list[] = $object->config('project.dir.validator') .
-                                $name .
-                                $extension
-                            ;
-                            $url_list[] = $object->config('package.r3m_io/node.dir.validator') .
-                                $name .
-                                $extension
-                            ;
-                            $url_list[] = $object->config('project.dir.source') .
-                                'Validator' .
-                                $object->config('ds') .
-                                $name .
-                                $extension
-                            ;
-                            $url_list[] = $object->config('framework.dir.validator') .
-                                $name .
-                                $extension
-                            ;
-                            $url_list = Config::parameters($object, $url_list);
-                            if(empty($test[$field][$function])){
-                                $test[$field][$function] = [];
-                            }
-                            $is_found = false;
-                            foreach($url_list as $url){
-                                if(File::exist($url)){
-                                    require_once $url;
-                                    $test[$field][$function][] = $function($object, $value, $field, $argument, $method);
-                                    $is_found = true;
-                                    $is_loaded_url[] = $url;
-                                    $is_loaded_field[] = $field;
-                                    $is_loaded_function[] = $function;
-                                    $object->config('validate.is.loaded.url', $is_loaded_url);
-                                    $object->config('validate.is.loaded.field', $is_loaded_field);
-                                    $object->config('validate.is.loaded.function', $is_loaded_function);
-                                    break;
+                                $url_list[] = $object->config('controller.dir.validator') .
+                                    $name .
+                                    $extension
+                                ;
+                                $url_list[] = $object->config('project.dir.validator') .
+                                    $name .
+                                    $extension
+                                ;
+                                $url_list[] = $object->config('package.r3m_io/node.dir.validator') .
+                                    $name .
+                                    $extension
+                                ;
+                                $url_list[] = $object->config('project.dir.source') .
+                                    'Validator' .
+                                    $object->config('ds') .
+                                    $name .
+                                    $extension
+                                ;
+                                $url_list[] = $object->config('framework.dir.validator') .
+                                    $name .
+                                    $extension
+                                ;
+                                $url_list = Config::parameters($object, $url_list);
+                                if(empty($test[$field][$function])){
+                                    $test[$field][$function] = [];
                                 }
-                            }
-                            if($is_found === false){
-                                throw new LocateException('validator (' . $function . ') not found.', $url_list);
+                                $is_found = false;
+                                foreach($url_list as $url){
+                                    if(File::exist($url)){
+                                        require_once $url;
+                                        $test[$field][$function][] = $function($object, $value, $field, $argument, $method);
+                                        $is_found = true;
+                                        break;
+                                    }
+                                }
+                                if($is_found === false){
+                                    throw new LocateException('validator (' . $function . ') not found.', $url_list);
+                                }
                             }
                         }
                     }
