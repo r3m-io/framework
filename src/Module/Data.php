@@ -35,6 +35,12 @@ class Data {
     public function __construct($data=null){
         if($data !== null){
             d($data);
+            $debug = debug_backtrace(1);
+            d($debug[0]['file'] . ' ' . $debug[0]['line'] . ' ' . $debug[0]['function']);
+            d($debug[1]['file'] . ' ' . $debug[1]['line'] . ' ' . $debug[1]['function']);
+            if(array_key_exists(2, $debug)){
+                d($debug[2]['file'] . ' ' . $debug[2]['line'] . ' ' . $debug[2]['function']);
+            }
         }
         $this->data($data);
     }
