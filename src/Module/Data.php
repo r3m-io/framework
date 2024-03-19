@@ -33,6 +33,9 @@ class Data {
      * @throws Exception
      */
     public function __construct($data=null){
+        if($data !== null){
+            d($data);
+        }
         $this->data($data);
     }
 
