@@ -132,9 +132,8 @@ class Database {
         if(!empty($entityManager)){
             return $entityManager;
         }
-        d($name);
-        ddd($environment);
         $connection = $object->config('doctrine.environment.' . $name . '.' . $environment);
+        d($connection);
         if(!empty($connection)){
             $connection = (array) $connection;
             if(empty($connection)){
