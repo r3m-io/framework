@@ -1557,7 +1557,12 @@ class Core
                         $main->{$key} = $value;
                     } else {
                         if (is_object($value) && is_object($main->{$key})) {
-                            $main->{$key} = Core::object_merge(clone $main->{$key}, clone $value);
+                            try {
+                                $main->{$key} = Core::object_merge(clone $main->{$key}, clone $value);
+                            }
+                            catch(Exception $exception){
+                                ddd($exception);
+                            }
                         } else {
                             $main->{$key} = $value;
                         }
