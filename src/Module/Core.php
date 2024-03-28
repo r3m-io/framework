@@ -1568,10 +1568,10 @@ class Core
                                 catch(Error | Exception $exception) {
                                     try {
                                         $main->{$key} = Core::object_merge($main->{$key}, clone $value);
-                                    } catch (Error|Exception $exception) {
+                                    } catch (Error | Exception $exception) {
                                         try {
                                             $main->{$key} = Core::object_merge($main->{$key}, $value);
-                                        } catch (Error|Exception $exception) {
+                                        } catch (Error | Exception $exception) {
                                             $main->{$key} = $exception;
                                         }
                                     }
