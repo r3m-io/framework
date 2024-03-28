@@ -1562,7 +1562,20 @@ class Core
                                 $main->{$key} = Core::object_merge(clone $main->{$key}, clone $value);
                             }
                             catch(Error | Exception $exception){
-                                ddd($exception);
+                                try {
+                                    $main->{$key} = Core::object_merge(clone $main->{$key}, $value);
+                                }
+                                catch(Error | Exception $exception) {
+                                    try {
+                                        $main->{$key} = Core::object_merge($main->{$key}, clone $value);
+                                    } catch (Error|Exception $exception) {
+                                        try {
+                                            $main->{$key} = Core::object_merge($main->{$key}, $value);
+                                        } catch (Error|Exception $exception) {
+                                            $main->{$key} = $exception;
+                                        }
+                                    }
+                                }
                             }
                         } else {
                             $main->{$key} = $value;
