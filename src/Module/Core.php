@@ -22,6 +22,7 @@ use R3m\Io\Config;
 use Defuse\Crypto\Exception\BadFormatException;
 use Defuse\Crypto\Exception\EnvironmentIsBrokenException;
 
+use Error;
 use Exception;
 use ReflectionException;
 
@@ -1560,7 +1561,7 @@ class Core
                             try {
                                 $main->{$key} = Core::object_merge(clone $main->{$key}, clone $value);
                             }
-                            catch(Exception $exception){
+                            catch(Error | Exception $exception){
                                 ddd($exception);
                             }
                         } else {
