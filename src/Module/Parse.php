@@ -498,11 +498,6 @@ class Parse {
                 $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
                 try {
                     $template = new $class(new Parse($this->object()), $storage);
-                    /*
-                    if(empty($this->halt_literal())){
-                        $string = Literal::apply($storage, $string);
-                    }
-                    */
                     $string = $template->run();
                     if(empty($this->halt_literal())){
                         $string = Literal::restore($storage, $string);
