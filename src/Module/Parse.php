@@ -493,6 +493,7 @@ class Parse {
             if($file_exist){
                 $file_mtime = File::mtime($url);
             }
+            d($storage->data('r3m.io.parse'));
             d($url . ':' . $file_exist . ':' . $mtime . ':' . $file_mtime);
             if($file_exist && $file_mtime === $mtime){
                 //cache file
