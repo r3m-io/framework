@@ -516,7 +516,18 @@ class Parse {
                             ->info('cache file: ' . $url . ' mtime: ' . $mtime)
                         ;
                     }
-                    d($string);
+                    if($string === 'null'){
+                        return null;
+                    }
+                    elseif($string === 'true'){
+                        return true;
+                    }
+                    elseif($string === 'false'){
+                        return false;
+                    }
+                    elseif(is_numeric($string)){
+                        return $string + 0;
+                    }
                     return $string;
                 }
                 catch (Exception $exception){
