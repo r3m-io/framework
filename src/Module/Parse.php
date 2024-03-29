@@ -516,6 +516,7 @@ class Parse {
                             ->info('cache file: ' . $url . ' mtime: ' . $mtime)
                         ;
                     }
+                    d($string);
                     return $string;
                 }
                 catch (Exception $exception){
