@@ -451,7 +451,7 @@ class Parse {
         elseif($type === 'string' && stristr($string, '{') === false){
             return $string;
         } else {
-            //this section takes at least 5 msec per document: file:put 2msec, memcache::put 2msec, rest 1msec
+            //this section takes at least 5 msec per document: file:put 2msec, opcache::put 2msec, rest 1msec
             $build = $this->build(new Build($this->object(), $this, $is_debug));
             $build->cache_dir($this->cache_dir());
             $build->limit($this->limit());
@@ -489,6 +489,7 @@ class Parse {
             }
             $mtime = $storage->data('r3m.io.parse.view.mtime');
             $file_exist = File::exist($url);
+            d($url . ':' . $file_exist);
             $file_mtime = false;
             if($file_exist){
                 $file_mtime = File::mtime($url);
