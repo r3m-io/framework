@@ -489,11 +489,11 @@ class Parse {
             }
             $mtime = $storage->data('r3m.io.parse.view.mtime');
             $file_exist = File::exist($url);
-            d($url . ':' . $file_exist);
             $file_mtime = false;
             if($file_exist){
                 $file_mtime = File::mtime($url);
             }
+            d($url . ':' . $file_exist . ':' . $mtime . ':' . $file_mtime);
             if($file_exist && $file_mtime === $mtime){
                 //cache file
                 $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
