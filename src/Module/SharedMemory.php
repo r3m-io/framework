@@ -112,7 +112,6 @@ class SharedMemory {
             }
             //ftok goes wrong on linux with url
             $connect = SharedMemory::read($object, 'mapping');
-            d($connect);
             if($connect === null){
                 $connect = [];
                 $id = 1;
@@ -134,9 +133,6 @@ class SharedMemory {
             }
             $data .= "\0";
             $shm_size = mb_strlen($data);
-            d($id);
-            d($permission);
-            d($shm_size);
             $shmop = @shmop_open(
                 $id,
                 'c',
