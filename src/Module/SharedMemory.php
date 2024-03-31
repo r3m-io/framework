@@ -110,9 +110,9 @@ class SharedMemory {
             if(!is_string($data)){
                 $data = (string) $data;
             }
-            d($data);
             //ftok goes wrong on linux with url
             $connect = SharedMemory::read($object, 'mapping');
+            d($connect);
             if($connect === null){
                 $connect = [];
                 $id = 1;
