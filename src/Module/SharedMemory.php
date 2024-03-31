@@ -173,7 +173,6 @@ class SharedMemory {
             }
         }
         catch(ErrorException | ObjectException $exception){
-            echo $exception;
             return false;
         }
         return false;
