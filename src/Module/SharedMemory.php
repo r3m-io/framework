@@ -134,6 +134,9 @@ class SharedMemory {
             }
             $data .= "\0";
             $shm_size = mb_strlen($data);
+            d($id);
+            d($permission);
+            d($shm_size);
             $shmop = @shmop_open(
                 $id,
                 'c',
