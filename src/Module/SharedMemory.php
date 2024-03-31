@@ -155,12 +155,15 @@ class SharedMemory {
                 $connect = Core::object($connect, Core::OBJECT_JSON);
                 $connect .= "\0";
                 $shm_size = mb_strlen($connect);
+                $connect_shmop = false;
+                /*
                 $connect_shmop = @shmop_open(
                     1,
                     'c',
                     $permission,
                     $shm_size
                 );
+                */
                 if($connect_shmop === false){
                     $connect_shmop = @shmop_open(
                         1,
