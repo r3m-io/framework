@@ -33,6 +33,7 @@ class SharedMemory {
                 0
             );
             $connect = @shmop_read($connect_shmop, 0, @shmop_size($connect_shmop));
+            ddd($connect);
             $connect = explode("\0", $connect, 2);
             $connect = Core::object($connect[0], Core::OBJECT_ARRAY);
             if(!is_array($connect)){
