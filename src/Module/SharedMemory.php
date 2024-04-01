@@ -162,7 +162,7 @@ class SharedMemory {
             }
             $write = shmop_write($shmop, $data, 0);
             if($write > 0){
-                $connect = Core::object($connect, Core::OBJECT_JSON);
+                $connect = Core::object($connect, Core::OBJECT_JSON_LINE);
                 $connect .= "\0";
                 $shm_size = mb_strlen($connect);
                 try {
