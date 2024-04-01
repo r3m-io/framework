@@ -181,6 +181,7 @@ class SharedMemory {
                     );
                 }
                 $connect_write = shmop_write($connect_shmop, $connect, 0);
+                d($connect_write);
                 if($connect_write > 0){
                     return $write;
                 }
