@@ -37,6 +37,7 @@ class SharedMemory {
             $connect = Core::object($connect[0], Core::OBJECT_ARRAY);
         }
         catch (ErrorException $exception) {
+            d($exception);
             //no mapping
         }
         $id = false;
@@ -93,6 +94,7 @@ class SharedMemory {
             return $data;
         }
         catch (ErrorException $exception){
+            d($exception);
             //cache miss
             return null;
         }
