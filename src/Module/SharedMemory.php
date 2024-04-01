@@ -123,6 +123,7 @@ class SharedMemory {
                 $connect[$id] = $url;
             } else {
                 $connect = Core::object($connect, Core::OBJECT_ARRAY);
+                d($connect);
                 if(!is_array($connect)){
                     $connect = [];
                     $id = 1;
