@@ -115,6 +115,7 @@ class SharedMemory {
             }
             //ftok goes wrong on linux with url
             $connect = SharedMemory::read($object, 'mapping');
+            d($connect);
             if($connect === null){
                 $connect = [];
                 $id = 1;
