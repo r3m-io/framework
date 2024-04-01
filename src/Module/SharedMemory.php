@@ -118,6 +118,7 @@ class SharedMemory {
                 $connect[$id] = 'mapping';
                 $id = 1000;
                 $connect[$id] = $url;
+                ddd($connect);
             } else {
                 $connect = Core::object($connect, Core::OBJECT_ARRAY);
                 if(!is_array($connect)){
