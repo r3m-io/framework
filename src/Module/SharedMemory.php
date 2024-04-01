@@ -37,7 +37,7 @@ class SharedMemory {
             $connect = Core::object($connect[0], Core::OBJECT_ARRAY);
             if(!is_array($connect)){
                 //corrupt mapping
-                SharedMemory::write($object, 'mapping', null);
+                SharedMemory::write($object, 'mapping', 'null', File::CHMOD);
                 d('corrupt mapping');
             }
         }
