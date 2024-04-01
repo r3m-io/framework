@@ -118,7 +118,6 @@ class SharedMemory {
                 $connect[$id] = 'mapping';
                 $id = 1000;
                 $connect[$id] = $url;
-                ddd($connect);
             } else {
                 $connect = Core::object($connect, Core::OBJECT_ARRAY);
                 if(!is_array($connect)){
@@ -132,7 +131,6 @@ class SharedMemory {
                     $connect[$id] = $url;
                 }
             }
-            d($connect);
             $data .= "\0";
             $shm_size = mb_strlen($data);
             try {
@@ -186,7 +184,6 @@ class SharedMemory {
             }
         }
         catch(ErrorException | ObjectException $exception){
-            d($exception);
             return false;
         }
         return false;
