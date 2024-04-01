@@ -41,6 +41,7 @@ class SharedMemory {
             //no mapping
         }
         $id = false;
+        d($connect);
         if(is_array($connect)){
             //make binary search ?
             foreach($connect as $nr => $record){
