@@ -135,12 +135,18 @@ class SharedMemory {
             d($connect);
             $data .= "\0";
             $shm_size = mb_strlen($data);
-            $shmop = @shmop_open(
-                $id,
-                'c',
-                $permission,
-                $shm_size
-            );
+            try {
+                $shmop = @shmop_open(
+                    $id,
+                    'c',
+                    $permission,
+                    $shm_size
+                );
+            }
+            catch (ErrorException $exception){
+                $shmop = false;
+            }
+
             if($shmop === false){
                 $shmop = @shmop_open(
                     $id,
