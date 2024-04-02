@@ -432,7 +432,7 @@ class Build {
                                 $config_mtime->has(sha1($url)) &&
                                 $config_mtime->get(sha1($url)) === File::mtime($url)
                             ) {
-                                $file_read = SharedMemory::read($object, $url);
+//                                $file_read = SharedMemory::read($object, $url);
 //                            d($file_read);
                             }
                             /*
@@ -521,7 +521,7 @@ class Build {
                                 $object->config('ramdisk.url') &&
                                 empty($object->config('ramdisk.is.disabled'))
                             ){
-                                SharedMemory::write($object, $url, File::read($url));
+//                                SharedMemory::write($object, $url, File::read($url));
                                 $config_mtime->set(sha1($url), File::mtime($url));
                                 $config_is_write = $config_mtime->write($config_url);
                                 exec('chmod 640 ' . $config_url);
