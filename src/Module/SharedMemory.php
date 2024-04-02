@@ -10,6 +10,8 @@
  */
 namespace R3m\Io\Module;
 
+use Shmop;
+
 use R3m\Io\App;
 
 use R3m\Io\Exception\ObjectException;
@@ -21,6 +23,7 @@ class SharedMemory {
     /**
      * @throws ObjectException
      */
+    /*
     public static function read(App $object, $url, $offset=0, $length=0): mixed
     {
         $data = null;
@@ -101,7 +104,9 @@ class SharedMemory {
             return null;
         }
     }
+    */
 
+    /*
     public static function write(App $object, $url, $data='', $permission=File::CHMOD): false | int
     {
         try {
@@ -195,5 +200,21 @@ class SharedMemory {
             return false;
         }
         return false;
+    }
+    */
+
+    public static function open($key, $mode, $permission=File::CHMOD, $size=1): Shmop | bool
+    {
+        return @shmop_open($key, $mode, $permission, $size);
+    }
+
+    public static function delete(Shmop $shmop): bool
+    {
+        return @shmop_delete($shmop);
+    }
+
+    public static function write(Shmop $shmop, $data, $offset=0): int
+    {
+        return @shmop_write($shmop, $data, $offset);
     }
 }
