@@ -213,6 +213,16 @@ class SharedMemory {
         return @shmop_delete($shmop);
     }
 
+    public static function read(Shmop $shmop, $offset=0, $size=1): int
+    {
+        return @shmop_read($shmop, $offset, $size);
+    }
+
+    public static function size(Shmop $shmop): int
+    {
+        return @shmop_size($shmop);
+    }
+
     public static function write(Shmop $shmop, $data, $offset=0): int
     {
         return @shmop_write($shmop, $data, $offset);
