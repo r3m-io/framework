@@ -109,6 +109,10 @@ class Cli {
             case 'cursor.home':
                 $tput = 'home';
                 break;
+            case 'erase.line' :
+            case 'el' :
+                $tput = 'el';
+                break;
             case 'cursor.invisible' :
             case 'civis' :
                 $tput = 'civis';
