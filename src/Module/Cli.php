@@ -128,7 +128,8 @@ class Cli {
                 break;
             case 'cursor.restore' :
             case 'rc' :
-                $tput = 'rc';
+                $amount = isset($arguments[0]) ? (int) $arguments[0] : 1; //1 = default
+                $tput = 'rc ' . $amount;
                 break;
             case 'color' :
             case 'setaf' :
