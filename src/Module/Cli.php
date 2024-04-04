@@ -98,7 +98,7 @@ class Cli {
         switch(strtolower($tput)){
             case 'screen.save' :
             case 'screen.write' :
-            case ' smcup' :
+            case 'smcup' :
                 $tput = 'smcup';
                 break;
             case 'screen.restore' :
