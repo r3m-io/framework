@@ -250,7 +250,10 @@ class SharedMemory {
         }
     }
 
-    public static function key(App $object, $url, $size=0)
+    /**
+     * @throws Exception
+     */
+    public static function key(App $object, $url, $size=0): array
     {
         $shmop = SharedMemory::open(1, 'c', File::CHMOD, (1 * 1024 * 1024));
         $read = SharedMemory::read($shmop, 0, SharedMemory::size($shmop));
@@ -276,13 +279,11 @@ class SharedMemory {
             $write .= "\0";
             SharedMemory::write($shmop, $write, 0);
         }
-        $result = [
+        return [
             'id' => $id,
             'size' => $temp['size'][$id]
         ];
-        return $result;
     }
-
 
     public static function open($key, $mode, $permission=File::CHMOD, $size=1): Shmop | bool
     {
