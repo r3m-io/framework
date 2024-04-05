@@ -215,13 +215,42 @@ class SharedMemory {
 //echo bin2hex($id); // Convert binary to hexadecimal for easier display
 
 
+    public function url(App $object, $id)
+    {
+        $shmop = SharedMemory::open(1, 'c', File::CHMOD, (1 * 1024 * 1024));
+        $read = SharedMemory::read($shmop, 0, SharedMemory::size($shmop));
+        $temp = explode("\0", $read, 2);
+        $temp = trim($temp[0]);
+        if($temp !== ''){
+            $temp = json_decode($temp, true);
+            $url = $temp[$id];
+        } else {
+            $url = null;
+        }
+        return $url;
+    }
+
+    public function key_delete(App $object, $id)
+    {
+        $shmop = SharedMemory::open(1, 'c', File::CHMOD, (1 * 1024 * 1024));
+        $read = SharedMemory::read($shmop, 0, SharedMemory::size($shmop));
+        $temp = explode("\0", $read, 2);
+        $temp = trim($temp[0]);
+        if($temp !== ''){
+            $temp = json_decode($temp, true);
+            unset($temp[$id]);
+            $write = json_encode($temp);
+            $write .= "\0";
+            SharedMemory::write($shmop, $write, 0);
+        }
+    }
+
     public static function key(App $object, $url)
     {
         $shmop = SharedMemory::open(1, 'c', File::CHMOD, (1 * 1024 * 1024));
         $read = SharedMemory::read($shmop, 0, SharedMemory::size($shmop));
         $temp = explode("\0", $read, 2);
         $temp = trim($temp[0]);
-
         if($temp !== ''){
             $temp = json_decode($temp, true);
             $id = array_search($url, $temp);
