@@ -221,11 +221,15 @@ class SharedMemory {
         $read = SharedMemory::read($shmop, 0, SharedMemory::size($shmop));
         $temp = explode("\0", $read, 2);
         $temp = trim($temp[0]);
+        $url = null;
         if($temp !== ''){
             $temp = json_decode($temp, true);
-            $url = $temp[$id];
-        } else {
-            $url = null;
+            if(
+                array_key_exists('url', $temp) &&
+                array_key_exists($id, $temp['url'])
+            ){
+                $url = $temp['url'][$id];
+            }
         }
         return $url;
     }
@@ -238,7 +242,8 @@ class SharedMemory {
         $temp = trim($temp[0]);
         if($temp !== ''){
             $temp = json_decode($temp, true);
-            unset($temp[$id]);
+            unset($temp['url'][$id]);
+            unset($temp['size'][$id]);
             $write = json_encode($temp);
             $write .= "\0";
             SharedMemory::write($shmop, $write, 0);
@@ -253,10 +258,11 @@ class SharedMemory {
         $temp = trim($temp[0]);
         if($temp !== ''){
             $temp = json_decode($temp, true);
-            $id = array_search($url, $temp);
+            $id = array_search($url, $temp['url']);
             if($id === false){
                 $id = SharedMemory::id($object);
-                $temp[$id] = $url;
+                $temp['url'][$id] = $url;
+                $temp['size'][$id] = File::size($url);
                 $write = json_encode($temp);
                 $write .= "\0";
                 SharedMemory::write($shmop, $write, 0);
@@ -264,7 +270,8 @@ class SharedMemory {
         } else {
             $temp = [];
             $id = SharedMemory::id($object);
-            $temp[$id] = $url;
+            $temp['url'][$id] = $url;
+            $temp['size'][$id] = File::size($url);
             $write = json_encode($temp);
             $write .= "\0";
             SharedMemory::write($shmop, $write, 0);
