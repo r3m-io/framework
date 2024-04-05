@@ -221,7 +221,16 @@ class SharedMemory {
         $read = SharedMemory::read($shmop, 0, SharedMemory::size($shmop));
         $temp = explode("\0", $read, 2);
         $temp = trim($temp[0]);
-//        $id = SharedMemory::id($object);
+        if($temp){
+            $temp = json_decode($temp, true);
+        } else {
+            $temp = [];
+        }
+        $id = SharedMemory::id($object);
+        $temp[$id] = $url;
+        $write = json_encode($temp);
+        $write .= "\0";
+        SharedMemory::write($shmop, $write, 0);
 //        return $object;
 //        return $id;
         return $temp;
