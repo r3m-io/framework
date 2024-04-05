@@ -276,7 +276,11 @@ class SharedMemory {
             $write .= "\0";
             SharedMemory::write($shmop, $write, 0);
         }
-        return $id;
+        $result = [
+            'id' => $id,
+            'size' => $temp['size'][$id]
+        ];
+        return $result;
     }
 
 
