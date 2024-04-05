@@ -218,8 +218,8 @@ class SharedMemory {
     public static function key(App $object, $url)
     {
         $id = SharedMemory::id($object);
-        return $object;
-        return $id;
+//        return $object;
+//        return $id;
         return $url;
     }
 
