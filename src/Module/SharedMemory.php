@@ -219,11 +219,12 @@ class SharedMemory {
     {
         $shmop = SharedMemory::open(1, 'c', File::CHMOD, (1 * 1024 * 1024));
         $read = SharedMemory::read($shmop, 0, SharedMemory::size($shmop));
-
+        $temp = explode("\0", $read, 2);
+        $temp = trim($temp[0]);
 //        $id = SharedMemory::id($object);
 //        return $object;
 //        return $id;
-        return $read;
+        return $temp;
     }
 
 
