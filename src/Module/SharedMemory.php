@@ -222,7 +222,7 @@ class SharedMemory {
         $temp = explode("\0", $read, 2);
         $temp = trim($temp[0]);
 
-        if($temp){
+        if($temp !== ''){
             $temp = json_decode($temp, true);
         } else {
             $temp = [];
