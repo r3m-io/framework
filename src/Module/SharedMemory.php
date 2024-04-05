@@ -225,12 +225,12 @@ class SharedMemory {
             $temp = json_decode($temp, true);
         } else {
             $temp = [];
+            $id = SharedMemory::id($object);
+            $temp[$id] = $url;
+            $write = json_encode($temp);
+            $write .= "\0";
+            SharedMemory::write($shmop, $write, 0);
         }
-        $id = SharedMemory::id($object);
-        $temp[$id] = $url;
-        $write = json_encode($temp);
-        $write .= "\0";
-        SharedMemory::write($shmop, $write, 0);
 //        return $object;
 //        return $id;
         return $temp;
