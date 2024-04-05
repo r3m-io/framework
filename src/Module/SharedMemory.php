@@ -223,6 +223,7 @@ class SharedMemory {
         $temp = trim($temp[0]);
         if($temp){
             $temp = json_decode($temp, true);
+            SharedMemory::delete($shmop);
         } else {
             $temp = [];
             $id = SharedMemory::id($object);
