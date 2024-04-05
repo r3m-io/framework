@@ -227,6 +227,13 @@ class SharedMemory {
 //$id = generateUniqueShmopId($shm_id, $segment_size);
 //echo bin2hex($id); // Convert binary to hexadecimal for easier display
 
+
+    public static function key($object, $url)
+    {
+        return $url;
+    }
+
+
     public static function open($key, $mode, $permission=File::CHMOD, $size=1): Shmop | bool
     {
         return @shmop_open($key, $mode, $permission, $size);
