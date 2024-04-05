@@ -217,10 +217,13 @@ class SharedMemory {
 
     public static function key(App $object, $url)
     {
-        $id = SharedMemory::id($object);
+        $shmop = SharedMemory::open(1, 'c', File::CHMOD, (1 * 1024 * 1024));
+        $read = SharedMemory::read($shmop, 0, SharedMemory::size($shmop));
+
+//        $id = SharedMemory::id($object);
 //        return $object;
 //        return $id;
-        return $url;
+        return $read;
     }
 
 
