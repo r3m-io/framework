@@ -211,11 +211,8 @@ class SharedMemory {
             // Convert the number to a 4-byte binary string
             $id_binary = pack('V', $id); // 'V' represents unsigned long (always 32 bit, little endian byte order)
 
-        d($id);
-        ddd($id_binary);
-
             // Check if the ID already exists in the shared memory segment
-            $existingData = shmop_read($shm_id, 0, $segment_size);
+//            $existingData = shmop_read($shm_id, 0, $segment_size);
 //            $duplicate = strpos($existingData, $id_binary) !== false;
 //        } while ($duplicate);
 
@@ -230,6 +227,8 @@ class SharedMemory {
 
     public static function key($object, $url)
     {
+        $id = SharedMemory::id();
+        return $id;
         return $url;
     }
 
