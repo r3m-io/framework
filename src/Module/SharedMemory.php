@@ -221,6 +221,7 @@ class SharedMemory {
         $read = SharedMemory::read($shmop, 0, SharedMemory::size($shmop));
         $temp = explode("\0", $read, 2);
         $temp = trim($temp[0]);
+        /*
         if($temp){
             $temp = json_decode($temp, true);
         } else {
@@ -231,6 +232,7 @@ class SharedMemory {
             $write .= "\0";
             SharedMemory::write($shmop, $write, 0);
         }
+        */
         SharedMemory::delete($shmop);
 //        return $object;
 //        return $id;
