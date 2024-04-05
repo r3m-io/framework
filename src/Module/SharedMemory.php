@@ -224,6 +224,14 @@ class SharedMemory {
 
         if($temp !== ''){
             $temp = json_decode($temp, true);
+            $id = array_search($url, $temp);
+            if($id === false){
+                $id = SharedMemory::id($object);
+                $temp[$id] = $url;
+                $write = json_encode($temp);
+                $write .= "\0";
+                SharedMemory::write($shmop, $write, 0);
+            }
         } else {
             $temp = [];
             $id = SharedMemory::id($object);
@@ -234,7 +242,7 @@ class SharedMemory {
         }
 //        return $object;
 //        return $id;
-        return $temp;
+        return $id;
     }
 
 
