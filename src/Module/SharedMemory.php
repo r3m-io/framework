@@ -16,13 +16,11 @@ use R3m\Io\App;
 
 use R3m\Io\Exception\ObjectException;
 
+use Exception;
 use ErrorException;
 
 class SharedMemory {
 
-    /**
-     * @throws ObjectException
-     */
     /*
     public static function read(App $object, $url, $offset=0, $length=0): mixed
     {
@@ -203,20 +201,12 @@ class SharedMemory {
     }
     */
 
-    public static function id(){
-//        do {
-            // Generate a random number within the range of a 32-bit unsigned integer
-            $id = mt_rand(0, 4294967295); // 4294967295 is the maximum value of a 32-bit unsigned integer
-
-            // Convert the number to a 4-byte binary string
-            $id_binary = pack('V', $id); // 'V' represents unsigned long (always 32 bit, little endian byte order)
-
-            // Check if the ID already exists in the shared memory segment
-//            $existingData = shmop_read($shm_id, 0, $segment_size);
-//            $duplicate = strpos($existingData, $id_binary) !== false;
-//        } while ($duplicate);
-
-        return $id_binary;
+    /**
+     * @throws Exception
+     */
+    public static function id(App $object){
+      $id = random_int(0, 4294967295); // 4294967295 is the maximum value of a 32-bit unsigned integer
+      return $id;
     }
 
 // Example usage:
@@ -225,9 +215,9 @@ class SharedMemory {
 //echo bin2hex($id); // Convert binary to hexadecimal for easier display
 
 
-    public static function key($object, $url)
+    public static function key(App $object, $url)
     {
-        $id = SharedMemory::id();
+        $id = SharedMemory::id($object);
         return $id;
         return $url;
     }
