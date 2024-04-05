@@ -250,7 +250,7 @@ class SharedMemory {
         }
     }
 
-    public static function key(App $object, $url)
+    public static function key(App $object, $url, $size=0)
     {
         $shmop = SharedMemory::open(1, 'c', File::CHMOD, (1 * 1024 * 1024));
         $read = SharedMemory::read($shmop, 0, SharedMemory::size($shmop));
@@ -262,7 +262,7 @@ class SharedMemory {
             if($id === false){
                 $id = SharedMemory::id($object);
                 $temp['url'][$id] = $url;
-                $temp['size'][$id] = File::size($url);
+                $temp['size'][$id] = $size;
                 $write = json_encode($temp);
                 $write .= "\0";
                 SharedMemory::write($shmop, $write, 0);
@@ -271,7 +271,7 @@ class SharedMemory {
             $temp = [];
             $id = SharedMemory::id($object);
             $temp['url'][$id] = $url;
-            $temp['size'][$id] = File::size($url);
+            $temp['size'][$id] = $size;
             $write = json_encode($temp);
             $write .= "\0";
             SharedMemory::write($shmop, $write, 0);
