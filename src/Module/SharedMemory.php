@@ -215,7 +215,7 @@ class SharedMemory {
 //echo bin2hex($id); // Convert binary to hexadecimal for easier display
 
 
-    public static function key(App $object, $url)
+    public static function url_id(App $object, $url)
     {
         $shmop = SharedMemory::open(1, 'c', File::CHMOD, (1 * 1024 * 1024));
         $read = SharedMemory::read($shmop, 0, SharedMemory::size($shmop));
