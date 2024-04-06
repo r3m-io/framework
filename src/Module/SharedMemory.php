@@ -272,6 +272,7 @@ class SharedMemory {
             array_key_exists(1, $temp) &&
             !empty(trim($temp[0]))
         ){
+            d($temp);
             ddd($temp[0]);
             $temp = gzdecode($temp[0]);
             $temp = json_decode($temp, true);
