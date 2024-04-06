@@ -205,8 +205,9 @@ class SharedMemory {
      * @throws Exception
      */
     public static function id(App $object){
-      $id = random_int(0, 4294967295); // 4294967295 is the maximum value of a 32-bit unsigned integer
-      return $id;
+        // don't write in the first million
+        $id = random_int(1000000, 4294967295); // 4294967295 is the maximum value of a 32-bit unsigned integer
+        return $id;
     }
 
 // Example usage:
@@ -253,7 +254,7 @@ class SharedMemory {
     /**
      * @throws Exception
      */
-    public static function key(App $object, $url, $size=0): array
+    public static function key(App $object, $url, $size=0, $mtime=null): array
     {
         $shmop = SharedMemory::open(1, 'c', File::CHMOD, (1 * 1024 * 1024));
         $read = SharedMemory::read($shmop, 0, SharedMemory::size($shmop));
@@ -263,9 +264,15 @@ class SharedMemory {
             $temp = json_decode($temp, true);
             $id = array_search($url, $temp['url']);
             if($id === false){
-                $id = SharedMemory::id($object);
+                while(true){
+                    $id = SharedMemory::id($object);
+                    if(!array_key_exists($id, $temp['url'])) {
+                        break;
+                    }
+                }
                 $temp['url'][$id] = $url;
                 $temp['size'][$id] = $size;
+                $temp['mtime'][$id] = $mtime;
                 $write = json_encode($temp);
                 $write .= "\0";
                 SharedMemory::write($shmop, $write, 0);
@@ -275,13 +282,16 @@ class SharedMemory {
             $id = SharedMemory::id($object);
             $temp['url'][$id] = $url;
             $temp['size'][$id] = $size;
+            $temp['mtime'][$id] = $mtime;
             $write = json_encode($temp);
             $write .= "\0";
             SharedMemory::write($shmop, $write, 0);
         }
         return [
             'id' => $id,
-            'size' => $temp['size'][$id]
+            'url' => $url,
+            'size' => $temp['size'][$id],
+            'mtime' => $temp['mtime'][$id]
         ];
     }
 
