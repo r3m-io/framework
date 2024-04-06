@@ -267,7 +267,8 @@ class SharedMemory {
     {
         $shmop = SharedMemory::open(1, 'c', File::CHMOD, (2 * 1024 * 1024));
         $read = SharedMemory::read($shmop, 0, SharedMemory::size($shmop));
-        $temp = explode("\0", $read, 2);
+        ddd($read);
+//        $temp = explode("\0", $read, 2);
         if(
             array_key_exists(1, $temp) &&
             !empty(trim($temp[0]))
