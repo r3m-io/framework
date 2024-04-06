@@ -269,6 +269,7 @@ class SharedMemory {
         $read = SharedMemory::read($shmop, 0, SharedMemory::size($shmop));
         $temp = explode("\0", $read, 2);
         if(array_key_exists(1, $temp)){
+            d($temp[0]);
             $temp = gzdecode($temp[0]);
             $temp = json_decode($temp, true);
             $id = array_search($url, $temp['url']);
