@@ -270,6 +270,8 @@ class SharedMemory {
         $read = rtrim($read);
 //        $temp = explode("\0", $read, 2);
         if($read !== ''){
+            var_dump($read);
+            die;
             $temp = gzdecode($read);
             $temp = json_decode($temp, true);
             $id = array_search($url, $temp['url']);
