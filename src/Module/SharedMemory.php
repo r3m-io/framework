@@ -265,7 +265,7 @@ class SharedMemory {
      */
     public static function key(App $object, $url, $size=0, $mtime=null): array
     {
-        $shmop = SharedMemory::open(1, 'c', File::CHMOD, (100 * 1024 * 1024));
+        $shmop = SharedMemory::open(1, 'c', File::CHMOD, (10 * 1024 * 1024));
         $read = SharedMemory::read($shmop, 0, SharedMemory::size($shmop));
         $temp = explode("\0", $read, 2);
         $temp = trim($temp[0]);
