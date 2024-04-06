@@ -243,9 +243,17 @@ class SharedMemory {
         $temp = trim($temp[0]);
         if($temp !== ''){
             $temp = json_decode($temp, true);
-            unset($temp['url'][$id]);
-            unset($temp['size'][$id]);
-            unset($temp['mtime'][$id]);
+            if(is_array($id)){
+                foreach($id as $nr){
+                    unset($temp['url'][$nr]);
+                    unset($temp['size'][$nr]);
+                    unset($temp['mtime'][$nr]);
+                }
+            } else {
+                unset($temp['url'][$id]);
+                unset($temp['size'][$id]);
+                unset($temp['mtime'][$id]);
+            }
             $write = json_encode($temp);
             $write .= "\0";
             SharedMemory::write($shmop, $write, 0);
