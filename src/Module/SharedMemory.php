@@ -268,8 +268,8 @@ class SharedMemory {
         $shmop = SharedMemory::open(1, 'c', File::CHMOD, (2 * 1024 * 1024));
         $read = SharedMemory::read($shmop, 0, SharedMemory::size($shmop));
         $temp = explode("\0", $read, 2);
-        $temp = trim($temp[0]);
-        if($temp !== ''){
+        if(array_key_exists(1, $temp)){
+            $temp = gzdecode($temp[0]);
             $temp = json_decode($temp, true);
             $id = array_search($url, $temp['url']);
             if($id === false){
@@ -283,6 +283,7 @@ class SharedMemory {
                 $temp['size'][$id] = $size;
                 $temp['mtime'][$id] = $mtime;
                 $write = json_encode($temp);
+                $write = gzencode($write, 9);
                 $write .= "\0";
                 SharedMemory::write($shmop, $write, 0);
             }
@@ -293,6 +294,7 @@ class SharedMemory {
             $temp['size'][$id] = $size;
             $temp['mtime'][$id] = $mtime;
             $write = json_encode($temp);
+            $write = gzencode($write, 9);
             $write .= "\0";
             SharedMemory::write($shmop, $write, 0);
         }

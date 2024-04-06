@@ -14,6 +14,7 @@
 		"ext-openssl": "*",
 		"ext-readline": "*",
 		"ext-pcntl": "*",
+		"ext-zlib": "*",
 		"ext-zip": "*",
 		"ext-shmop": "*",
 		"r3m_io/autoload": "*",
@@ -30,7 +31,8 @@
 		"r3m_io/server": "*",
 		"r3m_io/account": "*",
 		"monolog/monolog" : "^2.2",
-		"defuse/php-encryption": "^2.3"
+		"defuse/php-encryption": "^2.3",
+
     },
 	"license" : "MIT",
 	"authors" : [{
