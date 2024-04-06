@@ -235,7 +235,7 @@ class SharedMemory {
         return $url;
     }
 
-    public function key_delete(App $object, $id)
+    public static function key_delete(App $object, $id)
     {
         $shmop = SharedMemory::open(1, 'c', File::CHMOD, (1 * 1024 * 1024));
         $read = SharedMemory::read($shmop, 0, SharedMemory::size($shmop));
