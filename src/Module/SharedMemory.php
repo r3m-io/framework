@@ -272,6 +272,8 @@ class SharedMemory {
             array_key_exists(1, $temp) &&
             $temp[0] !== ''
         ){
+            var_dump($temp[0]);
+            die;
             $temp = gzdecode($temp[0]);
             $temp = json_decode($temp, true);
             $id = array_search($url, $temp['url']);
