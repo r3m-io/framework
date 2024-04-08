@@ -265,6 +265,9 @@ class SharedMemory {
      */
     public static function key(App $object, $url, $size=0, $mtime=null): array
     {
+        //use ftok to generate a key (use a shadow file in the ramdisk)
+        //return;
+
         $shmop = SharedMemory::open(1, 'c', File::CHMOD, (2 * 1024 * 1024));
         $read = SharedMemory::read($shmop, 0, SharedMemory::size($shmop));
         $read = rtrim($read);
