@@ -24,7 +24,7 @@ class SharedMemory {
         return @shmop_delete($shmop);
     }
 
-    public static function read(Shmop $shmop, $offset=0, $size=1): mixed
+    public static function read(Shmop $shmop, $offset=0, $size=1): string
     {
         return @shmop_read($shmop, $offset, $size);
     }
