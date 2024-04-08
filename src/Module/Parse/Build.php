@@ -435,7 +435,6 @@ class Build {
 //                                $file_read = SharedMemory::read($object, $url);
 //                            d($file_read);
                             }
-                            /*
                             if(
                                 $object->config('cache.parse.plugin.url.directory_length') &&
                                 $object->config('cache.parse.plugin.url.directory_separator') &&
@@ -489,7 +488,7 @@ class Build {
                                     $url = $ramdisk_url;
                                 }
                             }
-                            */
+
                         }
                         $file_exist = File::exist($url);
                         if(
