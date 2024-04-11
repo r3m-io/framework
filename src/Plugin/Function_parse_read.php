@@ -15,6 +15,7 @@ use R3m\Io\Module\Core;
 use R3m\Io\Exception\ObjectException;
 
 function function_parse_read(Parse $parse, Data $data, $url='', $cache=true){
+    d($url);
     if(File::exist($url)){
         $object = $parse->object();
         if($cache){
