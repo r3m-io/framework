@@ -431,6 +431,13 @@ class Parse {
                 }
             }
             $this->key = $parentKey;
+            /*
+             * we have #parallel for parallel processing and output filter to give them the right properties.
+             */
+            if(property_exists($string, '#parallel')){
+                $parallel = $string->{'#parallel'};
+                ddd($parallel);
+            }
             //must read into it, copy should be configurable
             $copy = $this->object()->config('parse.read.object.copy');
             if($copy && is_object($copy)){
