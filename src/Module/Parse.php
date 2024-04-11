@@ -438,7 +438,10 @@ class Parse {
                 $parallel = $string->{'#parallel'};
                 if(is_array($parallel)){
                     foreach($parallel as $nr => $value){
-                        $parallel[$nr] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
+                        $compile = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
+                        $compile = $this->compile($compile, $storage->data(), $storage, $depth, $is_debug);
+                        $parallel[$nr] = $compile;
+                        //twice should be enough
                     }
                 }
                 ddd($parallel);
