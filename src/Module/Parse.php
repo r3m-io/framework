@@ -441,7 +441,7 @@ class Parse {
                         $compile = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
 //                        $compile = $this->compile($compile, $storage->data(), $storage, $depth, $is_debug);
                         $string->{'#parallel'}[$nr] = $compile;
-                        //at least twice, it should be enough
+                        //test8.json (microtime(true) is getting executed)
                     }
                 }
             }
@@ -453,7 +453,8 @@ class Parse {
                 ) {
                     $filter = $string->{'#output'}->filter;
                     d($string->{'#parallel'});
-                    ddd($filter);
+                    //parallel must be filtered because we delete #parallel from the object
+                    d($filter);
                 }
             }
             //must read into it, copy should be configurable
