@@ -441,7 +441,7 @@ class Parse {
                         $compile = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                         $compile = $this->compile($compile, $storage->data(), $storage, $depth, $is_debug);
                         $parallel[$nr] = $compile;
-                        //twice should be enough
+                        //at least twice, it should be enough
                     }
                 }
                 ddd($parallel);
