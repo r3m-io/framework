@@ -434,15 +434,25 @@ class Parse {
             /*
              * we have #parallel for parallel processing and output filter to give them the right properties.
              */
-            if(property_exists($string, '#parallel')){
+            if(property_exists($string, '#parallel')) {
                 $parallel = $string->{'#parallel'};
-                if(is_array($string->{'#parallel'})){
-                    foreach($string->{'#parallel'} as $nr => $value){
+                if (is_array($string->{'#parallel'})) {
+                    foreach ($string->{'#parallel'} as $nr => $value) {
                         $compile = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
 //                        $compile = $this->compile($compile, $storage->data(), $storage, $depth, $is_debug);
                         $string->{'#parallel'}[$nr] = $compile;
                         //at least twice, it should be enough
                     }
+                }
+            }
+            if(property_exists($string, '#output')) {
+                $output = $string->{'#output'};
+                if (
+                    is_object($string->{'#output'}) &&
+                    property_exists($string->{'#output'}, 'filter')
+                ) {
+                    $filter = $string->{'#output'}->filter;
+                    ddd($filter);
                 }
             }
             //must read into it, copy should be configurable
