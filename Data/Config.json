@@ -231,7 +231,8 @@
                     "rootNode": "#rootNode",
                     "attribute": "#attribute",
                     "key": "#key",
-                    "url": "#url"
+                    "url": "#url",
+                    "parallel": "#parallel"
                 },
                 "#copy": {
                     "#key": "name"
