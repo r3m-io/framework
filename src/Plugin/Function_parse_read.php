@@ -22,6 +22,9 @@ function function_parse_read(Parse $parse, Data $data, $url='', $cache=true){
         } else {
             $read = $object->parse_read($url);
         }
+        d($read);
+        d($cache);
+        d($url);
         if($read){
             try {
                 $data->data(Core::object_merge($data->data(), $read->data()));
