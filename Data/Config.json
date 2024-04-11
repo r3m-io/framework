@@ -232,7 +232,8 @@
                     "attribute": "#attribute",
                     "key": "#key",
                     "url": "#url",
-                    "parallel": "#parallel"
+                    "parallel": "#parallel",
+                    "output": "#output"
                 },
                 "#copy": {
                     "#key": "name"
