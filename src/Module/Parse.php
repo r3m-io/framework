@@ -436,15 +436,14 @@ class Parse {
              */
             if(property_exists($string, '#parallel')){
                 $parallel = $string->{'#parallel'};
-                if(is_array($parallel)){
-                    foreach($parallel as $nr => $value){
+                if(is_array($string->{'#parallel'})){
+                    foreach($string->{'#parallel'} as $nr => $value){
                         $compile = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
-                        $compile = $this->compile($compile, $storage->data(), $storage, $depth, $is_debug);
-                        $parallel[$nr] = $compile;
+//                        $compile = $this->compile($compile, $storage->data(), $storage, $depth, $is_debug);
+                        $string->{'#parallel'}[$nr] = $compile;
                         //at least twice, it should be enough
                     }
                 }
-                ddd($parallel);
             }
             //must read into it, copy should be configurable
             $copy = $this->object()->config('parse.read.object.copy');
