@@ -436,6 +436,11 @@ class Parse {
              */
             if(property_exists($string, '#parallel')){
                 $parallel = $string->{'#parallel'};
+                if(is_array($parallel)){
+                    foreach($parallel as $nr => $value){
+                        $parallel[$nr] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
+                    }
+                }
                 ddd($parallel);
             }
             //must read into it, copy should be configurable
