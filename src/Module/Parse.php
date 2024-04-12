@@ -496,6 +496,7 @@ class Parse {
                     property_exists($string->{'#output'}, 'filter')
                 ) {
                     $filter = $string->{'#output'}->filter;
+                    d($file);
                     d($original);
                     d($filter);
                     $string->result = $string->{'#parallel'};
