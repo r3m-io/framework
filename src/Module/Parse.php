@@ -511,6 +511,8 @@ class Parse {
                     d($debug[10]['file'] .':' . $debug[10]['line'] . ':' . $debug[10]['function']);
                     d($debug[11]['file'] .':' . $debug[11]['line'] . ':' . $debug[11]['function']);
                     d($debug[12]['file'] .':' . $debug[12]['line'] . ':' . $debug[12]['function']);
+                    d($debug[13]['file'] .':' . $debug[13]['line'] . ':' . $debug[13]['function']);
+                    d($debug[14]['file'] .':' . $debug[14]['line'] . ':' . $debug[14]['function']);
 
                     d($file);
                     d($original);
