@@ -432,6 +432,7 @@ class Parse {
                 }
             }
             $this->key = $parentKey;
+            d($this->key);
             /*
              * we have #parallel for parallel processing and output filter to give them the right properties.
              */
@@ -507,7 +508,7 @@ class Parse {
                             }
                         }
                     }
-                    $string->result = $string->{'#parallel'};
+//                    $string->result = $string->{'#parallel'};
                     //parallel must be filtered because we delete #parallel from the object
                 }
             }
