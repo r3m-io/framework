@@ -31,7 +31,8 @@
 		"r3m_io/server": "*",
 		"r3m_io/account": "*",
 		"monolog/monolog" : "^2.2",
-		"defuse/php-encryption": "^2.3"
+		"defuse/php-encryption": "^2.3",
+		"spatie/fork": "^1.2.2"
     },
 	"license" : "MIT",
 	"authors" : [{

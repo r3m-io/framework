@@ -10,6 +10,7 @@
  */
 namespace R3m\Io\Module;
 
+use Package\R3m\Io\Raxon\Service\ForkMultiple;
 use stdClass;
 
 use R3m\Io\App;
@@ -437,12 +438,56 @@ class Parse {
             if(property_exists($string, '#parallel')) {
                 $parallel = $string->{'#parallel'};
                 if (is_array($string->{'#parallel'})) {
+                    $threads = 4;
+                    $chunks = array_chunk($parallel, $string->{'#parallel'});
+                    $chunk_count = count($chunks);
+                    $count = 0;
+                    $done = 0;
+                    $result = [];
+                    $parse = clone($this);
+                    foreach($chunks as $chunk_nr => $chunk) {
+                        $closures = [];
+                        $forks = count($chunk);
+                        for ($i = 0; $i < $forks; $i++) {
+                            $closures[] = function () use (
+                                $object,
+                                $parse,
+                                $chunk,
+                                $chunk_nr,
+                                $chunk_count,
+                                $i,
+                            ) {
+                                if (array_key_exists($i, $chunk)) {
+                                    return $parse->compile($chunk[$i], $object->data(), $parse->storage());
+                                }
+                                return null;
+                            };
+                        }
+                        $list = ForkMultiple::new()->multiple($closures);
+                        foreach($list as $key => $item){
+                            if(
+                                $item !== null &&
+                                $item !== 'progress'
+                            ){
+                                $result[] = $item;
+                                $count++;
+                                $done++;
+                            }
+                        }
+                    }
+
+                    /*
                     foreach ($string->{'#parallel'} as $nr => $value) {
+                        //add parallel
+
+
+
                         $compile = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
 //                        $compile = $this->compile($compile, $storage->data(), $storage, $depth, $is_debug);
                         $string->{'#parallel'}[$nr] = $compile;
                         //test8.json (microtime(true) is getting executed)
                     }
+                    */
                 }
             }
             if(property_exists($string, '#output')) {
