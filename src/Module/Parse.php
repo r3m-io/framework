@@ -418,7 +418,7 @@ class Parse {
                     ){
                         $string->{$key} = $value;
                     } else {
-                        d($key);
+                        d($object->config('parse'));
                         $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                         $string->{$key} = $value;
                     }
