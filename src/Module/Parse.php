@@ -484,6 +484,7 @@ class Parse {
                     property_exists($string->{'#output'}, 'filter')
                 ) {
                     $filter = $string->{'#output'}->filter;
+                    d($filter);
                     if(is_array($filter)){
                         foreach($filter as $output_filter_data){
                             $route = (object) [
@@ -496,6 +497,7 @@ class Parse {
                             ){
                                 //don't check on empty $list, an output filter can have defaults...
                                 $string = $route->controller::{$route->function}($object, $string);
+                                d($string);
                             }
                         }
                     }
