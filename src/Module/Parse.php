@@ -486,6 +486,7 @@ class Parse {
                 ) {
                     $filter = $string->{'#output'}->filter;
                     d($filter);
+                    d($string);
                     $string->result = $string->{'#parallel'};
                     //parallel must be filtered because we delete #parallel from the object
 
