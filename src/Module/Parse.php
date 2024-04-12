@@ -484,10 +484,23 @@ class Parse {
                     property_exists($string->{'#output'}, 'filter')
                 ) {
                     $filter = $string->{'#output'}->filter;
-                    d('yes');
+                    if(is_array($filter)){
+                        foreach($filter as $output_filter_data){
+                            $route = (object) [
+                                'controller' => $output_filter_data
+                            ];
+                            $route = Route::controller($route);
+                            if(
+                                property_exists($route, 'controller') &&
+                                property_exists($route, 'function')
+                            ){
+                                //don't check on empty $list, an output filter can have defaults...
+                                $string = $route->controller::{$route->function}($object, $string);
+                            }
+                        }
+                    }
                     $string->result = $string->{'#parallel'};
                     //parallel must be filtered because we delete #parallel from the object
-
                 }
             }
             //must read into it, copy should be configurable
