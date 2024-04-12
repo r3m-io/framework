@@ -438,6 +438,7 @@ class Parse {
             if(property_exists($string, '#parallel')) {
                 $parallel = $string->{'#parallel'};
                 if (is_array($string->{'#parallel'})) {
+                    //if cli else we can't do parallel
                     $threads = 4;
                     $chunks = array_chunk($parallel, $string->{'#parallel'});
                     $chunk_count = count($chunks);
@@ -463,7 +464,7 @@ class Parse {
                                 return null;
                             };
                         }
-                        $list = ForkMultiple::new()->multiple($closures);
+                        $list = Parallel::new()->run($closures);
                         foreach($list as $key => $item){
                             if(
                                 $item !== null &&
@@ -475,6 +476,7 @@ class Parse {
                             }
                         }
                     }
+                    ddd($result);
 
                     /*
                     foreach ($string->{'#parallel'} as $nr => $value) {
