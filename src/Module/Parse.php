@@ -433,6 +433,7 @@ class Parse {
             }
             $this->key = $parentKey;
             d($this->key);
+            /*
             if($this->key !== null){
                 $debug = debug_backtrace(1);
                 d($debug[0]['file'] . ' ' . $debug[0]['line'] . ' ' . $debug[0]['function']);
@@ -456,9 +457,11 @@ class Parse {
                 d($debug[18]['file'] . ' ' . $debug[18]['line'] . ' ' . $debug[18]['function']);
                 d($debug[19]['file'] . ' ' . $debug[19]['line'] . ' ' . $debug[19]['function']);
             }
+            */
             /*
              * we have #parallel for parallel processing and output filter to give them the right properties.
              */
+            /*
             if(property_exists($string, '#parallel')) {
                 if (is_array($string->{'#parallel'})) {
                     //if cli else we can't do parallel
@@ -502,6 +505,7 @@ class Parse {
                     $string->{'#parallel'} = $result;
                 }
             }
+            */
             if(property_exists($string, '#output')) {
                 if (
                     is_object($string->{'#output'}) &&
