@@ -439,7 +439,7 @@ class Parse {
             if(property_exists($string, '#parallel')) {
                 if (is_array($string->{'#parallel'})) {
                     //if cli else we can't do parallel
-                    $threads = 4;
+                    $threads = 96;
                     $chunks = array_chunk($string->{'#parallel'}, $threads);
                     $chunk_count = count($chunks);
                     $count = 0;
