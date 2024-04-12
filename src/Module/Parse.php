@@ -420,6 +420,7 @@ class Parse {
                     } else {
 //                        $object->config('parse.disable.parallel', true);
 //                        $object->config('parse.disable.output', true);
+                        d($this->object()->config('parse.read.object.this.url'));
                         d($key);
                         $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                         $string->{$key} = $value;
