@@ -438,45 +438,53 @@ class Parse {
 
             if(property_exists($string, '#parallel')) {
                 if (is_array($string->{'#parallel'})) {
-                    //if cli else we can't do parallel
-                    $threads = $object->config('parse.plugin.parallel.thread');
-                    $chunks = array_chunk($string->{'#parallel'}, $threads);
-                    $chunk_count = count($chunks);
-                    $count = 0;
-                    $done = 0;
-                    $result = [];
-                    $parse = clone($this);
-                    foreach($chunks as $chunk_nr => $chunk) {
-                        $closures = [];
-                        $forks = count($chunk);
-                        for ($i = 0; $i < $forks; $i++) {
-                            $closures[] = function () use (
-                                $object,
-                                $parse,
-                                $chunk,
-                                $chunk_nr,
-                                $chunk_count,
-                                $i,
-                            ) {
-                                if (array_key_exists($i, $chunk)) {
-                                    return $parse->compile($chunk[$i], $object->data(), $parse->storage());
+                    if(Core::is_cli()){
+                        //if cli else we can't do parallel
+                        $threads = $object->config('parse.plugin.parallel.thread');
+                        $chunks = array_chunk($string->{'#parallel'}, $threads);
+                        $chunk_count = count($chunks);
+                        $count = 0;
+                        $done = 0;
+                        $result = [];
+                        $parse = clone($this);
+                        foreach($chunks as $chunk_nr => $chunk) {
+                            $closures = [];
+                            $forks = count($chunk);
+                            for ($i = 0; $i < $forks; $i++) {
+                                $closures[] = function () use (
+                                    $object,
+                                    $parse,
+                                    $chunk,
+                                    $chunk_nr,
+                                    $chunk_count,
+                                    $i,
+                                    $depth,
+                                    $is_debug
+                                ) {
+                                    if (array_key_exists($i, $chunk)) {
+                                        return $parse->compile($chunk[$i], $object->data(), $parse->storage(), $depth, $is_debug);
+                                    }
+                                    return null;
+                                };
+                            }
+                            $list = Parallel::new()->execute($closures);
+                            foreach($list as $key => $item){
+                                if(
+                                    $item !== null &&
+                                    $item !== 'progress'
+                                ){
+                                    $result[] = $item;
+                                    $count++;
+                                    $done++;
                                 }
-                                return null;
-                            };
-                        }
-                        $list = Parallel::new()->execute($closures);
-                        foreach($list as $key => $item){
-                            if(
-                                $item !== null &&
-                                $item !== 'progress'
-                            ){
-                                $result[] = $item;
-                                $count++;
-                                $done++;
                             }
                         }
+                        $string->{'#parallel'} = $result;
+                    } else {
+                        foreach($string->{'#parallel'} as $key => $value){
+                            $string->{'#parallel'}[$key] = $this->compile($value, $object->data(), $storage, $depth, $is_debug);
+                        }
                     }
-                    $string->{'#parallel'} = $result;
                 }
             }
             if(property_exists($string, '#output')) {
