@@ -221,6 +221,9 @@
     },
     "parse": {
         "prefix": "R3m\\Io\\Module\\Compile",
+        "parallel": {
+            "thread": 96
+        },
         "read": {
             "parser": "{{R3M}}",
             "row_mismatch": 1,
