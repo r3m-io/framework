@@ -435,13 +435,12 @@ class Parse {
             /*
              * we have #parallel for parallel processing and output filter to give them the right properties.
              */
-            d($string);
             if(property_exists($string, '#parallel')) {
-                $parallel = $string->{'#parallel'};
                 if (is_array($string->{'#parallel'})) {
                     //if cli else we can't do parallel
                     $threads = 4;
-                    $chunks = array_chunk($parallel, $string->{'#parallel'});
+                    $chunks = array_chunk($string->{'#parallel'}, $threads);
+                    d($chunks);
                     $chunk_count = count($chunks);
                     $count = 0;
                     $done = 0;
