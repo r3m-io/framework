@@ -475,6 +475,7 @@ class Parse {
                                 return null;
                             };
                         }
+                        d(count($closures));
                         $list = Parallel::new()->execute($closures);
                         foreach($list as $key => $item){
                             if(
