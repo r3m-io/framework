@@ -440,7 +440,6 @@ class Parse {
                     //if cli else we can't do parallel
                     $threads = 4;
                     $chunks = array_chunk($string->{'#parallel'}, $threads);
-                    d($chunks);
                     $chunk_count = count($chunks);
                     $count = 0;
                     $done = 0;
@@ -486,10 +485,10 @@ class Parse {
                     property_exists($string->{'#output'}, 'filter')
                 ) {
                     $filter = $string->{'#output'}->filter;
-                    $string->result = $string->{'#parallel'};
-                    d($string->{'#parallel'});
-                    //parallel must be filtered because we delete #parallel from the object
                     d($filter);
+                    $string->result = $string->{'#parallel'};
+                    //parallel must be filtered because we delete #parallel from the object
+
                 }
             }
             //must read into it, copy should be configurable
