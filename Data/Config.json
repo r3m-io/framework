@@ -242,7 +242,7 @@
         },
         "plugin": {
             "parallel": {
-                "thread": 768
+                "thread": 96
             },
             "multi_line": [
                 "block.code",
