@@ -418,9 +418,12 @@ class Parse {
                     ){
                         $string->{$key} = $value;
                     } else {
-                        d($object->config());
+                        $object->config('parse.disable.parallel', true);
+                        $object->config('parse.disable.output', true);
                         $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                         $string->{$key} = $value;
+                        $object->config('delete', 'parse.disable.parallel');
+                        $object->config('delete', 'parse.disable.output');
                     }
                 } catch (Exception | ParseError $exception){
                     Event::trigger($object, 'parse.compile.exception', [
@@ -436,7 +439,13 @@ class Parse {
             /*
              * we have #parallel for parallel processing and output filter to give them the right properties.
              */
-            if(property_exists($string, '#parallel')) {
+            $is_parallel = $this->object()->config('parse.disable.parallel');
+            if($is_parallel === null){
+                $is_parallel = true;
+            } else {
+                $is_parallel = false;
+            }
+            if($is_parallel && property_exists($string, '#parallel')) {
                 if (is_array($string->{'#parallel'})) {
                     //if cli else we can't do parallel
                     $threads = 4;
@@ -479,7 +488,13 @@ class Parse {
                     $string->{'#parallel'} = $result;
                 }
             }
-            if(property_exists($string, '#output')) {
+            $is_output = $this->object()->config('parse.disable.output');
+            if($is_output === null){
+                $is_output = true;
+            } else {
+                $is_output = false;
+            }
+            if($is_output && property_exists($string, '#output')) {
                 $output = $string->{'#output'};
                 if (
                     is_object($string->{'#output'}) &&
