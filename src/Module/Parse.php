@@ -476,20 +476,7 @@ class Parse {
                             }
                         }
                     }
-                    ddd($result);
-
-                    /*
-                    foreach ($string->{'#parallel'} as $nr => $value) {
-                        //add parallel
-
-
-
-                        $compile = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
-//                        $compile = $this->compile($compile, $storage->data(), $storage, $depth, $is_debug);
-                        $string->{'#parallel'}[$nr] = $compile;
-                        //test8.json (microtime(true) is getting executed)
-                    }
-                    */
+                    $string->result = $result;
                 }
             }
             if(property_exists($string, '#output')) {
