@@ -494,6 +494,7 @@ class Parse {
                     property_exists($string->{'#output'}, 'filter')
                 ) {
                     $filter = $string->{'#output'}->filter;
+                    d($original);
                     d($filter);
                     $string->result = $string->{'#parallel'};
                     //parallel must be filtered because we delete #parallel from the object
