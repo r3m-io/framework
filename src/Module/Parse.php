@@ -491,6 +491,7 @@ class Parse {
                                 'controller' => $output_filter_data
                             ];
                             $route = Route::controller($route);
+                            d($route);
                             if(
                                 property_exists($route, 'controller') &&
                                 property_exists($route, 'function')
