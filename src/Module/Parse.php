@@ -432,36 +432,10 @@ class Parse {
                 }
             }
             $this->key = $parentKey;
-            d($this->key);
-            /*
-            if($this->key !== null){
-                $debug = debug_backtrace(1);
-                d($debug[0]['file'] . ' ' . $debug[0]['line'] . ' ' . $debug[0]['function']);
-                d($debug[1]['file'] . ' ' . $debug[1]['line'] . ' ' . $debug[1]['function']);
-                d($debug[2]['file'] . ' ' . $debug[2]['line'] . ' ' . $debug[2]['function']);
-                d($debug[3]['file'] . ' ' . $debug[3]['line'] . ' ' . $debug[3]['function']);
-                d($debug[4]['file'] . ' ' . $debug[4]['line'] . ' ' . $debug[4]['function']);
-                d($debug[5]['file'] . ' ' . $debug[5]['line'] . ' ' . $debug[5]['function']);
-                d($debug[6]['file'] . ' ' . $debug[6]['line'] . ' ' . $debug[6]['function']);
-                d($debug[7]['file'] . ' ' . $debug[7]['line'] . ' ' . $debug[7]['function']);
-                d($debug[8]['file'] . ' ' . $debug[8]['line'] . ' ' . $debug[8]['function']);
-                d($debug[9]['file'] . ' ' . $debug[9]['line'] . ' ' . $debug[9]['function']);
-                d($debug[10]['file'] . ' ' . $debug[10]['line'] . ' ' . $debug[10]['function']);
-                d($debug[11]['file'] . ' ' . $debug[11]['line'] . ' ' . $debug[11]['function']);
-                d($debug[12]['file'] . ' ' . $debug[12]['line'] . ' ' . $debug[12]['function']);
-                d($debug[13]['file'] . ' ' . $debug[13]['line'] . ' ' . $debug[13]['function']);
-                d($debug[14]['file'] . ' ' . $debug[14]['line'] . ' ' . $debug[14]['function']);
-                d($debug[15]['file'] . ' ' . $debug[15]['line'] . ' ' . $debug[15]['function']);
-                d($debug[16]['file'] . ' ' . $debug[16]['line'] . ' ' . $debug[16]['function']);
-                d($debug[17]['file'] . ' ' . $debug[17]['line'] . ' ' . $debug[17]['function']);
-                d($debug[18]['file'] . ' ' . $debug[18]['line'] . ' ' . $debug[18]['function']);
-                d($debug[19]['file'] . ' ' . $debug[19]['line'] . ' ' . $debug[19]['function']);
-            }
-            */
             /*
              * we have #parallel for parallel processing and output filter to give them the right properties.
              */
-            /*
+
             if(property_exists($string, '#parallel')) {
                 if (is_array($string->{'#parallel'})) {
                     //if cli else we can't do parallel
@@ -505,7 +479,6 @@ class Parse {
                     $string->{'#parallel'} = $result;
                 }
             }
-            */
             if(property_exists($string, '#output')) {
                 if (
                     is_object($string->{'#output'}) &&
