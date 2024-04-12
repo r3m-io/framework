@@ -476,7 +476,7 @@ class Parse {
                             }
                         }
                     }
-                    $string->result = $result;
+                    $string->{'#parallel'} = $result;
                 }
             }
             if(property_exists($string, '#output')) {
@@ -486,6 +486,7 @@ class Parse {
                     property_exists($string->{'#output'}, 'filter')
                 ) {
                     $filter = $string->{'#output'}->filter;
+                    $string->result = $string->{'#parallel'};
                     d($string->{'#parallel'});
                     //parallel must be filtered because we delete #parallel from the object
                     d($filter);
