@@ -464,7 +464,7 @@ class Parse {
                                 return null;
                             };
                         }
-                        $list = Parallel::new()->run($closures);
+                        $list = Parallel::new()->execute($closures);
                         foreach($list as $key => $item){
                             if(
                                 $item !== null &&

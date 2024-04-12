@@ -12,7 +12,7 @@ class Parallel extends Fork {
         return new self();
     }
 
-    public function run($callables = []): array
+    public function execute($callables = []): array
     {
         $tasks = [];
         foreach ($callables as $nr => $callable) {
