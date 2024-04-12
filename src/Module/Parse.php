@@ -499,7 +499,7 @@ class Parse {
                             ){
                                 //don't check on empty $list, an output filter can have defaults...
                                 try {
-                                    $string = $route->controller::{$route->function}($object, $string);
+                                    $string = $route->controller::{$route->function}($object, $string, $filter);
                                     d($string);
                                 }
                                 catch(Exception $exception){
