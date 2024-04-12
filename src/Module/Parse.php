@@ -418,14 +418,8 @@ class Parse {
                     ){
                         $string->{$key} = $value;
                     } else {
-//                        $object->config('parse.disable.parallel', true);
-//                        $object->config('parse.disable.output', true);
-                        d($value);
-                        d($key);
                         $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                         $string->{$key} = $value;
-//                        $object->config('delete', 'parse.disable.parallel');
-//                        $object->config('delete', 'parse.disable.output');
                     }
                 } catch (Exception | ParseError $exception){
                     Event::trigger($object, 'parse.compile.exception', [
@@ -441,12 +435,6 @@ class Parse {
             /*
              * we have #parallel for parallel processing and output filter to give them the right properties.
              */
-//            $is_parallel = $this->object()->config('parse.disable.parallel');
-//            if($is_parallel === null){
-//                $is_parallel = true;
-//            } else {
-//                $is_parallel = false;
-//            }
             if(property_exists($string, '#parallel')) {
                 if (is_array($string->{'#parallel'})) {
                     //if cli else we can't do parallel
@@ -475,7 +463,6 @@ class Parse {
                                 return null;
                             };
                         }
-                        d(count($closures));
                         $list = Parallel::new()->execute($closures);
                         foreach($list as $key => $item){
                             if(
@@ -497,27 +484,7 @@ class Parse {
                     property_exists($string->{'#output'}, 'filter')
                 ) {
                     $filter = $string->{'#output'}->filter;
-
-                    $debug = debug_backtrace(1);
-                    d($debug[0]['file'] .':' . $debug[0]['line'] . ':' . $debug[0]['function']);
-                    d($debug[1]['file'] .':' . $debug[1]['line'] . ':' . $debug[1]['function']);
-                    d($debug[2]['file'] .':' . $debug[2]['line'] . ':' . $debug[2]['function']);
-                    d($debug[3]['file'] .':' . $debug[3]['line'] . ':' . $debug[3]['function']);
-                    d($debug[4]['file'] .':' . $debug[4]['line'] . ':' . $debug[4]['function']);
-                    d($debug[5]['file'] .':' . $debug[5]['line'] . ':' . $debug[5]['function']);
-                    d($debug[6]['file'] .':' . $debug[6]['line'] . ':' . $debug[6]['function']);
-                    d($debug[7]['file'] .':' . $debug[7]['line'] . ':' . $debug[7]['function']);
-                    d($debug[8]['file'] .':' . $debug[8]['line'] . ':' . $debug[8]['function']);
-                    d($debug[9]['file'] .':' . $debug[9]['line'] . ':' . $debug[9]['function']);
-                    d($debug[10]['file'] .':' . $debug[10]['line'] . ':' . $debug[10]['function']);
-                    d($debug[11]['file'] .':' . $debug[11]['line'] . ':' . $debug[11]['function']);
-                    d($debug[12]['file'] .':' . $debug[12]['line'] . ':' . $debug[12]['function']);
-                    d($debug[13]['file'] .':' . $debug[13]['line'] . ':' . $debug[13]['function']);
-                    d($debug[14]['file'] .':' . $debug[14]['line'] . ':' . $debug[14]['function']);
-
-                    d($file);
-                    d($original);
-                    d($filter);
+                    d('yes');
                     $string->result = $string->{'#parallel'};
                     //parallel must be filtered because we delete #parallel from the object
 
