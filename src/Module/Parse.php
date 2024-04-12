@@ -497,8 +497,13 @@ class Parse {
                                 property_exists($route, 'function')
                             ){
                                 //don't check on empty $list, an output filter can have defaults...
-                                $string = $route->controller::{$route->function}($object, $string);
-                                d($string);
+                                try {
+                                    $string = $route->controller::{$route->function}($object, $string);
+                                    d($string);
+                                }
+                                catch(Exception $exception){
+                                    d($exception);
+                                }
                             }
                         }
                     }
