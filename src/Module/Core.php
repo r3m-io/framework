@@ -514,7 +514,7 @@ class Core
             if ($output == Core::OBJECT_OBJECT) {
                 if (substr($input, 0, 1) == '{' && substr($input, -1, 1) == '}') {
                     try {
-                        $json = @simd_json_decode($input);
+                        $json = @simd_json_decode($input) ?? throw new Exception('simd_json_decode failed');
                     }
                     catch (Exception $exception){
                         $json = json_decode($input);
