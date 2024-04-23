@@ -25,6 +25,8 @@ class Dir {
 
     private $node;
 
+    private $count = 0;
+
     public static function change($dir=''): string
     {
         $tmp = getcwd() . DIRECTORY_SEPARATOR;
@@ -180,6 +182,7 @@ class Dir {
         if($this->ignore('find', $url)){
             return [];
         }
+        $count = $this->count();
         $list = [];
         $cwd = getcwd();
         if(is_dir($url) === false){
@@ -212,6 +215,7 @@ class Dir {
                             $directory = new Dir();
                             $directory->ignore('list', $this->ignore());
                             $recursiveList = $directory->read($file->url, $recursive, $format);
+                            $count =  $count + $directory->count();
                             if($format !== 'flat'){
                                 $file->list = $recursiveList;
                                 unset($recursiveList);
@@ -229,6 +233,7 @@ class Dir {
                             $list[] = $recursive_file;
                         }
                     }
+                    $count++;
                 }
             }
         } catch (Exception | ErrorException $exception){
@@ -240,7 +245,28 @@ class Dir {
         if(is_dir($cwd)){
             @chdir($cwd);
         }
+        $this->count($count);
         return $list;
+    }
+
+    public function count($count=null): int
+    {
+        if($count === null){
+            return $this->getCount();
+        } else {
+            $this->setCount($count);
+            return $this->getCount();
+        }
+    }
+
+    public function setCount($count=0): void
+    {
+        $this->count = $count;
+    }
+
+    public function getCount(): int
+    {
+        return $this->count ?? 0;
     }
 
     public static function copy($source='', $target=''): bool
