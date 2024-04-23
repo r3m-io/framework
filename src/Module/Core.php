@@ -514,7 +514,11 @@ class Core
             if ($output == Core::OBJECT_OBJECT) {
                 if (substr($input, 0, 1) == '{' && substr($input, -1, 1) == '}') {
                     try {
-                        $json = @simd_json_decode($input) ?? throw new Exception('simd_json_decode failed');
+                        if(function_exists('simd_json_decode')){
+                            $json = @simd_json_decode($input);
+                        } else {
+                            throw new Exception('simd_json_decode failed');
+                        }
                     }
                     catch (Exception $exception){
                         $json = json_decode($input);
@@ -525,7 +529,11 @@ class Core
                     return $json;
                 } elseif (substr($input, 0, 1) == '[' && substr($input, -1, 1) == ']') {
                     try {
-                        $json = @simd_json_decode($input);
+                        if(function_exists('simd_json_decode')){
+                            $json = @simd_json_decode($input);
+                        } else {
+                            throw new Exception('simd_json_decode failed');
+                        }
                     }
                     catch (Exception $exception){
                         $json = json_decode($input);
@@ -538,7 +546,11 @@ class Core
             } elseif (stristr($output, Core::OBJECT_JSON) !== false) {
                 if (substr($input, 0, 1) == '{' && substr($input, -1, 1) == '}') {
                     try {
-                        $input = @simd_json_decode($input);
+                        if(function_exists('simd_json_decode')){
+                            $input = @simd_json_decode($input);
+                        } else {
+                            throw new Exception('simd_json_decode failed');
+                        }
                     }
                     catch (Exception $exception){
                         $input = json_decode($input);
@@ -550,14 +562,22 @@ class Core
             } elseif ($output == Core::OBJECT_ARRAY) {
                 if (substr($input, 0, 1) == '{' && substr($input, -1, 1) == '}') {
                     try {
-                        return @simd_json_decode($input, true);
+                        if(function_exists('simd_json_decode')){
+                            return simd_json_decode($input, true);
+                        } else {
+                            throw new Exception('simd_json_decode failed');
+                        }
                     }
                     catch (Exception $exception){
                         return json_decode($input, true);
                     }
                 } elseif (substr($input, 0, 1) == '[' && substr($input, -1, 1) == ']') {
                     try {
-                        return @simd_json_decode($input, true);
+                        if(function_exists('simd_json_decode')){
+                            return simd_json_decode($input, true);
+                        } else {
+                            throw new Exception('simd_json_decode failed');
+                        }
                     }
                     catch (Exception $exception){
                         return json_decode($input, true);
@@ -574,7 +594,11 @@ class Core
         }
         if ($output == Core::OBJECT_OBJECT) {
             try {
-                return @simd_json_decode($data);
+                if(function_exists('simd_json_decode')){
+                    return simd_json_decode($data);
+                } else {
+                    throw new Exception('simd_json_decode failed');
+                }
             }
             catch (Exception $exception){
                 return json_decode($data);
@@ -587,7 +611,11 @@ class Core
             }
         } elseif ($output == Core::OBJECT_ARRAY) {
             try {
-                return @simd_json_decode($data, true);
+                if(function_exists('simd_json_decode')){
+                    return simd_json_decode($data, true);
+                } else {
+                    throw new Exception('simd_json_decode failed');
+                }
             }
             catch (Exception $exception){
                 return json_decode($data, true);
