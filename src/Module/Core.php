@@ -513,27 +513,55 @@ class Core
             $input = trim($input);
             if ($output == Core::OBJECT_OBJECT) {
                 if (substr($input, 0, 1) == '{' && substr($input, -1, 1) == '}') {
-                    $json = json_decode($input);
-                    if (json_last_error()) {
-                        throw new ObjectException(json_last_error_msg());
+                    try {
+                        $json = simd_json_decode($input);
+                    }
+                    catch (Exception $exception){
+                        $json = json_decode($input);
+                        if (json_last_error()) {
+                            throw new ObjectException(json_last_error_msg());
+                        }
                     }
                     return $json;
                 } elseif (substr($input, 0, 1) == '[' && substr($input, -1, 1) == ']') {
-                    $json = json_decode($input);
-                    if (json_last_error()) {
-                        throw new ObjectException(json_last_error_msg());
+                    try {
+                        $json = simd_json_decode($input);
+                    }
+                    catch (Exception $exception){
+                        $json = json_decode($input);
+                        if (json_last_error()) {
+                            throw new ObjectException(json_last_error_msg());
+                        }
                     }
                     return $json;
                 }
             } elseif (stristr($output, Core::OBJECT_JSON) !== false) {
                 if (substr($input, 0, 1) == '{' && substr($input, -1, 1) == '}') {
-                    $input = json_decode($input);
+                    try {
+                        $input = simd_json_decode($input);
+                    }
+                    catch (Exception $exception){
+                        $input = json_decode($input);
+                        if (json_last_error()) {
+                            throw new ObjectException(json_last_error_msg());
+                        }
+                    }
                 }
             } elseif ($output == Core::OBJECT_ARRAY) {
                 if (substr($input, 0, 1) == '{' && substr($input, -1, 1) == '}') {
-                    return json_decode($input, true);
+                    try {
+                        return simd_json_decode($input, true);
+                    }
+                    catch (Exception $exception){
+                        return json_decode($input, true);
+                    }
                 } elseif (substr($input, 0, 1) == '[' && substr($input, -1, 1) == ']') {
-                    return json_decode($input, true);
+                    try {
+                        return simd_json_decode($input, true);
+                    }
+                    catch (Exception $exception){
+                        return json_decode($input, true);
+                    }
                 }
             }
         }
@@ -545,7 +573,12 @@ class Core
             $data = json_encode($input, JSON_PRETTY_PRINT);
         }
         if ($output == Core::OBJECT_OBJECT) {
-            return json_decode($data);
+            try {
+                return simd_json_decode($data);
+            }
+            catch (Exception $exception){
+                return json_decode($data);
+            }
         } elseif (stristr($output, Core::OBJECT_JSON) !== false) {
             if ($type == Core::OBJECT_TYPE_CHILD) {
                 return substr($data, 1, -1);
@@ -553,7 +586,12 @@ class Core
                 return $data;
             }
         } elseif ($output == Core::OBJECT_ARRAY) {
-            return json_decode($data, true);
+            try {
+                return simd_json_decode($data, true);
+            }
+            catch (Exception $exception){
+                return json_decode($data, true);
+            }
         } else {
             throw new ObjectException(Core::EXCEPTION_OBJECT_OUTPUT);
         }
