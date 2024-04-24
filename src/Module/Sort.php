@@ -69,6 +69,9 @@ class Sort extends Data {
                 foreach($list as $uuid => $node){
                     foreach($sort as $attribute => $record){
                         $value = $this->data($uuid . '.' . $attribute);
+                        if(is_numeric($value)){
+                            $value = '\'' . $value . '\'';
+                        }
                         d($value);
                         if(is_scalar($value)) {
                             if(is_array($node)){
