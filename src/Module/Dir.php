@@ -271,8 +271,11 @@ class Dir {
 
     public static function amount ($url='') : int
     {
+        $dir = Dir::current();
+        Dir::change($url);
         exec('ls -1p | grep -v / | wc -l', $output);
         ddd($output);
+        Dir::change($dir);
         return 0;
     }
 
