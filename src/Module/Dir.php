@@ -274,9 +274,13 @@ class Dir {
         $dir = Dir::current();
         Dir::change($url);
         exec('ls -1p | grep -v / | wc -l', $output);
-        ddd($output);
+        if(isset($output[0])){
+            $output = (int) $output[0];
+        } else {
+            $output = 0;
+        }
         Dir::change($dir);
-        return 0;
+        return $output;
     }
 
     public static function copy($source='', $target=''): bool
