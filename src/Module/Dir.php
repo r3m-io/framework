@@ -269,6 +269,13 @@ class Dir {
         return $this->count ?? 0;
     }
 
+    public static function amount ($url='') : int
+    {
+        exec('ls -1p | grep -v / | wc -l', $output);
+        ddd($output);
+        return 0;
+    }
+
     public static function copy($source='', $target=''): bool
     {
         if(substr($source, -1) !== Dir::SEPARATOR){
