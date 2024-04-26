@@ -315,6 +315,8 @@ class Cache {
             //add session
             $key['session'] = $object->session();
         }
+        $key['scheme'] = $options['scheme'] ?? null;
+        $key['content_type'] = $options['content_type'] ?? null;
         $key = $options['ttl'] .
             $object->config('ds') .
             sha1(Core::object($key, Core::OBJECT_JSON_LINE)) .
