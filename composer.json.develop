@@ -44,5 +44,6 @@
 		"psr-4" : {
 			"R3m\\Io\\" : "src/"
 		}
-	}
+	},
+	"minimum-stability": "dev"
 }
