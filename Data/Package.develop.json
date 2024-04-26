@@ -656,19 +656,19 @@
       }
     },
     "r3m_io/priya" : {
-        "composer" : "composer require {{$this.#key}}:*",
-        "route" : [
-          "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
-        ],
-        "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
+      "composer" : "composer require {{$this.#key}}:*",
+      "route" : [
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
+      ],
+      "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
+      "command" : [
+        "{{binary()}} {{$this.#key}} setup"
+      ],
+      "update" : {
         "command" : [
-            "{{binary()}} {{$this.#key}} setup"
-        ],
-        "update" : {
-          "command" : [
-            "{{binary()}} {{$this.#parentNode.#key}} update"
-          ]
-        }
+          "{{binary()}} {{$this.#parentNode.#key}} update"
+        ]
+      }
     }
   }
 }
