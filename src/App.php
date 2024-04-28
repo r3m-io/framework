@@ -871,6 +871,12 @@ class App extends Data {
                     if(substr($parameter, -2, 2) === '[]'){
                         $parameter = substr($parameter, 0, -2);
                         $is_array = true;
+                        if($is_option){
+                            //needed to patch nodes
+                            $object->config('request.option.' . $parameter, true);
+                        } elseif($is_flag) {
+                            $object->config('request.flag.' . $parameter, true);
+                        }
                     }
                     elseif(str_contains($parameter, '[') && str_contains($parameter, ']')){
                         $explode = explode('[', $parameter);
