@@ -1659,7 +1659,11 @@ class Core
                             }
                         }
                         elseif(is_array($value) && is_array($main->{$key})){
-                            $main->{$key} = Core::object_merge($main->{$key}, $value);
+                            if(empty($value)){
+                                $main->{$key} = $value;
+                            } else {
+                                $main->{$key} = Core::object_merge($main->{$key}, $value);
+                            }
                         } else {
                             $main->{$key} = $value;
                         }
