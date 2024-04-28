@@ -1612,15 +1612,10 @@ class Core
                         $main[$key] = $value;
                     } else {
                         if (is_array($value) && is_array($main[$key])) {
-                            if(empty($value)){
-                                $main[$key] = $value;
-                            } else {
-                                $main[$key] = Core::object_merge($main[$key], $value);
-                            }
+                            $main[$key] = Core::object_merge($main[$key], $value);
                         } else {
                             $main[$key] = $value;
                         }
-
                     }
                 }
             } elseif (is_object($object)) {
@@ -1631,27 +1626,24 @@ class Core
                         if (is_object($value) && is_object($main->{$key})) {
                             try {
                                 $main->{$key} = Core::object_merge(clone $main->{$key}, clone $value);
-                            } catch (Error|Exception $exception) {
+                            }
+                            catch(Error | Exception $exception){
                                 try {
                                     $main->{$key} = Core::object_merge(clone $main->{$key}, $value);
-                                } catch (Error|Exception $exception) {
+                                }
+                                catch(Error | Exception $exception) {
                                     try {
                                         $main->{$key} = Core::object_merge($main->{$key}, clone $value);
-                                    } catch (Error|Exception $exception) {
+                                    }
+                                    catch (Error | Exception $exception) {
                                         try {
                                             $main->{$key} = Core::object_merge($main->{$key}, $value);
-                                        } catch (Error|Exception $exception) {
+                                        }
+                                        catch (Error | Exception $exception) {
                                             $main->{$key} = $exception;
                                         }
                                     }
                                 }
-                            }
-                        }
-                        elseif(is_array($value) && is_array($main->{$key})){
-                            if(empty($value)){
-                                $main->{$key} = $value;
-                            } else {
-                                $main->{$key} = Core::object_merge($main->{$key}, $value);
                             }
                         } else {
                             $main->{$key} = $value;
