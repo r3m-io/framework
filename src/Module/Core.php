@@ -1603,7 +1603,6 @@ class Core
             $main = (object) [];
         }
         foreach ($objects as $nr => $object) {
-            var_dump($object);
             if (is_array($object)) {
                 foreach ($object as $key => $value) {
                     if (is_object($main)) {
