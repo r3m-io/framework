@@ -1612,8 +1612,11 @@ class Core
                         $main[$key] = $value;
                     } else {
                         if (is_array($value) && is_array($main[$key])) {
+                            d($value);
+                            d($main[$key]);
                             $main[$key] = Core::object_merge($main[$key], $value);
                         } else {
+                            d(is_int($key));
                             $main[$key] = $value;
                         }
                     }
