@@ -1594,6 +1594,10 @@ class Core
 
     /**
      * @throws ObjectException
+     * @note
+     * when patching an array, the whole array needs to be present,
+     * put works as expected but patch cannot merge arrays, tried it, too complicated,
+     * patch may work but cannot reset the array so also no put, so that's why the whole array gets rewritten.
      */
     public static function object_merge(): mixed
     {
