@@ -1611,27 +1611,16 @@ class Core
                     if (!isset($main[$key])) {
                         $main[$key] = $value;
                     } else {
-                        if(is_numeric($key)){
-                            if (is_array($value) && is_array($main[$key])) {
-                                if(empty($value)){
-                                    $main[$key] = $value;
-                                } else {
-                                    $main[$key] = Core::object_merge($main[$key], $value);
-                                }
+                        if (is_array($value) && is_array($main[$key])) {
+                            if(empty($value)){
+                                $main[$key] = $value;
                             } else {
-                                $main[] = $value;
+                                $main[$key] = Core::object_merge($main[$key], $value);
                             }
                         } else {
-                            if (is_array($value) && is_array($main[$key])) {
-                                if(empty($value)){
-                                    $main[$key] = $value;
-                                } else {
-                                    $main[$key] = Core::object_merge($main[$key], $value);
-                                }
-                            } else {
-                                $main[$key] = $value;
-                            }
+                            $main[$key] = $value;
                         }
+
                     }
                 }
             } elseif (is_object($object)) {
