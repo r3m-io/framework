@@ -1603,9 +1603,8 @@ class Core
             $main = (object) [];
         }
         foreach ($objects as $nr => $object) {
-            d($object);
+            var_dump($object);
             if (is_array($object)) {
-                d($object);
                 foreach ($object as $key => $value) {
                     if (is_object($main)) {
                         throw new ObjectException(Core::EXCEPTION_MERGE_ARRAY_OBJECT);
