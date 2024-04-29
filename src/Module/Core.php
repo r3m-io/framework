@@ -297,6 +297,7 @@ class Core
 
                 try {
                     var_export('-----INTERACTIVE-----------------------------------------------------------');
+                    @flush();
                     @ob_end_flush();
                     @ob_implicit_flush(true);
                 } catch (\Exception $e) {
@@ -305,6 +306,7 @@ class Core
                 break;
             default :
                 try {
+                    @flush();
                     @ob_end_flush();
                     @ob_implicit_flush(false);
                 } catch (\Exception $e) {
