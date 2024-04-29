@@ -296,6 +296,7 @@ class Core
             case  Core::MODE_INTERACTIVE :
 
                 try {
+                    var_export('-----INTERACTIVE-----------------------------------------------------------');
                     @ob_end_flush();
                     @ob_implicit_flush(true);
                 } catch (\Exception $e) {
