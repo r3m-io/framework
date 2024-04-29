@@ -608,9 +608,9 @@ class Parse {
                     }
                     elseif(is_numeric($string)){
                         if(trim($string, "\n\t ") === $string){
-                            return $string;
-                        } else {
                             return $string + 0;
+                        } else {
+                            return $string;
                         }
 
                     }
