@@ -298,7 +298,9 @@ class Core
                 try {
                     var_export('-----INTERACTIVE-----------------------------------------------------------');
                     @flush();
-                    @ob_end_flush();
+                    if (@ob_get_level() > 0){
+                        @ob_end_flush();
+                    }
                     @ob_implicit_flush(true);
                 } catch (\Exception $e) {
                     //do nothing
@@ -308,7 +310,9 @@ class Core
             default :
                 try {
                     @flush();
-                    @ob_end_flush();
+                    if (@ob_get_level() > 0){
+                        @ob_end_flush();
+                    }
                     @ob_implicit_flush(false);
                 } catch (\Exception $e) {
                     //do nothing
