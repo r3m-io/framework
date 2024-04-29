@@ -310,7 +310,6 @@ class Core
                     if (@ob_get_level() > 0){
                         @ob_end_flush();
                     }
-                    var_export('----------YES----------------------------');
                     @ob_implicit_flush(false);
                 } catch (\Exception $e) {
                     //do nothing
