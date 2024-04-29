@@ -294,9 +294,7 @@ class Core
         }
         switch ($mode) {
             case  Core::MODE_INTERACTIVE :
-
                 try {
-                    var_export('-----INTERACTIVE-----------------------------------------------------------');
                     @flush();
                     if (@ob_get_level() > 0){
                         @ob_end_flush();
