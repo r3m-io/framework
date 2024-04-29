@@ -770,8 +770,11 @@ class Parse {
             return false;
         }
         elseif(is_numeric($string)){
-            d($string);
-            return $string + 0;
+            if(trim($string, "\n\t ") === $string){
+                return $string + 0;
+            } else {
+                return $string;
+            }
         }
         return $string;
     }
