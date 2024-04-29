@@ -607,7 +607,12 @@ class Parse {
                         return false;
                     }
                     elseif(is_numeric($string)){
-                        return $string + 0;
+                        if(trim($string, "\n\t ") === $string){
+                            return $string;
+                        } else {
+                            return $string + 0;
+                        }
+
                     }
                     return $string;
                 }
