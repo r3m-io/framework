@@ -302,6 +302,7 @@ class Core
                     @ob_implicit_flush(true);
                 } catch (\Exception $e) {
                     //do nothing
+                    var_export($e);
                 }
                 break;
             default :
