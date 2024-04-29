@@ -770,6 +770,7 @@ class Parse {
             return false;
         }
         elseif(is_numeric($string)){
+            d($string);
             return $string + 0;
         }
         return $string;
