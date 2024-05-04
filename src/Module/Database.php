@@ -255,13 +255,13 @@ class Database {
                 */
 
                 // Sanitize and validate the table names (e.g., removing any unwanted characters)
-                $sanitizedTable = preg_replace('/[^a-zA-Z0-9_]/', '', $table);
-                $sanitizedRename = preg_replace('/[^a-zA-Z0-9_]/', '', $options->rename);
+                $sanitized_table = preg_replace('/[^a-zA-Z0-9_]/', '', $table);
+                $sanitized_rename = preg_replace('/[^a-zA-Z0-9_]/', '', $options->rename);
                 // Construct the SQL query with the sanitized table names
-                $sql = "RENAME TABLE $sanitizedTable TO $sanitizedRename";
+                $sql = "RENAME TABLE $sanitized_table TO $sanitized_rename";
                 $stmt = $connection->prepare($sql);
                 $stmt->executeStatement();
-                echo 'Renamed: ' . $sanitizedTable . ' into ' . $sanitizedRename . '.' . PHP_EOL;
+                echo 'Renamed: ' . $sanitized_table . ' into ' . $sanitized_rename . '.' . PHP_EOL;
                 $is_install = true;
                 $count++;
             }
