@@ -261,14 +261,7 @@ class Database {
                 $sql = "RENAME TABLE $sanitizedTable TO $sanitizedRename";
                 $stmt = $connection->prepare($sql);
                 $stmt->executeStatement();
-
-                /*
-                $connection->executeStatement($sql, [
-                    'table' => $table,
-                    'rename' => $options->rename
-                ]);
-                */
-                echo 'Renamed: ' . $table . ' into ' . $options->rename . '.' . PHP_EOL;
+                echo 'Renamed: ' . $sanitizedTable . ' into ' . $sanitizedRename . '.' . PHP_EOL;
                 $is_install = true;
                 $count++;
             }
