@@ -247,7 +247,7 @@ class Database {
                         }
                     }
                 }
-                // Chat gtp says that a RENAME table cannot contain parameterized table names
+                // Chat gtp says that a RENAME table cannot contain parameterized table names and that is not working.
                 // Sanitize and validate the table names (e.g., removing any unwanted characters)
                 $sanitizedTable = preg_replace('/[^a-zA-Z0-9_]/', '', $table);
                 $sanitizedRename = preg_replace('/[^a-zA-Z0-9_]/', '', $options->rename);
