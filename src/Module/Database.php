@@ -229,7 +229,6 @@ class Database {
                     is_bool($options->rename)
                 )
             ){
-                d($options);
                 if($options->rename === true){
                     $options->rename = $table . '_old';
                     $counter = 1;
@@ -247,7 +246,7 @@ class Database {
                         }
                     }
                 }
-                /*
+                /* not working
                 $sql = 'RENAME TABLE :old_table TO :new_table ;';
                 $stmt = $connection->prepare($sql);
                 $stmt->bindValue('old_table', $table);
