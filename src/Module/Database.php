@@ -237,7 +237,7 @@ class Database {
                         if($schema_manager->tablesExist([$options->rename]) === false){
                             break;
                         }
-                        $options->rename = $table . '_' . $counter;
+                        $options->rename = $table . '_old_' . $counter;
                         $counter++;
                         if(
                             $counter >= PHP_INT_MAX ||
