@@ -245,10 +245,17 @@ class Database {
                     }
                 }
                 $sql = 'RENAME TABLE :table TO :rename ;';
+
+                $stmt = $connection->prepare($sql);
+                $stmt->bindValue('table', $table);
+                $stmt->bindValue('rename', $options->rename);
+                $stmt->execute();
+                /*
                 $connection->executeStatement($sql, [
                     'table' => $table,
                     'rename' => $options->rename
                 ]);
+                */
                 echo 'Truncated: ' . $table . '.' . PHP_EOL;
                 $is_install = true;
                 $count++;
