@@ -237,7 +237,7 @@ class Database {
                         if($schema_manager->tablesExist([$options->rename]) === false){
                             break;
                         }
-                        $options->rename = $table . '_old_' . $counter;
+                        $options->rename = $table . '_' . $counter;
                         $counter++;
                         if(
                             $counter >= PHP_INT_MAX ||
@@ -247,15 +247,21 @@ class Database {
                         }
                     }
                 }
-                // Chat gtp says that a RENAME table cannot contain parameterized table names and that is not working.
+                $sql = 'RENAME TABLE :old_table TO :new_table ;';
+                $stmt = $connection->prepare($sql);
+                $stmt->bindValue('old_table', $table);
+                $stmt->bindValue('new_table', $options->rename);
+                $stmt->executeStatement();
+
+                /*
                 // Sanitize and validate the table names (e.g., removing any unwanted characters)
                 $sanitizedTable = preg_replace('/[^a-zA-Z0-9_]/', '', $table);
                 $sanitizedRename = preg_replace('/[^a-zA-Z0-9_]/', '', $options->rename);
-
                 // Construct the SQL query with the sanitized table names
-                $sql = "RENAME TABLE $sanitizedTable TO $sanitizedRename ;";
+                $sql = "RENAME TABLE $sanitizedTable TO $sanitizedRename";
                 $stmt = $connection->prepare($sql);
                 $stmt->executeStatement();
+                */
                 /*
                 $connection->executeStatement($sql, [
                     'table' => $table,
