@@ -221,8 +221,10 @@ class Database {
             }
             if(
                 property_exists($options, 'rename') &&
-                is_string($options->rename) ||
-                is_bool($options->rename)
+                (
+                    is_string($options->rename) ||
+                    is_bool($options->rename)
+                )
             ){
                 d($object->request());
                 ddd($options);
