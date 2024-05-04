@@ -181,6 +181,8 @@ class Database {
         }
         $environment = '*';
         $connection = $object->config('doctrine.environment.' . $name . '.' . $environment);
+        d($name);
+        d($connection);
         if(!empty($connection)){
             $connection = (array) $connection;
             if(empty($connection)){
