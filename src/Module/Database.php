@@ -122,7 +122,10 @@ class Database {
             $environment = $options['environment'];
         }
         $name = $object->config('framework.api');
-        if(array_key_exists('name', $options)){
+        if(
+            array_key_exists('name', $options) &&
+            !empty($options['name'])
+        ){
             $name = $options['name'];
         }
         $app_cache = $object->get(App::CACHE);
