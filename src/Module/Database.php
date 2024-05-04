@@ -131,10 +131,55 @@ class Database {
         $app_cache = $object->get(App::CACHE);
         if($app_cache){
             $entityManager = $app_cache->get(Database::NAME . '.entityManager.' . $name . '.' . $environment);
+            if(!$entityManager){
+                $environment === '*';
+                $entityManager = $app_cache->get(Database::NAME . '.entityManager.' . $name . '.' . $environment);
+            }
         }
         if(!empty($entityManager)){
             return $entityManager;
         }
+        $connection = $object->config('doctrine.environment.' . $name . '.' . $environment);
+        if(!empty($connection)){
+            $connection = (array) $connection;
+            if(empty($connection)){
+                $logger = new Logger(Database::LOGGER_DOCTRINE);
+                $logger->pushHandler(new StreamHandler($object->config('project.dir.log') . 'sql.log', Logger::DEBUG));
+                $logger->pushProcessor(new PsrLogMessageProcessor(null, true));
+                $object->logger($logger->getName(), $logger);
+                $logger->error('Error: No connection string...');
+                return null;
+            }
+            $paths = $object->config('doctrine.paths');
+            $paths = Config::parameters($object, $paths);
+            $parameters = [];
+            $parameters[] = $object->config('doctrine.proxy.dir');
+            $parameters = Config::parameters($object, $parameters);
+            $proxy_dir = false;
+            if(array_key_exists(0, $parameters)){
+                $proxy_dir = $parameters[0];
+            }
+            $cache = null;
+            if($proxy_dir) {
+                $config = ORMSetup::createAttributeMetadataConfiguration($paths, false, $proxy_dir, $cache);
+                if (!empty($connection['logging'])) {
+                    $logger = new Logger(Database::LOGGER_DOCTRINE);
+                    $logger->pushHandler(new StreamHandler($object->config('project.dir.log') . 'sql.log', Logger::DEBUG));
+                    $logger->pushProcessor(new PsrLogMessageProcessor(null, true));
+                    $object->logger($logger->getName(), $logger);
+                    if($object->config('framework.environment') === Config::MODE_DEVELOPMENT){
+                        $logger->info('Logger initialised.');
+                    }
+                    $config->setMiddlewares([new Logging\Middleware($logger)]);
+                }
+                $connection = DriverManager::getConnection($connection, $config);
+                $eventManager = new EventManager();
+                $em = new EntityManager($connection, $config, $eventManager);
+                $app_cache->set(Database::NAME . '.entityManager.' . $name . '.' . $environment, $em);
+                return $em;
+            }
+        }
+        $environment = '*';
         $connection = $object->config('doctrine.environment.' . $name . '.' . $environment);
         if(!empty($connection)){
             $connection = (array) $connection;
