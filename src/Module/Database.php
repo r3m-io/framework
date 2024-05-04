@@ -183,7 +183,6 @@ class Database {
      */
     public static function instance(App $object, $name, &$entity_manager=null, &$connection=null, &$platform=null, &$schema_manager=null): void
     {
-        ddd($name);
         $entity_manager = Database::entityManager($object, [
             'name' => $name
         ]);
