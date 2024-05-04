@@ -247,15 +247,15 @@ class Database {
                         }
                     }
                 }
-                $sql = 'RENAME TABLE `:table` TO `:rename` ;';
+                $sql = 'RENAME TABLE :old_table TO :new_table ;';
 
                 d($sql);
                 d($table);
                 d($options->rename);
 
                 $stmt = $connection->prepare($sql);
-                $stmt->bindValue('table', $table);
-                $stmt->bindValue('rename', $options->rename);
+                $stmt->bindValue('old_table', $table);
+                $stmt->bindValue('new_table', $options->rename);
                 $stmt->executeStatement();
                 /*
                 $connection->executeStatement($sql, [
@@ -263,7 +263,7 @@ class Database {
                     'rename' => $options->rename
                 ]);
                 */
-                echo 'Truncated: ' . $table . '.' . PHP_EOL;
+                echo 'Renamed: ' . $table . ' into ' . $options->rename . '.' . PHP_EOL;
                 $is_install = true;
                 $count++;
             }
