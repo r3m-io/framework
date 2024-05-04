@@ -202,9 +202,6 @@ class Database {
     {
         $count = 0;
         $is_install = false;
-
-
-
         if ($schema_manager->tablesExist([ $table ]) === true){
             if(
                 property_exists($options, 'drop') &&
