@@ -190,4 +190,69 @@ class Database {
         }
     }
 
+    public static function options(App $object, $connection, $schema_manager, $options=null, $table=null, &$count=0, &$is_install=false): void
+    {
+        $count = 0;
+        $is_install = false;
+        if ($schema_manager->tablesExist([ $table ]) === true){
+            if(
+                property_exists($options, 'drop') &&
+                $options->drop === true
+            ){
+                $sql = 'DROP TABLE :table ;';
+                $connection->executeStatement($sql, [
+                    'table' => $table
+                ]);
+                echo 'Dropped: ' . $table . '.' . PHP_EOL;
+                $is_install = true;
+                $count++;
+            }
+            if(
+                property_exists($options, 'truncate') &&
+                $options->truncate === true
+            ){
+                $sql = 'TRUNCATE TABLE :table ;';
+                $connection->executeStatement($sql , [
+                    'table' => $table
+                ]);
+                echo 'Truncated: ' . $table . '.' . PHP_EOL;
+                $is_install = true;
+                $count++;
+            }
+            if(
+                property_exists($options, 'rename') &&
+                is_string($options->rename) ||
+                is_bool($options->rename)
+            ){
+                if($options->rename === true){
+                    $options->rename = $table . '_old';
+                    $counter = 1;
+                    while(true){
+                        if($schema_manager->tablesExist([$options->rename]) === false){
+                            break;
+                        }
+                        $options->rename = $table . '_' . $counter;
+                        $counter++;
+                        if(
+                            $counter >= PHP_INT_MAX ||
+                            $counter < 0
+                        ){
+                            throw new Exception('Out of range.');
+                        }
+                    }
+                }
+                $sql = 'RENAME TABLE :table TO :rename ;';
+                $connection->executeStatement($sql, [
+                    'table' => $table,
+                    'rename' => $options->rename
+                ]);
+                echo 'Truncated: ' . $table . '.' . PHP_EOL;
+                $is_install = true;
+                $count++;
+            }
+        } else {
+            $is_install = true;
+        }
+    }
+
 }
