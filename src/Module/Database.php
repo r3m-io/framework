@@ -253,7 +253,7 @@ class Database {
                 $sanitizedRename = preg_replace('/[^a-zA-Z0-9_]/', '', $options->rename);
 
                 // Construct the SQL query with the sanitized table names
-                $sql = "RENAME TABLE $sanitizedTable TO $sanitizedRename";
+                $sql = "RENAME TABLE $sanitizedTable TO $sanitizedRename ;";
                 $stmt = $connection->prepare($sql);
                 $stmt->executeStatement();
                 /*
