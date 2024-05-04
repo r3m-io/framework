@@ -252,7 +252,7 @@ class Database {
                 $stmt = $connection->prepare($sql);
                 $stmt->bindValue('table', $table);
                 $stmt->bindValue('rename', $options->rename);
-                $stmt->execute();
+                $stmt->executeStatement();
                 /*
                 $connection->executeStatement($sql, [
                     'table' => $table,
