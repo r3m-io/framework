@@ -174,4 +174,20 @@ class Database {
         }
         return null;
     }
+
+    /**
+     * @throws Exception
+     */
+    public static function instance(App $object, &$entity_manager=null, &$connection=null, &$platform=null, &$schema_manager=null): void
+    {
+        $entity_manager = Database::entityManager($object);
+        if($entity_manager){
+            $connection = $entity_manager->getConnection();
+        }
+        if($connection){
+            $platform = $connection->getDatabasePlatform();
+            $schema_manager = $connection->createSchemaManager();
+        }
+    }
+
 }
