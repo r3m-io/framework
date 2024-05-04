@@ -251,7 +251,7 @@ class Database {
 
                 d($sql);
                 d($table);
-                d($options->rename);
+                ddd($options->rename);
 
                 $stmt = $connection->prepare($sql);
                 $stmt->bindValue('table', $table);
