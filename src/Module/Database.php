@@ -178,9 +178,11 @@ class Database {
     /**
      * @throws Exception
      */
-    public static function instance(App $object, &$entity_manager=null, &$connection=null, &$platform=null, &$schema_manager=null): void
+    public static function instance(App $object, &$entity_manager=null, $name, &$connection=null, &$platform=null, &$schema_manager=null): void
     {
-        $entity_manager = Database::entityManager($object);
+        $entity_manager = Database::entityManager($object, [
+            'name' => $name
+        ]);
         if($entity_manager){
             $connection = $entity_manager->getConnection();
         }
