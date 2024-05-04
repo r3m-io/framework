@@ -247,7 +247,7 @@ class Database {
                         }
                     }
                 }
-                $sql = 'RENAME TABLE `:table` TO :`rename` ;';
+                $sql = 'RENAME TABLE `:table` TO `:rename` ;';
 
                 d($sql);
                 d($table);
