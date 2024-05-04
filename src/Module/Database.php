@@ -249,6 +249,10 @@ class Database {
                 }
                 $sql = 'RENAME TABLE :table TO :rename ;';
 
+                d($sql);
+                d($table);
+                d($options->rename);
+
                 $stmt = $connection->prepare($sql);
                 $stmt->bindValue('table', $table);
                 $stmt->bindValue('rename', $options->rename);
