@@ -247,15 +247,14 @@ class Database {
                         }
                     }
                 }
-                $sql = 'RENAME TABLE :old_table TO :new_table ;';
 
-                d($sql);
-                d($table);
-                d($options->rename);
+            // Sanitize and validate the table names (e.g., removing any unwanted characters)
+                $sanitizedTable = preg_replace('/[^a-zA-Z0-9_]/', '', $table);
+                $sanitizedRename = preg_replace('/[^a-zA-Z0-9_]/', '', $options->rename);
 
+                // Construct the SQL query with the sanitized table names
+                $sql = "RENAME TABLE $sanitizedTable TO $sanitizedRename";
                 $stmt = $connection->prepare($sql);
-                $stmt->bindValue('old_table', $table);
-                $stmt->bindValue('new_table', $options->rename);
                 $stmt->executeStatement();
                 /*
                 $connection->executeStatement($sql, [
