@@ -224,6 +224,7 @@ class Database {
                 is_string($options->rename) ||
                 is_bool($options->rename)
             ){
+                ddd($options);
                 if($options->rename === true){
                     $options->rename = $table . '_old';
                     $counter = 1;
