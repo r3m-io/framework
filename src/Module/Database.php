@@ -293,6 +293,105 @@ class Database {
     /**
      * @throws Exception
      */
+    public static function entity_manager(App $object, $name, $environment=null): bool
+    {
+        if(empty($environment)){
+            $environment = $object->config('framework.environment');
+        }
+        $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
+        if(empty($connect)){
+            return false;
+        }
+        if(
+            property_exists($connect, '#instance') &&
+            property_exists($connect->{'#instance'}, 'entity') &&
+            property_exists($connect->{'#instance'}->entity, 'manager')
+        ){
+            return $connect->{'#instance'}->entity->manager;
+        }
+        elseif(!property_exists($connect, '#instance')){
+            throw new Exception('No instance found for ' . $name . '.' . $environment);
+        }
+        return false;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public static function connection(App $object, $name, $environment=null): bool
+    {
+        if(empty($environment)){
+            $environment = $object->config('framework.environment');
+        }
+        $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
+        if(empty($connect)){
+            return false;
+        }
+        if(
+            property_exists($connect, '#instance') &&
+            property_exists($connect->{'#instance'}, 'connection')
+        ){
+            return $connect->{'#instance'}->connection;
+        }
+        elseif(!property_exists($connect, '#instance')){
+            throw new Exception('No instance found for ' . $name . '.' . $environment);
+        }
+        return false;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public static function platform(App $object, $name, $environment=null): bool
+    {
+        if(empty($environment)){
+            $environment = $object->config('framework.environment');
+        }
+        $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
+        if(empty($connect)){
+            return false;
+        }
+        if(
+            property_exists($connect, '#instance') &&
+            property_exists($connect->{'#instance'}, 'platform')
+        ){
+            return $connect->{'#instance'}->platform;
+        }
+        elseif(!property_exists($connect, '#instance')){
+            throw new Exception('No instance found for ' . $name . '.' . $environment);
+        }
+        return false;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public static function schema_manager(App $object, $name, $environment=null): bool
+    {
+        if(empty($environment)){
+            $environment = $object->config('framework.environment');
+        }
+        $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
+        if(empty($connect)){
+            return false;
+        }
+        if(
+            property_exists($connect, '#instance') &&
+            property_exists($connect->{'#instance'}, 'schema') &&
+            property_exists($connect->{'#instance'}->schema, 'manager')
+        ){
+            return $connect->{'#instance'}->schema->manager;
+        }
+        elseif(!property_exists($connect, '#instance')){
+            throw new Exception('No instance found for ' . $name . '.' . $environment);
+        }
+        return false;
+    }
+
+
+    /**
+     * @throws Exception
+     */
     public static function options(App $object, $connection, $schema_manager, $options=null, $table=null, &$count=0, &$is_install=false): void
     {
         $count = 0;
