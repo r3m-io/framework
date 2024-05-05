@@ -245,6 +245,10 @@ class Database {
             $connect = [];
             $environment = '*';
             $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
+            if(property_exists($connect, '#instance')){
+                //singleton
+                return;
+            }
             $parameters = [];
             $parameters[] = $connect->path;
             $parameters = Config::parameters($object, $parameters);
@@ -253,8 +257,12 @@ class Database {
             }
             $config = Database::config($object);
             $entity_manager = Database::connect($object, $config, $connect);
-
         } else {
+            $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
+            if(property_exists($connect, '#instance')){
+                //singleton
+                return;
+            }
             $entity_manager = Database::entityManager($object, [
                 'name' => $name
             ]);
