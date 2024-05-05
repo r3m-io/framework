@@ -247,7 +247,6 @@ class Database {
             if(array_key_exists(0, $parameters)){
                 $connect->path = $parameters[0];
             }
-            ddd($connect);
             $entity_manager = Database::connect($object, [
                 'name' => $name
             ],
