@@ -247,10 +247,8 @@ class Database {
             if(array_key_exists(0, $parameters)){
                 $connect->path = $parameters[0];
             }
-            $entity_manager = Database::connect($object, [
-                'name' => $name
-            ],
-            $connect);
+            $config = Database::config($object);
+            $entity_manager = Database::connect($object, $config, $connect);
         } else {
             $entity_manager = Database::entityManager($object, [
                 'name' => $name
