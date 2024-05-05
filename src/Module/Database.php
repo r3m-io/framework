@@ -23,6 +23,12 @@ use Doctrine\DBAL\Logging\DebugStack;
 use Doctrine\ORM\EntityManager;
 //use Doctrine\ORM\SchemaManager;
 
+use Doctrine\DBAL\Schema\SQLiteSchemaManager;
+use Doctrine\DBAL\Schema\MySqlSchemaManager;
+use Doctrine\DBAL\Schema\PostgreSqlSchemaManager;
+use Doctrine\DBAL\Schema\SqlServerSchemaManager;
+
+
 use Doctrine\ORM\ORMSetup;
 
 use R3m\Io\App;
@@ -381,7 +387,7 @@ class Database {
     /**
      * @throws Exception
      */
-    public static function schema_manager(App $object, $name, $environment=null): bool | SchemaManager
+    public static function schema_manager(App $object, $name, $environment=null): bool | SQLiteSchemaManager | MySqlSchemaManager | PostgreSqlSchemaManager | SqlServerSchemaManager
     {
         if(empty($environment)){
             $environment = $object->config('framework.environment');
