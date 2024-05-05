@@ -241,7 +241,12 @@ class Database {
             $connect = [];
             $environment = '*';
             $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
-
+            $parameters = [];
+            $parameters[] = $connect->path;
+            $parameters = Config::parameters($object, $parameters);
+            if(array_key_exists(0, $parameters)){
+                $connect->path = $parameters[0];
+            }
             ddd($connect);
             $entity_manager = Database::connect($object, [
                 'name' => $name
