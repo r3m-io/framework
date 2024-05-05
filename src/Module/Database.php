@@ -261,22 +261,20 @@ class Database {
         }
         if($entity_manager){
             $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
-            d($connect);
-//            $object->config('doctrine.environment.' . $name . '.' . $environment . '.instance.entity.manager', $entity_manager);
+            $connect->instance = (object) [
+                'entity_manager' => $entity_manager
+            ];
             $connection = $entity_manager->getConnection();
         }
         if($connection){
             $platform = $connection->getDatabasePlatform();
             $schema_manager = $connection->createSchemaManager();
-
-            d($object->config('doctrine.environment'));
-
             $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
-            d($connect);
-
-//            $object->config('doctrine.environment.' . $name . '.' . $environment . '.instance.connection', $connection);
-//            $object->config('doctrine.environment.' . $name . '.' . $environment . '.instance.platform', $platform);
-//            $object->config('doctrine.environment.' . $name . '.' . $environment . '.instance.schema.manager', $schema_manager);
+            if(property_exists($connect, 'instance')){
+                $connect->instance->connection = $connection;
+                $connect->instance->platform = $platform;
+                $connect->instance->schema_manager = $schema_manager;
+            }
         }
     }
 
