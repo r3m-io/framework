@@ -21,6 +21,7 @@ use Monolog\Logger;
 use Doctrine\DBAL\Logging;
 use Doctrine\DBAL\Logging\DebugStack;
 use Doctrine\ORM\EntityManager;
+//use Doctrine\ORM\SchemaManager;
 
 use Doctrine\ORM\ORMSetup;
 
@@ -229,9 +230,11 @@ class Database {
     /**
      * @throws Exception
      */
-    public static function instance(App $object, $name, &$entity_manager=null, &$connection=null, &$platform=null, &$schema_manager=null): void
+    public static function instance(App $object, $name, $environment=null): void
     {
-        $environment = $object->config('framework.environment');
+        if($environment === null){
+            $environment = $object->config('framework.environment');
+        }
         if(
             in_array(
                 $name,
@@ -293,7 +296,7 @@ class Database {
     /**
      * @throws Exception
      */
-    public static function entity_manager(App $object, $name, $environment=null): bool
+    public static function entity_manager(App $object, $name, $environment=null): bool | EntityManager
     {
         if(empty($environment)){
             $environment = $object->config('framework.environment');
@@ -322,7 +325,7 @@ class Database {
     /**
      * @throws Exception
      */
-    public static function connection(App $object, $name, $environment=null): bool
+    public static function connection(App $object, $name, $environment=null): bool | Connection
     {
         if(empty($environment)){
             $environment = $object->config('framework.environment');
@@ -350,7 +353,7 @@ class Database {
     /**
      * @throws Exception
      */
-    public static function platform(App $object, $name, $environment=null): bool
+    public static function platform(App $object, $name, $environment=null): bool | SqlitePlatform | MySqlPlatform | PostgreSqlPlatform | SqlServerPlatform
     {
         if(empty($environment)){
             $environment = $object->config('framework.environment');
@@ -378,7 +381,7 @@ class Database {
     /**
      * @throws Exception
      */
-    public static function schema_manager(App $object, $name, $environment=null): bool
+    public static function schema_manager(App $object, $name, $environment=null): bool | SchemaManager
     {
         if(empty($environment)){
             $environment = $object->config('framework.environment');
