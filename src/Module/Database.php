@@ -268,7 +268,7 @@ class Database {
             $schema_manager = $connection->createSchemaManager();
             $object->config('doctrine.environment.' . $name . '.' . $environment . '.instance.connection', $connection);
             $object->config('doctrine.environment.' . $name . '.' . $environment . '.instance.platform', $platform);
-            $object->config('doctrine.environment.' . $name . '.' . $environment . '.instance.schema.manager', $schema_manager);
+//            $object->config('doctrine.environment.' . $name . '.' . $environment . '.instance.schema.manager', $schema_manager);
         }
     }
 
