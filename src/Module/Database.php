@@ -197,6 +197,7 @@ class Database {
             }
             $paths = $object->config('doctrine.paths');
             $paths = Config::parameters($object, $paths);
+            d($paths);
             $parameters = [];
             $parameters[] = $object->config('doctrine.proxy.dir');
             $parameters = Config::parameters($object, $parameters);
