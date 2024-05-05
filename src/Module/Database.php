@@ -300,7 +300,11 @@ class Database {
         }
         $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
         if(empty($connect)){
-            return false;
+            $environment = '*';
+            $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
+            if(empty($connect)){
+                return false;
+            }
         }
         if(
             property_exists($connect, '#instance') &&
@@ -325,7 +329,11 @@ class Database {
         }
         $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
         if(empty($connect)){
-            return false;
+            $environment = '*';
+            $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
+            if(empty($connect)){
+                return false;
+            }
         }
         if(
             property_exists($connect, '#instance') &&
@@ -349,7 +357,11 @@ class Database {
         }
         $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
         if(empty($connect)){
-            return false;
+            $environment = '*';
+            $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
+            if(empty($connect)){
+                return false;
+            }
         }
         if(
             property_exists($connect, '#instance') &&
@@ -373,7 +385,11 @@ class Database {
         }
         $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
         if(empty($connect)){
-            return false;
+            $environment = '*';
+            $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
+            if(empty($connect)){
+                return false;
+            }
         }
         if(
             property_exists($connect, '#instance') &&
