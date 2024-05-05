@@ -359,7 +359,7 @@ class Database {
     /**
      * @throws Exception
      */
-    public static function platform(App $object, $name, $environment=null): bool | SqlitePlatform | MySqlPlatform | PostgreSqlPlatform | SqlServerPlatform
+    public static function platform(App $object, $name, $environment=null): bool
     {
         if(empty($environment)){
             $environment = $object->config('framework.environment');
