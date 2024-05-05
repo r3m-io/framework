@@ -260,12 +260,16 @@ class Database {
             ]);
         }
         if($entity_manager){
+            $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
+            d($connect);
             $object->config('doctrine.environment.' . $name . '.' . $environment . '.instance.entity.manager', $entity_manager);
             $connection = $entity_manager->getConnection();
         }
         if($connection){
             $platform = $connection->getDatabasePlatform();
             $schema_manager = $connection->createSchemaManager();
+
+            d($object->config('doctrine.environment'));
 
             $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
             d($connect);
