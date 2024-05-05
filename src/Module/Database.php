@@ -274,8 +274,8 @@ class Database {
             $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
             d($connect);
 
-            $object->config('doctrine.environment.' . $name . '.' . $environment . '.instance.connection', $connection);
-            $object->config('doctrine.environment.' . $name . '.' . $environment . '.instance.platform', $platform);
+//            $object->config('doctrine.environment.' . $name . '.' . $environment . '.instance.connection', $connection);
+//            $object->config('doctrine.environment.' . $name . '.' . $environment . '.instance.platform', $platform);
 //            $object->config('doctrine.environment.' . $name . '.' . $environment . '.instance.schema.manager', $schema_manager);
         }
     }
