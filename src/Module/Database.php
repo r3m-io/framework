@@ -262,7 +262,7 @@ class Database {
         if($entity_manager){
             $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
             d($connect);
-            $object->config('doctrine.environment.' . $name . '.' . $environment . '.instance.entity.manager', $entity_manager);
+//            $object->config('doctrine.environment.' . $name . '.' . $environment . '.instance.entity.manager', $entity_manager);
             $connection = $entity_manager->getConnection();
         }
         if($connection){
