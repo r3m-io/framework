@@ -231,6 +231,7 @@ class Database {
      */
     public static function instance(App $object, $name, &$entity_manager=null, &$connection=null, &$platform=null, &$schema_manager=null): void
     {
+        $environment = $object->config('framework.environment');
         if(
             in_array(
                 $name,
@@ -252,18 +253,22 @@ class Database {
             }
             $config = Database::config($object);
             $entity_manager = Database::connect($object, $config, $connect);
+
         } else {
             $entity_manager = Database::entityManager($object, [
                 'name' => $name
             ]);
         }
-
         if($entity_manager){
+            $object->config('doctrine.environment.' . $name . '.' . $environment . '.instance.entity.manager', $entity_manager);
             $connection = $entity_manager->getConnection();
         }
         if($connection){
             $platform = $connection->getDatabasePlatform();
             $schema_manager = $connection->createSchemaManager();
+            $object->config('doctrine.environment.' . $name . '.' . $environment . '.instance.connection', $connection);
+            $object->config('doctrine.environment.' . $name . '.' . $environment . '.instance.platform', $platform);
+            $object->config('doctrine.environment.' . $name . '.' . $environment . '.instance.schema.manager', $schema_manager);
         }
     }
 
