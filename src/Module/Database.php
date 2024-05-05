@@ -261,8 +261,10 @@ class Database {
         }
         if($entity_manager){
             $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
-            $connect->instance = (object) [
-                'entity_manager' => $entity_manager
+            $connect->{'#instance'} = (object) [
+                'entity' => (object) [
+                    'manager' => $entity_manager
+                ]
             ];
             $connection = $entity_manager->getConnection();
         }
@@ -270,10 +272,12 @@ class Database {
             $platform = $connection->getDatabasePlatform();
             $schema_manager = $connection->createSchemaManager();
             $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
-            if(property_exists($connect, 'instance')){
-                $connect->instance->connection = $connection;
-                $connect->instance->platform = $platform;
-                $connect->instance->schema_manager = $schema_manager;
+            if(property_exists($connect, '#instance')){
+                $connect->{'#instance'}->connection = $connection;
+                $connect->{'#instance'}->platform = $platform;
+                $connect->{'#instance'}->schema = (object) [
+                    'manager' => $schema_manager
+                ];
             }
         }
     }
