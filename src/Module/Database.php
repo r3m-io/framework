@@ -21,13 +21,18 @@ use Monolog\Logger;
 use Doctrine\DBAL\Logging;
 use Doctrine\DBAL\Logging\DebugStack;
 use Doctrine\ORM\EntityManager;
-//use Doctrine\ORM\SchemaManager;
 
 use Doctrine\DBAL\Schema\SQLiteSchemaManager;
 use Doctrine\DBAL\Schema\MySqlSchemaManager;
 use Doctrine\DBAL\Schema\PostgreSqlSchemaManager;
 use Doctrine\DBAL\Schema\SqlServerSchemaManager;
 
+use Doctrine\DBAL\Platforms\MySQLPlatform;
+use Doctrine\DBAL\Platforms\SQLitePlatform;
+use Doctrine\DBAL\Platforms\SQLServerPlatform;
+use Doctrine\DBAL\Platforms\PostgresSQLPlatform;
+use Doctrine\DBAL\Platforms\OraclePlatform;
+use Doctrine\DBAL\Platforms\MariaDBPlatform;
 
 use Doctrine\ORM\ORMSetup;
 
@@ -359,7 +364,7 @@ class Database {
     /**
      * @throws Exception
      */
-    public static function platform(App $object, $name, $environment=null): bool
+    public static function platform(App $object, $name, $environment=null): bool | MySQLPlatform | SQLitePlatform | SQLServerPlatform | PostgresSQLPlatform | OraclePlatform | MariaDBPlatform
     {
         if(empty($environment)){
             $environment = $object->config('framework.environment');
