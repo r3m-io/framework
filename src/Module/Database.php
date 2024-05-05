@@ -181,10 +181,6 @@ class Database {
         }
         $environment = '*';
         $connection = $object->config('doctrine.environment.' . $name . '.' . $environment);
-        d($name);
-        d($environment);
-        d($object->config('doctrine.environment'));
-        d($connection);
         if(!empty($connection)){
             $connection = (array) $connection;
             if(empty($connection)){
@@ -197,7 +193,6 @@ class Database {
             }
             $paths = $object->config('doctrine.paths');
             $paths = Config::parameters($object, $paths);
-            d($paths);
             $parameters = [];
             $parameters[] = $object->config('doctrine.proxy.dir');
             $parameters = Config::parameters($object, $parameters);
@@ -233,9 +228,31 @@ class Database {
      */
     public static function instance(App $object, $name, &$entity_manager=null, &$connection=null, &$platform=null, &$schema_manager=null): void
     {
-        $entity_manager = Database::entityManager($object, [
-            'name' => $name
-        ]);
+        if(
+            in_array(
+                $name,
+                [
+                    'system',
+                    'ramdisk'
+                ],
+                true
+            )
+        ){
+            $connect = [];
+            $environment = '*';
+            $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
+
+            ddd($connect);
+            $entity_manager = Database::connect($object, [
+                'name' => $name
+            ],
+            $connect);
+        } else {
+            $entity_manager = Database::entityManager($object, [
+                'name' => $name
+            ]);
+        }
+
         if($entity_manager){
             $connection = $entity_manager->getConnection();
         }
