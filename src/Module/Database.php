@@ -246,6 +246,16 @@ class Database {
         if($environment === null){
             $environment = $object->config('framework.environment');
         }
+        $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
+        if($connect === null){
+            $environment = '*';
+            $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
+            if($connect === null){
+                return;
+            }
+        }
+        ddd($connect);
+
         if(
             in_array(
                 $name,
