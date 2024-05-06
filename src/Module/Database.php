@@ -432,16 +432,47 @@ class Database {
     /**
      * @throws Exception
      */
-    public static function options(App $object, $connection, $schema_manager, $options=null, $table=null, &$count=0, &$is_install=false): void
+    public static function options(App $object, $options=null, $name=null, $environment=null, $table=null, &$count=0, &$is_install=false): void
     {
         $count = 0;
         $is_install = false;
+
+        if(empty($environment)){
+            $environment = $object->config('framework.environment');
+        }
+        $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
+        if(empty($connect)){
+            $environment = '*';
+            $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
+            if(empty($connect)){
+                return;
+            }
+        }
+        $app_cache = $object->data(App::CACHE);
+        $key = 'doctrine.instance.' . $name . '.' . $environment;
+        $instance = $app_cache->get($key);
+        if(!$instance){
+            return;
+        }
+        if(property_exists($instance, 'connection') === false){
+            return;
+        }
+        if(property_exists($instance, 'schema') === false){
+            return;
+        }
+        if(property_exists($instance->schema, 'manager') === false){
+            return;
+        }
+        $connection = $instance->connection;
+        $schema_manager = $instance->schema->manager;
         if ($schema_manager->tablesExist([ $table ]) === true){
             if(
                 property_exists($options, 'drop') &&
                 $options->drop === true
             ){
                 $sql = 'DROP TABLE :table ;';
+                d($table);
+                ddd($sql);
                 $connection->executeStatement($sql, [
                     'table' => $table
                 ]);
