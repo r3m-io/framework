@@ -254,25 +254,17 @@ class Database {
                 return;
             }
         }
-        ddd($connect);
-
+        $app_cache = $object->data(App::CACHE);
+        $key = 'doctrine.instance.' . $name . '.' . $environment;
+        if($app_cache->has($key)){
+            return;
+        }
+        $connection = false;
+        $cache = null;
         if(
-            in_array(
-                $name,
-                [
-                    'system',
-                    'ramdisk'
-                ],
-                true
-            )
+            property_exists($connect, 'driver') &&
+            $connect->driver === 'pdo_sqlite'
         ){
-            $connect = [];
-            $environment = '*';
-            $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
-            if(property_exists($connect, '#instance')){
-                //singleton
-                return;
-            }
             $parameters = [];
             $parameters[] = $connect->path;
             $parameters = Config::parameters($object, $parameters);
@@ -282,34 +274,30 @@ class Database {
             $config = Database::config($object);
             $entity_manager = Database::connect($object, $config, $connect);
         } else {
-            $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
-            if(property_exists($connect, '#instance')){
-                //singleton
-                return;
-            }
             $entity_manager = Database::entityManager($object, [
                 'name' => $name
             ]);
         }
-        if($entity_manager){
-            $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
-            $connect->{'#instance'} = (object) [
-                'entity' => (object) [
+        if($entity_manager) {
+            $cache = (object)[
+                'entity' => (object)[
                     'manager' => $entity_manager
                 ]
             ];
+            $app_cache->set($key, $cache);
             $connection = $entity_manager->getConnection();
         }
         if($connection){
             $platform = $connection->getDatabasePlatform();
             $schema_manager = $connection->createSchemaManager();
             $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
-            if(property_exists($connect, '#instance')){
-                $connect->{'#instance'}->connection = $connection;
-                $connect->{'#instance'}->platform = $platform;
-                $connect->{'#instance'}->schema = (object) [
+            if(property_exists($cache, 'entity')){
+                $cache->connection = $connection;
+                $cache->platform = $platform;
+                $cache->schema = (object) [
                     'manager' => $schema_manager
                 ];
+                $app_cache->set($key, $cache);
             }
         }
     }
@@ -330,14 +318,17 @@ class Database {
                 return false;
             }
         }
-        if(
-            property_exists($connect, '#instance') &&
-            property_exists($connect->{'#instance'}, 'entity') &&
-            property_exists($connect->{'#instance'}->entity, 'manager')
-        ){
-            return $connect->{'#instance'}->entity->manager;
-        }
-        elseif(!property_exists($connect, '#instance')){
+        $app_cache = $object->data(App::CACHE);
+        $key = 'doctrine.instance.' . $name . '.' . $environment;
+        if($app_cache->has($key)){
+            $cache = $app_cache->get($key);
+            if(
+                property_exists($cache, 'entity') &&
+                property_exists($cache->entity, 'manager')
+            ){
+                return $cache->entity->manager;
+            }
+        } else {
             throw new Exception('No instance found for ' . $name . '.' . $environment);
         }
         return false;
@@ -359,13 +350,16 @@ class Database {
                 return false;
             }
         }
-        if(
-            property_exists($connect, '#instance') &&
-            property_exists($connect->{'#instance'}, 'connection')
-        ){
-            return $connect->{'#instance'}->connection;
-        }
-        elseif(!property_exists($connect, '#instance')){
+        $app_cache = $object->data(App::CACHE);
+        $key = 'doctrine.instance.' . $name . '.' . $environment;
+        if($app_cache->has($key)) {
+            $cache = $app_cache->get($key);
+            if (
+                property_exists($cache, 'connection')
+            ) {
+                return $cache->connection;
+            }
+        } else {
             throw new Exception('No instance found for ' . $name . '.' . $environment);
         }
         return false;
@@ -387,13 +381,16 @@ class Database {
                 return false;
             }
         }
-        if(
-            property_exists($connect, '#instance') &&
-            property_exists($connect->{'#instance'}, 'platform')
-        ){
-            return $connect->{'#instance'}->platform;
-        }
-        elseif(!property_exists($connect, '#instance')){
+        $app_cache = $object->data(App::CACHE);
+        $key = 'doctrine.instance.' . $name . '.' . $environment;
+        if($app_cache->has($key)) {
+            $cache = $app_cache->get($key);
+            if (
+                property_exists($cache, 'platform')
+            ) {
+                return $cache->platform;
+            }
+        } else {
             throw new Exception('No instance found for ' . $name . '.' . $environment);
         }
         return false;
@@ -415,14 +412,17 @@ class Database {
                 return false;
             }
         }
-        if(
-            property_exists($connect, '#instance') &&
-            property_exists($connect->{'#instance'}, 'schema') &&
-            property_exists($connect->{'#instance'}->schema, 'manager')
-        ){
-            return $connect->{'#instance'}->schema->manager;
-        }
-        elseif(!property_exists($connect, '#instance')){
+        $app_cache = $object->data(App::CACHE);
+        $key = 'doctrine.instance.' . $name . '.' . $environment;
+        if($app_cache->has($key)) {
+            $cache = $app_cache->get($key);
+            if (
+                property_exists($cache, 'schema') &&
+                property_exists($cache->schema, 'manager')
+            ) {
+                return $cache->schema->manager;
+            }
+        } else {
             throw new Exception('No instance found for ' . $name . '.' . $environment);
         }
         return false;
