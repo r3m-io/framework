@@ -482,8 +482,6 @@ class Database {
                 $sql = "DROP TABLE IF EXISTS $sanitized_table ;";
                 $stmt = $connection->prepare($sql);
                 $stmt->executeStatement();
-                $stmt->close();
-                $connection->close();
                 echo 'Dropped: ' . $table . '.' . PHP_EOL;
                 $is_install = true;
                 $count++;
