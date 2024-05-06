@@ -479,9 +479,8 @@ class Database {
                 */
                 $sanitized_table = preg_replace('/[^a-zA-Z0-9_]/', '', $table);
                 // Construct the SQL query with the sanitized table names
-                $sql = "DROP TABLE IF EXISTS ? ;";
+                $sql = "DROP TABLE IF EXISTS $sanitized_table ;";
                 $stmt = $connection->prepare($sql);
-                $stmt->bindValue(1, $table, SQLITE3_TEXT);
                 $stmt->executeStatement();
                 $stmt->close();
                 $connection->close();
