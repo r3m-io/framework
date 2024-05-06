@@ -463,6 +463,7 @@ class Database {
         if(property_exists($instance->schema, 'manager') === false){
             return;
         }
+        Core::interactive();
         $connection = $instance->connection;
         $schema_manager = $instance->schema->manager;
         if ($schema_manager->tablesExist([ $table ]) === true){
@@ -478,7 +479,7 @@ class Database {
                 ]);
                 */
                 $sanitized_table = preg_replace('/[^a-zA-Z0-9_]/', '', $table);
-                // Construct the SQL query with the sanitized table names
+                // Construct the SQL query with the sanitized table name
                 $sql = "DROP TABLE IF EXISTS $sanitized_table ;";
                 $stmt = $connection->prepare($sql);
                 $stmt->executeStatement();
