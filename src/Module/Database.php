@@ -483,6 +483,8 @@ class Database {
                 $stmt = $connection->prepare($sql);
                 $stmt->bindValue(':table', $table, SQLITE3_TEXT);
                 $stmt->executeStatement();
+                $stmt->close();
+                $connection->close();
                 echo 'Dropped: ' . $table . '.' . PHP_EOL;
                 $is_install = true;
                 $count++;
