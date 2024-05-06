@@ -470,12 +470,19 @@ class Database {
                 property_exists($options, 'drop') &&
                 $options->drop === true
             ){
+
+                /* not working in sqlite3
                 $sql = 'DROP TABLE :table ;';
-                d($table);
-                ddd($sql);
                 $connection->executeStatement($sql, [
                     'table' => $table
                 ]);
+                */
+                $sanitized_table = preg_replace('/[^a-zA-Z0-9_]/', '', $table);
+                // Construct the SQL query with the sanitized table names
+                $sql = "DROP TABLE IF EXISTS :table ;";
+                $stmt = $connection->prepare($sql);
+                $stmt->bindValue(':table', $table, SQLITE3_TEXT);
+                $stmt->executeStatement();
                 echo 'Dropped: ' . $table . '.' . PHP_EOL;
                 $is_install = true;
                 $count++;
