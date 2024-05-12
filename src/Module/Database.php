@@ -428,6 +428,19 @@ class Database {
         return false;
     }
 
+    /**
+     * @throws Exception
+     */
+    public static function tables(App $object, $name, $environment=null): array
+    {
+        $schema_manager = Database::schema_manager($object, $name, $environment);
+        $tables = [];
+        if($schema_manager){
+            $tables = $schema_manager->listTableNames();
+        }
+        return $tables;
+    }
+
 
     /**
      * @throws Exception
