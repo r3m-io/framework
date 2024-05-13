@@ -431,20 +431,6 @@ class Database {
     /**
      * @throws Exception
      */
-    public static function tables(App $object, $name, $environment=null): array
-    {
-        $schema_manager = Database::schema_manager($object, $name, $environment);
-        $tables = [];
-        if($schema_manager){
-            $tables = $schema_manager->listTableNames();
-        }
-        return $tables;
-    }
-
-
-    /**
-     * @throws Exception
-     */
     public static function options(App $object, $options=null, $name=null, $environment=null, $table=null, &$count=0, &$is_install=false): void
     {
         $count = 0;
