@@ -370,6 +370,8 @@ class Database {
      */
     public static function platform(App $object, $name, $environment=null): bool | MySQLPlatform | SQLitePlatform | SQLServerPlatform | PostgresSQLPlatform | OraclePlatform | MariaDBPlatform
     {
+        d($name);
+        d($environment);
         if(empty($environment)){
             $environment = $object->config('framework.environment');
         }
