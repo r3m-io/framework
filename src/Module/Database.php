@@ -383,6 +383,7 @@ class Database {
                 return false;
             }
         }
+        d($connect);
         $app_cache = $object->data(App::CACHE);
         $key = 'doctrine.instance.' . $name . '.' . $environment;
         if($app_cache->has($key)) {
