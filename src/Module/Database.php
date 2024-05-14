@@ -370,13 +370,13 @@ class Database {
      */
     public static function platform(App $object, $name, $environment=null): bool | MySQLPlatform | SQLitePlatform | SQLServerPlatform | PostgresSQLPlatform | OraclePlatform | MariaDBPlatform
     {
-        d($name);
-        d($environment);
         if(empty($environment)){
             $environment = $object->config('framework.environment');
         }
         $name = str_replace('.', '-', $name);
         $environment = str_replace('.', '-', $environment);
+        d($name);
+        d($environment);
         $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
         if(empty($connect)){
             $environment = '*';
