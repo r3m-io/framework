@@ -375,10 +375,6 @@ class Database {
         }
         $name = str_replace('.', '-', $name);
         $environment = str_replace('.', '-', $environment);
-        d($name);
-        d($environment);
-        d($object->config('doctrine.environment.' . $name));
-        d($object->config('doctrine'));
         $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
         if(empty($connect)){
             $environment = '*';
@@ -389,12 +385,10 @@ class Database {
                 return false;
             }
         }
-        d($connect);
         $app_cache = $object->data(App::CACHE);
         $key = 'doctrine.instance.' . $name . '.' . $environment;
         if($app_cache->has($key)) {
             $cache = $app_cache->get($key);
-            d($cache);
             if (
                 property_exists($cache, 'platform')
             ) {
