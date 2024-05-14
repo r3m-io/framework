@@ -22,20 +22,34 @@ class Doctrine extends Controller {
                     array_key_exists('name', $record) &&
                     array_key_exists('environment', $record)
                 ){
-                    if(!array_key_exists($record['name'], $result)){
-                        $result[$record['name']] = [];
+                    $name = str_replace('.', '-', $record['name']);
+                    $environment = str_replace('.', '-', $record['environment']);
+                    if($environment === '*'){
+                        $result[$name] = [];
+                        $result[$name]['*'] = $record;
+                    } else {
+                        if(!array_key_exists($record['name'], $result)){
+                            $result[$name] = [];
+                        }
+                        $result[$name][$environment] = $record;
                     }
-                    $result[$record['name']][$record['environment']] = $record;
                 }
                 elseif(
                     is_object($record) &&
                     property_exists($record, 'name') &&
                     property_exists($record, 'environment')
                 ){
-                    if(!array_key_exists($record->name, $result)){
-                        $result[$record->name][$record->environment] = [];
+                    $name = str_replace('.', '-', $record->name);
+                    $environment = str_replace('.', '-', $record->environment);
+                    if($environment === '*'){
+                        $result[$name] = [];
+                        $result[$name]['*'] = $record;
+                    } else {
+                        if(!array_key_exists($record->name, $result)){
+                            $result[$name] = [];
+                        }
+                        $result[$name][$environment] = $record;
                     }
-                    $result[$record->name][$record->environment] = $record;
                 }
             }
         }
