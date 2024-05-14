@@ -573,9 +573,11 @@ class Autoload {
                     $fileList[$nr] = $this->fileList($item, $url);
                     if(is_array($fileList[$nr]) && empty($this->expose())){
                         foreach($fileList[$nr] as $file){
+                            /* must become a debug flag?
                             if($logger_error){
                                 $object->logger($logger_error)->info('Autoload file: ' . $file, [is_readable($file) , file_exists($file)]);
                             }
+                            */
                             /*
                             File::append(
                                 $dir_temp .
