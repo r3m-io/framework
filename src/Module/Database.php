@@ -453,7 +453,6 @@ class Database {
                 return null;
             }
         }
-        ddd($connect);
         if(property_exists($connect, 'driver')){
             return $connect->driver;
         }
