@@ -387,6 +387,7 @@ class Database {
         $key = 'doctrine.instance.' . $name . '.' . $environment;
         if($app_cache->has($key)) {
             $cache = $app_cache->get($key);
+            d($cache);
             if (
                 property_exists($cache, 'platform')
             ) {
