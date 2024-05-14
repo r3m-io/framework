@@ -380,6 +380,7 @@ class Database {
             $environment = '*';
             $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
             if(empty($connect)){
+                d('no connect');
                 return false;
             }
         }
