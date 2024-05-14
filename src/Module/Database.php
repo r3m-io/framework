@@ -377,6 +377,8 @@ class Database {
         $environment = str_replace('.', '-', $environment);
         d($name);
         d($environment);
+        d($object->config('doctrine.environment.' . $name));
+        d($object->config('doctrine'));
         $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
         if(empty($connect)){
             $environment = '*';
