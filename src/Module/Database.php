@@ -436,6 +436,27 @@ class Database {
         return false;
     }
 
+    public static function driver(App $object, $name, $environment=null): ?string
+    {
+        if(empty($environment)){
+            $environment = $object->config('framework.environment');
+        }
+        $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
+        if(empty($connect)){
+            $environment = '*';
+            $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
+            if(empty($connect)){
+                return null;
+            }
+        }
+        ddd($connect);
+        if(property_exists($connect, 'driver')){
+            return $connect->driver;
+        }
+        return null;
+    }
+
+
     /**
      * @throws Exception
      */
