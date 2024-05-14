@@ -246,6 +246,8 @@ class Database {
         if($environment === null){
             $environment = $object->config('framework.environment');
         }
+        $name = str_replace('.', '-', $name);
+        $environment = str_replace('.', '-', $environment);
         $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
         if($connect === null){
             $environment = '*';
@@ -310,6 +312,8 @@ class Database {
         if(empty($environment)){
             $environment = $object->config('framework.environment');
         }
+        $name = str_replace('.', '-', $name);
+        $environment = str_replace('.', '-', $environment);
         $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
         if(empty($connect)){
             $environment = '*';
@@ -342,6 +346,8 @@ class Database {
         if(empty($environment)){
             $environment = $object->config('framework.environment');
         }
+        $name = str_replace('.', '-', $name);
+        $environment = str_replace('.', '-', $environment);
         $connect = $object->config('doctrine.environment.' . $name . '.' . $environment);
         if(empty($connect)){
             $environment = '*';
