@@ -459,9 +459,36 @@ class Database {
         return null;
     }
 
+    /**
+     * @throws Exception
+     */
+    public static function all(App $object, $name, $environment=null){
+        if(empty($environment)){
+            $environment = $object->config('framework.environment');
+        }
+        $name = str_replace('.', '-', $name);
+        $environment = str_replace('.', '-', $environment);
+        $databases = [];
+        try {
+            $schema_manager = Database::schema_manager($object, $name, $environment);
+        }
+        catch(Exception $exception){
+            try {
+                Database::instance($object, $name, $environment);
+                $schema_manager = Database::schema_manager($object, $name, $environment);
+            } catch(Exception $exception){
+                return $databases;
+            }
+        }
+        if($schema_manager){
+            $databases = $schema_manager->listDatabases();
+        }
+        return $databases;
+    }
 
     /**
      * @throws Exception
+     * @deprecated
      */
     public static function options(App $object, $options=null, $name=null, $environment=null, $table=null, &$count=0, &$is_install=false): void
     {
