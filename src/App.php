@@ -602,7 +602,6 @@ class App extends Data {
                         echo $exception;
                         return null;
                     } else {
-                        d($is_url);
                         $parse = new Module\Parse($object, $object->data());
                         $read = File::read($is_url);
                         $data = (object) [];
