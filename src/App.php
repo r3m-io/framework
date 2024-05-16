@@ -605,9 +605,9 @@ class App extends Data {
                         d($is_url);
                         $parse = new Module\Parse($object, $object->data());
                         $read = File::read($is_url);
-                        $data = [];
-                        $data['exception'] = Core::object_array($exception);
-                        $data['exception']['className'] = get_class($exception);
+                        $data = (object) [];
+                        $data->exception = (object) Core::object_array($exception);
+                        $data->exception->className = get_class($exception);
                         Event::trigger($object, 'app.route.exception', [
                             'destination' => $destination,
                             'url' => $url,
