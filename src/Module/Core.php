@@ -1776,8 +1776,12 @@ class Core
                         }
                         return Core::object_set($attribute, $value, $object[$key], $return);
                     }
-                    else {
+                    elseif(is_object($object)) {
                         $object->{$key} = $value;
+                    } else {
+                        d($object);
+                        d($key);
+                        ddd($value);
                     }
                 } else {
                     throw new Exception('Object::set only accepts objects and arrays.');
