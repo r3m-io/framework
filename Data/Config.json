@@ -236,7 +236,7 @@
                     "output": "#output"
                 },
                 "#copy": {
-                    "#key": "name"
+                    "#key": "name--debug"
                 }
             }
         },
