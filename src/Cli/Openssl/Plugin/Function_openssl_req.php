@@ -20,6 +20,7 @@ function function_openssl_req(Parse $parse, Data $data){
 
     $request = (array) $object->request();
     $execute = implode(' ', $request);
+    ddd($execute);
     $output = [];
     Core::execute($object, $execute, $output);
     echo implode(PHP_EOL, $output);
