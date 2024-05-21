@@ -14,8 +14,6 @@ use R3m\Io\App;
 function validate_boolean(App $object, $string='', $field='', $argument='', $function=false): bool
 {
     $bool = $string;
-    d($bool);
-    ddd($argument);
     if(
         $bool == '1' ||
         $bool == 'true' ||
@@ -37,6 +35,12 @@ function validate_boolean(App $object, $string='', $field='', $argument='', $fun
         return false;
     }
     if(
+        is_array($argument) &&
+        in_array($bool, $argument)
+    ){
+        return true;
+    }
+    elseif(
         $argument == '1' ||
         $argument == 'true' ||
         $argument === true
@@ -50,7 +54,10 @@ function validate_boolean(App $object, $string='', $field='', $argument='', $fun
     ){
         $argument = false;
     }
-    if(is_bool($bool) && is_bool($argument)){
+    if(
+        is_bool($bool) &&
+        is_bool($argument)
+    ){
         return $bool === $argument;
     }
     return false;
