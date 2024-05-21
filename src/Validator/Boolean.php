@@ -14,6 +14,8 @@ use R3m\Io\App;
 function validate_boolean(App $object, $string='', $field='', $argument='', $function=false): bool
 {
     $bool = $string;
+    d($bool);
+    ddd($argument);
     if(
         $bool == '1' ||
         $bool == 'true' ||
