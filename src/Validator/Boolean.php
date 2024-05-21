@@ -36,7 +36,7 @@ function validate_boolean(App $object, $string='', $field='', $argument='', $fun
     }
     if(
         is_array($argument) &&
-        in_array($bool, $argument)
+        in_array($bool, $argument, true)
     ){
         return true;
     }
