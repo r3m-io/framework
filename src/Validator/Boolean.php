@@ -20,8 +20,19 @@ function validate_boolean(App $object, $string='', $field='', $argument='', $fun
         $bool === true
     ){
         $bool = true;
-    } else {
+    }
+    elseif(
+        $bool == '0' ||
+        $bool == 'false' ||
+        $bool === false
+    ){
         $bool = false;
+    }
+    if(empty($argument)){
+        if(is_bool($bool)){
+            return true;
+        }
+        return false;
     }
     if(
         $argument == '1' ||
@@ -29,8 +40,16 @@ function validate_boolean(App $object, $string='', $field='', $argument='', $fun
         $argument === true
     ){
         $argument = true;
-    } else {
+    }
+    elseif(
+        $argument == '0' ||
+        $argument == 'false' ||
+        $argument === false
+    ){
         $argument = false;
     }
-    return $bool === $argument;
+    if(is_bool($bool) && is_bool($argument)){
+        return $bool === $argument;
+    }
+    return false;
 }
