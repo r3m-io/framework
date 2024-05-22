@@ -16,7 +16,12 @@ function validate_is_array(App $object, $array=[], $field='', $argument='', $fun
         ddd($argument);
     }
     if(is_bool($argument)){
-        ddd($argument);
+        if($argument === true){
+            return is_array($array);
+        } else {
+            return !is_array($array);
+        }
+    } else {
+        return is_array($array);
     }
-    return is_array($array);
 }
