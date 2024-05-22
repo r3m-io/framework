@@ -892,6 +892,7 @@ class App extends Data {
                                 case 'false':
                                     $value = false;
                                     break;
+                                case '':
                                 case 'null':
                                     $value = null;
                                     break;
