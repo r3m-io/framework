@@ -17,10 +17,69 @@ use R3m\Io\Module\Parse\Token;
  */
 function validate_string_length(App $object, $string='', $field='', $argument='', $function=false): bool
 {
-    d($string);
     $length = strlen($string);
-    d($length);
-    ddd($argument);
+    if(is_array($argument)){
+        $arguments = $argument;
+        foreach($arguments as $argument){
+            if(
+                $argument === null)
+            {
+                if($string === null){
+                    return true;
+                }
+                continue;
+            }
+            $argument = Token::tree('{if($argument ' . $argument . ')}{/if}');
+            $left = null;
+            $equation = null;
+            $right = null;
+            foreach($argument[1]['method']['attribute'][0] as $nr => $record){
+                if(empty($left)){
+                    $left = $record;
+                }
+                elseif(empty($equation)){
+                    $equation = $record['value'];
+                }
+                elseif(empty($right)){
+                    $right = $record['execute'];
+                    break;
+                }
+            }
+            $result = false;
+            switch($equation){
+                case '>' :
+                    $result = $length > $right;
+                    break;
+                case '<' :
+                    $result = $length < $right;
+                    break;
+                case '>=' :
+                    $result = $length >= $right;
+                    break;
+                case '<=' :
+                    $result = $length <= $right;
+                    break;
+                case '==' :
+                    $result = $length == $right;
+                    break;
+                case '!=' :
+                    $result = $length != $right;
+                    break;
+                case '===' :
+                    $result = $length === $right;
+                    break;
+                case '!==' :
+                    $result = $length !== $right;
+                    break;
+                default:
+                    throw new Exception('Unknown equation');
+            }
+            if($result === false){
+                return false;
+            }
+        }
+        return true;
+    }
     $argument = Token::tree('{if($argument ' . $argument . ')}{/if}');
     $left = null;
     $equation = null;
@@ -30,7 +89,7 @@ function validate_string_length(App $object, $string='', $field='', $argument=''
             $left = $record;
         }
         elseif(empty($equation)){
-            $equation = $record['value'];            
+            $equation = $record['value'];
         }
         elseif(empty($right)){
             $right = $record['execute'];
@@ -41,22 +100,22 @@ function validate_string_length(App $object, $string='', $field='', $argument=''
     switch($equation){
         case '>' :
             $result = $length > $right;
-        break;
+            break;
         case '<' :
             $result = $length < $right;
-        break;
+            break;
         case '>=' :
             $result = $length >= $right;
-        break;
+            break;
         case '<=' :
             $result = $length <= $right;
-        break;                
+            break;
         case '==' :
             $result = $length == $right;
-        break;
+            break;
         case '!=' :
             $result = $length != $right;
-        break;
+            break;
         case '===' :
             $result = $length === $right;
             break;
@@ -66,5 +125,5 @@ function validate_string_length(App $object, $string='', $field='', $argument=''
         default:
             throw new Exception('Unknown equation');
     }
-    return $result;    
+    return $result;
 }
