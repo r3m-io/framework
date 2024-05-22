@@ -27,8 +27,6 @@ function validate_in_array_email(App $object, $array=null, $field='', $argument=
     ){
         $array = Core::object($array, Core::OBJECT_ARRAY);
     }
-    d($array);
-    d($argument);
     if(
         is_array($argument) &&
         in_array(null, $argument, true) &&
@@ -41,6 +39,8 @@ function validate_in_array_email(App $object, $array=null, $field='', $argument=
             if(
                 is_array($argument)
             ){
+
+
                 if(in_array(true, $argument, true)){
                     if(!filter_var($value, FILTER_VALIDATE_EMAIL)) {
                         // invalid address
