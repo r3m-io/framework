@@ -125,5 +125,6 @@ function validate_float(App $object, $string='', $field='', $argument='', $funct
         default:
             throw new Exception('Unknown equation');
     }
+    echo 'test';
     return $result;
 }
