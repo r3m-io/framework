@@ -22,10 +22,12 @@ function validate_integer(App $object, $string='', $field='', $argument='', $fun
         $arguments = $argument;
         foreach($arguments as $argument){
             if(
-                $argument === null &&
-                $string === null
-            ){
-                return true;
+                $argument === null)
+            {
+                if($string === null){
+                    return true;
+                }
+                continue;
             }
             $argument = Token::tree('{if($argument ' . $argument . ')}{/if}');
             $left = null;
