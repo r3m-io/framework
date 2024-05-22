@@ -12,5 +12,11 @@ use R3m\Io\App;
 
 function validate_is_array(App $object, $array=[], $field='', $argument='', $function=false): bool
 {
+    if(is_array($argument)){
+        ddd($argument);
+    }
+    if(is_bool($argument)){
+        ddd($argument);
+    }
     return is_array($array);
 }
