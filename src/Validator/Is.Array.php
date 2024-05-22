@@ -14,13 +14,22 @@ function validate_is_array(App $object, $array=null, $field='', $argument='', $f
 {
     if(is_array($argument)){
         foreach($argument as $nr => $record){
-            if($record === null && $array === null){
+            if(
+                $record === null &&
+                $array === null
+            ){
                 return true;
             }
             elseif(is_bool($record)){
                 if($record === true){
+                    if($array === ''){
+                        return false;
+                    }
                     return is_array($array);
                 } else {
+                    if($array === ''){
+                        return true;
+                    }
                     return !is_array($array);
                 }
             }
@@ -29,8 +38,14 @@ function validate_is_array(App $object, $array=null, $field='', $argument='', $f
     }
     if(is_bool($argument)){
         if($argument === true){
+            if($array === ''){
+                return false;
+            }
             return is_array($array);
         } else {
+            if($array === ''){
+                return true;
+            }
             return !is_array($array);
         }
     } else {
