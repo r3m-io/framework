@@ -17,10 +17,67 @@ use R3m\Io\Module\Parse\Token;
  */
 function validate_integer(App $object, $string='', $field='', $argument='', $function=false): bool
 {
-    d($string);
     $int = intval($string);
-    d($int);
-    ddd($argument);
+    if(is_array($argument)){
+        $arguments = $argument;
+        foreach($arguments as $argument){
+            if(
+                $argument === null &&
+                $string === null
+            ){
+                return true;
+            }
+            $argument = Token::tree('{if($argument ' . $argument . ')}{/if}');
+            $left = null;
+            $equation = null;
+            $right = null;
+            foreach($argument[1]['method']['attribute'][0] as $nr => $record){
+                if(empty($left)){
+                    $left = $record;
+                }
+                elseif(empty($equation)){
+                    $equation = $record['value'];
+                }
+                elseif(empty($right)){
+                    $right = $record['execute'];
+                    break;
+                }
+            }
+            $result = false;
+            switch($equation){
+                case '>' :
+                    $result = $int > $right;
+                    break;
+                case '<' :
+                    $result = $int < $right;
+                    break;
+                case '>=' :
+                    $result = $int >= $right;
+                    break;
+                case '<=' :
+                    $result = $int <= $right;
+                    break;
+                case '==' :
+                    $result = $int == $right;
+                    break;
+                case '!=' :
+                    $result = $int != $right;
+                    break;
+                case '===' :
+                    $result = $int === $right;
+                    break;
+                case '!==' :
+                    $result = $int !== $right;
+                    break;
+                default:
+                    throw new Exception('Unknown equation');
+            }
+            if($result === false){
+                return false;
+            }
+        }
+        return true;
+    }
     $argument = Token::tree('{if($argument ' . $argument . ')}{/if}');
     $left = null;
     $equation = null;
