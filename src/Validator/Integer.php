@@ -18,6 +18,8 @@ use R3m\Io\Module\Parse\Token;
 function validate_integer(App $object, $string='', $field='', $argument='', $function=false): bool
 {
     $int = intval($string);
+    d($int);
+    ddd($argument);
     $argument = Token::tree('{if($argument ' . $argument . ')}{/if}');
     $left = null;
     $equation = null;
