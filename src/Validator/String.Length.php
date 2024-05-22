@@ -17,7 +17,10 @@ use R3m\Io\Module\Parse\Token;
  */
 function validate_string_length(App $object, $string='', $field='', $argument='', $function=false): bool
 {
+    d($string);
     $length = strlen($string);
+    d($length);
+    ddd($argument);
     $argument = Token::tree('{if($argument ' . $argument . ')}{/if}');
     $left = null;
     $equation = null;
