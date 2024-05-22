@@ -10,10 +10,22 @@
  */
 use R3m\Io\App;
 
-function validate_is_array(App $object, $array=[], $field='', $argument='', $function=false): bool
+function validate_is_array(App $object, $array=null, $field='', $argument='', $function=false): bool
 {
     if(is_array($argument)){
-        ddd($argument);
+        foreach($argument as $nr => $record){
+            if($record === null && $array === null){
+                return true;
+            }
+            elseif(is_bool($record)){
+                if($record === true){
+                    return is_array($array);
+                } else {
+                    return !is_array($array);
+                }
+            }
+        }
+        return false;
     }
     if(is_bool($argument)){
         if($argument === true){
