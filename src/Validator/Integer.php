@@ -17,6 +17,7 @@ use R3m\Io\Module\Parse\Token;
  */
 function validate_integer(App $object, $string='', $field='', $argument='', $function=false): bool
 {
+    d($string);
     $int = intval($string);
     d($int);
     ddd($argument);
