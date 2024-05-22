@@ -39,8 +39,6 @@ function validate_in_array_email(App $object, $array=null, $field='', $argument=
             if(
                 is_array($argument)
             ){
-
-
                 if(in_array(true, $argument, true)){
                     if(!filter_var($value, FILTER_VALIDATE_EMAIL)) {
                         // invalid address
@@ -54,9 +52,18 @@ function validate_in_array_email(App $object, $array=null, $field='', $argument=
                     }
                 }
             }
-            elseif(!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                // invalid address
-                return false;
+            elseif(is_bool($argument)){
+                if($argument === true){
+                    if(!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                        // invalid address
+                        return false;
+                    }
+                } else {
+                    if(filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                        // invalid address
+                        return false;
+                    }
+                }
             }
         }
         return true;
