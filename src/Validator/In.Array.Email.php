@@ -27,6 +27,8 @@ function validate_in_array_email(App $object, $array=null, $field='', $argument=
     ){
         $array = Core::object($array, Core::OBJECT_ARRAY);
     }
+    d($array);
+    d($argument);
     if(
         is_array($argument) &&
         in_array(null, $argument, true) &&
