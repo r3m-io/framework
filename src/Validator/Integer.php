@@ -45,9 +45,6 @@ function validate_integer(App $object, $string='', $field='', $argument='', $fun
                     break;
                 }
             }
-            d($left);
-            d($equation);
-            ddd($right);
             $result = false;
             switch($equation){
                 case '>' :
