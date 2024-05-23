@@ -37,7 +37,7 @@ jobs:
 
     - name: install application & test package
       run: |        
-        echo php Bin/R3m.php install r3m_io/boot  
+        php Bin/R3m.php install r3m_io/boot  
         echo php Bin/R3m.php install r3m_io/test
 #        echo php Bin/R3m.php r3m_io/test run
 
