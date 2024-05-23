@@ -2026,7 +2026,7 @@ class Core
                 if($logger_error){
                     $object->logger($logger_error)->error('Could not compile item: ' . $select, [$url, $compile, $scope]);
                 }
-                throw new ObjectException('Could not compile item: ' . $select . PHP_EOL);
+                throw new ObjectException('Could not compile item: ' . $select . ', url: ' . $url  . ', scope: ' . $scope . PHP_EOL);
             }
             if(is_array($read)){
                 $explode = explode('.', $select);
