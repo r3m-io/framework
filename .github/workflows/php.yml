@@ -19,8 +19,6 @@ jobs:
 
     #- name: Validate composer.json and composer.lock
     #  run: composer validate --strict
-
-    #  Remco van der Velde:
     #  -
     #  - name: Cache Composer packages
 
