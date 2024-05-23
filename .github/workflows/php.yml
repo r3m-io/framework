@@ -38,7 +38,7 @@ jobs:
     #- name: Prepare binary
     #  run: php Bin/R3m.php
 #      run: mkdir -p Bin && cp vendor/r3m_io/framework/Bin/R3m.php Bin/R3m.php && php Bin/R3m.php
-
+# Pest
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
