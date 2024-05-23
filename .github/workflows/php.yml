@@ -37,7 +37,8 @@ jobs:
 
     - name: Run application
       run: |
-        echo php Bin/R3m.php info all >> "$GITHUB_OUTPUT"        
+        echo php Bin/R3m.php info all
+        echo "{markdown content}" >> $GITHUB_STEP_SUMMARY
 
     #- name: Prepare binary
     #  run: php Bin/R3m.php
