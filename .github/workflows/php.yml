@@ -35,8 +35,8 @@ jobs:
 #      run: composer install --prefer-dist --no-progress
       run: composer install --prefer-dist
 
-    - name: Prepare binary
-      run: mkdir -p Bin && cp vendor/r3m_io/framework/Bin/R3m.php Bin/R3m.php && php Bin/R3m.php
+#    - name: Prepare binary
+#      run: mkdir -p Bin && cp vendor/r3m_io/framework/Bin/R3m.php Bin/R3m.php && php Bin/R3m.php
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
