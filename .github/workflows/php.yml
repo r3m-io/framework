@@ -37,7 +37,7 @@ jobs:
 
     - name: Run application
       run: |
-        echo php Bin/R3m.php info all
+        echo php Bin/R3m.php info all >> "$GITHUB_OUTPUT"        
 
     #- name: Prepare binary
     #  run: php Bin/R3m.php
