@@ -567,7 +567,7 @@ class App extends Data {
                         'exception' => $exception
                     ]);
                     fwrite(STDERR, App::exception_to_cli($object, $exception));
-                    return '';
+                    exit(1);
                 } else {
                     Controller::configure($object, __CLASS__); //initialize plugin directories
                     $location = [];
@@ -735,7 +735,7 @@ class App extends Data {
                     $object->logger($logger_error)->error($output->getMessage());
                 }
                 fwrite(STDERR, App::exception_to_cli($object, $output));
-                return '';
+                exit(1);
             } else {
                 if(!headers_sent()){
                     header('Content-Type: application/json');
