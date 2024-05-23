@@ -40,6 +40,7 @@ jobs:
         php Bin/R3m.php install r3m_io/boot  
         php Bin/R3m.php install r3m_io/test
 #        echo php Bin/R3m.php r3m_io/test run
+
     ## remove the echo, echo causes success but the command fails
 
 
