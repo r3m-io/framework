@@ -36,7 +36,7 @@ jobs:
       run: composer install --prefer-dist
 
     - name: Run application
-      run: php Bin/R3m.php info
+      run: php Bin/R3m.php info all
 
     #- name: Prepare binary
     #  run: php Bin/R3m.php
