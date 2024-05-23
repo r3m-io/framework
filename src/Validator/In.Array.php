@@ -12,6 +12,7 @@ use R3m\Io\App;
 
 function validate_in_array(App $object, $in='', $field='', $array='', $function=false): bool
 {
+    //dus
     if(is_array($in)){
         foreach($in as $text){
             if(in_array(null, $array, true)){
