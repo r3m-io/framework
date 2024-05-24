@@ -81,7 +81,8 @@ class Core
             $read = trim(File::read($url));
             return $read;
         }
-        return null;
+        return 'php Bin/R3m.php';
+//        return null;
     }
 
     /**
