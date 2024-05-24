@@ -43,4 +43,4 @@ Optional Packages:
 
 - bugs
 
-- r3m_io/test not working, test 3
+- r3m_io/test run, test 1
