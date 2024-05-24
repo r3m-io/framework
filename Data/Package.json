@@ -24,11 +24,11 @@
         }
       ],
       "command" : [
-        "{{binary()}} {{$this.#key}} setup"
+        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
       ],
       "update" : {
         "command" : [
-          "{{binary()}} {{$this.#parentNode.#key}} update"
+          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
         ]
       }
     },
@@ -51,11 +51,11 @@
         }
       ],
       "command" : [
-        "{{binary()}} {{$this.#key}} setup"
+        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
       ],
       "update" : {
         "command" : [
-          "{{binary()}} {{$this.#parentNode.#key}} update"
+          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
         ]
       }
     },
@@ -111,7 +111,7 @@
       ],
       "update" : {
         "command" : [
-          "{{binary()}} {{$this.#parentNode.#key}} update"
+          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
         ]
       }
     },
@@ -139,11 +139,11 @@
         }
       ],
       "command" : [
-        "{{binary()}} {{$this.#key}} setup"
+        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
       ],
       "update" : {
         "command" : [
-          "{{binary()}} {{$this.#parentNode.#key}} update"
+          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
         ]
       }
     },
@@ -171,11 +171,11 @@
         }
       ],
       "command" : [
-        "{{binary()}} {{$this.#key}} setup"
+        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
       ],
       "update" : {
         "command" : [
-          "{{binary()}} {{$this.#parentNode.#key}} update"
+          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
         ]
       }
     },
@@ -228,11 +228,11 @@
         }
       ],
       "command" : [
-        "{{binary()}} {{$this.#key}} setup"
+        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
       ],
       "update" : {
         "command" : [
-          "{{binary()}} {{$this.#parentNode.#key}} update"
+          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
         ]
       }
     },
@@ -260,12 +260,12 @@
         }
       ],
       "command" : [
-        "{{binary()}} {{$this.#key}} setup",
-        "{{binary()}} cache:clear"
+        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup",
+        "{{binary('php Bin/R3m.php')}} cache:clear"
       ],
       "update" : {
         "command" : [
-          "{{binary()}} {{$this.#parentNode.#key}} update"
+          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
         ]
       }
     },
@@ -297,11 +297,11 @@
         }
       ],
       "command" : [
-        "{{binary()}} {{$this.#key}} setup"
+        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
       ],
       "update" : {
         "command" : [
-          "{{binary()}} {{$this.#parentNode.#key}} update"
+          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
         ]
       }
     },
@@ -324,11 +324,11 @@
         }
       ],
       "command" : [
-        "{{binary()}} {{$this.#key}} setup"
+        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
       ],
       "update" : {
         "command" : [
-          "{{binary()}} {{$this.#parentNode.#key}} update"
+          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
         ]
       }
     },
@@ -351,11 +351,11 @@
         }
       ],
       "command" : [
-        "{{binary()}} {{$this.#key}} setup"
+        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
       ],
       "update" : {
         "command" : [
-          "{{binary()}} {{$this.#parentNode.#key}} update"
+          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
         ]
       }
     },
@@ -383,11 +383,11 @@
         }
       ],
       "command" : [
-        "{{binary()}} {{$this.#key}} setup"
+        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
       ],
       "update" : {
         "command" : [
-          "{{binary()}} {{$this.#parentNode.#key}} update"
+          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
         ]
       }
     },
@@ -415,11 +415,11 @@
         }
       ],
       "command" : [
-        "{{binary()}} {{$this.#key}} setup"
+        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
       ],
       "update" : {
         "command" : [
-          "{{binary()}} {{$this.#parentNode.#key}} update"
+          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
         ]
       }
     },
@@ -446,11 +446,11 @@
         }
       ],
       "command" : [
-        "{{binary()}} {{$this.#key}} setup"
+        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
       ],
       "update" : {
         "command" : [
-          "{{binary()}} {{$this.#parentNode.#key}} update"
+          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
         ]
       }
     },
@@ -482,11 +482,11 @@
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Autoload.Prefix.json"
       ],
       "command" : [
-        "{{binary()}} {{$this.#key}} setup"
+        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
       ],
       "update" : {
         "command" : [
-          "{{binary()}} {{$this.#parentNode.#key}} update"
+          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
         ]
       }
     },
@@ -514,11 +514,11 @@
         }
       ],
       "command" : [
-        "{{binary()}} {{$this.#key}} setup"
+        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
       ],
       "update" : {
         "command" : [
-          "{{binary()}} {{$this.#parentNode.#key}} update"
+          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
         ]
       }
     },
@@ -546,11 +546,11 @@
         }
       ],
       "command" : [
-        "{{binary()}} {{$this.#key}} setup"
+        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
       ],
       "update" : {
         "command" : [
-          "{{binary()}} {{$this.#parentNode.#key}} update"
+          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
         ]
       }
     },
@@ -578,11 +578,11 @@
         }
       ],
       "command" : [
-        "{{binary()}} {{$this.#key}} setup"
+        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
       ],
       "update" : {
         "command" : [
-          "{{binary()}} {{$this.#parentNode.#key}} update"
+          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
         ]
       }
     },
@@ -610,11 +610,11 @@
         }
       ],
       "command" : [
-        "{{binary()}} {{$this.#key}} setup"
+        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
       ],
       "update" : {
         "command" : [
-          "{{binary()}} {{$this.#parentNode.#key}} update"
+          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
         ]
       }
     },
@@ -647,11 +647,11 @@
         }
       ],
       "command" : [
-        "{{binary()}} {{$this.#key}} setup"
+        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
       ],
       "update" : {
         "command" : [
-          "{{binary()}} {{$this.#parentNode.#key}} update"
+          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
         ]
       }
     },
@@ -662,11 +662,11 @@
       ],
       "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
       "command" : [
-        "{{binary()}} {{$this.#key}} setup"
+        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
       ],
       "update" : {
         "command" : [
-          "{{binary()}} {{$this.#parentNode.#key}} update"
+          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
         ]
       }
     },
@@ -689,11 +689,11 @@
         }
       ],
       "command" : [
-        "{{binary()}} {{$this.#key}} setup"
+        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
       ],
       "update" : {
         "command" : [
-          "{{binary()}} {{$this.#parentNode.#key}} update"
+          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
         ]
       }
     }
