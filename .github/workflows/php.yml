@@ -44,13 +44,6 @@ jobs:
         php Bin/R3m.php install r3m_io/test -force
         
 
-    ## remove the echo, echo causes success but the command fails
-    # so running `install` isn't working again...
-    # delete _work directory and try again
-    # package r3m_io/boot seems to work
-    # autoload is blocking
-
-
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
