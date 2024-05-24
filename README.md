@@ -43,4 +43,4 @@ Optional Packages:
 
 - bugs
 
-- r3m_io/test run, test 2, sent mail example
+- r3m_io/test run, test 3
