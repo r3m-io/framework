@@ -33,7 +33,8 @@ jobs:
 
     - name: Install dependencies
 #      run: composer install --prefer-dist --no-progress
-      run: composer install --prefer-dist
+#      run: composer install --prefer-dist
+      run: composer install
 
     - name: install application & test package
       run: |        
