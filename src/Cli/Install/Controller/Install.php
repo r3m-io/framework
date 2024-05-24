@@ -407,9 +407,11 @@ class Install extends Controller {
                 echo $command . PHP_EOL;
                 Core::execute($object, $command, $output, $notification);
                 if(!empty($output)){
+                    d('output');
                     echo rtrim($output, PHP_EOL) . PHP_EOL;
                 }
                 if(!empty($notification)){
+                    d('notification');
                     echo rtrim($notification, PHP_EOL) . PHP_EOL;
                 }
             }
