@@ -33,7 +33,7 @@ jobs:
 
     - name: Install dependencies
 #      run: composer install --prefer-dist --no-progress
-      run: COMPOSER_ROOT_VERSION=dev-main composer install --prefer-dist
+      run: COMPOSER_ROOT_VERSION=2024.0.1 composer install --prefer-dist
 #      run: composer install # not working
 
     - name: install application & test package
