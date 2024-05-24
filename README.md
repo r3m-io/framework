@@ -40,3 +40,7 @@ Optional Packages:
 - r3m_io/priya
 
 [1] Needs github action installation
+
+- bugs
+
+- r3m_io/test not working
