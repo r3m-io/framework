@@ -43,7 +43,7 @@ jobs:
 #        echo php Bin/R3m.php r3m_io/test run
 
     ## remove the echo, echo causes success but the command fails
-    # so running `install` isn't working
+    # so running `install` isn't working again...
     # delete _work directory and try again
 
 
