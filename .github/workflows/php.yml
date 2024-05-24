@@ -40,7 +40,7 @@ jobs:
       run: |        
         php Bin/R3m.php install r3m_io/boot -force  
         php Bin/R3m.php install r3m_io/test -force
-        php Bin/R3m.php r3m_io/test run
+        
 
     ## remove the echo, echo causes success but the command fails
     # so running `install` isn't working again...
@@ -52,6 +52,6 @@ jobs:
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
-#    - name: Run test suite
-#      run: |
-#        composer test
+    - name: Run test suite
+      run: |
+        php Bin/R3m.php r3m_io/test run
