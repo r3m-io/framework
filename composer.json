@@ -18,7 +18,7 @@
 		"ext-zip": "*",
 		"ext-shmop": "*",
 		"r3m_io/autoload": ">=2024.05.25",
-		"r3m_io/boot": ">=2024.04.26",
+		"r3m_io/boot": ">=2024.05.25",
 		"r3m_io/basic": ">=2024.04.26",
 		"r3m_io/event": ">=2024.04.26",
 		"r3m_io/config": ">=2024.04.26",
