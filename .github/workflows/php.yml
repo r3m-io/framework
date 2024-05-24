@@ -44,6 +44,7 @@ jobs:
 
     ## remove the echo, echo causes success but the command fails
     # so running `install` isn't working
+    # delete _work directory and try again
 
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
