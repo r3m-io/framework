@@ -406,14 +406,14 @@ class Install extends Controller {
                 }
                 echo $command . PHP_EOL;
                 $code = Core::execute($object, $command, $output, $notification);
-                d($code);
                 if(!empty($output)){
-                    d('output');
                     echo rtrim($output, PHP_EOL) . PHP_EOL;
                 }
                 if(!empty($notification)){
-                    d('notification');
                     echo rtrim($notification, PHP_EOL) . PHP_EOL;
+                }
+                if($code > 0){
+                    throw new Exception('Command ('. $command . ') returned with exit code: ' . $code . '.');
                 }
             }
         }
@@ -427,14 +427,14 @@ class Install extends Controller {
             }
             echo $command . PHP_EOL;
             $code = Core::execute($object, $command, $output, $notification);
-            d($code);
             if(!empty($output)){
-                d('output');
                 echo rtrim($output, PHP_EOL) . PHP_EOL;
             }
             if(!empty($notification)){
-                d('notification');
                 echo rtrim($notification, PHP_EOL) . PHP_EOL;
+            }
+            if($code > 0){
+                throw new Exception('Command ('. $command . ') returned with exit code: ' . $code . '.');
             }
         }
         Event::trigger($object, 'cli.install', [
