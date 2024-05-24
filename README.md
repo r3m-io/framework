@@ -16,3 +16,25 @@ Despite being powerful, R3M/Framework doesn't compromise on the ease of use, mak
 All in all, R3M/Framework fuses power with ease and flexibility, offering an optimal toolset that caters well to contemporary web application development needs.
 
 See https://r3m.io for more information.
+
+Required Packages:
+- r3m_io/boot
+- r3m_io/basic
+- r3m_io/middleware
+- r3m_io/host
+- r3m_io/config
+- r3m_io/event
+- r3m_io/autoload
+- r3m_io/node
+- r3m_io/server
+- r3m_io/output_filter
+- r3m_io/account
+- r3m_io/log
+- r3m_io/route
+
+Optional Packages:
+
+- r3m_io/test
+- r3m_io/doctrine
+- r3m_io/email
+- r3m_io/priya
