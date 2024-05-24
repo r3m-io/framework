@@ -15,7 +15,7 @@ use R3m\Io\Module\Core;
 /**
  * @throws Exception
  */
-function function_binary(Parse $parse, Data $data){
+function function_binary(Parse $parse, Data $data, $fallback=null){
    $object = $parse->object();
-   return Core::binary($object);
+   return Core::binary($object) ?? $fallback;
 }
