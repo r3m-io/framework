@@ -43,7 +43,7 @@ jobs:
 #        echo php Bin/R3m.php r3m_io/test run
 
     ## remove the echo, echo causes success but the command fails
-    # so running install isnt working
+    # so running `install` isn't working
 
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
