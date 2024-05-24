@@ -107,7 +107,7 @@
         }
       ],
       "command" : [
-        "{{binary()|default:'php Bin/R3m.php'}} {{$this.#key}} setup"
+        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
       ],
       "update" : {
         "command" : [
