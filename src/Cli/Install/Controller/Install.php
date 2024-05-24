@@ -405,7 +405,8 @@ class Install extends Controller {
                     $command .= ' ' . implode(' ', $command_options);
                 }
                 echo $command . PHP_EOL;
-                Core::execute($object, $command, $output, $notification);
+                $code = Core::execute($object, $command, $output, $notification);
+                d($code);
                 if(!empty($output)){
                     d('output');
                     echo rtrim($output, PHP_EOL) . PHP_EOL;
@@ -425,7 +426,8 @@ class Install extends Controller {
                 $command .= ' ' . implode(' ', $command_options);
             }
             echo $command . PHP_EOL;
-            Core::execute($object, $command, $output, $notification);
+            $code = Core::execute($object, $command, $output, $notification);
+            d($code);
             if(!empty($output)){
                 d('output');
                 echo rtrim($output, PHP_EOL) . PHP_EOL;
