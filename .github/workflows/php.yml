@@ -35,7 +35,7 @@ jobs:
 
     - name: Install dependencies
 #      run: composer install --prefer-dist --no-progress
-      run: composer install 
+      run: composer install
 #      run: composer install # not working
 
     - name: install application & test package
@@ -47,7 +47,7 @@ jobs:
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
-    # run test script 4
+    # run test script 5
 
     - name: Run test suite
       run: |
