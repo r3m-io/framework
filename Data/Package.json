@@ -1,7 +1,7 @@
 {
   "package" : {
     "r3m_io/account" : {
-      "composer" : "composer require {{$this.#key}}:*",
+      "composer" : "composer require {{$this.#key}}:>=2024.04.26",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
@@ -33,7 +33,7 @@
       }
     },
     "r3m_io/application" : {
-      "composer" : "composer require {{$this.#key}}:*",
+      "composer" : "composer require {{$this.#key}}:>=2024.04.26",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
@@ -60,7 +60,7 @@
       }
     },
     "r3m_io/boot" : {
-      "composer" : "composer require {{$this.#key}}:*",
+      "composer" : "composer require {{$this.#key}}:>=2024.04.26",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
@@ -116,7 +116,7 @@
       }
     },
     "r3m_io/config" : {
-      "composer" : "composer require {{$this.#key}}:*",
+      "composer" : "composer require {{$this.#key}}:>=2024.04.26",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
@@ -148,7 +148,7 @@
       }
     },
     "r3m_io/doctrine" : {
-      "composer" : "composer require {{$this.#key}}:*",
+      "composer" : "composer require {{$this.#key}}:>=2024.04.26",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
@@ -180,7 +180,7 @@
       }
     },
     "r3m_io/email" : {
-      "composer" : "composer require {{$this.#key}}:*",
+      "composer" : "composer require {{$this.#key}}:>=2024.04.26",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
@@ -237,7 +237,7 @@
       }
     },
     "r3m_io/log" : {
-      "composer" : "composer require {{$this.#key}}:*",
+      "composer" : "composer require {{$this.#key}}:>=2024.04.26",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
@@ -270,7 +270,7 @@
       }
     },
     "r3m_io/event" : {
-      "composer" : "composer require {{$this.#key}}:*",
+      "composer" : "composer require {{$this.#key}}:>=2024.04.26",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
@@ -306,7 +306,7 @@
       }
     },
     "r3m_io/host" : {
-      "composer" : "composer require {{$this.#key}}:*",
+      "composer" : "composer require {{$this.#key}}:>=2024.04.26",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
@@ -333,7 +333,7 @@
       }
     },
     "r3m_io/keyboard" : {
-      "composer" : "composer require {{$this.#key}}:*",
+      "composer" : "composer require {{$this.#key}}:>=2024.04.26",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
@@ -360,7 +360,7 @@
       }
     },
     "r3m_io/node" : {
-      "composer" : "composer require {{$this.#key}}:*",
+      "composer" : "composer require {{$this.#key}}:>=2024.04.26",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
@@ -392,7 +392,7 @@
       }
     },
     "r3m_io/raxon" : {
-      "composer" : "composer require {{$this.#key}}:*",
+      "composer" : "composer require {{$this.#key}}:>=2024.04.26",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
@@ -424,7 +424,7 @@
       }
     },
     "r3m_io/route" : {
-      "composer" : "composer require {{$this.#key}}:*",
+      "composer" : "composer require {{$this.#key}}:>=2024.04.26",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
@@ -455,7 +455,7 @@
       }
     },
     "r3m_io/autoload" : {
-      "composer" : "composer require {{$this.#key}}:*",
+      "composer" : "composer require {{$this.#key}}:>=2024.04.26",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
@@ -491,7 +491,7 @@
       }
     },
     "r3m_io/server" : {
-      "composer" : "composer require {{$this.#key}}:*",
+      "composer" : "composer require {{$this.#key}}:>=2024.04.26",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
@@ -523,7 +523,7 @@
       }
     },
     "r3m_io/middleware" : {
-      "composer" : "composer require {{$this.#key}}:*",
+      "composer" : "composer require {{$this.#key}}:>=2024.04.26",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
@@ -555,7 +555,7 @@
       }
     },
     "r3m_io/output_filter" : {
-      "composer" : "composer require {{$this.#key}}:*",
+      "composer" : "composer require {{$this.#key}}:>=2024.04.26",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
@@ -587,7 +587,7 @@
       }
     },
     "r3m_io/basic" : {
-      "composer" : "composer require {{$this.#key}}:*",
+      "composer" : "composer require {{$this.#key}}:>=2024.04.26",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
@@ -619,7 +619,7 @@
       }
     },
     "r3m_io/example" : {
-      "composer" : "composer require {{$this.#key}}:*",
+      "composer" : "composer require {{$this.#key}}:>=2024.04.26",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
@@ -671,7 +671,7 @@
       }
     },
     "r3m_io/test" : {
-      "composer" : "composer require {{$this.#key}}:*",
+      "composer" : "composer require {{$this.#key}}:>=2024.04.26",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
