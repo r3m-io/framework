@@ -46,6 +46,7 @@ jobs:
     # so running `install` isn't working again...
     # delete _work directory and try again
     # package r3m_io/boot seems to work
+    # autoload is blocking
 
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
