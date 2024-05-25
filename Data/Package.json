@@ -671,7 +671,8 @@
       }
     },
     "r3m_io/test" : {
-      "composer" : "composer require {{$this.#key}}:~2024",
+      "composer.old" : "composer require {{$this.#key}}:~2024",
+      "composer" : "composer require {{$this.#key}}:dev-main",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
