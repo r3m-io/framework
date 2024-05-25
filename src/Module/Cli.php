@@ -247,8 +247,8 @@ class Cli {
     public static function alert($text='', $options=[]): string
     {
         if(
-            array_key_exists('capitals', $options) &&
-            $options['capitals'] === true
+            array_key_exists('uppercase', $options) &&
+            $options['uppercase'] === true
         ){
             $text = strtoupper($text);
         }
@@ -259,8 +259,8 @@ class Cli {
     public static function critical($text='', $options=[]): string
     {
         if(
-            array_key_exists('capitals', $options) &&
-            $options['capitals'] === true
+            array_key_exists('uppercase', $options) &&
+            $options['uppercase'] === true
         ){
             $text = strtoupper($text);
         }
@@ -271,8 +271,8 @@ class Cli {
     public static function debug($text='', $options=[]): string
     {
         if(
-            array_key_exists('capitals', $options) &&
-            $options['capitals'] === true
+            array_key_exists('uppercase', $options) &&
+            $options['uppercase'] === true
         ){
             $text = strtoupper($text);
         }
@@ -283,8 +283,8 @@ class Cli {
     public static function emergency($text='', $options=[]): string
     {
         if(
-            array_key_exists('capitals', $options) &&
-            $options['capitals'] === true
+            array_key_exists('uppercase', $options) &&
+            $options['uppercase'] === true
         ){
             $text = strtoupper($text);
         }
@@ -295,8 +295,8 @@ class Cli {
     public static function error($text='', $options=[]): string
     {
         if(
-            array_key_exists('capitals', $options) &&
-            $options['capitals'] === true
+            array_key_exists('uppercase', $options) &&
+            $options['uppercase'] === true
         ){
             $text = strtoupper($text);
         }
@@ -307,8 +307,8 @@ class Cli {
     public static function info($text='', $options=[]): string
     {
         if(
-            array_key_exists('capitals', $options) &&
-            $options['capitals'] === true
+            array_key_exists('uppercase', $options) &&
+            $options['uppercase'] === true
         ){
             $text = strtoupper($text);
         }
@@ -319,8 +319,8 @@ class Cli {
     public static function notice($text='', $options=[]): string
     {
         if(
-            array_key_exists('capitals', $options) &&
-            $options['capitals'] === true
+            array_key_exists('uppercase', $options) &&
+            $options['uppercase'] === true
         ){
             $text = strtoupper($text);
         }
@@ -331,8 +331,8 @@ class Cli {
     public static function warning($text='', $options=[]): string
     {
         if(
-            array_key_exists('capitals', $options) &&
-            $options['capitals'] === true
+            array_key_exists('uppercase', $options) &&
+            $options['uppercase'] === true
         ){
             $text = strtoupper($text);
         }
