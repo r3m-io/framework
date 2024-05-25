@@ -1,4 +1,4 @@
-name: PHP Composer
+name: Test r3m_io/framework with default packages
 
 on:
   push:
