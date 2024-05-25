@@ -247,18 +247,18 @@ class Cli {
     public static function info($text=''): void
     {
         $text = ' ' . $text . ' ';
-        echo Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>0, 'g'=>150, 'b'=>200]) . $text . Cli::tput('reset') . PHP_EOL;
+        echo Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>0, 'g'=>150, 'b'=>200]) . $text . Cli::tput('reset');
     }
 
     public static function error($text=''): void
     {
         $text = ' ' . $text . ' ';
-        echo Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>200, 'g'=>0, 'b'=>0]) . $text . Cli::tput('reset') . PHP_EOL;
+        echo Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>200, 'g'=>0, 'b'=>0]) . $text . Cli::tput('reset');
     }
 
     public static function warning($text=''): void
     {
         $text = ' ' . $text . ' ';
-        echo Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>200, 'g'=>100, 'b'=>0]) . $text . Cli::tput('reset') . PHP_EOL;
+        echo Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>200, 'g'=>100, 'b'=>0]) . $text . Cli::tput('reset');
     }
 }
