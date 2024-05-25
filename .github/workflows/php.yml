@@ -35,12 +35,13 @@ jobs:
 
     - name: Install dependencies
 #      run: composer install --prefer-dist --no-progress
-      run: composer self-update && composer install --dev
+      run: composer self-update && composer install
 #      run: composer install # not working
 
     - name: install application & test package
       run: |        
-        php Bin/R3m.php install r3m_io/boot -force  
+        php Bin/R3m.php install r3m_io/boot -force 
+        composer require pestphp/pest --dev
         php Bin/R3m.php install r3m_io/test -force
         
 
