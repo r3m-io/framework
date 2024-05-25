@@ -339,4 +339,16 @@ class Cli {
         $text = ' ' . $text . ' ';
         echo Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>255, 'g'=>124, 'b'=>13]) . $text . Cli::tput('reset');
     }
+
+    public static function labels(){
+        CLi::alert('') . 'Alert' . PHP_EOL;
+        CLi::critical('') . 'Critical' . PHP_EOL;
+        CLi::debug('') . 'Debug' . PHP_EOL;
+        CLi::emergency('') . 'Emergency' . PHP_EOL;
+        CLi::error('') . 'Error' . PHP_EOL;
+        CLi::info('') . 'Info' . PHP_EOL;
+        CLi::notice('') . 'Notice' . PHP_EOL;
+        CLi::warning('') . 'Warning' . PHP_EOL;
+    }
+
 }
