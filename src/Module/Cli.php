@@ -341,6 +341,7 @@ class Cli {
     }
 
     public static function labels(){
+        echo CLi::notice('Labels: ') . PHP_EOL;
         echo CLi::alert('Alert', ['uppercase' => true]) . PHP_EOL;
         echo CLi::critical('Critical', ['uppercase' => true]) . PHP_EOL;
         echo CLi::debug('Debug', ['uppercase' => true])  . PHP_EOL;
