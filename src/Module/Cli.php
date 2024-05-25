@@ -244,20 +244,98 @@ class Cli {
         return implode('', $result);
     }
 
-    public static function info($text=''): void
+    public static function alert($text='', $options=[]): void
     {
+        if(
+            array_key_exists('capitals', $options) &&
+            $options['capitals'] === true
+        ){
+            $text = strtoupper($text);
+        }
         $text = ' ' . $text . ' ';
-        echo Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>0, 'g'=>150, 'b'=>200]) . $text . Cli::tput('reset');
+        echo Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>200, 'g'=>100, 'b'=>0]) . $text . Cli::tput('reset');
     }
 
-    public static function error($text=''): void
+    public static function critical($text='', $options=[]): void
     {
+        if(
+            array_key_exists('capitals', $options) &&
+            $options['capitals'] === true
+        ){
+            $text = strtoupper($text);
+        }
+        $text = ' ' . $text . ' ';
+        echo Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>200, 'g'=>0, 'b'=>200]) . $text . Cli::tput('reset');
+    }
+
+    public static function debug($text='', $options=[]): void
+    {
+        if(
+            array_key_exists('capitals', $options) &&
+            $options['capitals'] === true
+        ){
+            $text = strtoupper($text);
+        }
+        $text = ' ' . $text . ' ';
+        echo Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>0, 'g'=>200, 'b'=>0]) . $text . Cli::tput('reset');
+    }
+
+    public static function emergency($text='', $options=[]): void
+    {
+        if(
+            array_key_exists('capitals', $options) &&
+            $options['capitals'] === true
+        ){
+            $text = strtoupper($text);
+        }
+        $text = ' ' . $text . ' ';
+        echo Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>255, 'g'=>0, 'b'=>0]) . $text . Cli::tput('reset');
+    }
+
+    public static function error($text='', $options=[]): void
+    {
+        if(
+            array_key_exists('capitals', $options) &&
+            $options['capitals'] === true
+        ){
+            $text = strtoupper($text);
+        }
         $text = ' ' . $text . ' ';
         echo Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>200, 'g'=>0, 'b'=>0]) . $text . Cli::tput('reset');
     }
 
-    public static function warning($text=''): void
+    public static function info($text='', $options=[]): void
     {
+        if(
+            array_key_exists('capitals', $options) &&
+            $options['capitals'] === true
+        ){
+            $text = strtoupper($text);
+        }
+        $text = ' ' . $text . ' ';
+        echo Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>0, 'g'=>150, 'b'=>200]) . $text . Cli::tput('reset');
+    }
+
+    public static function notice($text='', $options=[]): void
+    {
+        if(
+            array_key_exists('capitals', $options) &&
+            $options['capitals'] === true
+        ){
+            $text = strtoupper($text);
+        }
+        $text = ' ' . $text . ' ';
+        echo Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>0, 'g'=>0, 'b'=>0]) . $text . Cli::tput('reset');
+    }
+
+    public static function warning($text='', $options=[]): void
+    {
+        if(
+            array_key_exists('capitals', $options) &&
+            $options['capitals'] === true
+        ){
+            $text = strtoupper($text);
+        }
         $text = ' ' . $text . ' ';
         echo Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>200, 'g'=>100, 'b'=>0]) . $text . Cli::tput('reset');
     }
