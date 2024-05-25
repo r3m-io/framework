@@ -41,6 +41,7 @@ jobs:
     - name: install application & test package
       run: |        
         php Bin/R3m.php install r3m_io/boot -force 
+        composer config --no-plugins allow-plugins.pestphp/pest-plugin true
         composer require pestphp/pest --dev
         php Bin/R3m.php install r3m_io/test -force
         
