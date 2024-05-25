@@ -78,15 +78,18 @@ class Cli {
         return $input;
     }
 
-    public static function default(){
+    public static function default(): void
+    {
         echo chr(27) . "[0m";
     }
 
-    public static function width(){
+    public static function width(): bool|string
+    {
         return exec('tput cols');
     }
 
-    public static function height(){
+    public static function height(): bool|string
+    {
         return exec('tput lines');
     }
 
@@ -239,5 +242,23 @@ class Cli {
             $result[] = chr(27) . '[48;2;' . $color->r . ';' . $color->g . ';' . $color->b . 'm'; //rgb background color
         }
         return implode('', $result);
+    }
+
+    public static function info($text=''): void
+    {
+        $text = ' ' . $text . ' ';
+        echo Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>0, 'g'=>150, 'b'=>200]) . $text . Cli::tput('reset') . PHP_EOL;
+    }
+
+    public static function error($text=''): void
+    {
+        $text = ' ' . $text . ' ';
+        echo Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>200, 'g'=>0, 'b'=>0]) . $text . Cli::tput('reset') . PHP_EOL;
+    }
+
+    public static function warning($text=''): void
+    {
+        $text = ' ' . $text . ' ';
+        echo Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>200, 'g'=>100, 'b'=>0]) . $text . Cli::tput('reset') . PHP_EOL;
     }
 }
