@@ -111,6 +111,8 @@ class Config extends Data {
     const VALUE_EXECUTE = 'Execute';
     const VALIDATOR = 'validator';
     const VALUE_VALIDATOR = 'Validator';
+    const TEST = 'test';
+    const VALUE_TEST = 'Test';
     const ROUTE = 'Route.json';
     const CONFIG = 'Config.json';
     const DICTIONARY = 'dictionary';
@@ -173,6 +175,7 @@ class Config extends Data {
     const DATA_PROJECT_DIR_COMPONENT =  Config::DATA_PROJECT_DIR . '.' . 'component';
     const DATA_PROJECT_DIR_VALIDATE =  Config::DATA_PROJECT_DIR . '.' . 'validate';
     const DATA_PROJECT_DIR_VALIDATOR =  Config::DATA_PROJECT_DIR . '.' . 'validator';
+    const DATA_PROJECT_DIR_TEST =  Config::DATA_PROJECT_DIR . '.' . 'test';
     const DATA_PROJECT_VOLUME = 'project.volume';
     const DATA_CONTROLLER = 'controller';
     const DATA_CONTROLLER_CLASS = 'controller.class';
@@ -353,6 +356,11 @@ class Config extends Data {
             }
             $key = Config::DATA_PROJECT_DIR_VALIDATOR;
             $value = $volume->data('volume.dir.validator');
+            if($value){
+                $config->data($key, $value);
+            }
+            $key = Config::DATA_PROJECT_DIR_TEST;
+            $value = $volume->data('volume.dir.test');
             if($value){
                 $config->data($key, $value);
             }
@@ -672,6 +680,10 @@ class Config extends Data {
         $value = Config::VALUE_VALIDATOR;
         $this->data($key, $value);
 
+        $key = Config::DICTIONARY . '.' . Config::TEST;
+        $value = Config::VALUE_TEST;
+        $this->data($key, $value);
+
         $key = Config::DICTIONARY . '.' . Config::DS;
         $value = Config::VALUE_DS;
         $this->data($key, $value);
@@ -858,6 +870,13 @@ class Config extends Data {
         $value =
             $this->data(Config::DATA_PROJECT_DIR_SOURCE) .
             $this->data(Config::DICTIONARY . '.' . Config::VALIDATOR) .
+            $this->data(Config::DS)
+        ;
+        $this->data($key, $value);
+        $key = Config::DATA_PROJECT_DIR_TEST;
+        $value =
+            $this->data(Config::DATA_PROJECT_DIR_ROOT) .
+            $this->data(Config::DICTIONARY . '.' . Config::TEST) .
             $this->data(Config::DS)
         ;
         $this->data($key, $value);
