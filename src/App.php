@@ -734,7 +734,6 @@ class App extends Data {
                 if($logger_error){
                     $object->logger($logger_error)->error($output->getMessage());
                 }
-                ddd('yes');
                 fwrite(STDERR, App::exception_to_cli($object, $output));
                 exit(1);
             } else {
