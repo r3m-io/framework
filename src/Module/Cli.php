@@ -341,14 +341,14 @@ class Cli {
     }
 
     public static function labels(){
-        CLi::alert('') . 'Alert' . PHP_EOL;
-        CLi::critical('') . 'Critical' . PHP_EOL;
-        CLi::debug('') . 'Debug' . PHP_EOL;
-        CLi::emergency('') . 'Emergency' . PHP_EOL;
-        CLi::error('') . 'Error' . PHP_EOL;
-        CLi::info('') . 'Info' . PHP_EOL;
-        CLi::notice('') . 'Notice' . PHP_EOL;
-        CLi::warning('') . 'Warning' . PHP_EOL;
+        echo CLi::alert('') . 'Alert' . PHP_EOL;
+        echo CLi::critical('') . 'Critical' . PHP_EOL;
+        echo CLi::debug('') . 'Debug' . PHP_EOL;
+        echo CLi::emergency('') . 'Emergency' . PHP_EOL;
+        echo CLi::error('') . 'Error' . PHP_EOL;
+        echo CLi::info('') . 'Info' . PHP_EOL;
+        echo CLi::notice('') . 'Notice' . PHP_EOL;
+        echo CLi::warning('') . 'Warning' . PHP_EOL;
     }
 
 }
