@@ -341,14 +341,14 @@ class Cli {
     }
 
     public static function labels(){
-        echo CLi::alert('Alert', ['uppercase' => true]) . 'Alert' . PHP_EOL;
-        echo CLi::critical('Critical', ['uppercase' => true]) . 'Critical' . PHP_EOL;
-        echo CLi::debug('Debug', ['uppercase' => true]) . 'Debug' . PHP_EOL;
-        echo CLi::emergency('Emergency', ['uppercase' => true]) . 'Emergency' . PHP_EOL;
-        echo CLi::error('Error', ['uppercase' => true]) . 'Error' . PHP_EOL;
-        echo CLi::info('Info', ['uppercase' => true]) . 'Info' . PHP_EOL;
-        echo CLi::notice('Notice', ['uppercase' => true]) . 'Notice' . PHP_EOL;
-        echo CLi::warning('Warning', ['uppercase' => true]) . 'Warning' . PHP_EOL;
+        echo CLi::alert('Alert', ['uppercase' => true]) . ' Alert' . PHP_EOL;
+        echo CLi::critical('Critical', ['uppercase' => true]) . ' Critical' . PHP_EOL;
+        echo CLi::debug('Debug', ['uppercase' => true]) . ' Debug' . PHP_EOL;
+        echo CLi::emergency('Emergency', ['uppercase' => true]) . ' Emergency' . PHP_EOL;
+        echo CLi::error('Error', ['uppercase' => true]) . ' Error' . PHP_EOL;
+        echo CLi::info('Info', ['uppercase' => true]) . ' Info' . PHP_EOL;
+        echo CLi::notice('Notice', ['uppercase' => true]) . ' Notice' . PHP_EOL;
+        echo CLi::warning('Warning', ['uppercase' => true]) . ' Warning' . PHP_EOL;
     }
 
 }
