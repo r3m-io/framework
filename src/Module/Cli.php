@@ -337,6 +337,6 @@ class Cli {
             $text = strtoupper($text);
         }
         $text = ' ' . $text . ' ';
-        echo Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>200, 'g'=>100, 'b'=>0]) . $text . Cli::tput('reset');
+        echo Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>255, 'g'=>124, 'b'=>13]) . $text . Cli::tput('reset');
     }
 }
