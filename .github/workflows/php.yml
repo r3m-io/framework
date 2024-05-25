@@ -35,7 +35,7 @@ jobs:
 
     - name: Install dependencies
 #      run: composer install --prefer-dist --no-progress
-      run: composer self-update && composer install
+      run: composer self-update && composer install --dev
 #      run: composer install # not working
 
     - name: install application & test package
