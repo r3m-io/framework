@@ -49,7 +49,7 @@ jobs:
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
-    # run test script 12
+    # run test script 13
 
     - name: Run test suite
       run: |
