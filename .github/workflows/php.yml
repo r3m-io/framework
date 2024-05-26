@@ -42,7 +42,8 @@ jobs:
       #        composer require pestphp/pest --dev
 
     - name: install application & test package
-      run: |        
+      run: |
+        composer require --dev monolog/monolog
         php Bin/R3m.php install r3m_io/boot -force 
         php Bin/R3m.php install r3m_io/test -force
 
