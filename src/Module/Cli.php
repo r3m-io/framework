@@ -341,15 +341,16 @@ class Cli {
     }
 
     public static function labels(){
-        echo CLi::notice('Labels: ') . PHP_EOL;
-        echo CLi::alert('Alert', ['uppercase' => true]) . PHP_EOL;
-        echo CLi::critical('Critical', ['uppercase' => true]) . PHP_EOL;
-        echo CLi::debug('Debug', ['uppercase' => true])  . PHP_EOL;
-        echo CLi::emergency('Emergency', ['uppercase' => true]) . PHP_EOL;
-        echo CLi::error('Error', ['uppercase' => true]) . PHP_EOL;
-        echo CLi::info('Info', ['uppercase' => true]) . PHP_EOL;
-        echo CLi::notice('Notice', ['uppercase' => true]) . PHP_EOL;
-        echo CLi::warning('Warning', ['uppercase' => true]) . PHP_EOL;
+        $label=[];
+        $label[] = CLi::notice('Labels: ');
+        $label[] = CLi::alert('Alert', ['uppercase' => true]);
+        $label[] = CLi::critical('Critical', ['uppercase' => true]);
+        $label[] = CLi::debug('Debug', ['uppercase' => true]);
+        $label[] = CLi::emergency('Emergency', ['uppercase' => true]);
+        $label[] = CLi::error('Error', ['uppercase' => true]);
+        $label[] = CLi::info('Info', ['uppercase' => true]);
+        $label[] = CLi::notice('Notice', ['uppercase' => true]);
+        $label[] = CLi::warning('Warning', ['uppercase' => true]);
+        return implode(PHP_EOL, $label);
     }
-
 }
