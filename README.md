@@ -18,18 +18,18 @@ All in all, R3M/Framework fuses power with ease and flexibility, offering an opt
 See https://r3m.io for more information.
 
 Required Packages:
+- r3m_io/account
+- r3m_io/autoload
 - r3m_io/boot
 - r3m_io/basic
-- r3m_io/middleware
-- r3m_io/host
 - r3m_io/config
 - r3m_io/event
-- r3m_io/autoload
-- r3m_io/node
-- r3m_io/server
-- r3m_io/output_filter
-- r3m_io/account
+- r3m_io/host
+- r3m_io/middleware
 - r3m_io/log
+- r3m_io/node
+- r3m_io/output_filter
+- r3m_io/server
 - r3m_io/route
 
 Optional Packages:
@@ -39,4 +39,7 @@ Optional Packages:
 - r3m_io/email
 - r3m_io/priya
 
-- Github actions
+> [1] Github actions can be used to run tests on the project.  
+> Every test will be moved to the test directory.  
+> The test directory will be created by the test package (pest).  
+
