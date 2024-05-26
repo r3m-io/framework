@@ -30,12 +30,12 @@
 		"r3m_io/route": ">=2024.05.25",
 		"r3m_io/server": ">=2024.05.25",
 		"r3m_io/account": ">=2024.05.25",
-		"monolog/monolog" : "^2.2",
+		"monolog/monolog" : "^3.6",
 		"defuse/php-encryption": "^2.3",
 		"spatie/fork": "^1.2.2"
     },
 	"require-dev" : {
-		"monolog/monolog": "^2.2",
+		"monolog/monolog": "^3.6",
 		"defuse/php-encryption": "^2.3",
 		"spatie/fork": "^1.2.2",
 		"pestphp/pest": "^2.34"
