@@ -42,8 +42,7 @@ jobs:
       #        composer require pestphp/pest --dev
 
     - name: install application & test package
-      run: |
-        composer require --dev monolog/monolog
+      run: |        
         php Bin/R3m.php install r3m_io/boot -force 
         php Bin/R3m.php install r3m_io/test -force
 
@@ -52,7 +51,7 @@ jobs:
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
-    # run test script 36
+    # run test script 37
 
     - name: Run test suite
       run: |
