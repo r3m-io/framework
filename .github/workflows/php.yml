@@ -46,6 +46,8 @@ jobs:
         php Bin/R3m.php install r3m_io/boot -force 
         php Bin/R3m.php install r3m_io/test -force
 
+    # Add r3m_io/doctrine sqlite tests
+
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
