@@ -253,7 +253,7 @@ class Cli {
             $text = strtoupper($text);
         }
         $text = ' ' . $text . ' ';
-        return Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>200, 'g'=>100, 'b'=>0]) . $text . Cli::tput('reset');
+        return Cli::color(['r'=>255, 'g'=>255, 'b'=>255], ['r'=>175, 'g'=>175, 'b'=>175]) . $text . Cli::tput('reset');
     }
 
     public static function critical($text='', $options=[]): string
