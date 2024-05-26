@@ -46,5 +46,6 @@ Optional Packages:
 
 > [1] Github actions can be used to run tests on the project.  
 > Every test will be moved to the test directory.  
-> The test directory will be created by the test package (pest).  
+
+
 
