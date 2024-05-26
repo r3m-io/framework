@@ -29,15 +29,17 @@ Required Packages:
 - r3m_io/log
 - r3m_io/node
 - r3m_io/output_filter
-- r3m_io/server
 - r3m_io/route
+- r3m_io/server
+
 
 Optional Packages:
 
-- r3m_io/test [1]
 - r3m_io/doctrine
 - r3m_io/email
 - r3m_io/priya
+- r3m_io/test [1]
+
 
 > [1] Github actions can be used to run tests on the project.  
 > Every test will be moved to the test directory.  
