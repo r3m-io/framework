@@ -18,6 +18,8 @@ All in all, R3M/Framework fuses power with ease and flexibility, offering an opt
 See https://r3m.io for more information.
 
 Required Packages:
+- defuse/php-encryption
+- monolog/monolog
 - r3m_io/account
 - r3m_io/autoload
 - r3m_io/boot
@@ -31,6 +33,7 @@ Required Packages:
 - r3m_io/output_filter
 - r3m_io/route
 - r3m_io/server
+- spatie/fork
 
 
 Optional Packages:
@@ -39,6 +42,7 @@ Optional Packages:
 - r3m_io/email
 - r3m_io/priya
 - r3m_io/test [1]
+- pestphp/pest [1]
 
 
 > [1] Github actions can be used to run tests on the project.  
