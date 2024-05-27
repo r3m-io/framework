@@ -23,51 +23,55 @@ function validate_in_json(App $object, $request=null, $field='', $argument='', $
     d($field);
     d($argument);
     d($function);
+    $url = $argument->url ?? false;
+    $list = $argument->list ?? false;
+    $attribute = $argument->attribute ?? 'name';
+    $ignore_case = $argument->ignore_case ?? false;
+    if($url === false) {
+        return false;
+    }
     if(is_array($request)){
-        $url = $argument->url ?? false;
-        $list = $argument->list ?? false;
-        $attribute = $argument->attribute ?? 'name';
-        $ignore_case = $argument->ignore_case ?? false;
-        if($url){
-            $data = $object->parse_read($url, sha1($url));
-            if($data){
-                $result = [];
-                foreach($data->data($list) as $nr => $record) {
-                    if(is_object($record) && property_exists($record, $attribute)) {
-                        if($ignore_case){
-                            $result[] = strtolower($record->{$attribute});
-                        } else {
-                            $result[] = $record->{$attribute};
-                        }
-                    } else {
-                        if($ignore_case){
-                            $result[] = strtolower($record);
-                        } else {
-                            $result[] = $record;
-                        }
-                    }
-                }
-                foreach($request as $post){
-                    if($ignore_case){
-                        $post = strtolower($post);
-                    }
-                    if(!in_array($post, $result, true)) {
-                        return false;
-                    }
-                }
-                return true;
+        $data = $object->parse_read($url, sha1($url));
+        if($data){
+            $result = [];
+
+            if($list === false) {
+                ddd('the list is false');
             }
-            return false;
+
+            foreach($data->data($list) as $nr => $record) {
+                if(is_object($record) && property_exists($record, $attribute)) {
+                    if($ignore_case){
+                        $result[] = strtolower($record->{$attribute});
+                    } else {
+                        $result[] = $record->{$attribute};
+                    }
+                } else {
+                    if($ignore_case){
+                        $result[] = strtolower($record);
+                    } else {
+                        $result[] = $record;
+                    }
+                }
+            }
+            foreach($request as $post){
+                if($ignore_case){
+                    $post = strtolower($post);
+                }
+                if(!in_array($post, $result, true)) {
+                    return false;
+                }
+            }
+            return true;
         }
+        return false;
     }
     elseif(is_scalar($request)) {
-        $url = $argument->url ?? false;
-        $list = $argument->list ?? false;
-        $attribute = $argument->attribute ?? 'name';
-        $ignore_case = $argument->ignore_case ?? false;
-
         if($url){
             $data = $object->parse_read($url, sha1($url));
+            if($list === false) {
+                ddd('the list is false');
+            }
             if($data){
                 $result = [];
                 foreach($data->data($list) as $nr => $record) {
