@@ -10,6 +10,8 @@
  */
 use R3m\Io\App;
 
+use R3m\Io\Module\Data;
+
 use R3m\Io\Exception\ObjectException;
 use R3m\Io\Exception\FileWriteException;
 
