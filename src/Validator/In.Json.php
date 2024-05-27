@@ -34,19 +34,18 @@ function validate_in_json(App $object, $request=null, $field='', $argument='', $
         $data = $object->parse_read($url, sha1($url));
         if($data){
             $result = [];
-
             if($list === false) {
-                ddd('the list is false');
+                $result[] = $data->get($attribute);
             }
-
             foreach($data->data($list) as $nr => $record) {
-                if(is_object($record) && property_exists($record, $attribute)) {
-                    if($ignore_case){
-                        $result[] = strtolower($record->{$attribute});
+                if (is_object($record)){
+                    $node = new Data($record);
+                    if ($ignore_case) {
+                        $result[] = strtolower($node->get($attribute));
                     } else {
-                        $result[] = $record->{$attribute};
+                        $result[] = $node->get($attribute);
                     }
-                } else {
+                } elseif(is_scalar($record)) {
                     if($ignore_case){
                         $result[] = strtolower($record);
                     } else {
