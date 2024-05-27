@@ -31,7 +31,11 @@ function validate_array_length(App $object, $array=null, $field='', $argument=''
                 continue;
             }
             if($length === null){
-                $length = count($array);
+                if(is_array($array)){
+                    $length = count($array);
+                } else {
+                    return false;
+                }
             }
             $argument = Token::tree('{if($argument ' . $argument . ')}{/if}');
             $left = null;
