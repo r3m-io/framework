@@ -17,7 +17,7 @@ use R3m\Io\Exception\FileWriteException;
  * @throws ObjectException
  * @throws FileWriteException
  */
-function validate_in_list_json(App $object, $request=null, $field='', $argument='', $function=false): bool
+function validate_in_json(App $object, $request=null, $field='', $argument='', $function=false): bool
 {
     d($request);
     d($field);
