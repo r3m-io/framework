@@ -74,15 +74,15 @@ function validate_in_json(App $object, $request=null, $field='', $argument='', $
                 $result[] = $data->get($attribute);
             } else {
                 foreach($data->data($list) as $nr => $record) {
-                    if (
-                        is_object($record) &&
-                        property_exists($record, $attribute)) {
+                    if (is_object($record)){
+                        $node = new Data($record);
                         if ($ignore_case) {
-                            $result[] = strtolower($record->{$attribute});
+                            $result[] = strtolower($node->get($attribute));
                         } else {
-                            $result[] = $record->{$attribute};
+                            $result[] = $node->get($attribute);
                         }
-                    } else {
+                    }
+                    elseif(is_scalar($record)) {
                         if ($ignore_case) {
                             $result[] = strtolower($record);
                         } else {
@@ -101,7 +101,6 @@ function validate_in_json(App $object, $request=null, $field='', $argument='', $
             }
             return true;
         }
-        return false;
     }
     return false;
 }
