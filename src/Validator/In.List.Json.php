@@ -19,6 +19,10 @@ use R3m\Io\Exception\FileWriteException;
  */
 function validate_in_list_json(App $object, $request=null, $field='', $argument='', $function=false): bool
 {
+    d($request);
+    d($field);
+    d($argument);
+    d($function);
     if(is_array($request)){
         $url = $argument->url ?? false;
         $list = $argument->list ?? false;
