@@ -27,31 +27,57 @@ function validate_in_array_uuid(App $object, $array=null, $field='', $argument='
     ){
         $array = Core::object($array, Core::OBJECT_ARRAY);
     }
+    if(
+        is_array($argument) &&
+        in_array(null, $argument, true) &&
+        $array === null
+    ){
+        return true;
+    }
     if(is_array($array)){
         foreach($array as $nr => $value){
+            if(
+                is_array($argument)
+            ) {
+                if (in_array(true, $argument, true)) {
+                    if(strlen($value) !== 36){
+                        return false;
+                    }
+                    $explode = explode('-', $value);
+                    if(count($explode) !== 5){
+                        return false;
+                    }
+                    if(strlen($explode[0]) !== 8){
+                        return false;
+                    }
+                    if(strlen($explode[1]) !== 4){
+                        return false;
+                    }
+                    if(strlen($explode[2]) !== 4){
+                        return false;
+                    }
+                    if(strlen($explode[3]) !== 4){
+                        return false;
+                    }
+                    if(strlen($explode[4]) !== 12){
+                        return false;
+                    }
+                }
+                elseif (in_array(false, $argument, true)) {
+                    if(
+                        strlen($value) === 36 &&
+                        count(explode('-', $value)) === 5 &&
+                        strlen(explode('-', $value)[0]) === 8 &&
+                        strlen(explode('-', $value)[1]) === 4 &&
+                        strlen(explode('-', $value)[2]) === 4 &&
+                        strlen(explode('-', $value)[3]) === 4 &&
+                        strlen(explode('-', $value)[4]) === 12
+                    ){
+                        return false;
+                    }
+                }
+            }
             //format: %s%s-%s-%s-%s-%s%s%s
-            if(strlen($value) !== 36){
-                return false;
-            }
-            $explode = explode('-', $value);
-            if(count($explode) !== 5){
-                return false;
-            }
-            if(strlen($explode[0]) !== 8){
-                return false;
-            }
-            if(strlen($explode[1]) !== 4){
-                return false;
-            }
-            if(strlen($explode[2]) !== 4){
-                return false;
-            }
-            if(strlen($explode[3]) !== 4){
-                return false;
-            }
-            if(strlen($explode[4]) !== 12){
-                return false;
-            }
         }
         return true;
     }
