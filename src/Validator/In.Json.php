@@ -67,42 +67,40 @@ function validate_in_json(App $object, $request=null, $field='', $argument='', $
         return false;
     }
     elseif(is_scalar($request)) {
-        if($url){
-            $data = $object->parse_read($url, sha1($url));
-            if($list === false) {
-                ddd('the list is false');
-            }
-            if($data){
-                $result = [];
-                foreach($data->data($list) as $nr => $record) {
-                    if (
-                        is_object($record) &&
-                        property_exists($record, $attribute)) {
-                        if ($ignore_case) {
-                            $result[] = strtolower($record->{$attribute});
-                        } else {
-                            $result[] = $record->{$attribute};
-                        }
+        if($list === false) {
+            ddd('the list is false');
+        }
+        $data = $object->parse_read($url, sha1($url));
+        if($data){
+            $result = [];
+            foreach($data->data($list) as $nr => $record) {
+                if (
+                    is_object($record) &&
+                    property_exists($record, $attribute)) {
+                    if ($ignore_case) {
+                        $result[] = strtolower($record->{$attribute});
                     } else {
-                        if ($ignore_case) {
-                            $result[] = strtolower($record);
-                        } else {
-                            $result[] = $record;
-                        }
+                        $result[] = $record->{$attribute};
+                    }
+                } else {
+                    if ($ignore_case) {
+                        $result[] = strtolower($record);
+                    } else {
+                        $result[] = $record;
                     }
                 }
-                if($ignore_case){
-                    $string = strtolower($request);
-                } else {
-                    $string = $request;
-                }
-                if(!in_array($string, $result, true)) {
-                    return false;
-                }
-                return true;
             }
-            return false;
+            if($ignore_case){
+                $string = strtolower($request);
+            } else {
+                $string = $request;
+            }
+            if(!in_array($string, $result, true)) {
+                return false;
+            }
+            return true;
         }
+        return false;
     }
     return false;
 }
