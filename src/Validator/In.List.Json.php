@@ -19,40 +19,34 @@ use R3m\Io\Exception\FileWriteException;
  */
 function validate_in_list_json(App $object, $request=null, $field='', $argument='', $function=false): bool
 {
-    if($object->request('has', 'node.' . 'uuid')){
-        $original_uuid = $object->request('node.' . 'uuid');
-    }
-    elseif($object->request('has', 'node_' . 'uuid')){
-        $original_uuid = $object->request('node_' . 'uuid');
-    }
-    else {
-        $original_uuid = $object->request('uuid');
-    }
     if(is_array($request)){
-        $url = false;
-        $list = false;
-        $attribute = 'name';
-        if(property_exists($argument, 'url')){
-            $url = $argument->url;
-        }
-        if(property_exists($argument, 'list')){
-            $list = $argument->list;
-        }
-        if(property_exists($argument, 'attribute')){
-            $attribute = $argument->attribute;
-        }
+        $url = $argument->url ?? false;
+        $list = $argument->list ?? false;
+        $attribute = $argument->attribute ?? 'name';
+        $ignore_case = $argument->ignore_case ?? false;
         if($url){
             $data = $object->parse_read($url, sha1($url));
             if($data){
                 $result = [];
                 foreach($data->data($list) as $nr => $record) {
                     if(is_object($record) && property_exists($record, $attribute)) {
-                        $result[] = $record->{$attribute};
+                        if($ignore_case){
+                            $result[] = strtolower($record->{$attribute});
+                        } else {
+                            $result[] = $record->{$attribute};
+                        }
                     } else {
-                        $result[] = $record;
+                        if($ignore_case){
+                            $result[] = strtolower($record);
+                        } else {
+                            $result[] = $record;
+                        }
                     }
                 }
                 foreach($request as $post){
+                    if($ignore_case){
+                        $post = strtolower($post);
+                    }
                     if(!in_array($post, $result, true)) {
                         return false;
                     }
@@ -61,27 +55,43 @@ function validate_in_list_json(App $object, $request=null, $field='', $argument=
             }
             return false;
         }
-    } else {
-        $string = strtolower($request);
-        $url = false;
-        $list = false;
-        if(property_exists($argument, 'url')){
-            $url = $argument->url;
-        }
-        if(property_exists($argument, 'list')){
-            $list = $argument->list;
-        }
+    }
+    elseif(is_scalar($request)) {
+        $url = $argument->url ?? false;
+        $list = $argument->list ?? false;
+        $attribute = $argument->attribute ?? 'name';
+        $ignore_case = $argument->ignore_case ?? false;
+
         if($url){
             $data = $object->parse_read($url, sha1($url));
             if($data){
-                foreach($data->data($list) as $uuid => $record){
-                    if(
-                        !empty($string) &&
-                        $string == $uuid
-                    ){
-                        return true;
+                $result = [];
+                foreach($data->data($list) as $nr => $record) {
+                    if (
+                        is_object($record) &&
+                        property_exists($record, $attribute)) {
+                        if ($ignore_case) {
+                            $result[] = strtolower($record->{$attribute});
+                        } else {
+                            $result[] = $record->{$attribute};
+                        }
+                    } else {
+                        if ($ignore_case) {
+                            $result[] = strtolower($record);
+                        } else {
+                            $result[] = $record;
+                        }
                     }
                 }
+                if($ignore_case){
+                    $string = strtolower($request);
+                } else {
+                    $string = $request;
+                }
+                if(!in_array($string, $result, true)) {
+                    return false;
+                }
+                return true;
             }
             return false;
         }
