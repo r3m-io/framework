@@ -47,6 +47,9 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
                 ddd($data_filter);
             } else {
                 $data_filter = Filter::list($data->data())->where($filter);
+                if($data_filter === false){
+                    Filter::record($data->data())->where($filter);
+                }
                 ddd($data_filter);
             }
             ddd('filter');

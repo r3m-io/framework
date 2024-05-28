@@ -69,12 +69,34 @@ class Filter extends Data {
         Filter::OPERATOR_NOT_END,
     ];
 
+    private $type;
+
     /**
      * @throws Exception
      */
     public static function list($list): Filter
     {
-        return new Filter($list);
+        $filter = new Filter($list);
+        $filter->type(__FUNCTION__);
+        return $filter;
+    }
+
+    public function type($type=null): ?string
+    {
+        if($type !== null){
+            $this->setType($type);
+        }
+        return $this->getType();
+    }
+
+    private function setType($type): void
+    {
+        $this->type = $type;
+    }
+
+    private function getType() : ?string
+    {
+        return $this->type;
     }
 
     /**
@@ -119,6 +141,7 @@ class Filter extends Data {
      */
     public function where($where=[]): mixed
     {
+        d($type);
         $list = $this->data();
         if(is_object($where)){
             $where = Filter::object_clean($where);
@@ -786,7 +809,7 @@ class Filter extends Data {
                         }
                     }
                 } else {
-                    return [];
+                    return false;
                 }
             }
         }
