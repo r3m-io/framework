@@ -785,6 +785,8 @@ class Filter extends Data {
                             $list = Filter::list($list)->where($where);
                         }
                     }
+                } else {
+                    return [];
                 }
             }
         }
