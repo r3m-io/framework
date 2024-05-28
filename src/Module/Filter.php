@@ -794,7 +794,7 @@ class Filter extends Data {
                 } else{
                     $no_list = true;
                     d($where);
-                    d($attribute);
+//                    d($attribute);
                     d($nr);
                     d($node);
                     ddd($list);
