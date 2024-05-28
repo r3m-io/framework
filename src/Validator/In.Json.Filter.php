@@ -43,6 +43,8 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
     if($data){
         if($filter){
             if($argument->{'key'}){
+                d($data->data($argument->{'key'}));
+                d($filter);
                 $data_filter = Filter::list($data->data($argument->{'key'}))->where($filter);
                 ddd($data_filter);
             }
