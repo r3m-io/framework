@@ -120,7 +120,6 @@ class Filter extends Data {
     public function where($where=[]): mixed
     {
         $list = $this->data();
-        d($list);
         if(is_object($where)){
             $where = Filter::object_clean($where);
             $where = Core::object($where, Core::OBJECT_ARRAY);
@@ -134,12 +133,10 @@ class Filter extends Data {
                 Core::object_is_empty($list)){
                 return [];
             }
-            d($where);
             foreach($list as $nr => $node) {
                 if (is_object($node)) {
                     $data = new Data($node);
                     foreach ($where as $attribute => $record) {
-                        d($record);
                         if (
                             is_array($record) &&
                             array_key_exists('exist', $record)
@@ -792,13 +789,6 @@ class Filter extends Data {
                             $list = Filter::list($list)->where($where);
                         }
                     }
-                } else{
-                    $no_list = true;
-                    d($where);
-//                    d($attribute);
-                    d($nr);
-                    d($node);
-                    ddd($list);
                 }
             }
         }
