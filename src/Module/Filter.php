@@ -143,14 +143,18 @@ class Filter extends Data {
                         array_key_exists('exist', $record)
                     ){
                         if(!empty($record['exist'])){
-                            if(is_object($node) && !property_exists($node, $attribute)){
+                            if(
+                                is_object($node) &&
+                                !property_exists($node, $attribute)
+                            ){
                                 $this->data('delete', $nr);
                                 unset($list->$nr);
                             }
                         } else {
-                            d($node);
-                            ddd($attribute);
-                            if(property_exists($node, $attribute)){
+                            if(
+                                is_object($node) &&
+                                property_exists($node, $attribute)
+                            ){
                                 $this->data('delete', $nr);
                                 unset($list->$nr);
                             }
@@ -161,14 +165,18 @@ class Filter extends Data {
                         array_key_exists('exists', $record)
                     ){
                         if(!empty($record['exists'])){
-                            if(!property_exists($node, $attribute)){
+                            if(
+                                is_object($node) &&
+                                !property_exists($node, $attribute)
+                            ){
                                 $this->data('delete', $nr);
                                 unset($list->$nr);
                             }
                         } else {
-                            d($node);
-                            d($attribute);
-                            if(property_exists($node, $attribute)){
+                            if(
+                                is_object($node) &&
+                                property_exists($node, $attribute)
+                            ){
                                 $this->data('delete', $nr);
                                 unset($list->$nr);
                             }
