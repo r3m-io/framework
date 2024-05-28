@@ -134,7 +134,7 @@ class Filter extends Data {
                 return [];
             }
             d($where);
-            foreach($list as $uuid => $node){
+            foreach($list as $nr => $node){
                 $data = new Data($node);
                 foreach($where as $attribute => $record){
                     d($record);
@@ -144,15 +144,15 @@ class Filter extends Data {
                     ){
                         if(!empty($record['exist'])){
                             if(is_object($node) && !property_exists($node, $attribute)){
-                                $this->data('delete', $uuid);
-                                unset($list->$uuid);
+                                $this->data('delete', $nr);
+                                unset($list->$nr);
                             }
                         } else {
                             d($node);
                             d($attribute);
                             if(property_exists($node, $attribute)){
-                                $this->data('delete', $uuid);
-                                unset($list->$uuid);
+                                $this->data('delete', $nr);
+                                unset($list->$nr);
                             }
                         }
                     } 
@@ -162,13 +162,15 @@ class Filter extends Data {
                     ){
                         if(!empty($record['exists'])){
                             if(!property_exists($node, $attribute)){
-                                $this->data('delete', $uuid);
-                                unset($list->$uuid);
+                                $this->data('delete', $nr);
+                                unset($list->$nr);
                             }
                         } else {
+                            d($node);
+                            d($attribute);
                             if(property_exists($node, $attribute)){
-                                $this->data('delete', $uuid);
-                                unset($list->$uuid);
+                                $this->data('delete', $nr);
+                                unset($list->$nr);
                             }
                         }
                     }
@@ -783,13 +785,12 @@ class Filter extends Data {
                                 }
                             break;
                         }
-                        d($skip);
                         if($skip === false){
-                            $this->data('delete', $uuid);
+                            $this->data('delete', $nr);
                             if(is_array($list)){
-                                unset($list[$uuid]);
+                                unset($list[$nr]);
                             } else {
-                                unset($list->$uuid);
+                                unset($list->$nr);
                             }
                         }
                     } elseif(is_array($record)) {
