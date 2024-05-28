@@ -130,6 +130,7 @@ class Filter extends Data {
                 Core::object_is_empty($list)){
                 return [];
             }
+            d($where);
             foreach($list as $uuid => $node){
                 $data = new Data($node);
                 foreach($where as $attribute => $record){
@@ -777,6 +778,7 @@ class Filter extends Data {
                                 }
                             break;
                         }
+                        d($skip);
                         if($skip === false){
                             $this->data('delete', $uuid);
                             if(is_array($list)){
