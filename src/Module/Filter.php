@@ -829,6 +829,9 @@ class Filter extends Data {
         d($where);
         $record = $this->data();
         $this->data([ $record ]);
+
+        d($this->data());
+
         $list = $this->where_list($where);
         d($list);
 
