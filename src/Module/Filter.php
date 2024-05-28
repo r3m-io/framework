@@ -224,6 +224,8 @@ class Filter extends Data {
                             }
                         }
                         d($data);
+                        d($attribute);
+                        d($record);
                         if (
                             is_array($record) &&
                             array_key_exists('operator', $record) &&
