@@ -27,7 +27,7 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
     $attribute = $argument->attribute ?? 'name';
     $ignore_case = $argument->ignore_case ?? false;
     $filter = $argument->filter ?? false;
-
+    $key = $argument->key ?? false;
     d($request);
     d($field);
     d($argument);
@@ -42,8 +42,11 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
     $data_key = null;
     if($data){
         if($filter){
-            if($argument->{'key'}){
-                $data_filter = Filter::list($data->data($argument->{'key'}))->where($filter);
+            if($key){
+                $data_filter = Filter::list($data->data($key))->where($filter);
+                ddd($data_filter);
+            } else {
+                $data_filter = Filter::list($data->data($list))->where($filter);
                 ddd($data_filter);
             }
             ddd('filter');
