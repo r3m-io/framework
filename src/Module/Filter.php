@@ -148,6 +148,8 @@ class Filter extends Data {
                                 unset($list->$uuid);
                             }
                         } else {
+                            d($node);
+                            d($attribute);
                             if(property_exists($node, $attribute)){
                                 $this->data('delete', $uuid);
                                 unset($list->$uuid);
