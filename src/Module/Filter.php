@@ -135,7 +135,7 @@ class Filter extends Data {
             }
             d($where);
             foreach($list as $nr => $node) {
-                if (!is_scalar($node)) {
+                if (is_object($node)) {
                     $data = new Data($node);
                     foreach ($where as $attribute => $record) {
                         d($record);
@@ -792,6 +792,11 @@ class Filter extends Data {
                         }
                     }
                 } else{
+                    $no_list = true;
+                    d($where);
+                    d($attribute);
+                    d($nr);
+                    d($node);
                     ddd($list);
                 }
             }
