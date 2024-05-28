@@ -149,7 +149,7 @@ class Filter extends Data {
                             }
                         } else {
                             d($node);
-                            d($attribute);
+                            ddd($attribute);
                             if(property_exists($node, $attribute)){
                                 $this->data('delete', $nr);
                                 unset($list->$nr);
