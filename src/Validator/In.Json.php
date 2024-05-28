@@ -28,9 +28,6 @@ function validate_in_json(App $object, $request=null, $field='', $argument='', $
     if($url === false) {
         return false;
     }
-    d($request);
-    d($field);
-    d($argument);
     if(is_array($request)){
         $data = $object->parse_read($url, sha1($url));
         if($data){
