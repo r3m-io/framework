@@ -96,6 +96,21 @@ class Filter extends Data {
         throw new Exception('Date: no value.');
     }
 
+    private static function clean($where){
+        if(!is_object($where)){
+            return $where;
+        }
+        foreach($where as $property => $value){
+            if(is_object($value)){
+                $where->{$property} = Filter::clean($value);
+            }
+            if(substr($property, 0, 1) === '#'){
+                unset($where->$property);
+            }
+        }
+        return $where;
+    }
+
     /**
      * @throws Exception
      */
@@ -103,6 +118,7 @@ class Filter extends Data {
     {
         $list = $this->data();
         if(is_object($where)){
+            $where = Filter::clean($where);
             $where = Core::object($where, Core::OBJECT_ARRAY);
         }
         d($where);
