@@ -806,11 +806,17 @@ class Filter extends Data {
                             }
                             d($skip);
                             if ($skip === false) {
-                                $this->data('delete', $nr);
-                                if (is_array($list)) {
-                                    unset($list[$nr]);
-                                } else {
-                                    unset($list->$nr);
+                                switch($this->type()) {
+                                    case 'list':
+                                        $this->data('delete', $nr);
+                                        if (is_array($list)) {
+                                            unset($list[$nr]);
+                                        } else {
+                                            unset($list->$nr);
+                                        }
+                                        break;
+                                    case 'record':
+                                        return [];
                                 }
                             }
                         } elseif (is_array($record)) {

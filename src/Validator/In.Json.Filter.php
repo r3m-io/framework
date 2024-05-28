@@ -49,6 +49,7 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
                     if($data_filter === false){
                         $data_filter = Filter::record($data_key)->where($filter);
                     }
+                    d($data_filter);
                     if($data_filter){
                         return true;
                     }
@@ -66,6 +67,7 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
                     if($data_filter === false){
                         $data_filter = Filter::record($data_key)->where($filter);
                     }
+                    d($data_filter);
                     if($data_filter){
                         return true;
                     }
