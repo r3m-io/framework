@@ -133,6 +133,7 @@ class Filter extends Data {
             foreach($list as $uuid => $node){
                 $data = new Data($node);
                 foreach($where as $attribute => $record){
+                    d($record);
                     if(
                         is_array($record) &&
                         array_key_exists('exist', $record)
