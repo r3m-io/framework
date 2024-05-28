@@ -25,21 +25,29 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
     $list = $argument->list ?? false;
     $attribute = $argument->attribute ?? 'name';
     $ignore_case = $argument->ignore_case ?? false;
+    $filter = $argument->filter ?? false;
 
     d($request);
     d($field);
     d($argument);
     d($url);
     d($list);
-    ddd($attribute);
-
-
-
-
-
+    d($attribute);
+    d($filter);
     if($url === false) {
         return false;
     }
+    $data = $object->parse_read($url, sha1($url));
+    if($data){
+        if($filter){
+            ddd('filter');
+        }
+    }
+
+
+
+
+
     if(is_array($request)){
         $data = $object->parse_read($url, sha1($url));
         if($data){
