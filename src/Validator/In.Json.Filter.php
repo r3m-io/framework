@@ -39,7 +39,6 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
         return false;
     }
     $data = $object->parse_read($url, sha1($url));
-    ddd($data);
     $data_key = null;
     if($data){
         if($filter){
@@ -47,7 +46,7 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
                 $data_filter = Filter::list($data->data($key))->where($filter);
                 ddd($data_filter);
             } else {
-                $data_filter = Filter::list($data->data($list))->where($filter);
+                $data_filter = Filter::list($data->data())->where($filter);
                 ddd($data_filter);
             }
             ddd('filter');
