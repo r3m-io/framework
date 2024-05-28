@@ -837,8 +837,8 @@ class Filter extends Data {
         d($list);
 
 
-        d($record->name);
-        d($record->{'#class'});
+//        d($record->name);
+//        d($record->{'#class'});
         return false;
     }
 
