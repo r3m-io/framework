@@ -104,7 +104,10 @@ class Filter extends Data {
             if(is_object($value)){
                 $where->{$property} = Filter::object_clean($value);
             }
-            if(substr($property, 0, 1) === '#'){
+            if(
+                substr($property, 0, 1) === '#' &&
+                is_scalar($value)
+            ){
                 unset($where->$property);
             }
         }
