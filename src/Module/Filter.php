@@ -178,16 +178,21 @@ class Filter extends Data {
                                     is_object($node) &&
                                     !property_exists($node, $attribute)
                                 ) {
-                                    $this->data('delete', $nr);
-                                    unset($list->$nr);
+                                    if($this->type() === 'list'){
+                                        $this->data('delete', $nr);
+                                        unset($list->$nr);
+                                    }
                                 }
                             } else {
                                 if (
                                     is_object($node) &&
                                     property_exists($node, $attribute)
                                 ) {
-                                    $this->data('delete', $nr);
-                                    unset($list->$nr);
+                                    if($this->type() === 'list'){
+                                        $this->data('delete', $nr);
+                                        unset($list->$nr);
+                                    }
+
                                 }
                             }
                         }
@@ -200,16 +205,21 @@ class Filter extends Data {
                                     is_object($node) &&
                                     !property_exists($node, $attribute)
                                 ) {
-                                    $this->data('delete', $nr);
-                                    unset($list->$nr);
+                                    if($this->type() === 'list'){
+                                        $this->data('delete', $nr);
+                                        unset($list->$nr);
+                                    }
+
                                 }
                             } else {
                                 if (
                                     is_object($node) &&
                                     property_exists($node, $attribute)
                                 ) {
-                                    $this->data('delete', $nr);
-                                    unset($list->$nr);
+                                    if($this->type() === 'list'){
+                                        $this->data('delete', $nr);
+                                        unset($list->$nr);
+                                    }
                                 }
                             }
                         }
