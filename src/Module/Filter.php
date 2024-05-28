@@ -102,6 +102,9 @@ class Filter extends Data {
     public function where($where=[]): mixed
     {
         $list = $this->data();
+        if(is_object($where)){
+            $where = Core::object($where, Core::OBJECT_ARRAY);
+        }
         if(
             is_array($list) || 
             is_object($list)
