@@ -42,30 +42,28 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
     $data_key = null;
     if($data){
         if($filter){
-            if($key){
-                $data_filter = Filter::list($data->data($key))->where($filter);
-                ddd($data_filter);
-            } else {
-                $data_filter = Filter::list($data->data())->where($filter);
-                if($data_filter === false){
-                    $data_filter = Filter::record($data->data())->where($filter);
+            if($key) {
+                $data_key = $data->data($key);
+                if ($data_key) {
+                    $data_filter = Filter::list($data_key)->where($filter);
+                    if($data_filter === false){
+                        $data_filter = Filter::record($data_key)->where($filter);
+                    }
+                    ddd($data_filter);
                 }
-                ddd($data_filter);
+            } else {
+                $data_key = $data->data();
+                if($data_key){
+                    $data_filter = Filter::list($data_key)->where($filter);
+                    if($data_filter === false){
+                        $data_filter = Filter::record($data_key)->where($filter);
+                    }
+                    ddd($data_filter);
+                }
             }
             ddd('filter');
-
-
-
-
-//            Filter::
-
-
         }
     }
-
-
-
-
 
     if(is_array($request)){
         $data = $object->parse_read($url, sha1($url));
