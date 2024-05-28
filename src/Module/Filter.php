@@ -81,6 +81,16 @@ class Filter extends Data {
         return $filter;
     }
 
+    /**
+     * @throws Exception
+     */
+    public static function record($record): Filter
+    {
+        $filter = new Filter($record);
+        $filter->type(__FUNCTION__);
+        return $filter;
+    }
+
     public function type($type=null): ?string
     {
         if($type !== null){
@@ -137,18 +147,17 @@ class Filter extends Data {
     }
 
     /**
+     * @throws ObjectException
      * @throws Exception
      */
-    public function where($where=[]): mixed
-    {
-        d($this->type());
+    private function where_list($where=[]){
         $list = $this->data();
         if(is_object($where)){
             $where = Filter::object_clean($where);
             $where = Core::object($where, Core::OBJECT_ARRAY);
         }
         if(
-            is_array($list) || 
+            is_array($list) ||
             is_object($list)
         ){
             if(
@@ -814,5 +823,28 @@ class Filter extends Data {
             }
         }
         return $list;
+    }
+
+    private function where_record($where=[]){
+        d($where);
+        $record = $this->data();
+        d($record->name);
+        d($record->{'#class'});
+        return false;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function where($where=[]): mixed
+    {
+        switch($type = $this->type()){
+            case 'list' :
+                return $this->where_list($where);
+            case 'record' :
+                return $this->where_record($where);
+            default :
+                throw new Exception('Unknown type: ' . $type);
+        }
     }
 }
