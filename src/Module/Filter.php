@@ -236,6 +236,7 @@ class Filter extends Data {
                                 case '===' :
                                 case Filter::OPERATOR_STRICTLY_EXACT :
                                     $value = $data->get($attribute);
+                                    d($value);
                                     if (is_scalar($value)) {
                                         if ($value === $record['value']) {
                                             $skip = true;
