@@ -806,7 +806,6 @@ class Filter extends Data {
                             }
                             d($skip);
                             if ($skip === false) {
-                                d($this->type());
                                 switch($this->type()) {
                                     case 'list':
                                         $this->data('delete', $nr);
@@ -817,6 +816,7 @@ class Filter extends Data {
                                         }
                                         break;
                                     case 'record':
+                                        d('yes');
                                         return [];
                                 }
                             }
