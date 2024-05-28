@@ -236,7 +236,6 @@ class Filter extends Data {
                                 case '===' :
                                 case Filter::OPERATOR_STRICTLY_EXACT :
                                     $value = $data->get($attribute);
-                                    d($value);
                                     if (is_scalar($value)) {
                                         if ($value === $record['value']) {
                                             $skip = true;
@@ -805,6 +804,7 @@ class Filter extends Data {
                                     }
                                     break;
                             }
+                            d($skip);
                             if ($skip === false) {
                                 $this->data('delete', $nr);
                                 if (is_array($list)) {
