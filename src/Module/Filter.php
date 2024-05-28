@@ -134,590 +134,579 @@ class Filter extends Data {
                 return [];
             }
             d($where);
-            foreach($list as $nr => $node){
-                $data = new Data($node);
-                foreach($where as $attribute => $record){
-                    d($record);
-                    if(
-                        is_array($record) &&
-                        array_key_exists('exist', $record)
-                    ){
-                        if(!empty($record['exist'])){
-                            if(
-                                is_object($node) &&
-                                !property_exists($node, $attribute)
-                            ){
-                                $this->data('delete', $nr);
-                                unset($list->$nr);
-                            }
-                        } else {
-                            if(
-                                is_object($node) &&
-                                property_exists($node, $attribute)
-                            ){
-                                $this->data('delete', $nr);
-                                unset($list->$nr);
-                            }
-                        }
-                    } 
-                    if(
-                        is_array($record) &&
-                        array_key_exists('exists', $record)
-                    ){
-                        if(!empty($record['exists'])){
-                            if(
-                                is_object($node) &&
-                                !property_exists($node, $attribute)
-                            ){
-                                $this->data('delete', $nr);
-                                unset($list->$nr);
-                            }
-                        } else {
-                            if(
-                                is_object($node) &&
-                                property_exists($node, $attribute)
-                            ){
-                                $this->data('delete', $nr);
-                                unset($list->$nr);
+            foreach($list as $nr => $node) {
+                if (!is_scalar($node)) {
+                    $data = new Data($node);
+                    foreach ($where as $attribute => $record) {
+                        d($record);
+                        if (
+                            is_array($record) &&
+                            array_key_exists('exist', $record)
+                        ) {
+                            if (!empty($record['exist'])) {
+                                if (
+                                    is_object($node) &&
+                                    !property_exists($node, $attribute)
+                                ) {
+                                    $this->data('delete', $nr);
+                                    unset($list->$nr);
+                                }
+                            } else {
+                                if (
+                                    is_object($node) &&
+                                    property_exists($node, $attribute)
+                                ) {
+                                    $this->data('delete', $nr);
+                                    unset($list->$nr);
+                                }
                             }
                         }
-                    }
-                    if(
-                        is_array($record) &&
-                        array_key_exists('operator', $record) && 
-                        array_key_exists('value', $record)                     
-                    ){
-                        $skip = false;
-                        switch($record['operator']){
-                            case '===' :
-                            case Filter::OPERATOR_STRICTLY_EXACT :
-                                d($attribute);
-                                d($data);
-                                $value = $data->get($attribute);
-                                d($value);
-                                d($record['value']);
-                                if(is_scalar($value)){
-                                    if($value === $record['value']){
-                                        $skip = true;
-                                    }
+                        if (
+                            is_array($record) &&
+                            array_key_exists('exists', $record)
+                        ) {
+                            if (!empty($record['exists'])) {
+                                if (
+                                    is_object($node) &&
+                                    !property_exists($node, $attribute)
+                                ) {
+                                    $this->data('delete', $nr);
+                                    unset($list->$nr);
                                 }
-                                elseif(is_array($value)){
-                                    if(in_array($record['value'], $value, true)){
-                                        $skip = true;
-                                    }
+                            } else {
+                                if (
+                                    is_object($node) &&
+                                    property_exists($node, $attribute)
+                                ) {
+                                    $this->data('delete', $nr);
+                                    unset($list->$nr);
                                 }
-                            break;
-                            case '!==' :
-                            case Filter::OPERATOR_NOT_STRICTLY_EXACT :
-                                $value = $data->get($attribute);
-                                if(is_scalar($value)){
-                                    if($value !== $record['value']){
-                                        $skip = true;
-                                    }
-                                }
-                                elseif(is_array($value)){
-                                    if(!in_array($record['value'], $value, true)){
-                                        $skip = true;
-                                    }
-                                }
-                            break;
-                            case '==' :
-                            case Filter::OPERATOR_EXACT :
-                                $value = $data->get($attribute);
-                                if(is_scalar($value)){
-                                    if($value == $record['value']){
-                                        $skip = true;
-                                    }
-                                }
-                                elseif(is_array($value)){
-                                    if(in_array($record['value'], $value, true)){
-                                        $skip = true;
-                                    }
-                                }
-                            break;
-                            case '!=' :
-                            case Filter::OPERATOR_NOT_EXACT :
-                                $value = $data->get($attribute);
-                                if(is_scalar($value)){
-                                    if($value != $record['value']){
-                                        $skip = true;
-                                    }
-                                }
-                                elseif(is_array($value)){
-                                    if(!in_array($record['value'], $value, true)){
-                                        $skip = true;
-                                    }
-                                }
-                            break;
-                            case Filter::OPERATOR_IN :
-                                $value = $data->get($attribute);
-                                if(is_array($record['value'])){
-                                    if(is_scalar($value)){
-                                        if(
-                                            in_array(
-                                                $value,
-                                                $record['value'],
-                                                true)
-                                        ){
+                            }
+                        }
+                        if (
+                            is_array($record) &&
+                            array_key_exists('operator', $record) &&
+                            array_key_exists('value', $record)
+                        ) {
+                            $skip = false;
+                            switch ($record['operator']) {
+                                case '===' :
+                                case Filter::OPERATOR_STRICTLY_EXACT :
+                                    d($attribute);
+                                    d($data);
+                                    $value = $data->get($attribute);
+                                    d($value);
+                                    d($record['value']);
+                                    if (is_scalar($value)) {
+                                        if ($value === $record['value']) {
+                                            $skip = true;
+                                        }
+                                    } elseif (is_array($value)) {
+                                        if (in_array($record['value'], $value, true)) {
                                             $skip = true;
                                         }
                                     }
-                                    elseif(is_array($value)){
-                                        foreach($value as $value_key => $value_value){
-                                            if(
+                                    break;
+                                case '!==' :
+                                case Filter::OPERATOR_NOT_STRICTLY_EXACT :
+                                    $value = $data->get($attribute);
+                                    if (is_scalar($value)) {
+                                        if ($value !== $record['value']) {
+                                            $skip = true;
+                                        }
+                                    } elseif (is_array($value)) {
+                                        if (!in_array($record['value'], $value, true)) {
+                                            $skip = true;
+                                        }
+                                    }
+                                    break;
+                                case '==' :
+                                case Filter::OPERATOR_EXACT :
+                                    $value = $data->get($attribute);
+                                    if (is_scalar($value)) {
+                                        if ($value == $record['value']) {
+                                            $skip = true;
+                                        }
+                                    } elseif (is_array($value)) {
+                                        if (in_array($record['value'], $value, true)) {
+                                            $skip = true;
+                                        }
+                                    }
+                                    break;
+                                case '!=' :
+                                case Filter::OPERATOR_NOT_EXACT :
+                                    $value = $data->get($attribute);
+                                    if (is_scalar($value)) {
+                                        if ($value != $record['value']) {
+                                            $skip = true;
+                                        }
+                                    } elseif (is_array($value)) {
+                                        if (!in_array($record['value'], $value, true)) {
+                                            $skip = true;
+                                        }
+                                    }
+                                    break;
+                                case Filter::OPERATOR_IN :
+                                    $value = $data->get($attribute);
+                                    if (is_array($record['value'])) {
+                                        if (is_scalar($value)) {
+                                            if (
                                                 in_array(
-                                                    $value_value,
+                                                    $value,
                                                     $record['value'],
                                                     true)
-                                            ){
+                                            ) {
                                                 $skip = true;
-                                                break;
+                                            }
+                                        } elseif (is_array($value)) {
+                                            foreach ($value as $value_key => $value_value) {
+                                                if (
+                                                    in_array(
+                                                        $value_value,
+                                                        $record['value'],
+                                                        true)
+                                                ) {
+                                                    $skip = true;
+                                                    break;
+                                                }
                                             }
                                         }
                                     }
-                                }
-                            break;
-                            case Filter::OPERATOR_NOT_IN :
-                                $value = $data->get($attribute);
-                                if(is_array($record['value'])){
-                                    if(is_scalar($value)){
-                                        if(
-                                            !in_array(
-                                                $value,
-                                                $record['value'],
-                                                true)
-                                        ){
-                                            $skip = true;
-                                        }
-                                    }
-                                    elseif(is_array($value)){
-                                        foreach($value as $value_key => $value_value){
-                                            if(
+                                    break;
+                                case Filter::OPERATOR_NOT_IN :
+                                    $value = $data->get($attribute);
+                                    if (is_array($record['value'])) {
+                                        if (is_scalar($value)) {
+                                            if (
                                                 !in_array(
-                                                    $value_value,
+                                                    $value,
                                                     $record['value'],
                                                     true)
-                                            ){
-                                                $skip = true;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                            break;
-                            case '>' :
-                            case Filter::OPERATOR_GT :
-                                $value = $data->get($attribute);
-                                if(is_scalar($value)){
-                                    if($value > $record['value']){
-                                        $skip = true;
-                                    }
-                                }
-                                elseif(is_array($value)){
-                                    $found = false;
-                                    foreach($value as $value_key => $value_value){
-                                        if($value_value > $record['value']){
-                                        } else {
-                                            $found = true;
-                                            break;
-                                        }
-                                    }
-                                    if(!$found){
-                                        $skip = true;
-                                    }
-                                }
-                            break;
-                            case '>=' :
-                            case Filter::OPERATOR_GTE :
-                                $value = $data->get($attribute);
-                                if(is_scalar($value)){
-                                    if($value >= $record['value']){
-                                        $skip = true;
-                                    }
-                                }
-                                elseif(is_array($value)){
-                                    $found = false;
-                                    foreach($value as $value_key => $value_value){
-                                        if($value_value >= $record['value']){
-                                        } else {
-                                            $found = true;
-                                            break;
-                                        }
-                                    }
-                                    if(!$found){
-                                        $skip = true;
-                                    }
-                                }
-                            break;
-                            case '<' :
-                            case Filter::OPERATOR_LT :
-                                $value = $data->get($attribute);
-                                if(is_scalar($value)){
-                                    if($value < $record['value']){
-                                        $skip = true;
-                                    }
-                                }
-                                elseif(is_array($value)){
-                                    $found = false;
-                                    foreach($value as $value_key => $value_value){
-                                        if($value_value < $record['value']){
-                                        } else {
-                                            $found = true;
-                                            break;
-                                        }
-                                    }
-                                    if(!$found){
-                                        $skip = true;
-                                    }
-                                }
-                            break;
-                            case '<=' :
-                            case Filter::OPERATOR_LTE :
-                                $value = $data->get($attribute);
-                                if(is_scalar($value)){
-                                    if($value <= $record['value']){
-                                        $skip = true;
-                                    }
-                                }
-                                elseif(is_array($value)){
-                                    $found = false;
-                                    foreach($value as $value_key => $value_value){
-                                        if($value_value <= $record['value']){
-                                        } else {
-                                            $found = true;
-                                            break;
-                                        }
-                                    }
-                                    if(!$found){
-                                        $skip = true;
-                                    }
-                                }
-                            break;
-                            case '> <' :
-                            case Filter::OPERATOR_BETWEEN :
-                                $value = $data->get($attribute);
-                                $explode = explode('..', $record['value'], 2);
-                                if(array_key_exists(1, $explode)){
-                                    if(is_numeric($explode[0])){
-                                        $explode[0] += 0;
-                                    }
-                                    if(is_numeric($explode[1])){
-                                        $explode[1] += 0;
-                                    }
-                                    if(is_array($value)) {
-                                        foreach ($value as $value_key => $value_value) {
-                                            if (
-                                                $value_value > $explode[0] &&
-                                                $value_value < $explode[1]
                                             ) {
                                                 $skip = true;
-                                                break;
+                                            }
+                                        } elseif (is_array($value)) {
+                                            foreach ($value as $value_key => $value_value) {
+                                                if (
+                                                    !in_array(
+                                                        $value_value,
+                                                        $record['value'],
+                                                        true)
+                                                ) {
+                                                    $skip = true;
+                                                    break;
+                                                }
                                             }
                                         }
-                                    } elseif(
-                                        $value > $explode[0] &&
-                                        $value < $explode[1]
-                                    ){
-                                        $skip = true;
                                     }
-                                } else {
-                                    throw new Exception('Value is range: ?..?');
-                                }
-                            break;
-                            case '>=<' :
-                            case Filter::OPERATOR_BETWEEN_EQUALS :
-                                $value = $data->get($attribute);
-                                $explode = explode('..', $record['value'], 2);
-                                if(array_key_exists(1, $explode)){
-                                    if(is_numeric($explode[0])){
-                                        $explode[0] += 0;
-                                    }
-                                    if(is_numeric($explode[1])){
-                                        $explode[1] += 0;
-                                    }
-                                    if(is_array($value)) {
+                                    break;
+                                case '>' :
+                                case Filter::OPERATOR_GT :
+                                    $value = $data->get($attribute);
+                                    if (is_scalar($value)) {
+                                        if ($value > $record['value']) {
+                                            $skip = true;
+                                        }
+                                    } elseif (is_array($value)) {
+                                        $found = false;
                                         foreach ($value as $value_key => $value_value) {
-                                            if (
-                                                $value_value >= $explode[0] &&
-                                                $value_value <= $explode[1]
-                                            ) {
-                                                $skip = true;
+                                            if ($value_value > $record['value']) {
+                                            } else {
+                                                $found = true;
                                                 break;
                                             }
                                         }
-                                    } elseif(
-                                        $value >= $explode[0] &&
-                                        $value <= $explode[1]
-                                    ){
-                                        $skip = true;
+                                        if (!$found) {
+                                            $skip = true;
+                                        }
                                     }
+                                    break;
+                                case '>=' :
+                                case Filter::OPERATOR_GTE :
+                                    $value = $data->get($attribute);
+                                    if (is_scalar($value)) {
+                                        if ($value >= $record['value']) {
+                                            $skip = true;
+                                        }
+                                    } elseif (is_array($value)) {
+                                        $found = false;
+                                        foreach ($value as $value_key => $value_value) {
+                                            if ($value_value >= $record['value']) {
+                                            } else {
+                                                $found = true;
+                                                break;
+                                            }
+                                        }
+                                        if (!$found) {
+                                            $skip = true;
+                                        }
+                                    }
+                                    break;
+                                case '<' :
+                                case Filter::OPERATOR_LT :
+                                    $value = $data->get($attribute);
+                                    if (is_scalar($value)) {
+                                        if ($value < $record['value']) {
+                                            $skip = true;
+                                        }
+                                    } elseif (is_array($value)) {
+                                        $found = false;
+                                        foreach ($value as $value_key => $value_value) {
+                                            if ($value_value < $record['value']) {
+                                            } else {
+                                                $found = true;
+                                                break;
+                                            }
+                                        }
+                                        if (!$found) {
+                                            $skip = true;
+                                        }
+                                    }
+                                    break;
+                                case '<=' :
+                                case Filter::OPERATOR_LTE :
+                                    $value = $data->get($attribute);
+                                    if (is_scalar($value)) {
+                                        if ($value <= $record['value']) {
+                                            $skip = true;
+                                        }
+                                    } elseif (is_array($value)) {
+                                        $found = false;
+                                        foreach ($value as $value_key => $value_value) {
+                                            if ($value_value <= $record['value']) {
+                                            } else {
+                                                $found = true;
+                                                break;
+                                            }
+                                        }
+                                        if (!$found) {
+                                            $skip = true;
+                                        }
+                                    }
+                                    break;
+                                case '> <' :
+                                case Filter::OPERATOR_BETWEEN :
+                                    $value = $data->get($attribute);
+                                    $explode = explode('..', $record['value'], 2);
+                                    if (array_key_exists(1, $explode)) {
+                                        if (is_numeric($explode[0])) {
+                                            $explode[0] += 0;
+                                        }
+                                        if (is_numeric($explode[1])) {
+                                            $explode[1] += 0;
+                                        }
+                                        if (is_array($value)) {
+                                            foreach ($value as $value_key => $value_value) {
+                                                if (
+                                                    $value_value > $explode[0] &&
+                                                    $value_value < $explode[1]
+                                                ) {
+                                                    $skip = true;
+                                                    break;
+                                                }
+                                            }
+                                        } elseif (
+                                            $value > $explode[0] &&
+                                            $value < $explode[1]
+                                        ) {
+                                            $skip = true;
+                                        }
+                                    } else {
+                                        throw new Exception('Value is range: ?..?');
+                                    }
+                                    break;
+                                case '>=<' :
+                                case Filter::OPERATOR_BETWEEN_EQUALS :
+                                    $value = $data->get($attribute);
+                                    $explode = explode('..', $record['value'], 2);
+                                    if (array_key_exists(1, $explode)) {
+                                        if (is_numeric($explode[0])) {
+                                            $explode[0] += 0;
+                                        }
+                                        if (is_numeric($explode[1])) {
+                                            $explode[1] += 0;
+                                        }
+                                        if (is_array($value)) {
+                                            foreach ($value as $value_key => $value_value) {
+                                                if (
+                                                    $value_value >= $explode[0] &&
+                                                    $value_value <= $explode[1]
+                                                ) {
+                                                    $skip = true;
+                                                    break;
+                                                }
+                                            }
+                                        } elseif (
+                                            $value >= $explode[0] &&
+                                            $value <= $explode[1]
+                                        ) {
+                                            $skip = true;
+                                        }
 
-                                } else {
-                                    throw new Exception('Value is range: ?..?');
-                                }
-                            break;
-                            case Filter::OPERATOR_BEFORE :
-                                $value = $data->get($attribute);
-                                if(is_string($value)){
-                                    $node_date = strtotime($value);
-                                    $record_date = Filter::date($record);
-                                }
-                                elseif(is_int($value)){
-                                    $node_date = $value;
-                                    $record_date = Filter::date($record);
-                                } else {
-                                    throw new Exception('Cannot calculate: before');
-                                }
-                                if(
-                                    $node_date <=
-                                    $record_date
-                                ){
-                                    $skip = true;
-                                }
-                            break;
-                            case Filter::OPERATOR_AFTER :
-                                $value = $data->get($attribute);
-                                if(is_string($value)){
-                                    $node_date = strtotime($value);
-                                    $record_date = Filter::date($record);
-                                }
-                                elseif(is_int($value)){
-                                    $node_date = $value;
-                                    $record_date = Filter::date($record);
-                                } else {
-                                    throw new Exception('Cannot calculate: before');
-                                }
-                                if(
-                                    $node_date >=
-                                    $record_date
-                                ){
-                                    $skip = true;
-                                }
-                            break;
-                            case Filter::OPERATOR_STRICTLY_BEFORE :
-                                $value = $data->get($attribute);
-                                if(is_string($value)){
-                                    $node_date = strtotime($value);
-                                    $record_date = Filter::date($record);
-                                }
-                                elseif(is_int($value)){
-                                    $node_date = $value;
-                                    $record_date = Filter::date($record);
-                                } else {
-                                    throw new Exception('Cannot calculate: before');
-                                }
-                                if(
-                                    $node_date <
-                                    $record_date
-                                ){
-                                    $skip = true;
-                                }
-                            break;
-                            case Filter::OPERATOR_STRICTLY_AFTER :
-                                $value = $data->get($attribute);
-                                if(is_string($value)){
-                                    $node_date = strtotime($value);
-                                    $record_date = Filter::date($record);
-                                }
-                                elseif(is_int($value)){
-                                    $node_date = $value;
-                                    $record_date = Filter::date($record);
-                                } else {
-                                    throw new Exception('Cannot calculate: before');
-                                }
-                                if(
-                                    $node_date >
-                                    $record_date
-                                ){
-                                    $skip = true;
-                                }
-                            break;
-                            case Filter::OPERATOR_PARTIAL :
-                                $value = $data->get($attribute);
-                                if(
-                                    is_scalar($record['value'])
-                                ){
-                                    if($record['value'] === ''){
-                                        break;
+                                    } else {
+                                        throw new Exception('Value is range: ?..?');
                                     }
-                                    elseif(is_array($value)){
-                                        foreach($value  as $value_key => $value_value){
-                                            if(
-                                                is_string($value_value) &&
-                                                is_string($record['value'])
-                                            ){
-                                                if(stristr($value_value, $record['value']) !== false) {
-                                                    $skip = true;
-                                                    break;
-                                                }
-                                            }
-                                            elseif(is_scalar($value_value)){
-                                                if($value == $record['value']){
-                                                    $skip = true;
-                                                    break;
-                                                }
-                                            }
-                                        }
+                                    break;
+                                case Filter::OPERATOR_BEFORE :
+                                    $value = $data->get($attribute);
+                                    if (is_string($value)) {
+                                        $node_date = strtotime($value);
+                                        $record_date = Filter::date($record);
+                                    } elseif (is_int($value)) {
+                                        $node_date = $value;
+                                        $record_date = Filter::date($record);
+                                    } else {
+                                        throw new Exception('Cannot calculate: before');
                                     }
-                                    elseif(
-                                        is_string($value) &&
-                                        is_string($record['value'])
-                                    ){
-                                        if(stristr($value, $record['value']) !== false) {
-                                            $skip = true;
-                                        }
-                                    }
-                                    elseif(is_scalar($value)){
-                                        if($value == $record['value']){
-                                            $skip = true;
-                                        }
-                                    }
-                                }
-                            break;
-                            case Filter::OPERATOR_NOT_PARTIAL :
-                                $value = $data->get($attribute);
-                                if(
-                                    is_scalar($record['value'])
-                                ){
-                                    if($record['value'] === ''){
-                                        break;
-                                    }
-                                    elseif(is_array($value)){
-                                        foreach($value  as $value_key => $value_value){
-                                            if(is_string($value_value) && is_string($record['value'])){
-                                                if(stristr($value_value, $record['value']) === false) {
-                                                    $skip = true;
-                                                    break;
-                                                }
-                                            }
-                                            elseif(is_scalar($value_value)){
-                                                if($value != $record['value']){
-                                                    $skip = true;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
-                                    elseif(
-                                        is_string($value) && is_string($record['value'])
-                                    ){
-                                        if(stristr($value, $record['value']) === false) {
-                                            $skip = true;
-                                        }
-                                    }
-                                    elseif(is_scalar($value)){
-                                        if($value != $record['value']){
-                                            $skip = true;
-                                        }
-                                    }
-                                }
-                            break;
-                            case Filter::OPERATOR_START :
-                                $value = $data->get($attribute);
-                                if(
-                                    is_string($record['value'])
-                                ){
-                                    if($record['value'] === ''){
-                                        break;
-                                    }
-                                    elseif(
-                                        is_string($value) &&
-                                        stristr(
-                                            substr(
-                                                $value,
-                                                0,
-                                                strlen($record['value'])
-                                            ),
-                                            $record['value']
-                                        ) !== false
+                                    if (
+                                        $node_date <=
+                                        $record_date
                                     ) {
                                         $skip = true;
                                     }
-                                }
-                                elseif(is_array($value)){
-                                    foreach($value as $value_key => $value_value){
-                                        $record_value = (string) $record['value'];
-                                        if($value_value === ''){
-                                            continue;
+                                    break;
+                                case Filter::OPERATOR_AFTER :
+                                    $value = $data->get($attribute);
+                                    if (is_string($value)) {
+                                        $node_date = strtotime($value);
+                                        $record_date = Filter::date($record);
+                                    } elseif (is_int($value)) {
+                                        $node_date = $value;
+                                        $record_date = Filter::date($record);
+                                    } else {
+                                        throw new Exception('Cannot calculate: before');
+                                    }
+                                    if (
+                                        $node_date >=
+                                        $record_date
+                                    ) {
+                                        $skip = true;
+                                    }
+                                    break;
+                                case Filter::OPERATOR_STRICTLY_BEFORE :
+                                    $value = $data->get($attribute);
+                                    if (is_string($value)) {
+                                        $node_date = strtotime($value);
+                                        $record_date = Filter::date($record);
+                                    } elseif (is_int($value)) {
+                                        $node_date = $value;
+                                        $record_date = Filter::date($record);
+                                    } else {
+                                        throw new Exception('Cannot calculate: before');
+                                    }
+                                    if (
+                                        $node_date <
+                                        $record_date
+                                    ) {
+                                        $skip = true;
+                                    }
+                                    break;
+                                case Filter::OPERATOR_STRICTLY_AFTER :
+                                    $value = $data->get($attribute);
+                                    if (is_string($value)) {
+                                        $node_date = strtotime($value);
+                                        $record_date = Filter::date($record);
+                                    } elseif (is_int($value)) {
+                                        $node_date = $value;
+                                        $record_date = Filter::date($record);
+                                    } else {
+                                        throw new Exception('Cannot calculate: before');
+                                    }
+                                    if (
+                                        $node_date >
+                                        $record_date
+                                    ) {
+                                        $skip = true;
+                                    }
+                                    break;
+                                case Filter::OPERATOR_PARTIAL :
+                                    $value = $data->get($attribute);
+                                    if (
+                                        is_scalar($record['value'])
+                                    ) {
+                                        if ($record['value'] === '') {
+                                            break;
+                                        } elseif (is_array($value)) {
+                                            foreach ($value as $value_key => $value_value) {
+                                                if (
+                                                    is_string($value_value) &&
+                                                    is_string($record['value'])
+                                                ) {
+                                                    if (stristr($value_value, $record['value']) !== false) {
+                                                        $skip = true;
+                                                        break;
+                                                    }
+                                                } elseif (is_scalar($value_value)) {
+                                                    if ($value == $record['value']) {
+                                                        $skip = true;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        } elseif (
+                                            is_string($value) &&
+                                            is_string($record['value'])
+                                        ) {
+                                            if (stristr($value, $record['value']) !== false) {
+                                                $skip = true;
+                                            }
+                                        } elseif (is_scalar($value)) {
+                                            if ($value == $record['value']) {
+                                                $skip = true;
+                                            }
                                         }
-                                        elseif(
-                                            is_string($value_value) &&
+                                    }
+                                    break;
+                                case Filter::OPERATOR_NOT_PARTIAL :
+                                    $value = $data->get($attribute);
+                                    if (
+                                        is_scalar($record['value'])
+                                    ) {
+                                        if ($record['value'] === '') {
+                                            break;
+                                        } elseif (is_array($value)) {
+                                            foreach ($value as $value_key => $value_value) {
+                                                if (is_string($value_value) && is_string($record['value'])) {
+                                                    if (stristr($value_value, $record['value']) === false) {
+                                                        $skip = true;
+                                                        break;
+                                                    }
+                                                } elseif (is_scalar($value_value)) {
+                                                    if ($value != $record['value']) {
+                                                        $skip = true;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        } elseif (
+                                            is_string($value) && is_string($record['value'])
+                                        ) {
+                                            if (stristr($value, $record['value']) === false) {
+                                                $skip = true;
+                                            }
+                                        } elseif (is_scalar($value)) {
+                                            if ($value != $record['value']) {
+                                                $skip = true;
+                                            }
+                                        }
+                                    }
+                                    break;
+                                case Filter::OPERATOR_START :
+                                    $value = $data->get($attribute);
+                                    if (
+                                        is_string($record['value'])
+                                    ) {
+                                        if ($record['value'] === '') {
+                                            break;
+                                        } elseif (
+                                            is_string($value) &&
                                             stristr(
                                                 substr(
-                                                    $value_value,
+                                                    $value,
                                                     0,
-                                                    strlen($record_value)
+                                                    strlen($record['value'])
                                                 ),
-                                                $record_value
+                                                $record['value']
                                             ) !== false
                                         ) {
                                             $skip = true;
                                         }
-                                    }
-                                }
-                            break;
-                            case Filter::OPERATOR_NOT_START :
-                                $value = $data->get($attribute);
-                                if(
-                                    is_string($record['value'])
-                                ){
-                                    if($record['value'] === ''){
-                                        break;
-                                    }
-                                    elseif(
-                                        is_string($value) &&
-                                        stristr(
-                                            substr(
-                                                $value,
-                                                0,
-                                                strlen($record['value'])
-                                            ),
-                                            $record['value']
-                                        ) === false
-                                    ) {
-                                        $skip = true;
-                                    }
-                                    elseif(is_array($value)){
-                                        foreach($value as $value_key => $value_value){
-                                            if($value_value === ''){
+                                    } elseif (is_array($value)) {
+                                        foreach ($value as $value_key => $value_value) {
+                                            $record_value = (string)$record['value'];
+                                            if ($value_value === '') {
                                                 continue;
-                                            }
-                                            elseif(
+                                            } elseif (
                                                 is_string($value_value) &&
                                                 stristr(
                                                     substr(
                                                         $value_value,
                                                         0,
-                                                        strlen($record['value'])
+                                                        strlen($record_value)
                                                     ),
-                                                    $record['value']
-                                                ) === false
+                                                    $record_value
+                                                ) !== false
                                             ) {
                                                 $skip = true;
                                             }
                                         }
                                     }
-                                }
-                            break;
-                            case Filter::OPERATOR_END :
-                                $value = $data->get($attribute);
-                                if(
-                                    is_string($record['value'])
-                                ){
-                                    if($record['value'] === ''){
-                                        break;
-                                    }
-                                    $length = strlen($record['value']);
-                                    if(is_array($value)){
-                                        foreach($value as $value_key => $value_value){
-                                            if($value_value === ''){
-                                                continue;
+                                    break;
+                                case Filter::OPERATOR_NOT_START :
+                                    $value = $data->get($attribute);
+                                    if (
+                                        is_string($record['value'])
+                                    ) {
+                                        if ($record['value'] === '') {
+                                            break;
+                                        } elseif (
+                                            is_string($value) &&
+                                            stristr(
+                                                substr(
+                                                    $value,
+                                                    0,
+                                                    strlen($record['value'])
+                                                ),
+                                                $record['value']
+                                            ) === false
+                                        ) {
+                                            $skip = true;
+                                        } elseif (is_array($value)) {
+                                            foreach ($value as $value_key => $value_value) {
+                                                if ($value_value === '') {
+                                                    continue;
+                                                } elseif (
+                                                    is_string($value_value) &&
+                                                    stristr(
+                                                        substr(
+                                                            $value_value,
+                                                            0,
+                                                            strlen($record['value'])
+                                                        ),
+                                                        $record['value']
+                                                    ) === false
+                                                ) {
+                                                    $skip = true;
+                                                }
                                             }
-                                            $start = strlen($value_value) - $length;
-                                            if(
+                                        }
+                                    }
+                                    break;
+                                case Filter::OPERATOR_END :
+                                    $value = $data->get($attribute);
+                                    if (
+                                        is_string($record['value'])
+                                    ) {
+                                        if ($record['value'] === '') {
+                                            break;
+                                        }
+                                        $length = strlen($record['value']);
+                                        if (is_array($value)) {
+                                            foreach ($value as $value_key => $value_value) {
+                                                if ($value_value === '') {
+                                                    continue;
+                                                }
+                                                $start = strlen($value_value) - $length;
+                                                if (
+                                                    stristr(
+                                                        substr(
+                                                            $value_value,
+                                                            $start,
+                                                            $length
+                                                        ),
+                                                        $record['value']
+                                                    ) !== false
+                                                ) {
+                                                    $skip = true;
+                                                    break;
+                                                }
+                                            }
+                                        } elseif (is_string($value)) {
+                                            $start = strlen($value) - $length;
+                                            if (
                                                 stristr(
                                                     substr(
-                                                        $value_value,
+                                                        $value,
                                                         $start,
                                                         $length
                                                     ),
@@ -725,46 +714,45 @@ class Filter extends Data {
                                                 ) !== false
                                             ) {
                                                 $skip = true;
-                                                break;
                                             }
                                         }
                                     }
-                                    elseif(is_string($value)){
-                                        $start = strlen($value) - $length;
-                                        if(
-                                            stristr(
-                                                substr(
-                                                    $value,
-                                                    $start,
-                                                    $length
-                                                ),
-                                                $record['value']
-                                            ) !== false
-                                        ) {
-                                            $skip = true;
+                                    break;
+                                case Filter::OPERATOR_NOT_END :
+                                    $value = $data->get($attribute);
+                                    if (
+                                        is_string($record['value'])
+                                    ) {
+                                        if ($record['value'] === '') {
+                                            break;
                                         }
-                                    }
-                                }
-                            break;
-                            case Filter::OPERATOR_NOT_END :
-                                $value = $data->get($attribute);
-                                if(
-                                    is_string($record['value'])
-                                ){
-                                    if($record['value'] === ''){
-                                        break;
-                                    }
-                                    $length = strlen($record['value']);
-                                    if(is_array($value)){
-                                        foreach($value as $value_key => $value_value){
-                                            if($value_value === ''){
-                                                continue;
+                                        $length = strlen($record['value']);
+                                        if (is_array($value)) {
+                                            foreach ($value as $value_key => $value_value) {
+                                                if ($value_value === '') {
+                                                    continue;
+                                                }
+                                                $start = strlen($value_value) - $length;
+                                                if (
+                                                    stristr(
+                                                        substr(
+                                                            $value_value,
+                                                            $start,
+                                                            $length
+                                                        ),
+                                                        $record['value']
+                                                    ) === false
+                                                ) {
+                                                    $skip = true;
+                                                    break;
+                                                }
                                             }
-                                            $start = strlen($value_value) - $length;
-                                            if(
+                                        } elseif (is_string($value)) {
+                                            $start = strlen($value) - $length;
+                                            if (
                                                 stristr(
                                                     substr(
-                                                        $value_value,
+                                                        $value,
                                                         $start,
                                                         $length
                                                     ),
@@ -772,53 +760,39 @@ class Filter extends Data {
                                                 ) === false
                                             ) {
                                                 $skip = true;
-                                                break;
                                             }
                                         }
                                     }
-                                    elseif(is_string($value)){
-                                        $start = strlen($value) - $length;
-                                        if(
-                                            stristr(
-                                                substr(
-                                                    $value,
-                                                    $start,
-                                                    $length
-                                                ),
-                                                $record['value']
-                                            ) === false
-                                        ) {
-                                            $skip = true;
-                                        }
-                                    }
-                                }
-                            break;
-                        }
-                        if($skip === false){
-                            $this->data('delete', $nr);
-                            if(is_array($list)){
-                                unset($list[$nr]);
-                            } else {
-                                unset($list->$nr);
+                                    break;
                             }
-                        }
-                    } elseif(is_array($record)) {
-                        $where = [];
-                        foreach($record as $key => $value){
+                            if ($skip === false) {
+                                $this->data('delete', $nr);
+                                if (is_array($list)) {
+                                    unset($list[$nr]);
+                                } else {
+                                    unset($list->$nr);
+                                }
+                            }
+                        } elseif (is_array($record)) {
+                            $where = [];
+                            foreach ($record as $key => $value) {
+                                $where[$attribute] = [
+                                    'operator' => Filter::OPERATOR_PARTIAL,
+                                    'value' => $value
+                                ];
+                            }
+                            $list = Filter::list($list)->where($where);
+                        } else {
+                            $where = [];
                             $where[$attribute] = [
                                 'operator' => Filter::OPERATOR_PARTIAL,
-                                'value' => $value
+                                'value' => $record
                             ];
+                            $list = Filter::list($list)->where($where);
                         }
-                        $list = Filter::list($list)->where($where);
-                    } else {
-                        $where = [];
-                        $where[$attribute] = [
-                            'operator' => Filter::OPERATOR_PARTIAL,
-                            'value' => $record
-                        ];
-                        $list = Filter::list($list)->where($where);
                     }
+                } else{
+                    ddd($list);
                 }
             }
         }
