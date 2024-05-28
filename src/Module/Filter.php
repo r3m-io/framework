@@ -192,6 +192,7 @@ class Filter extends Data {
                             case '===' :
                             case Filter::OPERATOR_STRICTLY_EXACT :
                                 d($attribute);
+                                d($data);
                                 $value = $data->get($attribute);
                                 d($value);
                                 d($record['value']);
