@@ -839,21 +839,22 @@ class Filter extends Data {
         return $list;
     }
 
-    private function where_record($where=[]){
-        d($where);
+    /**
+     * @throws ObjectException
+     * @throws Exception
+     */
+    private function where_record($where=[]): mixed
+    {
         $record = clone $this->data();
         $this->reset(true);
         $this->data([ $record ]);
-
-        d($this->data());
-
         $list = $this->where_list($where);
-        d($list);
-
-
-//        d($record->name);
-//        d($record->{'#class'});
-        return false;
+        if($list === false){
+            return false;
+        }
+        $this->reset(true);
+        $this->data($record);
+        return $record;
     }
 
     /**
