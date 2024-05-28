@@ -24,7 +24,7 @@ class LocateException extends Exception {
 
     public function __construct($message = "", $location=[], $code = 0, Throwable $previous = null) {
         $this->setLocation($location);
-        $this->setTrace();
+        $this->setDebugTrace();
         if($code === 0){
             $code = 404;
         }
