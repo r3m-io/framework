@@ -141,7 +141,7 @@ class Filter extends Data {
      */
     public function where($where=[]): mixed
     {
-        d($type);
+        d($this->type());
         $list = $this->data();
         if(is_object($where)){
             $where = Filter::object_clean($where);
