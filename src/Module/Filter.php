@@ -859,8 +859,15 @@ class Filter extends Data {
         if($list === false){
             return false;
         }
-        $this->reset(true);
-        $this->data($record);
+        elseif(is_array($list)){
+            $this->reset(true);
+            $this->data($record);
+            if(empty($list)){
+                return false;
+            }
+            return array_shift($list);
+        }
+
         return $record;
     }
 
