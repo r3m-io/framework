@@ -867,7 +867,6 @@ class Filter extends Data {
             }
             return array_shift($list);
         }
-
         return $record;
     }
 
