@@ -828,6 +828,11 @@ class Filter extends Data {
     private function where_record($where=[]){
         d($where);
         $record = $this->data();
+        $this->data([ $record ]);
+        $list = $this->where_list($where);
+        d($list);
+
+
         d($record->name);
         d($record->{'#class'});
         return false;
