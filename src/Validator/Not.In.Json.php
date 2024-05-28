@@ -19,7 +19,7 @@ use R3m\Io\Exception\FileWriteException;
  * @throws ObjectException
  * @throws FileWriteException
  */
-function validate_in_json(App $object, $request=null, $field='', $argument='', $function=false): bool
+function validate_not_in_json(App $object, $request=null, $field='', $argument='', $function=false): bool
 {
     $url = $argument->url ?? false;
     $list = $argument->list ?? false;
@@ -65,7 +65,7 @@ function validate_in_json(App $object, $request=null, $field='', $argument='', $
                 if($ignore_case){
                     $post = strtolower($post);
                 }
-                if(!in_array($post, $result, true)) {
+                if(in_array($post, $result, true)) {
                     return false;
                 }
             }
@@ -123,11 +123,11 @@ function validate_in_json(App $object, $request=null, $field='', $argument='', $
             } else {
                 $string = $request;
             }
-            if(!in_array($string, $result, true)) {
+            if(in_array($string, $result, true)) {
                 return false;
             }
             return true;
         }
     }
-    return false;
+    return true;
 }
