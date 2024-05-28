@@ -105,6 +105,7 @@ class Filter extends Data {
         if(is_object($where)){
             $where = Core::object($where, Core::OBJECT_ARRAY);
         }
+        d($where);
         if(
             is_array($list) || 
             is_object($list)
@@ -116,6 +117,7 @@ class Filter extends Data {
             }
             foreach($list as $uuid => $node){
                 $data = new Data($node);
+                d($data);
                 foreach($where as $attribute => $record){
                     if(
                         is_array($record) &&
