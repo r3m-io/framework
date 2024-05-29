@@ -223,6 +223,8 @@ class Filter extends Data {
                                 }
                             }
                         }
+                        d($list);
+                        d($this->type());
                         d($data);
                         d($attribute);
                         d($record);
