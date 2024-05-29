@@ -61,9 +61,7 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
             } else {
                 $data_key = $data->data();
                 if(!is_scalar($data_key)){
-                    d($inverse);
-                    d($type);
-
+                    $data_filter = false;
                     switch($type){
                         case 'list':
                             $data_filter = Filter::list($data_key)->where($filter);
@@ -72,7 +70,7 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
                             $data_filter = Filter::record($data_key)->where($filter);
                             break;
                     }
-                    if($data_filter){
+                    if(!empty($data_filter)){
                         return true;
                     }
                 }
