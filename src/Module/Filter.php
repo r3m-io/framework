@@ -827,6 +827,7 @@ class Filter extends Data {
                                     }
                                     break;
                             }
+                            d($skip);
                             if ($skip === false) {
                                 switch($this->type()) {
                                     case 'list':
