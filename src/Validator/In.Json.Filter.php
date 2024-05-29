@@ -72,7 +72,9 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
                             $data_filter = Filter::record($data_key)->where($filter);
                             break;
                     }
-                    d($data_filter);
+                    if($data_filter){
+                        return true;
+                    }
                 }
             }
         }
