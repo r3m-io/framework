@@ -73,6 +73,7 @@ class Filter extends Data {
 
     const TYPE_RECORD = 'record';
     const TYPE_LIST = 'list';
+    const TYPE_AUTO = 'auto';
 
     /**
      * @throws Exception

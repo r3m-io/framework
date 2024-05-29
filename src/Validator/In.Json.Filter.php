@@ -48,7 +48,7 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
                     $data_key !==null &&
                     !is_scalar($data_key)
                 ) {
-                    if($type === 'auto'){
+                    if($type === Filter::TYPE_AUTO){
                         $type = Filter::is_type($data_key);
                         ddd($type);
                     }
