@@ -284,8 +284,6 @@ class Filter extends Data {
                                     break;
                                 case Filter::OPERATOR_IN :
                                     $value = $data->get($attribute);
-                                    d($value);
-                                    d($record['value']);
                                     if (is_array($record['value'])) {
                                         if (is_scalar($value)) {
                                             if (
