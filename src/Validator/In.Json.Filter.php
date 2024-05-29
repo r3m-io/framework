@@ -52,7 +52,6 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
                 ) {
                     if($type === Filter::TYPE_AUTO){
                         $type = Filter::is_type($data_key);
-                        ddd($type);
                     }
                     switch($type){
                         case 'list':
@@ -78,7 +77,6 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
                 ){
                     if($type === Filter::TYPE_AUTO){
                         $type = Filter::is_type($data_key);
-                        ddd($type);
                     }
                     switch($type){
                         case 'list':
