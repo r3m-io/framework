@@ -62,21 +62,17 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
                 $data_key = $data->data();
                 if(!is_scalar($data_key)){
                     d($inverse);
-                    ddd($type);
-                    $data_filter = Filter::list($data_key)->where($filter);
-                    if(
-                        is_array($data_filter) &&
-                        empty($data_filter)
-                    ){
-                        return false;
-                    }
-                    if($data_filter === false){
-                        $data_filter = Filter::record($data_key)->where($filter);
+                    d($type);
+
+                    switch($type){
+                        case 'list':
+                            $data_filter = Filter::list($data_key)->where($filter);
+                            break;
+                        case 'record':
+                            $data_filter = Filter::record($data_key)->where($filter);
+                            break;
                     }
                     d($data_filter);
-                    if($data_filter){
-                        return true;
-                    }
                 }
             }
         }
