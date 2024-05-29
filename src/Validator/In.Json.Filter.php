@@ -41,7 +41,6 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
         $data = $object->parse_read($url, sha1($url));
     } else {
         $data = new Data($data);
-        ddd($data);
     }
     if($data){
         if($filter){
@@ -77,6 +76,10 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
                     $data_key !==null &&
                     !is_scalar($data_key)
                 ){
+                    if($type === Filter::TYPE_AUTO){
+                        $type = Filter::is_type($data_key);
+                        ddd($type);
+                    }
                     switch($type){
                         case 'list':
                             $data_filter = Filter::list($data_key)->where($filter);
