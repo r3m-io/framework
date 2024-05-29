@@ -830,6 +830,7 @@ class Filter extends Data {
                             if ($skip === false) {
                                 switch($this->type()) {
                                     case 'list':
+                                        d($nr);
                                         $this->data('delete', $nr);
                                         if (is_array($list)) {
                                             unset($list[$nr]);
