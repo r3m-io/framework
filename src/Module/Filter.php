@@ -323,8 +323,6 @@ class Filter extends Data {
                                     break;
                                 case Filter::OPERATOR_NOT_IN :
                                     $value = $data->get($attribute);
-                                    d($value);
-                                    d($record['value']);
                                     if (is_array($record['value'])) {
                                         if (is_scalar($value)) {
                                             if (
@@ -827,11 +825,9 @@ class Filter extends Data {
                                     }
                                     break;
                             }
-                            d($skip);
                             if ($skip === false) {
                                 switch($this->type()) {
                                     case 'list':
-                                        d($nr);
                                         $this->data('delete', $nr);
                                         if (is_array($list)) {
                                             unset($list[$nr]);
