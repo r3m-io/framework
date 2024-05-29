@@ -71,6 +71,9 @@ class Filter extends Data {
 
     private $type;
 
+    const TYPE_RECORD = 'record';
+    const TYPE_LIST = 'list';
+
     /**
      * @throws Exception
      */
@@ -107,6 +110,36 @@ class Filter extends Data {
     private function getType() : ?string
     {
         return $this->type;
+    }
+
+
+    public static function is_type($data=null): string
+    {
+        if(is_array($data)){
+            return Filter::TYPE_LIST;
+        }
+        $is_iterable = false;
+        if(
+            is_object($data)
+        ){
+            $is_iterable = true;
+            foreach($data as $record){
+                if($record === null) {
+                    $is_iterable = false;
+                    break;
+                }
+                elseif(is_scalar($record)){
+                    $is_iterable = false;
+                    break;
+                }
+            }
+        }
+        switch($is_iterable){
+            case true :
+                return Filter::TYPE_LIST;
+            default:
+                return Filter::TYPE_RECORD;
+        }
     }
 
     /**
