@@ -310,6 +310,18 @@ class Filter extends Data {
                                             }
                                         }
                                     }
+                                    elseif(is_scalar($record['value'])) {
+                                        if(is_scalar($value)){
+                                            if($value === $record['value']){
+                                                $skip = true;
+                                            }
+                                        }
+                                        elseif(is_array($value)){
+                                            if(in_array($record['value'], $value, true)){
+                                                $skip = true;
+                                            }
+                                        }
+                                    }
                                     break;
                                 case Filter::OPERATOR_NOT_IN :
                                     $value = $data->get($attribute);
@@ -334,6 +346,18 @@ class Filter extends Data {
                                                     $skip = true;
                                                     break;
                                                 }
+                                            }
+                                        }
+                                    }
+                                    elseif(is_scalar($record['value'])) {
+                                        if(is_scalar($value)){
+                                            if($value !== $record['value']){
+                                                $skip = true;
+                                            }
+                                        }
+                                        elseif(is_array($value)){
+                                            if(!in_array($record['value'], $value, true)){
+                                                $skip = true;
                                             }
                                         }
                                     }
