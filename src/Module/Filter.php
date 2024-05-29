@@ -223,6 +223,11 @@ class Filter extends Data {
                                 }
                             }
                         }
+                        $debug = debug_backtrace(1);
+                        d($debug[0]['file'] . ':' . $debug[0]['line'] . ' ' . $debug[0]['function']);
+                        d($debug[1]['file'] . ':' . $debug[1]['line'] . ' ' . $debug[1]['function']);
+                        d($debug[2]['file'] . ':' . $debug[2]['line'] . ' ' . $debug[2]['function']);
+                        d($debug[3]['file'] . ':' . $debug[3]['line'] . ' ' . $debug[3]['function']);
                         d($list);
                         d($this->type());
                         d($data);
