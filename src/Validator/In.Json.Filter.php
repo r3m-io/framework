@@ -32,7 +32,7 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
     $inverse = $argument->inverse ?? false;
     $type = $argument->type ?? 'record';
     if($url === false) {
-        return false;
+        return $inverse;
     }
     $data = $object->parse_read($url, sha1($url));
     $data_key = null;
@@ -51,7 +51,7 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
                             break;
                     }
                     if(!empty($data_filter)){
-                        return true;
+                        return !$inverse;
                     }
                 }
             } else {
@@ -67,11 +67,11 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
                             break;
                     }
                     if(!empty($data_filter)){
-                        return true;
+                        return !$inverse;
                     }
                 }
             }
         }
     }
-    return false;
+    return $inverse;
 }
