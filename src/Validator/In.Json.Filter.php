@@ -39,6 +39,9 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
             return false;
         }
         $data = $object->parse_read($url, sha1($url));
+    } else {
+        $data = new Data($data);
+        ddd($data);
     }
     if($data){
         if($filter){
