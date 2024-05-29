@@ -29,6 +29,8 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
     $ignore_case = $argument->ignore_case ?? false;
     $filter = $argument->filter ?? false;
     $key = $argument->key ?? false;
+    $inverse = $argument->inverse ?? false;
+    $type = $argument->type ?? 'record';
     if($url === false) {
         return false;
     }
@@ -39,6 +41,8 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
             if($key) {
                 $data_key = $data->data($key);
                 if (!is_scalar($data_key)) {
+                    d($inverse);
+                    ddd($type);
                     $data_filter = Filter::list($data_key)->where($filter);
                     if(
                         is_array($data_filter) &&
@@ -57,6 +61,8 @@ function validate_in_json_filter(App $object, $request=null, $field='', $argumen
             } else {
                 $data_key = $data->data();
                 if(!is_scalar($data_key)){
+                    d($inverse);
+                    ddd($type);
                     $data_filter = Filter::list($data_key)->where($filter);
                     if(
                         is_array($data_filter) &&
