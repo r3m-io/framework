@@ -345,6 +345,7 @@ class Filter extends Data {
                                         } elseif (is_array($value)) {
                                             foreach ($value as $value_key => $value_value) {
                                                 if (
+                                                    $strict === true &&
                                                     in_array(
                                                         $value_value,
                                                         $record['value'],
@@ -352,6 +353,10 @@ class Filter extends Data {
                                                 ) {
                                                     $skip = true;
                                                     break;
+                                                }
+                                                elseif($strict === false){
+                                                    d($value);
+                                                    ddd($record['value']);
                                                 }
                                             }
                                         }
