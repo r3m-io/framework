@@ -48,22 +48,22 @@ function validate_float(App $object, $string='', $field='', $argument='', $funct
             $result = false;
             switch($equation){
                 case '>' :
-                case 'greater':
+                case 'greater-than':
                 case 'gt':
                     $result = $float > $right;
                     break;
                 case '<' :
-                case 'smaller':
+                case 'lower-than':
                 case 'lt':
                     $result = $float < $right;
                     break;
                 case '>=' :
-                case 'greater-or-equal':
+                case 'greater-then-equal':
                 case 'gte':
                     $result = $float >= $right;
                     break;
                 case '<=' :
-                case 'smaller-or-equal':
+                case 'lower-then-equal':
                 case 'lte':
                     $result = $float <= $right;
                     break;
