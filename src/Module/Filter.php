@@ -382,6 +382,8 @@ class Filter extends Data {
                                                         if($value_value === 'null'){
                                                             $value_value = null;
                                                         }
+                                                        d($record_value_value);
+                                                        d($value_value);
                                                         if($record_value_value == $value_value){
                                                             $skip = true;
                                                             break;
