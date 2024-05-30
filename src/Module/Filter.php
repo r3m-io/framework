@@ -566,7 +566,7 @@ class Filter extends Data {
                                                     elseif(is_numeric($record_value_value)){
                                                         $record_value_value += 0;
                                                     }
-                                                    if($record_value_value == $value){
+                                                    if($record_value_value != $value){
                                                         $skip = true;
                                                         break;
                                                     }
@@ -586,9 +586,37 @@ class Filter extends Data {
                                                         break;
                                                     }
                                                 } else {
-                                                    ddd($strict);
+                                                    if($value_value === 'true'){
+                                                        $value_value = true;
+                                                    }
+                                                    elseif($value_value === 'false'){
+                                                        $value_value = false;
+                                                    }
+                                                    elseif($value_value === 'null'){
+                                                        $value_value = null;
+                                                    }
+                                                    elseif(is_numeric($value_value)){
+                                                        $value_value += 0;
+                                                    }
+                                                    foreach($record['value'] as $record_value_key => $record_value_value){
+                                                        if($record_value_value === 'true'){
+                                                            $record_value_value = true;
+                                                        }
+                                                        elseif($record_value_value === 'false'){
+                                                            $record_value_value = false;
+                                                        }
+                                                        elseif($record_value_value === 'null'){
+                                                            $record_value_value = null;
+                                                        }
+                                                        elseif(is_numeric($record_value_value)){
+                                                            $record_value_value += 0;
+                                                        }
+                                                        if($record_value_value != $value_value){
+                                                            $skip = true;
+                                                            break;
+                                                        }
+                                                    }
                                                 }
-
                                             }
                                         }
                                     }
@@ -605,7 +633,34 @@ class Filter extends Data {
                                                     $skip = true;
                                                 }
                                             } else {
-                                                ddd($strict);
+                                                if($value === 'true'){
+                                                    $value = true;
+                                                }
+                                                elseif($value === 'false'){
+                                                    $value = false;
+                                                }
+                                                elseif($value === 'null'){
+                                                    $value = null;
+                                                }
+                                                elseif(is_numeric($value)){
+                                                    $value += 0;
+                                                }
+                                                $record_value = $record['value'];
+                                                if($record_value === 'true'){
+                                                    $record_value = true;
+                                                }
+                                                elseif($record_value === 'false'){
+                                                    $record_value = false;
+                                                }
+                                                elseif($record_value === 'null'){
+                                                    $record_value = null;
+                                                }
+                                                elseif(is_numeric($record_value)){
+                                                    $record_value += 0;
+                                                }
+                                                if($value != $record_value){
+                                                    $skip = true;
+                                                }
                                             }
                                         }
                                         elseif(is_array($value)){
@@ -614,7 +669,36 @@ class Filter extends Data {
                                                     $skip = true;
                                                 }
                                             } else {
-                                                ddd($strict);
+                                                if($value_value === 'true'){
+                                                    $value_value = true;
+                                                }
+                                                elseif($value_value === 'false'){
+                                                    $value_value = false;
+                                                }
+                                                elseif($value_value === 'null'){
+                                                    $value_value = null;
+                                                }
+                                                elseif(is_numeric($value_value)){
+                                                    $value_value += 0;
+                                                }
+                                                foreach($record['value'] as $record_value_key => $record_value_value){
+                                                    if($record_value_value === 'true'){
+                                                        $record_value_value = true;
+                                                    }
+                                                    elseif($record_value_value === 'false'){
+                                                        $record_value_value = false;
+                                                    }
+                                                    elseif($record_value_value === 'null'){
+                                                        $record_value_value = null;
+                                                    }
+                                                    elseif(is_numeric($record_value_value)){
+                                                        $record_value_value += 0;
+                                                    }
+                                                    if($record_value_value != $value_value){
+                                                        $skip = true;
+                                                        break;
+                                                    }
+                                                }
                                             }
                                         }
                                     }
