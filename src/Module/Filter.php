@@ -325,15 +325,21 @@ class Filter extends Data {
                                     break;
                                 case Filter::OPERATOR_IN :
                                     $value = $data->get($attribute);
+                                    $strict = $record['strict'] ?? true;
                                     if (is_array($record['value'])) {
                                         if (is_scalar($value)) {
                                             if (
+                                                $strict === true &&
                                                 in_array(
                                                     $value,
                                                     $record['value'],
                                                     true)
                                             ) {
                                                 $skip = true;
+                                            }
+                                            elseif($strict === false){
+                                                d($value);
+                                                ddd($record['value']);
                                             }
                                         } elseif (is_array($value)) {
                                             foreach ($value as $value_key => $value_value) {
