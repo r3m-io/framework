@@ -130,23 +130,6 @@ class Filter extends Data {
                     break;
                 }
                 elseif(is_scalar($record)){
-                    if(
-                        is_string($record) &&
-                        in_array(
-                            strtolower($record),
-                            [
-                                '(',
-                                ')',
-                                'and',
-                                'or',
-                                'xor'
-                            ],
-                            true
-                        )
-                    ){
-                        //where is ignored...
-                        continue;
-                    }
                     $is_iterable = false;
                     break;
                 }
