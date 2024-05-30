@@ -130,7 +130,6 @@ class Filter extends Data {
                     break;
                 }
                 elseif(is_scalar($record)){
-                    //where is ignored...
                     if(
                         is_string($record) &&
                         in_array(
@@ -145,6 +144,7 @@ class Filter extends Data {
                             true
                         )
                     ){
+                        //where is ignored...
                         continue;
                     }
                     $is_iterable = false;
