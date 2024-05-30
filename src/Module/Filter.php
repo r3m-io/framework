@@ -22,9 +22,13 @@ class Filter extends Data {
     const INPUT = 'input';
     const OUTPUT = 'output';
     const OPERATOR_STRICTLY_EXACT = 'strictly-exact';
+    const OPERATOR_STRICTLY_EQUAL = 'strictly-equal';
     const OPERATOR_NOT_STRICTLY_EXACT = 'not-strictly-exact';
+    const OPERATOR_NOT_STRICTLY_EQUAL = 'not-strictly-equal';
     const OPERATOR_EXACT = 'exact';
+    const OPERATOR_EQUAL = 'equal';
     const OPERATOR_NOT_EXACT = 'not-exact';
+    const OPERATOR_NOT_EQUAL = 'not-equal';
     const OPERATOR_IN = 'in';
     const OPERATOR_NOT_IN = 'not-in';
     const OPERATOR_GT = 'gt';
@@ -74,7 +78,11 @@ class Filter extends Data {
         Filter::OPERATOR_GREATER_THAN,
         Filter::OPERATOR_GREATER_THAN_EQUAL,
         Filter::OPERATOR_LOWER_THAN,
-        Filter::OPERATOR_LOWER_THAN_EQUAL
+        Filter::OPERATOR_LOWER_THAN_EQUAL,
+        Filter::OPERATOR_EQUAL,
+        Filter::OPERATOR_NOT_EQUAL,
+        Filter::OPERATOR_STRICTLY_EQUAL,
+        Filter::OPERATOR_NOT_STRICTLY_EQUAL
     ];
 
     private $type;
@@ -274,6 +282,7 @@ class Filter extends Data {
                             switch ($record['operator']) {
                                 case '===' :
                                 case Filter::OPERATOR_STRICTLY_EXACT :
+                                case Filter::OPERATOR_STRICTLY_EQUAL :
                                     $value = $data->get($attribute);
                                     if (
                                         $value === null ||
@@ -290,6 +299,7 @@ class Filter extends Data {
                                     break;
                                 case '!==' :
                                 case Filter::OPERATOR_NOT_STRICTLY_EXACT :
+                                case Filter::OPERATOR_NOT_STRICTLY_EQUAL :
                                     $value = $data->get($attribute);
                                     if (
                                         $value === null ||
@@ -306,6 +316,7 @@ class Filter extends Data {
                                     break;
                                 case '==' :
                                 case Filter::OPERATOR_EXACT :
+                                case Filter::OPERATOR_EQUAL :
                                     $value = $data->get($attribute);
                                     if (
                                         $value === null ||
@@ -322,6 +333,7 @@ class Filter extends Data {
                                     break;
                                 case '!=' :
                                 case Filter::OPERATOR_NOT_EXACT :
+                                case Filter::OPERATOR_NOT_EQUAL :
                                     $value = $data->get($attribute);
                                     if (
                                         $value === null ||

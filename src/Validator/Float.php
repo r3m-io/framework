@@ -68,18 +68,22 @@ function validate_float(App $object, $string='', $field='', $argument='', $funct
                     $result = $float <= $right;
                     break;
                 case '==' :
+                case 'equal':
                 case 'exact':
                     $result = $float == $right;
                     break;
                 case '!=' :
+                case 'not-equal':
                 case 'not-exact':
                     $result = $float != $right;
                     break;
                 case '===' :
+                case 'strictly-equal':
                 case 'strictly-exact':
                     $result = $float === $right;
                     break;
                 case '!==' :
+                case 'not-strictly-equal':
                 case 'not-strictly-exact':
                     $result = $float !== $right;
                     break;

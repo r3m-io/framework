@@ -48,27 +48,43 @@ function validate_integer(App $object, $string='', $field='', $argument='', $fun
             $result = false;
             switch($equation){
                 case '>' :
+                case 'greater-than':
+                case 'gt':
                     $result = $int > $right;
                     break;
                 case '<' :
+                case 'lower-than':
+                case 'lt':
                     $result = $int < $right;
                     break;
                 case '>=' :
+                case 'greater-then-equal':
+                case 'gte':
                     $result = $int >= $right;
                     break;
                 case '<=' :
+                case 'lower-then-equal':
+                case 'lte':
                     $result = $int <= $right;
                     break;
                 case '==' :
+                case 'equal':
+                case 'exact':
                     $result = $int == $right;
                     break;
                 case '!=' :
+                case 'not-equal':
+                case 'not-exact':
                     $result = $int != $right;
                     break;
                 case '===' :
+                case 'strictly-equal':
+                case 'strictly-exact':
                     $result = $int === $right;
                     break;
                 case '!==' :
+                case 'not-strictly-equal':
+                case 'not-strictly-exact':
                     $result = $int !== $right;
                     break;
                 default:
