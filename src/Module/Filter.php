@@ -342,7 +342,8 @@ class Filter extends Data {
                                                 d($value);
                                                 ddd($record['value']);
                                             }
-                                        } elseif (is_array($value)) {
+                                        }
+                                        elseif (is_array($value)) {
                                             foreach ($value as $value_key => $value_value) {
                                                 if (
                                                     $strict === true &&
