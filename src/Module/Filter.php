@@ -282,8 +282,7 @@ class Filter extends Data {
                                         if ($value === $record['value']) {
                                             $skip = true;
                                         }
-                                    }
-                                    elseif (is_array($value)) {
+                                    } elseif (is_array($value)) {
                                         if (in_array($record['value'], $value, true)) {
                                             $skip = true;
                                         }
@@ -299,8 +298,7 @@ class Filter extends Data {
                                         if ($value !== $record['value']) {
                                             $skip = true;
                                         }
-                                    }
-                                    elseif (is_array($value)) {
+                                    } elseif (is_array($value)) {
                                         if (!in_array($record['value'], $value, true)) {
                                             $skip = true;
                                         }
@@ -316,8 +314,7 @@ class Filter extends Data {
                                         if ($value == $record['value']) {
                                             $skip = true;
                                         }
-                                    }
-                                    elseif (is_array($value)) {
+                                    } elseif (is_array($value)) {
                                         if (in_array($record['value'], $value, true)) {
                                             $skip = true;
                                         }
@@ -333,8 +330,7 @@ class Filter extends Data {
                                         if ($value != $record['value']) {
                                             $skip = true;
                                         }
-                                    }
-                                    elseif (is_array($value)) {
+                                    } elseif (is_array($value)) {
                                         if (!in_array($record['value'], $value, true)) {
                                             $skip = true;
                                         }
@@ -356,40 +352,39 @@ class Filter extends Data {
                                             ) {
                                                 $skip = true;
                                             }
-                                            elseif($strict === false){
-                                                if($value === 'true'){
+                                            elseif ($strict === false) {
+                                                if ($value === 'true') {
                                                     $value = true;
                                                 }
-                                                elseif($value === 'false'){
+                                                elseif ($value === 'false') {
                                                     $value = false;
                                                 }
-                                                elseif($value === 'null'){
+                                                elseif ($value === 'null') {
                                                     $value = null;
                                                 }
-                                                elseif(is_numeric($value)){
+                                                elseif (is_numeric($value)) {
                                                     $value += 0;
                                                 }
-                                                foreach($record['value'] as $record_value_key => $record_value_value){
-                                                    if($record_value_value === 'true'){
+                                                foreach ($record['value'] as $record_value_key => $record_value_value) {
+                                                    if ($record_value_value === 'true') {
                                                         $record_value_value = true;
                                                     }
-                                                    elseif($record_value_value === 'false'){
+                                                    elseif ($record_value_value === 'false') {
                                                         $record_value_value = false;
                                                     }
-                                                    elseif($record_value_value === 'null'){
+                                                    elseif ($record_value_value === 'null') {
                                                         $record_value_value = null;
                                                     }
-                                                    elseif(is_numeric($record_value_value)){
+                                                    elseif (is_numeric($record_value_value)) {
                                                         $record_value_value += 0;
                                                     }
-                                                    if($record_value_value == $value){
+                                                    if ($record_value_value == $value) {
                                                         $skip = true;
                                                         break;
                                                     }
                                                 }
                                             }
-                                        }
-                                        elseif (is_array($value)) {
+                                        } elseif (is_array($value)) {
                                             foreach ($value as $value_key => $value_value) {
                                                 if (
                                                     $strict === true &&
@@ -401,33 +396,32 @@ class Filter extends Data {
                                                     $skip = true;
                                                     break;
                                                 }
-                                                elseif($strict === false){
-                                                    if($value_value === 'true'){
+                                                elseif ($strict === false) {
+                                                    if ($value_value === 'true') {
                                                         $value_value = true;
                                                     }
-                                                    elseif($value_value === 'false'){
+                                                    elseif ($value_value === 'false') {
                                                         $value_value = false;
                                                     }
-                                                    elseif($value_value === 'null'){
+                                                    elseif ($value_value === 'null') {
                                                         $value_value = null;
-                                                    }
-                                                    elseif(is_numeric($value_value)){
+                                                    } elseif (is_numeric($value_value)) {
                                                         $value_value += 0;
                                                     }
-                                                    foreach($record['value'] as $record_value_key => $record_value_value){
-                                                        if($record_value_value === 'true'){
+                                                    foreach ($record['value'] as $record_value_key => $record_value_value) {
+                                                        if ($record_value_value === 'true') {
                                                             $record_value_value = true;
                                                         }
-                                                        elseif($record_value_value === 'false'){
+                                                        elseif ($record_value_value === 'false') {
                                                             $record_value_value = false;
                                                         }
-                                                        elseif($record_value_value === 'null'){
+                                                        elseif ($record_value_value === 'null') {
                                                             $record_value_value = null;
                                                         }
-                                                        elseif(is_numeric($record_value_value)){
+                                                        elseif (is_numeric($record_value_value)) {
                                                             $record_value_value += 0;
                                                         }
-                                                        if($record_value_value == $value_value){
+                                                        if ($record_value_value == $value_value) {
                                                             $skip = true;
                                                             break;
                                                         }
@@ -435,90 +429,92 @@ class Filter extends Data {
                                                 }
                                             }
                                         }
-                                    }
-                                    elseif(
+                                    } elseif (
                                         $record['value'] === null ||
                                         is_scalar($record['value'])
                                     ) {
-                                        if(
+                                        if (
                                             $value === null ||
                                             is_scalar($value)
-                                        ){
-                                            if($strict === true){
-                                                if($value === $record['value']){
-                                                    $skip = true;
-                                                }
-                                            } else {
-                                                if($value === 'true'){
-                                                    $value = true;
-                                                }
-                                                elseif($value === 'false'){
-                                                    $value = false;
-                                                }
-                                                elseif($value === 'null'){
-                                                    $value = null;
-                                                }
-                                                elseif(is_numeric($value)){
-                                                    $value += 0;
-                                                }
-                                                $record_value = $record['value'];
-                                                if($record_value === 'true'){
-                                                    $record_value = true;
-                                                }
-                                                elseif($record_value === 'false'){
-                                                    $record_value = false;
-                                                }
-                                                elseif($record_value === 'null'){
-                                                    $record_value = null;
-                                                }
-                                                elseif(is_numeric($record_value)){
-                                                    $record_value += 0;
-                                                }
-                                                if($value == $record_value){
-                                                    $skip = true;
-                                                }
+                                        ) {
+                                            if (
+                                                $strict === true &&
+                                                $value === $record['value']
+                                            ) {
+                                                $skip = true;
                                             }
-
                                         }
-                                        elseif(is_array($value)){
-                                            if($strict === true){
-                                                if(in_array($record['value'], $value, true)){
+                                        elseif ($strict === false) {
+                                            if ($value === 'true') {
+                                                $value = true;
+                                            }
+                                            elseif ($value === 'false') {
+                                                $value = false;
+                                            }
+                                            elseif ($value === 'null') {
+                                                $value = null;
+                                            }
+                                            elseif (is_numeric($value)) {
+                                                $value += 0;
+                                            }
+                                            $record_value = $record['value'];
+                                            if ($record_value === 'true') {
+                                                $record_value = true;
+                                            }
+                                            elseif ($record_value === 'false') {
+                                                $record_value = false;
+                                            }
+                                            elseif ($record_value === 'null') {
+                                                $record_value = null;
+                                            }
+                                            elseif (is_numeric($record_value)) {
+                                                $record_value += 0;
+                                            }
+                                            if ($value == $record_value) {
+                                                $skip = true;
+                                            }
+                                        }
+                                    }
+                                    elseif (is_array($value)) {
+                                        if (
+                                            $strict === true &&
+                                            in_array($record['value'], $value, true)
+                                        ) {
+                                            $skip = true;
+                                        }
+                                        elseif ($strict === false) {
+                                            $record_value = $record['value'];
+                                            if ($record_value === 'true') {
+                                                $record_value = true;
+                                            }
+                                            elseif ($record_value === 'false') {
+                                                $record_value = false;
+                                            }
+                                            elseif ($record_value === 'null') {
+                                                $record_value = null;
+                                            }
+                                            elseif (is_numeric($record_value)) {
+                                                $record_value += 0;
+                                            }
+                                            if ($value == $record_value) {
+                                                $skip = true;
+                                            }
+                                            foreach ($value as $value_key => $value_value) {
+                                                if ($value_value === 'true') {
+                                                    $value_value = true;
+                                                }
+                                                elseif ($value_value === 'false') {
+                                                    $value_value = false;
+                                                }
+                                                elseif ($value_value === 'null') {
+                                                    $value_value = null;
+                                                }
+                                                elseif (is_numeric($value_value)) {
+                                                    $value_value += 0;
+                                                }
+                                                if ($value_value == $record['value']) {
                                                     $skip = true;
-                                                }
-                                            } else {
-                                                $record_value = $record['value'];
-                                                if($record_value === 'true'){
-                                                    $record_value = true;
-                                                }
-                                                elseif($record_value === 'false'){
-                                                    $record_value = false;
-                                                }
-                                                elseif($record_value === 'null'){
-                                                    $record_value = null;
-                                                }
-                                                elseif(is_numeric($record_value)){
-                                                    $record_value += 0;
-                                                }
-                                                if($value == $record_value){
-                                                    $skip = true;
-                                                }
-                                                foreach($value as $value_key => $value_value){
-                                                    if($value_value === 'true'){
-                                                        $value_value = true;
-                                                    }
-                                                    elseif($value_value === 'false'){
-                                                        $value_value = false;
-                                                    }
-                                                    elseif($value_value === 'null'){
-                                                        $value_value = null;
-                                                    }
-                                                    elseif(is_numeric($value_value)){
-                                                        $value_value += 0;
-                                                    }
-                                                    if($value_value == $record['value']){
-                                                        $skip = true;
-                                                        break;
-                                                    }
+                                                    break;
                                                 }
                                             }
                                         }
@@ -531,16 +527,17 @@ class Filter extends Data {
                                             $value === null ||
                                             is_scalar($value)
                                         ) {
-                                            if($strict === true){
-                                                if (
-                                                    !in_array(
-                                                        $value,
-                                                        $record['value'],
-                                                        true)
-                                                ) {
+                                            if(
+                                                $strict === true &&
+                                                !in_array(
+                                                    $value,
+                                                    $record['value'],
+                                                    true
+                                                )
+                                            ) {
                                                     $skip = true;
-                                                }
-                                            } else {
+                                            }
+                                            elseif($strict === false) {
                                                 if($value === 'true'){
                                                     $value = true;
                                                 }
@@ -575,17 +572,18 @@ class Filter extends Data {
                                         }
                                         elseif (is_array($value)) {
                                             foreach ($value as $value_key => $value_value) {
-                                                if($strict === true){
-                                                    if (
-                                                        !in_array(
-                                                            $value_value,
-                                                            $record['value'],
-                                                            true)
-                                                    ) {
-                                                        $skip = true;
-                                                        break;
-                                                    }
-                                                } else {
+                                                if(
+                                                    $strict === true &&
+                                                    !in_array(
+                                                        $value_value,
+                                                        $record['value'],
+                                                        true
+                                                    )
+                                                ) {
+                                                    $skip = true;
+                                                    break;
+                                                }
+                                                elseif($strict === false) {
                                                     if($value_value === 'true'){
                                                         $value_value = true;
                                                     }
@@ -628,11 +626,13 @@ class Filter extends Data {
                                             $value === null ||
                                             is_scalar($value)
                                         ){
-                                            if($strict === true){
-                                                if($value !== $record['value']){
-                                                    $skip = true;
-                                                }
-                                            } else {
+                                            if(
+                                                $strict === true &&
+                                                $value !== $record['value']
+                                            ){
+                                                $skip = true;
+                                            }
+                                            elseif($strict === false) {
                                                 if($value === 'true'){
                                                     $value = true;
                                                 }
@@ -664,11 +664,13 @@ class Filter extends Data {
                                             }
                                         }
                                         elseif(is_array($value)){
-                                            if($strict === true){
-                                                if(!in_array($record['value'], $value, true)){
-                                                    $skip = true;
-                                                }
-                                            } else {
+                                            if(
+                                                $strict === true &&
+                                                !in_array($record['value'], $value, true)
+                                            ){
+                                                $skip = true;
+                                            }
+                                            elseif($strict === false) {
                                                 if($value_value === 'true'){
                                                     $value_value = true;
                                                 }
@@ -694,8 +696,9 @@ class Filter extends Data {
                                                     elseif(is_numeric($record_value_value)){
                                                         $record_value_value += 0;
                                                     }
-                                                    if($record_value_value != $value_value){
-                                                        $skip = true;
+                                                    $skip = true;
+                                                    if($record_value_value == $value_value){
+                                                        $skip = false;
                                                         break;
                                                     }
                                                 }
