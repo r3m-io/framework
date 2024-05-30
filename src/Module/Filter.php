@@ -550,6 +550,7 @@ class Filter extends Data {
                                                 elseif(is_numeric($value)){
                                                     $value += 0;
                                                 }
+                                                $skip = true;
                                                 foreach($record['value'] as $record_value_key => $record_value_value){
                                                     if($record_value_value === 'true'){
                                                         $record_value_value = true;
@@ -563,8 +564,8 @@ class Filter extends Data {
                                                     elseif(is_numeric($record_value_value)){
                                                         $record_value_value += 0;
                                                     }
-                                                    if($record_value_value != $value){
-                                                        $skip = true;
+                                                    if($record_value_value == $value){
+                                                        $skip = false;
                                                         break;
                                                     }
                                                 }
