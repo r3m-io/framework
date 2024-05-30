@@ -132,6 +132,7 @@ class Filter extends Data {
                 elseif(is_scalar($record)){
                     //where is ignored...
                     if(
+                        is_string($record) &&
                         in_array(
                             strtolower($record),
                             [
