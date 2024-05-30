@@ -270,15 +270,20 @@ class Filter extends Data {
                             array_key_exists('value', $record)
                         ) {
                             $skip = false;
+                            $strict = $record['strict'] ?? true;
                             switch ($record['operator']) {
                                 case '===' :
                                 case Filter::OPERATOR_STRICTLY_EXACT :
                                     $value = $data->get($attribute);
-                                    if (is_scalar($value)) {
+                                    if (
+                                        $value === null ||
+                                        is_scalar($value)
+                                    ) {
                                         if ($value === $record['value']) {
                                             $skip = true;
                                         }
-                                    } elseif (is_array($value)) {
+                                    }
+                                    elseif (is_array($value)) {
                                         if (in_array($record['value'], $value, true)) {
                                             $skip = true;
                                         }
@@ -287,11 +292,15 @@ class Filter extends Data {
                                 case '!==' :
                                 case Filter::OPERATOR_NOT_STRICTLY_EXACT :
                                     $value = $data->get($attribute);
-                                    if (is_scalar($value)) {
+                                    if (
+                                        $value === null ||
+                                        is_scalar($value)
+                                    ) {
                                         if ($value !== $record['value']) {
                                             $skip = true;
                                         }
-                                    } elseif (is_array($value)) {
+                                    }
+                                    elseif (is_array($value)) {
                                         if (!in_array($record['value'], $value, true)) {
                                             $skip = true;
                                         }
@@ -300,11 +309,15 @@ class Filter extends Data {
                                 case '==' :
                                 case Filter::OPERATOR_EXACT :
                                     $value = $data->get($attribute);
-                                    if (is_scalar($value)) {
+                                    if (
+                                        $value === null ||
+                                        is_scalar($value)
+                                    ) {
                                         if ($value == $record['value']) {
                                             $skip = true;
                                         }
-                                    } elseif (is_array($value)) {
+                                    }
+                                    elseif (is_array($value)) {
                                         if (in_array($record['value'], $value, true)) {
                                             $skip = true;
                                         }
@@ -313,11 +326,15 @@ class Filter extends Data {
                                 case '!=' :
                                 case Filter::OPERATOR_NOT_EXACT :
                                     $value = $data->get($attribute);
-                                    if (is_scalar($value)) {
+                                    if (
+                                        $value === null ||
+                                        is_scalar($value)
+                                    ) {
                                         if ($value != $record['value']) {
                                             $skip = true;
                                         }
-                                    } elseif (is_array($value)) {
+                                    }
+                                    elseif (is_array($value)) {
                                         if (!in_array($record['value'], $value, true)) {
                                             $skip = true;
                                         }
@@ -325,9 +342,11 @@ class Filter extends Data {
                                     break;
                                 case Filter::OPERATOR_IN :
                                     $value = $data->get($attribute);
-                                    $strict = $record['strict'] ?? true;
                                     if (is_array($record['value'])) {
-                                        if (is_scalar($value)) {
+                                        if (
+                                            $value === null ||
+                                            is_scalar($value)
+                                        ) {
                                             if (
                                                 $strict === true &&
                                                 in_array(
@@ -417,8 +436,14 @@ class Filter extends Data {
                                             }
                                         }
                                     }
-                                    elseif(is_scalar($record['value'])) {
-                                        if(is_scalar($value)){
+                                    elseif(
+                                        $record['value'] === null ||
+                                        is_scalar($record['value'])
+                                    ) {
+                                        if(
+                                            $value === null ||
+                                            is_scalar($value)
+                                        ){
                                             if($strict === true){
                                                 if($value === $record['value']){
                                                     $skip = true;
@@ -502,38 +527,94 @@ class Filter extends Data {
                                 case Filter::OPERATOR_NOT_IN :
                                     $value = $data->get($attribute);
                                     if (is_array($record['value'])) {
-                                        if (is_scalar($value)) {
-                                            if (
-                                                !in_array(
-                                                    $value,
-                                                    $record['value'],
-                                                    true)
-                                            ) {
-                                                $skip = true;
-                                            }
-                                        } elseif (is_array($value)) {
-                                            foreach ($value as $value_key => $value_value) {
+                                        if (
+                                            $value === null ||
+                                            is_scalar($value)
+                                        ) {
+                                            if($strict === true){
                                                 if (
                                                     !in_array(
-                                                        $value_value,
+                                                        $value,
                                                         $record['value'],
                                                         true)
                                                 ) {
                                                     $skip = true;
-                                                    break;
+                                                }
+                                            } else {
+                                                if($value === 'true'){
+                                                    $value = true;
+                                                }
+                                                elseif($value === 'false'){
+                                                    $value = false;
+                                                }
+                                                elseif($value === 'null'){
+                                                    $value = null;
+                                                }
+                                                elseif(is_numeric($value)){
+                                                    $value += 0;
+                                                }
+                                                foreach($record['value'] as $record_value_key => $record_value_value){
+                                                    if($record_value_value === 'true'){
+                                                        $record_value_value = true;
+                                                    }
+                                                    elseif($record_value_value === 'false'){
+                                                        $record_value_value = false;
+                                                    }
+                                                    elseif($record_value_value === 'null'){
+                                                        $record_value_value = null;
+                                                    }
+                                                    elseif(is_numeric($record_value_value)){
+                                                        $record_value_value += 0;
+                                                    }
+                                                    if($record_value_value == $value){
+                                                        $skip = true;
+                                                        break;
+                                                    }
                                                 }
                                             }
                                         }
+                                        elseif (is_array($value)) {
+                                            foreach ($value as $value_key => $value_value) {
+                                                if($strict === true){
+                                                    if (
+                                                        !in_array(
+                                                            $value_value,
+                                                            $record['value'],
+                                                            true)
+                                                    ) {
+                                                        $skip = true;
+                                                        break;
+                                                    }
+                                                } else {
+                                                    ddd($strict);
+                                                }
+
+                                            }
+                                        }
                                     }
-                                    elseif(is_scalar($record['value'])) {
-                                        if(is_scalar($value)){
-                                            if($value !== $record['value']){
-                                                $skip = true;
+                                    elseif(
+                                        $record['value'] === null ||
+                                        is_scalar($record['value'])
+                                    ) {
+                                        if(
+                                            $value === null ||
+                                            is_scalar($value)
+                                        ){
+                                            if($strict === true){
+                                                if($value !== $record['value']){
+                                                    $skip = true;
+                                                }
+                                            } else {
+                                                ddd($strict);
                                             }
                                         }
                                         elseif(is_array($value)){
-                                            if(!in_array($record['value'], $value, true)){
-                                                $skip = true;
+                                            if($strict === true){
+                                                if(!in_array($record['value'], $value, true)){
+                                                    $skip = true;
+                                                }
+                                            } else {
+                                                ddd($strict);
                                             }
                                         }
                                     }
@@ -546,7 +627,8 @@ class Filter extends Data {
                                         if ($value > $record['value']) {
                                             $skip = true;
                                         }
-                                    } elseif (is_array($value)) {
+                                    }
+                                    elseif (is_array($value)) {
                                         $found = false;
                                         foreach ($value as $value_key => $value_value) {
                                             if ($value_value > $record['value']) {
@@ -568,7 +650,8 @@ class Filter extends Data {
                                         if ($value >= $record['value']) {
                                             $skip = true;
                                         }
-                                    } elseif (is_array($value)) {
+                                    }
+                                    elseif (is_array($value)) {
                                         $found = false;
                                         foreach ($value as $value_key => $value_value) {
                                             if ($value_value >= $record['value']) {
@@ -590,7 +673,8 @@ class Filter extends Data {
                                         if ($value < $record['value']) {
                                             $skip = true;
                                         }
-                                    } elseif (is_array($value)) {
+                                    }
+                                    elseif (is_array($value)) {
                                         $found = false;
                                         foreach ($value as $value_key => $value_value) {
                                             if ($value_value < $record['value']) {
@@ -612,7 +696,8 @@ class Filter extends Data {
                                         if ($value <= $record['value']) {
                                             $skip = true;
                                         }
-                                    } elseif (is_array($value)) {
+                                    }
+                                    elseif (is_array($value)) {
                                         $found = false;
                                         foreach ($value as $value_key => $value_value) {
                                             if ($value_value <= $record['value']) {
@@ -647,7 +732,8 @@ class Filter extends Data {
                                                     break;
                                                 }
                                             }
-                                        } elseif (
+                                        }
+                                        elseif (
                                             $value > $explode[0] &&
                                             $value < $explode[1]
                                         ) {
@@ -678,7 +764,8 @@ class Filter extends Data {
                                                     break;
                                                 }
                                             }
-                                        } elseif (
+                                        }
+                                        elseif (
                                             $value >= $explode[0] &&
                                             $value <= $explode[1]
                                         ) {
@@ -694,7 +781,8 @@ class Filter extends Data {
                                     if (is_string($value)) {
                                         $node_date = strtotime($value);
                                         $record_date = Filter::date($record);
-                                    } elseif (is_int($value)) {
+                                    }
+                                    elseif (is_int($value)) {
                                         $node_date = $value;
                                         $record_date = Filter::date($record);
                                     } else {
@@ -712,7 +800,8 @@ class Filter extends Data {
                                     if (is_string($value)) {
                                         $node_date = strtotime($value);
                                         $record_date = Filter::date($record);
-                                    } elseif (is_int($value)) {
+                                    }
+                                    elseif (is_int($value)) {
                                         $node_date = $value;
                                         $record_date = Filter::date($record);
                                     } else {
@@ -730,7 +819,8 @@ class Filter extends Data {
                                     if (is_string($value)) {
                                         $node_date = strtotime($value);
                                         $record_date = Filter::date($record);
-                                    } elseif (is_int($value)) {
+                                    }
+                                    elseif (is_int($value)) {
                                         $node_date = $value;
                                         $record_date = Filter::date($record);
                                     } else {
@@ -748,7 +838,8 @@ class Filter extends Data {
                                     if (is_string($value)) {
                                         $node_date = strtotime($value);
                                         $record_date = Filter::date($record);
-                                    } elseif (is_int($value)) {
+                                    }
+                                    elseif (is_int($value)) {
                                         $node_date = $value;
                                         $record_date = Filter::date($record);
                                     } else {
@@ -768,7 +859,8 @@ class Filter extends Data {
                                     ) {
                                         if ($record['value'] === '') {
                                             break;
-                                        } elseif (is_array($value)) {
+                                        }
+                                        elseif (is_array($value)) {
                                             foreach ($value as $value_key => $value_value) {
                                                 if (
                                                     is_string($value_value) &&
@@ -778,21 +870,24 @@ class Filter extends Data {
                                                         $skip = true;
                                                         break;
                                                     }
-                                                } elseif (is_scalar($value_value)) {
+                                                }
+                                                elseif (is_scalar($value_value)) {
                                                     if ($value == $record['value']) {
                                                         $skip = true;
                                                         break;
                                                     }
                                                 }
                                             }
-                                        } elseif (
+                                        }
+                                        elseif (
                                             is_string($value) &&
                                             is_string($record['value'])
                                         ) {
                                             if (stristr($value, $record['value']) !== false) {
                                                 $skip = true;
                                             }
-                                        } elseif (is_scalar($value)) {
+                                        }
+                                        elseif (is_scalar($value)) {
                                             if ($value == $record['value']) {
                                                 $skip = true;
                                             }
@@ -801,32 +896,34 @@ class Filter extends Data {
                                     break;
                                 case Filter::OPERATOR_NOT_PARTIAL :
                                     $value = $data->get($attribute);
-                                    if (
-                                        is_scalar($record['value'])
-                                    ) {
+                                    if (is_scalar($record['value'])) {
                                         if ($record['value'] === '') {
                                             break;
-                                        } elseif (is_array($value)) {
+                                        }
+                                        elseif (is_array($value)) {
                                             foreach ($value as $value_key => $value_value) {
                                                 if (is_string($value_value) && is_string($record['value'])) {
                                                     if (stristr($value_value, $record['value']) === false) {
                                                         $skip = true;
                                                         break;
                                                     }
-                                                } elseif (is_scalar($value_value)) {
+                                                }
+                                                elseif (is_scalar($value_value)) {
                                                     if ($value != $record['value']) {
                                                         $skip = true;
                                                         break;
                                                     }
                                                 }
                                             }
-                                        } elseif (
+                                        }
+                                        elseif (
                                             is_string($value) && is_string($record['value'])
                                         ) {
                                             if (stristr($value, $record['value']) === false) {
                                                 $skip = true;
                                             }
-                                        } elseif (is_scalar($value)) {
+                                        }
+                                        elseif (is_scalar($value)) {
                                             if ($value != $record['value']) {
                                                 $skip = true;
                                             }
@@ -840,7 +937,8 @@ class Filter extends Data {
                                     ) {
                                         if ($record['value'] === '') {
                                             break;
-                                        } elseif (
+                                        }
+                                        elseif (
                                             is_string($value) &&
                                             stristr(
                                                 substr(
@@ -853,12 +951,14 @@ class Filter extends Data {
                                         ) {
                                             $skip = true;
                                         }
-                                    } elseif (is_array($value)) {
+                                    }
+                                    elseif (is_array($value)) {
                                         foreach ($value as $value_key => $value_value) {
                                             $record_value = (string)$record['value'];
                                             if ($value_value === '') {
                                                 continue;
-                                            } elseif (
+                                            }
+                                            elseif (
                                                 is_string($value_value) &&
                                                 stristr(
                                                     substr(
@@ -881,7 +981,8 @@ class Filter extends Data {
                                     ) {
                                         if ($record['value'] === '') {
                                             break;
-                                        } elseif (
+                                        }
+                                        elseif (
                                             is_string($value) &&
                                             stristr(
                                                 substr(
@@ -893,11 +994,13 @@ class Filter extends Data {
                                             ) === false
                                         ) {
                                             $skip = true;
-                                        } elseif (is_array($value)) {
+                                        }
+                                        elseif (is_array($value)) {
                                             foreach ($value as $value_key => $value_value) {
                                                 if ($value_value === '') {
                                                     continue;
-                                                } elseif (
+                                                }
+                                                elseif (
                                                     is_string($value_value) &&
                                                     stristr(
                                                         substr(
@@ -916,9 +1019,7 @@ class Filter extends Data {
                                     break;
                                 case Filter::OPERATOR_END :
                                     $value = $data->get($attribute);
-                                    if (
-                                        is_string($record['value'])
-                                    ) {
+                                    if (is_string($record['value'])) {
                                         if ($record['value'] === '') {
                                             break;
                                         }
@@ -943,7 +1044,8 @@ class Filter extends Data {
                                                     break;
                                                 }
                                             }
-                                        } elseif (is_string($value)) {
+                                        }
+                                        elseif (is_string($value)) {
                                             $start = strlen($value) - $length;
                                             if (
                                                 stristr(
@@ -989,7 +1091,8 @@ class Filter extends Data {
                                                     break;
                                                 }
                                             }
-                                        } elseif (is_string($value)) {
+                                        }
+                                        elseif (is_string($value)) {
                                             $start = strlen($value) - $length;
                                             if (
                                                 stristr(
@@ -1021,7 +1124,8 @@ class Filter extends Data {
                                         return [];
                                 }
                             }
-                        } elseif (is_array($record)) {
+                        }
+                        elseif (is_array($record)) {
                             $where = [];
                             foreach ($record as $key => $value) {
                                 $where[$attribute] = [
