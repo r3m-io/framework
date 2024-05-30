@@ -28,9 +28,13 @@ class Filter extends Data {
     const OPERATOR_IN = 'in';
     const OPERATOR_NOT_IN = 'not-in';
     const OPERATOR_GT = 'gt';
+    const OPERATOR_GREATER_THAN = 'greater-than';
     const OPERATOR_GTE = 'gte';
+    const OPERATOR_GREATER_THAN_EQUALS = 'greater-than-equals';
     const OPERATOR_LT = 'lt';
+    const OPERATOR_LOWER_THAN = 'lower-than';
     const OPERATOR_LTE = 'lte';
+    const OPERATOR_LOWER_THAN_EQUALS = 'lower-than-equals';
     const OPERATOR_BETWEEN = 'between';
     const OPERATOR_BETWEEN_EQUALS = 'between-equals';
     const OPERATOR_BEFORE = 'before';
@@ -67,6 +71,10 @@ class Filter extends Data {
         Filter::OPERATOR_NOT_START,
         Filter::OPERATOR_END,
         Filter::OPERATOR_NOT_END,
+        Filter::OPERATOR_GREATER_THAN,
+        Filter::OPERATOR_GREATER_THAN_EQUALS,
+        Filter::OPERATOR_LOWER_THAN,
+        Filter::OPERATOR_LOWER_THAN_EQUALS
     ];
 
     private $type;
@@ -112,7 +120,6 @@ class Filter extends Data {
     {
         return $this->type;
     }
-
 
     public static function is_type($data=null): string
     {
@@ -396,6 +403,7 @@ class Filter extends Data {
                                     break;
                                 case '>' :
                                 case Filter::OPERATOR_GT :
+                                case FILTER::OPERATOR_GREATER_THAN :
                                     $value = $data->get($attribute);
                                     if (is_scalar($value)) {
                                         if ($value > $record['value']) {
@@ -417,6 +425,7 @@ class Filter extends Data {
                                     break;
                                 case '>=' :
                                 case Filter::OPERATOR_GTE :
+                                case FILTER::OPERATOR_GREATER_THAN_EQUALS :
                                     $value = $data->get($attribute);
                                     if (is_scalar($value)) {
                                         if ($value >= $record['value']) {
@@ -438,6 +447,7 @@ class Filter extends Data {
                                     break;
                                 case '<' :
                                 case Filter::OPERATOR_LT :
+                                case FILTER::OPERATOR_LOWER_THAN :
                                     $value = $data->get($attribute);
                                     if (is_scalar($value)) {
                                         if ($value < $record['value']) {
@@ -459,6 +469,7 @@ class Filter extends Data {
                                     break;
                                 case '<=' :
                                 case Filter::OPERATOR_LTE :
+                                case FILTER::OPERATOR_LOWER_THAN_EQUALS :
                                     $value = $data->get($attribute);
                                     if (is_scalar($value)) {
                                         if ($value <= $record['value']) {
