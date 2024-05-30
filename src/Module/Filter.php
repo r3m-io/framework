@@ -357,6 +357,31 @@ class Filter extends Data {
                                                 }
                                                 elseif($strict === false){
                                                     foreach($record['value'] as $record_value_key => $record_value_value){
+                                                        if(
+                                                            is_numeric($record_value_value) &&
+                                                            is_numeric($value_value)
+                                                        ){
+                                                            $record_value_value += 0;
+                                                            $value_value += 0;
+                                                        }
+                                                        if($record_value_value === 'true'){
+                                                            $record_value_value = true;
+                                                        }
+                                                        if($record_value_value === 'false'){
+                                                            $record_value_value = false;
+                                                        }
+                                                        if($record_value_value === 'null'){
+                                                            $record_value_value = null;
+                                                        }
+                                                        if($value_value === 'true'){
+                                                            $value_value = true;
+                                                        }
+                                                        if($value_value === 'false'){
+                                                            $value_value = false;
+                                                        }
+                                                        if($value_value === 'null'){
+                                                            $value_value = null;
+                                                        }
                                                         if($record_value_value == $value_value){
                                                             $skip = true;
                                                             break;
