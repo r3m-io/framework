@@ -19,6 +19,8 @@ use R3m\Io\Module\Core;
  */
 function function_json_select(Parse $parse, Data $data, $url, $select=null, $compile=false, $cache=true){
     $object = $parse->object();
+    $object->logger($object->config('project.log.debug'))->notice('Deprecated function json.select triggered. replace with data.select or parse.select');
+    //@2024-10-01 can be removed after the documentation of data.select & parse.select are updated based on json.select.
     if($compile){
         if($cache){
             $json = $object->parse_read($url, sha1($url));
