@@ -391,7 +391,7 @@ class Filter extends Data {
                                                     }
                                                     d($skip);
                                                     d($value);
-                                                    ddd($record['value']);
+                                                    d($record['value']);
                                                 }
                                             }
                                         }
