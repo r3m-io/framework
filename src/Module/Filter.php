@@ -356,7 +356,7 @@ class Filter extends Data {
                                                     break;
                                                 }
                                                 elseif($strict === false){
-                                                    foreach($record_value as $record_value_key => $record_value_value){
+                                                    foreach($record['value'] as $record_value_key => $record_value_value){
                                                         if($record_value_value == $value_value){
                                                             $skip = true;
                                                             break;
