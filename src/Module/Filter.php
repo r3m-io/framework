@@ -130,6 +130,22 @@ class Filter extends Data {
                     break;
                 }
                 elseif(is_scalar($record)){
+                    //where is ignored...
+                    if(
+                        in_array(
+                            strtolower($record),
+                            [
+                                '(',
+                                ')',
+                                'and',
+                                'or',
+                                'xor'
+                            ],
+                            true
+                        )
+                    ){
+                        continue;
+                    }
                     $is_iterable = false;
                     break;
                 }
@@ -928,7 +944,8 @@ class Filter extends Data {
      */
     public function where($where=[]): mixed
     {
-        switch($type = $this->type()){
+        $type = $this->type();
+        switch($type){
             case 'list' :
                 return $this->where_list($where);
             case 'record' :
