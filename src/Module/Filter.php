@@ -326,7 +326,6 @@ class Filter extends Data {
                                 case Filter::OPERATOR_IN :
                                     $value = $data->get($attribute);
                                     $strict = $record['strict'] ?? true;
-                                    d($strict);
                                     if (is_array($record['value'])) {
                                         if (is_scalar($value)) {
                                             if (
@@ -339,8 +338,36 @@ class Filter extends Data {
                                                 $skip = true;
                                             }
                                             elseif($strict === false){
-                                                d($value);
-                                                ddd($record['value']);
+                                                if($value === 'true'){
+                                                    $value = true;
+                                                }
+                                                elseif($value === 'false'){
+                                                    $value = false;
+                                                }
+                                                elseif($value === 'null'){
+                                                    $value = null;
+                                                }
+                                                elseif(is_numeric($value)){
+                                                    $value += 0;
+                                                }
+                                                foreach($record['value'] as $record_value_key => $record_value_value){
+                                                    if($record_value_value === 'true'){
+                                                        $record_value_value = true;
+                                                    }
+                                                    elseif($record_value_value === 'false'){
+                                                        $record_value_value = false;
+                                                    }
+                                                    elseif($record_value_value === 'null'){
+                                                        $record_value_value = null;
+                                                    }
+                                                    elseif(is_numeric($record_value_value)){
+                                                        $record_value_value += 0;
+                                                    }
+                                                    if($record_value_value == $value){
+                                                        $skip = true;
+                                                        break;
+                                                    }
+                                                }
                                             }
                                         }
                                         elseif (is_array($value)) {
@@ -381,29 +408,93 @@ class Filter extends Data {
                                                         elseif(is_numeric($record_value_value)){
                                                             $record_value_value += 0;
                                                         }
-                                                        d($record_value_value);
-                                                        d($value_value);
                                                         if($record_value_value == $value_value){
                                                             $skip = true;
                                                             break;
                                                         }
                                                     }
-                                                    d($skip);
-                                                    d($value);
-                                                    d($record['value']);
                                                 }
                                             }
                                         }
                                     }
                                     elseif(is_scalar($record['value'])) {
                                         if(is_scalar($value)){
-                                            if($value === $record['value']){
-                                                $skip = true;
+                                            if($strict === true){
+                                                if($value === $record['value']){
+                                                    $skip = true;
+                                                }
+                                            } else {
+                                                if($value === 'true'){
+                                                    $value = true;
+                                                }
+                                                elseif($value === 'false'){
+                                                    $value = false;
+                                                }
+                                                elseif($value === 'null'){
+                                                    $value = null;
+                                                }
+                                                elseif(is_numeric($value)){
+                                                    $value += 0;
+                                                }
+                                                $record_value = $record['value'];
+                                                if($record_value === 'true'){
+                                                    $record_value = true;
+                                                }
+                                                elseif($record_value === 'false'){
+                                                    $record_value = false;
+                                                }
+                                                elseif($record_value === 'null'){
+                                                    $record_value = null;
+                                                }
+                                                elseif(is_numeric($record_value)){
+                                                    $record_value += 0;
+                                                }
+                                                if($value == $record_value){
+                                                    $skip = true;
+                                                }
                                             }
+
                                         }
                                         elseif(is_array($value)){
-                                            if(in_array($record['value'], $value, true)){
-                                                $skip = true;
+                                            if($strict === true){
+                                                if(in_array($record['value'], $value, true)){
+                                                    $skip = true;
+                                                }
+                                            } else {
+                                                $record_value = $record['value'];
+                                                if($record_value === 'true'){
+                                                    $record_value = true;
+                                                }
+                                                elseif($record_value === 'false'){
+                                                    $record_value = false;
+                                                }
+                                                elseif($record_value === 'null'){
+                                                    $record_value = null;
+                                                }
+                                                elseif(is_numeric($record_value)){
+                                                    $record_value += 0;
+                                                }
+                                                if($value == $record_value){
+                                                    $skip = true;
+                                                }
+                                                foreach($value as $value_key => $value_value){
+                                                    if($value_value === 'true'){
+                                                        $value_value = true;
+                                                    }
+                                                    elseif($value_value === 'false'){
+                                                        $value_value = false;
+                                                    }
+                                                    elseif($value_value === 'null'){
+                                                        $value_value = null;
+                                                    }
+                                                    elseif(is_numeric($value_value)){
+                                                        $value_value += 0;
+                                                    }
+                                                    if($value_value == $record['value']){
+                                                        $skip = true;
+                                                        break;
+                                                    }
+                                                }
                                             }
                                         }
                                     }
