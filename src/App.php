@@ -1149,7 +1149,7 @@ class App extends Data {
         }
     }
 
-    public function server($attribute): mixed
+    public function server($attribute=null): mixed
     {
         if($attribute===null){
             return $_SERVER;
