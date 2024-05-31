@@ -1154,8 +1154,10 @@ class App extends Data {
         if($attribute===null){
             return $_SERVER;
         }
-        if(array_key_exists($attribute, $_SERVER)){
-            return $_SERVER[$attribute];
+        if(is_scalar($attribute)){
+            if(array_key_exists($attribute, $_SERVER)){
+                return $_SERVER[$attribute];
+            }
         }
         return null;
     }
