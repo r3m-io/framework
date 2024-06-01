@@ -1207,7 +1207,7 @@ class App extends Data {
             $logger = $this->config('project.log.debug');
         }
         if($logger){
-            $this->logger($logger)->info(' parse_select: ' . $url, [$select]);
+            $this->logger($logger)->info('parse_select: ' . $url, [$select]);
         }
         $node->data(
             Core::object_select(
