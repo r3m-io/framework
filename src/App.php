@@ -1346,6 +1346,9 @@ class App extends Data {
                 'do_not_nest_key' => $options
             ];
         }
+        elseif(!array_key_exists('do_not_nest_key', $options)) {
+            $options['do_not_nest_key'] = false;
+        }
         $logger_error = $this->config('project.log.error');
         $cache = $this->data(App::CACHE);
         if($attribute !== null){
