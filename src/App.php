@@ -1339,8 +1339,13 @@ class App extends Data {
      * @throws ObjectException
      * @throws Exception
      */
-    public function data_read($url, $attribute=null, $do_not_nest_key=false): mixed
+    public function data_read($url, $attribute=null, $options = false): mixed
     {
+        if(is_bool($options)){
+            $options = [
+                'do_not_nest_key' => $options
+            ];
+        }
         $logger_error = $this->config('project.log.error');
         $cache = $this->data(App::CACHE);
         if($attribute !== null){
@@ -1380,7 +1385,7 @@ class App extends Data {
             if($read){
                 try {
                     $data = new Data();
-                    $data->do_not_nest_key($do_not_nest_key);
+                    $data->do_not_nest_key($options['do_not_nest_key']);
                     $data->data(Core::object($read, Core::OBJECT_OBJECT));
                 }
                 catch(ObjectException $exception){
@@ -1391,7 +1396,7 @@ class App extends Data {
                 }
             } else {
                 $data = new Data();
-                $data->do_not_nest_key($do_not_nest_key);
+                $data->do_not_nest_key($options['do_not_nest_key']);
             }
             if(
                 $attribute !== null &&
