@@ -1415,15 +1415,18 @@ class App extends Data {
                     $attribute_count = $attribute . '_count';
                     $attribute_index = $attribute . '_index';
                     $index = (object) [];
-
+                    $count = 0;
                     $list = $data->get($options['class']);
                     if(is_array($list)){
                         foreach($list as $nr => $record){
                             if(is_object($record) && property_exists($record, 'uuid')){
                                 $index->{$record->uuid} = $record;
+                                $count++;
                             }
                         }
                     }
+                    $cache->set($attribute_count, $count);
+                    $cache->set($attribute_index, $index);
                     d($attribute);
                     d($index);
                     ddd($options);
