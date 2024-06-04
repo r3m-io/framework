@@ -1402,6 +1402,11 @@ class App extends Data {
                 $attribute !== null &&
                 $cache
             ){
+                if(array_key_exists('index', $options)){
+                    d($attribute);
+                    d($data);
+                    ddd($options);
+                }
                 $cache->set($attribute, $data);
             }
             return $data;
