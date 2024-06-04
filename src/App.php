@@ -1406,9 +1406,26 @@ class App extends Data {
                 $cache
             ){
                 d($options);
-                if(array_key_exists('index', $options)){
+                if(
+                    array_key_exists('index', $options) &&
+                    $options['index'] === 'create' &&
+                    array_key_exists('class', $options) &&
+                    is_string($options['class'])
+                ){
+                    $attribute_count = $attribute . '_count';
+                    $attribute_index = $attribute . '_index';
+                    $index = (object) [];
+
+                    $list = $data->get($options['class']);
+                    if(is_array($list)){
+                        foreach($list as $nr => $record){
+                            if(is_object($record) && property_exists($record, 'uuid')){
+                                $index->{$record->uuid} = $record;
+                            }
+                        }
+                    }
                     d($attribute);
-                    d($data);
+                    d($index);
                     ddd($options);
                 }
                 $cache->set($attribute, $data);
