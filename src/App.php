@@ -1339,7 +1339,7 @@ class App extends Data {
      * @throws ObjectException
      * @throws Exception
      */
-    public function data_read($url, $attribute=null, $options = false): mixed
+    public function data_read($url, $attribute=null, $options=false): mixed
     {
         if(is_bool($options)){
             $options = [
@@ -1402,6 +1402,7 @@ class App extends Data {
                 $attribute !== null &&
                 $cache
             ){
+                d($options);
                 if(array_key_exists('index', $options)){
                     d($attribute);
                     d($data);
