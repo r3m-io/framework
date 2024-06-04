@@ -1405,7 +1405,6 @@ class App extends Data {
                 $attribute !== null &&
                 $cache
             ){
-                d($options);
                 if(
                     array_key_exists('index', $options) &&
                     $options['index'] === 'create' &&
@@ -1427,9 +1426,6 @@ class App extends Data {
                     }
                     $cache->set($attribute_count, $count);
                     $cache->set($attribute_index, $index);
-                    d($attribute);
-                    d($index);
-                    ddd($options);
                 }
                 $cache->set($attribute, $data);
             }
