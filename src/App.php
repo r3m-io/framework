@@ -1427,20 +1427,6 @@ class App extends Data {
                     }
                     $cache->set($attribute_count, $count);
                     $cache->set($attribute_index, $index);
-
-                    $key = ftok($attribute_count, 't');
-                    $size = mb_strlen($count);
-                    $shm = SharedMemory::open($key, 'n', 0644, $size);
-                    if($shm){
-                        SharedMemory::write($shm, $count);
-                    }
-                    $key = ftok($attribute_index, 't');
-                    $data = Core::object($index, Core::OBJECT_JSON_LINE);
-                    $size = mb_strlen($data);
-                    $shm = SharedMemory::open($key, 'n', 0644, $size);
-                    if($shm){
-                        SharedMemory::write($shm, $data);
-                    }
                 }
                 $cache->set($attribute, $data);
             }
