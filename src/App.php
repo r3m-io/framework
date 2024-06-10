@@ -1419,7 +1419,10 @@ class App extends Data {
                     $list = $data->get($options['class']);
                     if(is_array($list)){
                         foreach($list as $nr => $record){
-                            if(is_object($record) && property_exists($record, 'uuid')){
+                            if(
+                                is_object($record) &&
+                                property_exists($record, 'uuid')
+                            ){
                                 $index->{$record->uuid} = $record;
                                 $count++;
                             }
