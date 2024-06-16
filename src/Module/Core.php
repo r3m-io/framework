@@ -355,12 +355,15 @@ class Core
     {
         $array = (array) $array;
         $size = (int) $size;
+        if($size < 1){
+            return [];
+        }
         $result = [];
         $partition = [];
         $counter = 0;
         $count = count($array);
         d($count);
-        ddd($count % $size);
+        ddd($count / $size);
         foreach ($array as $key => $value) {
             $partition[$key] = $value;
             $count++;
