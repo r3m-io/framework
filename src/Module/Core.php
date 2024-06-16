@@ -356,7 +356,12 @@ class Core
         $array = (array) $array;
         $size = (int) $size;
         if($size < 1){
-            return [ $array ];
+            if($re_index){
+                return [ array_values($array) ];
+            } else {
+                return [ $array ];
+            }
+
         }
         $result = [];
         $partition = [];
@@ -364,22 +369,30 @@ class Core
         $counter = 0;
         $count = count($array);
         $amount = (int) ceil($count / $size);
-        foreach ($array as $key => $value) {
-            $partition[$key] = $value;
-            $counter++;
-            if ($counter === $amount) {
-                $result[] = $partition;
-                $partition = [];
-                $counter = 0;
+        if($re_index){
+            foreach ($array as $value) {
+                $partition[] = $value;
+                $counter++;
+                if ($counter === $amount) {
+                    $result[] = $partition;
+                    $partition = [];
+                    $counter = 0;
+                }
+            }
+        } else {
+            foreach ($array as $key => $value) {
+                $partition[$key] = $value;
+                $counter++;
+                if ($counter === $amount) {
+                    $result[] = $partition;
+                    $partition = [];
+                    $counter = 0;
+                }
             }
         }
         if(!empty($partition)){
             $result[] = $partition;
         }
-        d($amount);
-        d($partition);
-        d($counter);
-        ddd($result);
         return $result;
     }
 
