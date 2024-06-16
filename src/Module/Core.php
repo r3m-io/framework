@@ -356,7 +356,7 @@ class Core
         $array = (array) $array;
         $size = (int) $size;
         if($size < 1){
-            return [];
+            return [ $array ];
         }
         $result = [];
         $partition = [];
