@@ -351,7 +351,7 @@ class Core
         return false;
     }
 
-    public static function array_partition($array = [], $size = 1): array
+    public static function array_partition($array = [], $size = 1, $re_index=false): array
     {
         $array = (array) $array;
         $size = (int) $size;
@@ -360,25 +360,22 @@ class Core
         }
         $result = [];
         $partition = [];
+        $nr = 0;
         $counter = 0;
         $count = count($array);
         $amount = ceil($count / $size);
-
-
-        d($count);
-        ddd($amount);
         foreach ($array as $key => $value) {
             $partition[$key] = $value;
-            $count++;
-            if ($count == $size) {
+            $counter++;
+            if ($counter === $amount) {
                 $result[] = $partition;
                 $partition = [];
-                $count = 0;
+                $counter = 0;
             }
         }
-        if (!empty($partition)) {
-            $result[] = $partition;
-        }
+        d($partition);
+        d($counter);
+        ddd($result);
         return $result;
     }
 
