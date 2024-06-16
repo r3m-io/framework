@@ -351,6 +351,28 @@ class Core
         return false;
     }
 
+    public static function array_partition($array = [], $size = 1): array
+    {
+        $array = (array) $array;
+        $size = (int) $size;
+        $result = [];
+        $partition = [];
+        $count = 0;
+        foreach ($array as $key => $value) {
+            $partition[$key] = $value;
+            $count++;
+            if ($count == $size) {
+                $result[] = $partition;
+                $partition = [];
+                $count = 0;
+            }
+        }
+        if (!empty($partition)) {
+            $result[] = $partition;
+        }
+        return $result;
+    }
+
     public static function array_bestmatch_list($array=[], $search='', $with_score=false): bool | array
     {
         if(empty($array)){
