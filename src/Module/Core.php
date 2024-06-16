@@ -361,7 +361,6 @@ class Core
             } else {
                 return [ $array ];
             }
-
         }
         $result = [];
         $partition = [];
