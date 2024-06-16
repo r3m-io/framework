@@ -362,8 +362,11 @@ class Core
         $partition = [];
         $counter = 0;
         $count = count($array);
+        $amount = ceil($count / $size);
+
+
         d($count);
-        ddd($count / $size);
+        ddd($amount);
         foreach ($array as $key => $value) {
             $partition[$key] = $value;
             $count++;
