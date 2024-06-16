@@ -363,7 +363,7 @@ class Core
         $nr = 0;
         $counter = 0;
         $count = count($array);
-        $amount = ceil($count / $size);
+        $amount = (int) ceil($count / $size);
         foreach ($array as $key => $value) {
             $partition[$key] = $value;
             $counter++;
