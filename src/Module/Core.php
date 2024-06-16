@@ -373,6 +373,9 @@ class Core
                 $counter = 0;
             }
         }
+        if(!empty($partition)){
+            $result[] = $partition;
+        }
         d($amount);
         d($partition);
         d($counter);
