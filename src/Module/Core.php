@@ -351,7 +351,7 @@ class Core
         return false;
     }
 
-    public static function array_partition($array = [], $size = 1, $re_index=false): array
+    public static function array_partition($array=[], $size=1, $re_index=false): array
     {
         $array = (array) $array;
         $size = (int) $size;
