@@ -351,24 +351,22 @@ class Core
         return false;
     }
 
-    public static function array_partition($array=[], $size=1, $re_index=false): array
+    /**
+     * @throws Exception
+     */
+    public static function array_partition($array=[], $size=1, $preserve_keys=false): array
     {
         $array = (array) $array;
         $size = (int) $size;
         if($size < 1){
-            if($re_index){
-                return [ array_values($array) ];
-            } else {
-                return [ $array ];
-            }
+            throw new Exception('Size must be greater than 0');
         }
         $result = [];
         $partition = [];
-        $nr = 0;
         $counter = 0;
         $count = count($array);
         $amount = (int) ceil($count / $size);
-        if($re_index){
+        if($preserve_keys === false){
             foreach ($array as $value) {
                 $partition[] = $value;
                 $counter++;
