@@ -361,40 +361,7 @@ class Core
         if($size < 1){
             throw new Exception('Size must be greater than 0');
         }
-        $partition = array_chunk($array, ceil(count($array) / $size), $preserve_keys);
-        ddd($partition);
-
-
-        $result = [];
-        $partition = [];
-        $counter = 0;
-        $count = count($array);
-        $amount = (int) ceil($count / $size);
-        if($preserve_keys === false){
-            foreach ($array as $value) {
-                $partition[] = $value;
-                $counter++;
-                if ($counter === $amount) {
-                    $result[] = $partition;
-                    $partition = [];
-                    $counter = 0;
-                }
-            }
-        } else {
-            foreach ($array as $key => $value) {
-                $partition[$key] = $value;
-                $counter++;
-                if ($counter === $amount) {
-                    $result[] = $partition;
-                    $partition = [];
-                    $counter = 0;
-                }
-            }
-        }
-        if(!empty($partition)){
-            $result[] = $partition;
-        }
-        return $result;
+        return array_chunk($array, ceil(count($array) / $size), $preserve_keys);
     }
 
     public static function array_bestmatch_list($array=[], $search='', $with_score=false): bool | array
