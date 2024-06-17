@@ -361,7 +361,7 @@ class Core
         if($size < 1){
             throw new Exception('Size must be greater than 0');
         }
-        $partition = array_chunk($array, ceil(count($array) / $size));
+        $partition = array_chunk($array, ceil(count($array) / $size), $preserve_keys);
         ddd($partition);
 
 
