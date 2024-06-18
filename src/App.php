@@ -1437,6 +1437,7 @@ class App extends Data {
 //                    $attribute_index = $attribute . '_index';
                     $count = 0;
                     $list = $data->get($options['class']);
+                    $mtime_record = false;
                     if(is_array($list)){
                         foreach($list as $nr => $record){
                             if(
@@ -1444,11 +1445,24 @@ class App extends Data {
                                 property_exists($record, 'uuid')
                             ){
                                 $url_ramdisk_record = $dir_ramdisk_record . $record->uuid . $this->config('extension.json');
-                                File::write($url_ramdisk_record, Core::object($record, Core::OBJECT_JSON));
-                                if($this->config(Config::POSIX_ID) !== 0){
-                                    File::permission($this, [
-                                        'ramdisk_url_record' => $url_ramdisk_record,
-                                    ]);
+                                if(!File::exist($url_ramdisk_record)){
+                                    File::write($url_ramdisk_record, Core::object($record, Core::OBJECT_JSON));
+                                    if($this->config(Config::POSIX_ID) !== 0){
+                                        File::permission($this, [
+                                            'ramdisk_url_record' => $url_ramdisk_record,
+                                        ]);
+                                    }
+                                }
+                                if($mtime_record === false){
+                                    $mtime_record = File::mtime($url_ramdisk_record);
+                                }
+                                if(File::exist($url_ramdisk_record) && $mtime !== $mtime_record){
+                                    File::write($url_ramdisk_record, Core::object($record, Core::OBJECT_JSON));
+                                    if($this->config(Config::POSIX_ID) !== 0){
+                                        File::permission($this, [
+                                            'ramdisk_url_record' => $url_ramdisk_record,
+                                        ]);
+                                    }
                                 }
                                 $count++;
                             }
