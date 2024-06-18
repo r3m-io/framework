@@ -1415,13 +1415,17 @@ class App extends Data {
                     $dir_ramdisk_record = $this->config('ramdisk.url') .
                         $this->config(Config::POSIX_ID) .
                         $this->config('ds') .
-                        $this->config('ds') . 'Record' .
+                        'Node' .
+                        $this->config('ds') .
+                        'Record' .
                         $this->config('ds')
                     ;
                     $dir_ramdisk_count = $this->config('ramdisk.url') .
                         $this->config(Config::POSIX_ID) .
                         $this->config('ds') .
-                        $this->config('ds') . 'Count' .
+                        'Node' .
+                        $this->config('ds') .
+                        'Count' .
                         $this->config('ds')
                     ;
                     Dir::create($dir_ramdisk_count, Dir::CHMOD);
