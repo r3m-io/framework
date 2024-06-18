@@ -1412,9 +1412,29 @@ class App extends Data {
                     array_key_exists('class', $options) &&
                     is_string($options['class'])
                 ){
-                    $attribute_count = $attribute . '_count';
-                    $attribute_index = $attribute . '_index';
-                    $index = (object) [];
+                    $dir_ramdisk_record = $this->config('ramdisk.url') .
+                        $this->config(Config::POSIX_ID) .
+                        $this->config('ds') .
+                        $this->config('ds') . 'Record' .
+                        $this->config('ds')
+                    ;
+                    $dir_ramdisk_count = $this->config('ramdisk.url') .
+                        $this->config(Config::POSIX_ID) .
+                        $this->config('ds') .
+                        $this->config('ds') . 'Count' .
+                        $this->config('ds')
+                    ;
+                    Dir::create($dir_ramdisk_count, Dir::CHMOD);
+                    Dir::create($dir_ramdisk_record, Dir::CHMOD);
+
+                    if($this->config(Config::POSIX_ID) !== 0){
+                        File::permission($this, [
+                            'ramdisk_dir_count' => $dir_ramdisk_count,
+                            'ramdisk_dir_record' => $dir_ramdisk_record,
+                        ]);
+                    }
+//                    $attribute_count = $attribute . '_count';
+//                    $attribute_index = $attribute . '_index';
                     $count = 0;
                     $list = $data->get($options['class']);
                     if(is_array($list)){
@@ -1423,13 +1443,19 @@ class App extends Data {
                                 is_object($record) &&
                                 property_exists($record, 'uuid')
                             ){
-                                $index->{$record->uuid} = $record;
+                                $url_ramdisk_record = $dir_ramdisk_record . $record->uuid . $this->config('extension.json');
+                                File::write($url_ramdisk_record, Core::object($record, Core::OBJECT_JSON));
+                                if($this->config(Config::POSIX_ID) !== 0){
+                                    File::permission($this, [
+                                        'ramdisk_url_record' => $url_ramdisk_record,
+                                    ]);
+                                }
                                 $count++;
                             }
                         }
                     }
-                    $cache->set($attribute_count, $count);
-                    $cache->set($attribute_index, $index);
+                    $url_ramdisk_count = $dir_ramdisk_count . $attribute . $this->config('extension.txt');
+                    File::write($url_ramdisk_count, $count);
                 }
                 $cache->set($attribute, $data);
             }
