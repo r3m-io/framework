@@ -27,7 +27,7 @@ class Limit extends Data{
     /**
      * @throws Exception
      */
-    public function with($limit=[], $options=[]): array
+    public function with($limit=[], $options=[], &$count=0): array
     {
         $preserve_keys = false;
         if(array_key_exists('preserve_keys', $options)){
@@ -65,17 +65,25 @@ class Limit extends Data{
                             property_exists($record, 'uuid')
                         ){
                             $result[$record->uuid] = $record;
+                            $count++;
+                        }
+                        elseif(is_object($record) && method_exists($record, 'get')){
+                            $result[$record->get('uuid')] = $record;
+                            $count++;
                         }
                         elseif(
                             is_array($record) &&
                             array_key_exists('uuid', $record)
                         ){
                             $result[$record['uuid']] = $record;
+                            $count++;
                         } else {
                             $result[] = $record;
+                            $count++;
                         }
                     } else {
                         $result[] = $record;
+                        $count++;
                     }
                 }
                 elseif($is_collect) {
