@@ -354,12 +354,18 @@ class Core
     /**
      * @throws Exception
      */
-    public static function array_partition($array=[], $size=1, $preserve_keys=false): array
+    public static function array_partition($array=[], $size=1, $preserve_keys=false, $count=false): array
     {
         $array = (array) $array;
         $size = (int) $size;
+        if($count !== false){
+            $count = (int) $count;
+        }
         if($size < 1){
             throw new Exception('Size must be greater than 0');
+        }
+        if($count !== false){
+            return array_chunk($array, ceil($count / $size), $preserve_keys);
         }
         return array_chunk($array, ceil(count($array) / $size), $preserve_keys);
     }
