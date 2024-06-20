@@ -360,6 +360,7 @@ class Install extends Controller {
             is_array($package->get('copy'))
         ){
         */
+        ddd($options);
         $command = '{{binary()}} cache:clear';
         $parse = new Parse($object, $object->data());
         $command = $parse->compile($command, $object->data());
