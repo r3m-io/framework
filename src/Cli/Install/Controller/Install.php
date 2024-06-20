@@ -362,12 +362,6 @@ class Install extends Controller {
                 }
             }
         }
-        /*
-        if(
-            $package->has('inst') &&
-            is_array($package->get('copy'))
-        ){
-        */
         if(!in_array('cache-clear', $options->skip, true)){
             $command = '{{binary()}} cache:clear';
             $parse = new Parse($object, $object->data());
