@@ -397,7 +397,14 @@ class Install extends Controller {
             ){
                 $command_options[] = '-' . $option . '=' . $value;
             } else {
-                $command_options[] = '-' . $option . '=\'' . $value . '\'';
+                if(is_array($value)){
+                    foreach ($value as $val){
+                        $command_options[] = '-' . $option . '[]=\'' . $val . '\'';
+                    }
+                } else {
+                    $command_options[] = '-' . $option . '=\'' . $value . '\'';
+                }
+
             }
         }
         if(
