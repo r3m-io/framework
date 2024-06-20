@@ -36,6 +36,14 @@ class Install extends Controller {
     {
         $id = $object->config(Config::POSIX_ID);
         $options = App::options($object);
+        if(property_exists($options, 'skip')){
+            if(!is_array($options->skip)){
+                $options->skip = explode(',', $options->skip);
+                foreach($options->skip as $nr => $skip){
+                    $options->skip[$nr] = trim($skip);
+                }
+            }
+        }
         $key = App::parameter($object, 'install', 1);
         if(
             !in_array(
@@ -360,6 +368,7 @@ class Install extends Controller {
             is_array($package->get('copy'))
         ){
         */
+
         ddd($options);
         $command = '{{binary()}} cache:clear';
         $parse = new Parse($object, $object->data());
