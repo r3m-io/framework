@@ -58,3 +58,40 @@ if(!function_exists('ddd')){
         dd($data);
     }
 }
+
+if(!function_exists('trace')){
+    function trace($length=5): void
+    {
+        $trace = debug_backtrace(1);
+        if(!is_numeric($length)){
+            $length = count($trace);
+        }
+        if(!defined('IS_CLI')){
+            echo '<pre class="priya-trace">';
+        }
+        for($i = 0; $i < $length; $i++){
+            if(array_key_exists($i, $trace)){
+                if(
+                    array_key_exists('file', $trace[$i]) &&
+                    array_key_exists('line', $trace[$i]) &&
+                    array_key_exists('function', $trace[$i])
+
+                ){
+                    echo $trace[$i]['file'] . ':' . $trace[$i]['line'] . ':' . $trace[$i]['function']. PHP_EOL;
+                }
+                elseif(
+                    array_key_exists('file', $trace[$i]) &&
+                    array_key_exists('line', $trace[$i]) &&
+                    array_key_exists('class', $trace[$i])
+                ){
+                    echo $trace[$i]['file'] . ':' . $trace[$i]['line'] . ':' . $trace[$i]['class']. PHP_EOL;
+                } else {
+                    echo $trace[$i]['file'] . ':' . $trace[$i]['line'] . PHP_EOL;
+                }
+            }
+        }
+        if(!defined('IS_CLI')){
+            echo '</pre>' . PHP_EOL;
+        }
+    }
+}
