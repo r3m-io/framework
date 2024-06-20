@@ -362,7 +362,10 @@ class Install extends Controller {
                 }
             }
         }
-        if(!in_array('cache-clear', $options->skip, true)){
+        if(
+            property_exists($options, 'skip') &&
+            !in_array('cache-clear', $options->skip, true)
+        ){
             $command = '{{binary()}} cache:clear';
             $parse = new Parse($object, $object->data());
             $command = $parse->compile($command, $object->data());
