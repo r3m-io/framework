@@ -404,7 +404,6 @@ class Install extends Controller {
                 } else {
                     $command_options[] = '-' . $option . '=\'' . $value . '\'';
                 }
-
             }
         }
         if(
