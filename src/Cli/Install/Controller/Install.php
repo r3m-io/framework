@@ -368,14 +368,14 @@ class Install extends Controller {
             is_array($package->get('copy'))
         ){
         */
-
-        ddd($options);
-        $command = '{{binary()}} cache:clear';
-        $parse = new Parse($object, $object->data());
-        $command = $parse->compile($command, $object->data());
-        Core::execute($object, $command, $output);
-        if($output){
-            echo $output;
+        if(!in_array('cache-clear', $options->skip, true)){
+            $command = '{{binary()}} cache:clear';
+            $parse = new Parse($object, $object->data());
+            $command = $parse->compile($command, $object->data());
+            Core::execute($object, $command, $output);
+            if($output){
+                echo $output;
+            }
         }
         echo 'Press ctrl-c to stop the installation...' . PHP_EOL;
         $command_options = [];
