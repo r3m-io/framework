@@ -1537,7 +1537,16 @@ class App extends Data {
                         }
                     }
                     $url_ramdisk_count = $dir_ramdisk_count . $attribute . $this->config('extension.txt');
+                    if(!Dir::exist($dir_ramdisk_count)){
+                        Dir::create($dir_ramdisk_count, Dir::CHMOD);
+                    }
                     File::write($url_ramdisk_count, $count);
+                    if($this->config(Config::POSIX_ID) !== 0){
+                        File::permission($this, [
+                            'ramdisk_dir_count' => $dir_ramdisk_count,
+                            'ramdisk_url_count' => $url_ramdisk_count,
+                        ]);
+                    }
                 }
                 $cache->set($attribute, $data);
             }
