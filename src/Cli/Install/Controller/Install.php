@@ -372,40 +372,7 @@ class Install extends Controller {
             }
         }
         echo 'Press ctrl-c to stop the installation...' . PHP_EOL;
-        $command_options = [];
-        foreach($options as $option => $value){
-            if($value === false){
-                $value = 'false';
-            }
-            elseif($value === true){
-                $value = 'true';
-            }
-            elseif($value === null){
-                $value = 'null';
-            }
-            if(
-                in_array(
-                    $value,
-                    [
-                        'false',
-                        'true',
-                        'null'
-                    ],
-                    true
-                ) ||
-                is_numeric($value)
-            ){
-                $command_options[] = '-' . $option . '=' . $value;
-            } else {
-                if(is_array($value)){
-                    foreach ($value as $val){
-                        $command_options[] = '-' . $option . '[]=\'' . $val . '\'';
-                    }
-                } else {
-                    $command_options[] = '-' . $option . '=\'' . $value . '\'';
-                }
-            }
-        }
+        $command_options = App::options($object, 'command');
         if(
             $package->has('command') &&
             is_array($package->get('command'))

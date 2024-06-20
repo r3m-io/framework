@@ -1102,12 +1102,76 @@ class App extends Data {
     /**
      * @throws Exception
      */
-    public static function options($object): object
+    public static function options($object, $type='default'): array | object
     {
         $options = $object->data(App::OPTIONS);
         if(empty($options)){
             App::flags_options($object);
             $options = $object->data(App::OPTIONS);
+        }
+        switch($type) {
+            case 'default':
+                return $options;
+            case 'command':
+                $command_options = [];
+                foreach($options as $option => $value){
+                    if($value === false){
+                        $value = 'false';
+                    }
+                    elseif($value === true){
+                        $value = 'true';
+                    }
+                    elseif($value === null){
+                        $value = 'null';
+                    }
+                    if(
+                        in_array(
+                            $value,
+                            [
+                                'false',
+                                'true',
+                                'null'
+                            ],
+                            true
+                        ) ||
+                        is_numeric($value)
+                    ){
+                        $command_options[] = '-' . $option . '=' . $value;
+                    } else {
+                        if(is_array($value)){
+                            foreach ($value as $val){
+                                if($value === false){
+                                    $val = 'false';
+                                }
+                                elseif($value === true){
+                                    $val = 'true';
+                                }
+                                elseif($value === null){
+                                    $val = 'null';
+                                }
+                                if(
+                                    in_array(
+                                        $val,
+                                        [
+                                            'false',
+                                            'true',
+                                            'null'
+                                        ],
+                                        true
+                                    ) ||
+                                    is_numeric($val)
+                                ){
+                                    $command_options[] = '-' . $option . '[]=' . $val;
+                                } else {
+                                    $command_options[] = '-' . $option . '[]=\'' . $val . '\'';
+                                }
+                            }
+                        } else {
+                            $command_options[] = '-' . $option . '=\'' . $value . '\'';
+                        }
+                    }
+                }
+                return $command_options;
         }
         return $options;
     }
