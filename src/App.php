@@ -1514,7 +1514,7 @@ class App extends Data {
                             ){
                                 $url_ramdisk_record = $dir_ramdisk_record . $record->uuid . $this->config('extension.json');
                                 if(!File::exist($url_ramdisk_record)){
-                                    File::write($url_ramdisk_record, Core::object($record, Core::OBJECT_JSON));
+                                    File::write($url_ramdisk_record, Core::object($record, Core::OBJECT_JSON_LINE));
                                     if($this->config(Config::POSIX_ID) !== 0){
                                         File::permission($this, [
                                             'ramdisk_url_record' => $url_ramdisk_record,
@@ -1525,7 +1525,7 @@ class App extends Data {
                                     $mtime_record = File::mtime($url_ramdisk_record);
                                 }
                                 if(File::exist($url_ramdisk_record) && $mtime !== $mtime_record){
-                                    File::write($url_ramdisk_record, Core::object($record, Core::OBJECT_JSON));
+                                    File::write($url_ramdisk_record, Core::object($record, Core::OBJECT_JSON_LINE));
                                     if($this->config(Config::POSIX_ID) !== 0){
                                         File::permission($this, [
                                             'ramdisk_url_record' => $url_ramdisk_record,
