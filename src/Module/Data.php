@@ -581,7 +581,7 @@ class Data {
      * @throws Exception
      * @throws DirectoryCreateException
      */
-    public function write($url='', $options=['return' => File::SIZE]): bool | int
+    public function write($url='', $options=[]): bool | int
     {
         $dir = Dir::name($url);
         Dir::create($dir);
@@ -598,9 +598,11 @@ class Data {
             } else {
                 return File::write($url, Core::object($this->data(), Core::OBJECT_JSON), $options);
             }
-        } else {
+        }
+        elseif(is_string($options)) {
             return File::write($url, Core::object($this->data(), Core::OBJECT_JSON), $options);
         }
+        return false;
     }
 
     /**
