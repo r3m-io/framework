@@ -581,11 +581,26 @@ class Data {
      * @throws Exception
      * @throws DirectoryCreateException
      */
-    public function write($url='', $return=File::SIZE): bool | int
+    public function write($url='', $options=['return' => File::SIZE]): bool | int
     {
         $dir = Dir::name($url);
         Dir::create($dir);
-        return File::write($url, Core::object($this->data(), Core::OBJECT_JSON), $return);
+        if(is_array($options)){
+            if(array_key_exists('return', $options)){
+                $return = $options['return'];
+            } else {
+                $return = File::SIZE;
+            }
+            if(array_key_exists('compact', $options) &&
+                $options['compact'] === true
+            ){
+                return File::write($url, Core::object($this->data(), Core::OBJECT_JSON_LINE), $return);
+            } else {
+                return File::write($url, Core::object($this->data(), Core::OBJECT_JSON), $options);
+            }
+        } else {
+            return File::write($url, Core::object($this->data(), Core::OBJECT_JSON), $options);
+        }
     }
 
     /**
