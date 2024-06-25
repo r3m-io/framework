@@ -617,13 +617,17 @@ class Data {
                 switch(strtolower($options['compress']['algorithm'])) {
                     case 'gz':
                     case 'gzencode':
-                        $data = gzencode(Core::object($this->data(), Core::OBJECT_JSON), $options['compress']['level']);
+                        $data = Core::object($this->data(), Core::OBJECT_JSON_LINE);
+                        $original_byte = strlen($data);
+                        $data = gzencode($data, $options['compress']['level']);
                         if (substr($url, -3) !== '.gz'){
                             $url .= '.gz';
                         }
                         break;
                     case 'gzcompress':
-                        $data = gzcompress(Core::object($this->data(), Core::OBJECT_JSON_LINE), $options['compress']['level']);
+                        $data = Core::object($this->data(), Core::OBJECT_JSON_LINE);
+                        $original_byte = strlen($data);
+                        $data = gzcompress($data, $options['compress']['level']);
                         if (substr($url, -3) !== '.gz'){
                             $url .= '.gz';
                         }
@@ -633,8 +637,15 @@ class Data {
                         $data = Core::object($this->data(), Core::OBJECT_JSON_LINE);
                         break;
                 }
-
-                return File::write($url, $data, $return);
+                if($original_byte){
+                    $byte = File::write($url, $data, ['return' => File::SIZE]);
+                    return [
+                        'original' => $original_byte,
+                        'byte' => $byte,
+                    ];
+                } else {
+                    return File::write($url, $data, $return);
+                }
             } else {
                 return File::write($url, Core::object($this->data(), Core::OBJECT_JSON), $options);
             }
