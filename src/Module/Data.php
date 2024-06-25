@@ -610,9 +610,11 @@ class Data {
                     array_key_exists('level', $options['compress'])
                 ){
                 } else {
-                    $options['compress'] = 'none';
+                    $options['compress'] =  [
+                        'algorithm' => 'none'
+                    ];
                 }
-                switch(strtolower($options['compress'])){
+                switch(strtolower($options['compress']['alogrithm'])){
                     case 'gz':
                     case 'gzencode':
                         $data = gzencode(Core::object($this->data(), Core::OBJECT_JSON_LINE), $options['compress']['level']);
