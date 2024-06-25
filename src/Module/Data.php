@@ -614,15 +614,19 @@ class Data {
                         'algorithm' => 'none'
                     ];
                 }
-                switch(strtolower($options['compress']['algorithm'])){
+                switch(strtolower($options['compress']['algorithm'])) {
                     case 'gz':
                     case 'gzencode':
                         $data = gzencode(Core::object($this->data(), Core::OBJECT_JSON), $options['compress']['level']);
-                        $url .= '.gz';
+                        if (substr($url, -3) !== '.gz'){
+                            $url .= '.gz';
+                        }
                         break;
                     case 'gzcompress':
                         $data = gzcompress(Core::object($this->data(), Core::OBJECT_JSON_LINE), $options['compress']['level']);
-                        $url .= '.gz';
+                        if (substr($url, -3) !== '.gz'){
+                            $url .= '.gz';
+                        }
                         break;
                     case 'none':
                     default:
