@@ -617,7 +617,7 @@ class Data {
                 switch(strtolower($options['compress']['algorithm'])){
                     case 'gz':
                     case 'gzencode':
-                        $data = gzencode(Core::object($this->data(), Core::OBJECT_JSON_LINE), $options['compress']['level']);
+                        $data = gzencode(Core::object($this->data(), Core::OBJECT_JSON), $options['compress']['level']);
                         $url .= '.gz';
                         break;
                     case 'gzcompress':
