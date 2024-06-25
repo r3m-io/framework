@@ -616,15 +616,18 @@ class Data {
                     case 'gz':
                     case 'gzencode':
                         $data = gzencode(Core::object($this->data(), Core::OBJECT_JSON_LINE), $options['compress']['level']);
+                        $url .= '.gz';
                         break;
                     case 'gzcompress':
                         $data = gzcompress(Core::object($this->data(), Core::OBJECT_JSON_LINE), $options['compress']['level']);
+                        $url .= '.gz';
                         break;
                     case 'none':
                     default:
                         $data = Core::object($this->data(), Core::OBJECT_JSON_LINE);
                         break;
                 }
+
                 return File::write($url, $data, $return);
             } else {
                 return File::write($url, Core::object($this->data(), Core::OBJECT_JSON), $options);
