@@ -581,7 +581,7 @@ class Data {
      * @throws Exception
      * @throws DirectoryCreateException
      */
-    public function write($url='', $options=[]): bool | int
+    public function write($url='', $options=[]): array | bool | int
     {
         $dir = Dir::name($url);
         Dir::create($dir);
