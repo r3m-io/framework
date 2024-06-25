@@ -614,7 +614,7 @@ class Data {
                         'algorithm' => 'none'
                     ];
                 }
-                switch(strtolower($options['compress']['alogrithm'])){
+                switch(strtolower($options['compress']['algorithm'])){
                     case 'gz':
                     case 'gzencode':
                         $data = gzencode(Core::object($this->data(), Core::OBJECT_JSON_LINE), $options['compress']['level']);
