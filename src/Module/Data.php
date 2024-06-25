@@ -594,7 +594,38 @@ class Data {
             if(array_key_exists('compact', $options) &&
                 $options['compact'] === true
             ){
-                return File::write($url, Core::object($this->data(), Core::OBJECT_JSON_LINE), $return);
+                if(
+                    array_key_exists('compress', $options) &&
+                    $options['compress'] === true
+                ){
+                    $options['compress'] = [
+                        'algorithm' => 'gz',
+                        'level' => 9
+                    ];
+                }
+                elseif(
+                    array_key_exists('compress', $options) &&
+                    is_array($options['compress']) &&
+                    array_key_exists('algorithm', $options['compress']) &&
+                    array_key_exists('level', $options['compress'])
+                ){
+                } else {
+                    $options['compress'] = 'none';
+                }
+                switch(strtolower($options['compress'])){
+                    case 'gz':
+                    case 'gzencode':
+                        $data = gzencode(Core::object($this->data(), Core::OBJECT_JSON_LINE), $options['compress']['level']);
+                        break;
+                    case 'gzcompress':
+                        $data = gzcompress(Core::object($this->data(), Core::OBJECT_JSON_LINE), $options['compress']['level']);
+                        break;
+                    case 'none':
+                    default:
+                        $data = Core::object($this->data(), Core::OBJECT_JSON_LINE);
+                        break;
+                }
+                return File::write($url, $data, $return);
             } else {
                 return File::write($url, Core::object($this->data(), Core::OBJECT_JSON), $options);
             }
