@@ -1495,17 +1495,19 @@ class App extends Data {
                     Dir::create($dir_ramdisk_count, Dir::CHMOD);
                     Dir::create($dir_ramdisk_record, Dir::CHMOD);
 
-                    if($this->config(Config::POSIX_ID) !== 0){
-                        File::permission($this, [
-                            'ramdisk_dir_count' => $dir_ramdisk_count,
-                            'ramdisk_dir_record' => $dir_ramdisk_record,
-                        ]);
-                    }
-//                    $attribute_count = $attribute . '_count';
-//                    $attribute_index = $attribute . '_index';
+                    $url_ramdisk_count = $dir_ramdisk_count . $attribute . $this->config('extension.txt');
+
+                    File::permission($this, [
+                        'ramdisk_dir_count' => $dir_ramdisk_count,
+                        'ramdisk_dir_record' => $dir_ramdisk_record,
+                    ]);
                     $count = 0;
                     $list = $data->get($options['class']);
                     $mtime_record = false;
+                    $mtime_count = false;
+                    if(File::exist($url_ramdisk_count)){
+                        $mtime_count = File::mtime($url_ramdisk_count);;
+                    }
                     if(is_array($list)){
                         foreach($list as $nr => $record){
                             if(
@@ -1519,10 +1521,7 @@ class App extends Data {
                                         'ramdisk_url_record' => $url_ramdisk_record,
                                     ]);
                                 }
-                                if($mtime_record === false){
-                                    $mtime_record = File::mtime($url_ramdisk_record);
-                                }
-                                if(File::exist($url_ramdisk_record) && $mtime !== $mtime_record){
+                                if(File::exist($url_ramdisk_record) && $mtime !== $mtime_count){
                                     d('mtime: ' . $mtime . ' record: ' . $mtime_record);
                                     File::write($url_ramdisk_record, Core::object($record, Core::OBJECT_JSON_LINE));
                                     File::permission($this, [
@@ -1533,15 +1532,14 @@ class App extends Data {
                             }
                         }
                     }
-                    $url_ramdisk_count = $dir_ramdisk_count . $attribute . $this->config('extension.txt');
                     if(!Dir::exist($dir_ramdisk_count)){
                         Dir::create($dir_ramdisk_count, Dir::CHMOD);
                     }
                     File::write($url_ramdisk_count, $count);
                     File::permission($this, [
-                        'ramdisk_dir_count' => $dir_ramdisk_count,
                         'ramdisk_url_count' => $url_ramdisk_count,
                     ]);
+                    File::touch($url_ramdisk_count, $mtime);
                 }
                 $cache->set($attribute, $data);
             }
