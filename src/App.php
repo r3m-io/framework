@@ -1537,12 +1537,14 @@ class App extends Data {
                                 }
                                 $count++;
                                 if($options['counter'] === true){
-                                    echo Cli::tput('cursor.up');
-                                    echo str_repeat(' ', Cli::tput('columns')) . PHP_EOL;
-                                    echo Cli::tput('cursor.up');
-                                    $item_per_second = $count / ((microtime(true) - $this->config('time.start')));
-                                    $size_format = $item_per_second * $size;
-                                    echo 'count: ' . $count . '/', ($total) . ', percentage: ' . round(($count / ($total)) * 100, 2) . ', item per second: ' . $item_per_second . ', ' . File::size_format($size_format) . '/sec' . PHP_EOL;
+                                    if($count % 1000 === 0){
+                                        echo Cli::tput('cursor.up');
+                                        echo str_repeat(' ', Cli::tput('columns')) . PHP_EOL;
+                                        echo Cli::tput('cursor.up');
+                                        $item_per_second = $count / ((microtime(true) - $this->config('time.start')));
+                                        $size_format = $item_per_second * $size;
+                                        echo 'count: ' . $count . '/', ($total) . ', percentage: ' . round(($count / ($total)) * 100, 2) . ', item per second: ' . $item_per_second . ', ' . File::size_format($size_format) . '/sec' . PHP_EOL;
+                                    }
                                 }
                             }
                         }
