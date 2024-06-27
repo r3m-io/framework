@@ -1522,7 +1522,7 @@ class App extends Data {
                                     ]);
                                 }
                                 if(File::exist($url_ramdisk_record) && $mtime !== $mtime_count){
-                                    d('mtime: ' . $mtime . ' record: ' . $mtime_record);
+                                    d('mtime: ' . $mtime . ' record: ' . $mtime_count);
                                     File::write($url_ramdisk_record, Core::object($record, Core::OBJECT_JSON_LINE));
                                     File::permission($this, [
                                         'ramdisk_url_record' => $url_ramdisk_record,
