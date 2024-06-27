@@ -1515,22 +1515,19 @@ class App extends Data {
                                 $url_ramdisk_record = $dir_ramdisk_record . $record->uuid . $this->config('extension.json');
                                 if(!File::exist($url_ramdisk_record)){
                                     File::write($url_ramdisk_record, Core::object($record, Core::OBJECT_JSON_LINE));
-                                    if($this->config(Config::POSIX_ID) !== 0){
-                                        File::permission($this, [
-                                            'ramdisk_url_record' => $url_ramdisk_record,
-                                        ]);
-                                    }
+                                    File::permission($this, [
+                                        'ramdisk_url_record' => $url_ramdisk_record,
+                                    ]);
                                 }
                                 if($mtime_record === false){
                                     $mtime_record = File::mtime($url_ramdisk_record);
                                 }
                                 if(File::exist($url_ramdisk_record) && $mtime !== $mtime_record){
+                                    d('writing');
                                     File::write($url_ramdisk_record, Core::object($record, Core::OBJECT_JSON_LINE));
-                                    if($this->config(Config::POSIX_ID) !== 0){
-                                        File::permission($this, [
-                                            'ramdisk_url_record' => $url_ramdisk_record,
-                                        ]);
-                                    }
+                                    File::permission($this, [
+                                        'ramdisk_url_record' => $url_ramdisk_record,
+                                    ]);
                                 }
                                 $count++;
                             }
@@ -1541,12 +1538,10 @@ class App extends Data {
                         Dir::create($dir_ramdisk_count, Dir::CHMOD);
                     }
                     File::write($url_ramdisk_count, $count);
-                    if($this->config(Config::POSIX_ID) !== 0){
-                        File::permission($this, [
-                            'ramdisk_dir_count' => $dir_ramdisk_count,
-                            'ramdisk_url_count' => $url_ramdisk_count,
-                        ]);
-                    }
+                    File::permission($this, [
+                        'ramdisk_dir_count' => $dir_ramdisk_count,
+                        'ramdisk_url_count' => $url_ramdisk_count,
+                    ]);
                 }
                 $cache->set($attribute, $data);
             }
