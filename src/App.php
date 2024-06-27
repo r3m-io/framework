@@ -1414,6 +1414,9 @@ class App extends Data {
         elseif(!array_key_exists('do_not_nest_key', $options)) {
             $options['do_not_nest_key'] = false;
         }
+        if(!array_key_exists('counter', $options)){
+            $options['counter'] = false;
+        }
         $logger_error = $this->config('project.log.error');
         $cache = $this->data(App::CACHE);
         if($attribute !== null){
@@ -1503,6 +1506,8 @@ class App extends Data {
                     ]);
                     $count = 0;
                     $list = $data->get($options['class']);
+                    $total = count($list);
+                    $size = 0;
                     $mtime_record = false;
                     $mtime_count = false;
                     if(File::exist($url_ramdisk_count)){
@@ -1515,19 +1520,30 @@ class App extends Data {
                                 property_exists($record, 'uuid')
                             ){
                                 $url_ramdisk_record = $dir_ramdisk_record . $record->uuid . $this->config('extension.json');
-                                if(!File::exist($url_ramdisk_record)){
+
+                                if($mtime_count === false){
                                     File::write($url_ramdisk_record, Core::object($record, Core::OBJECT_JSON_LINE));
                                     File::permission($this, [
                                         'ramdisk_url_record' => $url_ramdisk_record,
                                     ]);
+                                    $size = File::size($url_ramdisk_record);
                                 }
-                                if(File::exist($url_ramdisk_record) && $mtime !== $mtime_count){
+                                elseif(File::exist($url_ramdisk_record) && $mtime !== $mtime_count){
                                     File::write($url_ramdisk_record, Core::object($record, Core::OBJECT_JSON_LINE));
                                     File::permission($this, [
                                         'ramdisk_url_record' => $url_ramdisk_record,
                                     ]);
+                                    $size = File::size($url_ramdisk_record);
                                 }
                                 $count++;
+                                if($options['counter'] === true){
+                                    echo Cli::tput('cursor.up');
+                                    echo str_repeat(' ', Cli::tput('columns')) . PHP_EOL;
+                                    echo Cli::tput('cursor.up');
+                                    $item_per_second = $count / ((microtime(true) - $this->config('time.start')));
+                                    $size_format = $item_per_second * $size;
+                                    echo 'count: ' . $count . '/', ($total * $options['page']) . ', percentage: ' . round(($count / ($total * $options['page'])) * 100, 2) . ', item per second: ' . $item_per_second . ', ' . File::size_format($size_format) . '/sec' . PHP_EOL;
+                                }
                             }
                         }
                     }
@@ -1539,6 +1555,14 @@ class App extends Data {
                         'ramdisk_url_count' => $url_ramdisk_count,
                     ]);
                     File::touch($url_ramdisk_count, $mtime);
+                    if($options['counter'] === true){
+                        echo Cli::tput('cursor.up');
+                        echo str_repeat(' ', Cli::tput('columns')) . PHP_EOL;
+                        echo Cli::tput('cursor.up');
+                        $item_per_second = $count / ((microtime(true) - $this->config('time.start')));
+                        $size_format = $item_per_second * $size;
+                        echo 'count: ' . $count . '/', ($total * $options['page']) . ', percentage: ' . round(($count / ($total * $options['page'])) * 100, 2) . ', item per second: ' . $item_per_second . ', ' . File::size_format($size_format) . '/sec' . PHP_EOL;
+                    }
                 }
                 $cache->set($attribute, $data);
             }
