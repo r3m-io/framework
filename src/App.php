@@ -1515,6 +1515,7 @@ class App extends Data {
                     }
                     if(is_array($list) && $mtime !== $mtime_count){
                         $filename = [];
+                        $write = [];
                         foreach($list as $nr => $record){
                             if(
                                 is_object($record) &&
@@ -1522,7 +1523,7 @@ class App extends Data {
                             ){
                                 $filename[$nr] = $dir_ramdisk_record . $record->uuid . $this->config('extension.json');
                                 $data = Core::object($record, Core::OBJECT_JSON_LINE);
-                                $list[$nr] = $data;
+                                $write[$nr] = $data;
                                 $size = mb_strlen($data);
 //                                $url_ramdisk_record = $dir_ramdisk_record . $record->uuid . $this->config('extension.json');
 
