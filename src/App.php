@@ -1521,7 +1521,9 @@ class App extends Data {
                                 property_exists($record, 'uuid')
                             ){
                                 $filename[$nr] = $dir_ramdisk_record . $record->uuid . $this->config('extension.json');
-                                $list[$nr] = Core::object($record, Core::OBJECT_JSON_LINE);
+                                $data = Core::object($record, Core::OBJECT_JSON_LINE);
+                                $list[$nr] = $data;
+                                $size = mb_strlen($data);
 //                                $url_ramdisk_record = $dir_ramdisk_record . $record->uuid . $this->config('extension.json');
 
                                 /*
