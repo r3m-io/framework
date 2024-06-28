@@ -1428,6 +1428,9 @@ class App extends Data {
             }
         }
         if(File::exist($url)){
+            if($options['counter'] === true){
+                echo 'Loading data: ' . $url . PHP_EOL;
+            }
             $read = File::read($url);
             $mtime = File::mtime($url);
             $require_disabled = $this->config('require.disabled');
