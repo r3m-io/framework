@@ -1554,7 +1554,7 @@ class App extends Data {
                                         echo Cli::tput('cursor.up');
                                         $item_per_second = $count / ((microtime(true) - $this->config('time.start')));
                                         $size_format = $item_per_second * $size;
-                                        echo 'count: ' . $count . '/', ($total) . ', percentage: ' . round(($count / ($total)) * 100, 2) . ', item per second: ' . $item_per_second . ', ' . File::size_format($size_format) . '/sec' . PHP_EOL;
+                                        echo 'Prepare: ' . $count . '/', ($total) . ', percentage: ' . round(($count / ($total)) * 100, 2) . ', item per second: ' . $item_per_second . ', ' . File::size_format($size_format) . '/sec' . PHP_EOL;
                                     }
                                 }
                             }
@@ -1568,13 +1568,28 @@ class App extends Data {
                         'ramdisk_url_count' => $url_ramdisk_count,
                     ]);
                     File::touch($url_ramdisk_count, $mtime);
+                    $count = 0;
+                    foreach($list as $nr => $file){
+                        File::write($filename[$nr], $file);
+                        $count++;
+                        if($options['counter'] === true){
+                            if($count % 1000 === 0){
+                                echo Cli::tput('cursor.up');
+                                echo str_repeat(' ', Cli::tput('columns')) . PHP_EOL;
+                                echo Cli::tput('cursor.up');
+                                $item_per_second = $count / ((microtime(true) - $this->config('time.start')));
+                                $size_format = $item_per_second * $size;
+                                echo 'Writing : ' . $count . '/', ($total) . ', percentage: ' . round(($count / ($total)) * 100, 2) . ', item per second: ' . $item_per_second . ', ' . File::size_format($size_format) . '/sec' . PHP_EOL;
+                            }
+                        }
+                    }
                     if($options['counter'] === true){
                         echo Cli::tput('cursor.up');
                         echo str_repeat(' ', Cli::tput('columns')) . PHP_EOL;
                         echo Cli::tput('cursor.up');
                         $item_per_second = $count / ((microtime(true) - $this->config('time.start')));
                         $size_format = $item_per_second * $size;
-                        echo 'count: ' . $count . '/', ($total) . ', percentage: ' . round(($count / ($total)) * 100, 2) . ', item per second: ' . $item_per_second . ', ' . File::size_format($size_format) . '/sec' . PHP_EOL;
+                        echo 'Finalizing: ' . $count . '/', ($total) . ', percentage: ' . round(($count / ($total)) * 100, 2) . ', item per second: ' . $item_per_second . ', ' . File::size_format($size_format) . '/sec' . PHP_EOL;
                     }
                 }
                 $cache->set($attribute, $data);
