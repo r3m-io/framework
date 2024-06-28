@@ -1511,8 +1511,8 @@ class App extends Data {
                     $list = $data->get($options['class']);
                     $total = count($list);
                     $size = 0;
-                    $mtime_record = false;
                     $mtime_count = false;
+                    $filename = [];
                     if(File::exist($url_ramdisk_count)){
                         $mtime_count = File::mtime($url_ramdisk_count);;
                     }
@@ -1521,7 +1521,6 @@ class App extends Data {
                         $mtime !==
                         $mtime_count
                     ){
-                        $filename = [];
                         foreach($list as $nr => $record){
                             if(
                                 is_object($record) &&
@@ -1559,6 +1558,9 @@ class App extends Data {
                     File::touch($url_ramdisk_count, $mtime);
                     $count = 0;
                     foreach($list as $nr => $file){
+                        if(!array_key_exists($nr, $filename)){
+                                continue;
+                        }
                         File::write($filename[$nr], $file);
                         $count++;
                         if($options['counter'] === true){
