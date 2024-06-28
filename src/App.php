@@ -1513,18 +1513,21 @@ class App extends Data {
                     if(File::exist($url_ramdisk_count)){
                         $mtime_count = File::mtime($url_ramdisk_count);;
                     }
-                    if(is_array($list) && $mtime !== $mtime_count){
+                    if(
+                        is_array($list) &&
+                        $mtime !==
+                        $mtime_count
+                    ){
                         $filename = [];
-                        $write = [];
                         foreach($list as $nr => $record){
                             if(
                                 is_object($record) &&
                                 property_exists($record, 'uuid')
                             ){
                                 $filename[$nr] = $dir_ramdisk_record . $record->uuid . $this->config('extension.json');
-                                $data = Core::object($record, Core::OBJECT_JSON_LINE);
-                                $write[$nr] = $data;
-                                $size = mb_strlen($data);
+                                $file = Core::object($record, Core::OBJECT_JSON_LINE);
+                                $list[$nr] = $file;
+                                $size = mb_strlen($file);
 //                                $url_ramdisk_record = $dir_ramdisk_record . $record->uuid . $this->config('extension.json');
 
                                 /*
