@@ -1514,13 +1514,17 @@ class App extends Data {
                         $mtime_count = File::mtime($url_ramdisk_count);;
                     }
                     if(is_array($list)){
+                        $filename = [];
                         foreach($list as $nr => $record){
                             if(
                                 is_object($record) &&
                                 property_exists($record, 'uuid')
                             ){
-                                $url_ramdisk_record = $dir_ramdisk_record . $record->uuid . $this->config('extension.json');
+                                $filename[$nr] = $dir_ramdisk_record . $record->uuid . $this->config('extension.json');
+                                $list[$nr] = Core::object($record, Core::OBJECT_JSON_LINE);
+//                                $url_ramdisk_record = $dir_ramdisk_record . $record->uuid . $this->config('extension.json');
 
+                                /*
                                 if($mtime_count === false){
                                     File::write($url_ramdisk_record, Core::object($record, Core::OBJECT_JSON_LINE));
                                     File::permission($this, [
@@ -1535,6 +1539,7 @@ class App extends Data {
                                     ]);
                                     $size = File::size($url_ramdisk_record);
                                 }
+                                */
                                 $count++;
                                 if($options['counter'] === true){
                                     if($count % 1000 === 0){
