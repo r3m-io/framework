@@ -1513,7 +1513,7 @@ class App extends Data {
                     if(File::exist($url_ramdisk_count)){
                         $mtime_count = File::mtime($url_ramdisk_count);;
                     }
-                    if(is_array($list)){
+                    if(is_array($list) && $mtime !== $mtime_count){
                         $filename = [];
                         foreach($list as $nr => $record){
                             if(
