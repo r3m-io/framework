@@ -1524,28 +1524,14 @@ class App extends Data {
                                 is_object($record) &&
                                 property_exists($record, 'uuid')
                             ){
+                                /**
+                                 * it is faster todo first all the objects to json-line and then write them to disk
+                                 * instead of writing them one by one to disk
+                                 */
                                 $filename[$nr] = $dir_ramdisk_record . $record->uuid . $this->config('extension.json');
                                 $file = Core::object($record, Core::OBJECT_JSON_LINE);
                                 $list[$nr] = $file;
                                 $size = mb_strlen($file);
-//                                $url_ramdisk_record = $dir_ramdisk_record . $record->uuid . $this->config('extension.json');
-
-                                /*
-                                if($mtime_count === false){
-                                    File::write($url_ramdisk_record, Core::object($record, Core::OBJECT_JSON_LINE));
-                                    File::permission($this, [
-                                        'ramdisk_url_record' => $url_ramdisk_record,
-                                    ]);
-                                    $size = File::size($url_ramdisk_record);
-                                }
-                                elseif(File::exist($url_ramdisk_record) && $mtime !== $mtime_count){
-                                    File::write($url_ramdisk_record, Core::object($record, Core::OBJECT_JSON_LINE));
-                                    File::permission($this, [
-                                        'ramdisk_url_record' => $url_ramdisk_record,
-                                    ]);
-                                    $size = File::size($url_ramdisk_record);
-                                }
-                                */
                                 $count++;
                                 if($options['counter'] === true){
                                     if($count % 1000 === 0){
