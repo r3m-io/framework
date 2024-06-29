@@ -1547,15 +1547,15 @@ class App extends Data {
                                 }
                             }
                         }
+                        if(!Dir::exist($dir_ramdisk_count)){
+                            Dir::create($dir_ramdisk_count, Dir::CHMOD);
+                        }
+                        File::write($url_ramdisk_count, $count);
+                        File::permission($this, [
+                            'ramdisk_url_count' => $url_ramdisk_count,
+                        ]);
+                        File::touch($url_ramdisk_count, $mtime);
                     }
-                    if(!Dir::exist($dir_ramdisk_count)){
-                        Dir::create($dir_ramdisk_count, Dir::CHMOD);
-                    }
-                    File::write($url_ramdisk_count, $count);
-                    File::permission($this, [
-                        'ramdisk_url_count' => $url_ramdisk_count,
-                    ]);
-                    File::touch($url_ramdisk_count, $mtime);
                     $count = 0;
                     foreach($list as $nr => $file){
                         if(!array_key_exists($nr, $filename)){
