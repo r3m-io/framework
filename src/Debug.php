@@ -83,27 +83,27 @@ if(!function_exists('trace')){
                     array_key_exists('class', $trace[$i])
 
                 ){
-                    echo Cli::info($trace[$i]['line']) . ':' . $trace[$i]['class'] . ':' . cli::notice($trace[$i]['function']) . ':' . $trace[$i]['file'] . PHP_EOL;
+                    echo Cli::notice($trace[$i]['line']) . ':' . cli::notice($trace[$i]['function']) . ':' .  $trace[$i]['class'] . ':' . $trace[$i]['file'] . PHP_EOL;
                 }
                 elseif(
                     array_key_exists('file', $trace[$i]) &&
                     array_key_exists('line', $trace[$i]) &&
                     array_key_exists('function', $trace[$i])
                 ){
-                    echo $trace[$i]['line'] . ':' . $trace[$i]['function'] . ':' . $trace[$i]['file'] . PHP_EOL;
+                    echo Cli::notice($trace[$i]['line']) . ':' . Cli::notice($trace[$i]['function']) . ':' . $trace[$i]['file'] . PHP_EOL;
                 }
                 elseif(
                     array_key_exists('file', $trace[$i]) &&
                     array_key_exists('line', $trace[$i]) &&
                     array_key_exists('class', $trace[$i])
                 ){
-                    echo $trace[$i]['line'] . ':' . $trace[$i]['class'] . ':' . $trace[$i]['file'] . PHP_EOL;
+                    echo Cli::notice($trace[$i]['line']) . ':' . $trace[$i]['class'] . ':' . $trace[$i]['file'] . PHP_EOL;
                 }
                 elseif(
                     array_key_exists('file', $trace[$i]) &&
                     array_key_exists('line', $trace[$i])
                 ) {
-                    echo $trace[$i]['line'] . ':' . $trace[$i]['file'] . PHP_EOL;
+                    echo Cli::notice($trace[$i]['line']) . ':' . $trace[$i]['file'] . PHP_EOL;
                 }
             }
         }
