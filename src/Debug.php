@@ -81,7 +81,7 @@ if(!function_exists('trace')){
                 ){
                     echo $trace[$i]['file'] . ':' . $trace[$i]['line'] . ':' . $trace[$i]['class'] . ':' .$trace[$i]['function']. PHP_EOL;
                 }
-                if(
+                elseif(
                     array_key_exists('file', $trace[$i]) &&
                     array_key_exists('line', $trace[$i]) &&
                     array_key_exists('function', $trace[$i])
