@@ -35,19 +35,31 @@ class Limit extends Data{
         }
         $list = $this->data();
         $start = 0;
+        $the_limit = false;
+        $all = false;
         if(array_key_exists('start', $limit)){
             $start = (int) $limit['start'];
         }
         if(array_key_exists('limit', $limit)){
-            $the_limit = (int) $limit['limit'];
+            if($limit['limit'] === '*'){
+                $all = true;
+            } else {
+                $the_limit = (int) $limit['limit'];
+            }
         } else {
             $the_limit = Limit::LIMIT;
         }
         if(array_key_exists('page', $limit)){
-            $start = ((int) $limit['page'] * $the_limit) - $the_limit;
+            if($all === false){
+                $start = ((int) $limit['page'] * $the_limit) - $the_limit;
+            }
         }
         $nr = 0;
-        $end = $start + $the_limit;
+        if($all === false){
+            $end = $start + $the_limit;
+        } else {
+            $end = count($list);
+        }
         $result = [];
         if(
             is_array($list) || 
