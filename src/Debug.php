@@ -81,13 +81,13 @@ if(!function_exists('trace')){
                     array_key_exists('line', $trace[$i]) &&
                     array_key_exists('function', $trace[$i])
                 ){
-                    echo cli::notice($trace[$i]['function']) . ':' . Cli::notice( $trace[$i]['file'] .':' . $trace[$i]['line'])  . PHP_EOL;
+                    echo cli::notice($trace[$i]['function']) . ':' . $trace[$i]['file'] .':' . $trace[$i]['line']  . PHP_EOL;
                 }
                 elseif(
                     array_key_exists('file', $trace[$i]) &&
                     array_key_exists('line', $trace[$i])
                 ) {
-                    echo Cli::notice($trace[$i]['file'] . ':' . $trace[$i]['line']) . PHP_EOL;
+                    echo $trace[$i]['file'] . ':' . $trace[$i]['line'] . PHP_EOL;
                 }
             }
         }
