@@ -74,7 +74,7 @@ if(!function_exists('trace')){
 
         echo Cli::debug('Trace') . PHP_EOL . PHP_EOL;
 
-        for($i = 1; $i < $length; $i++){
+        for($i = 0; $i < $length; $i++){
             if(array_key_exists($i, $trace)){
                 if(
                     array_key_exists('file', $trace[$i]) &&
