@@ -83,7 +83,7 @@ if(!function_exists('trace')){
                     array_key_exists('class', $trace[$i])
 
                 ){
-                    echo Cli::notice($trace[$i]['line']) . ':' . cli::notice($trace[$i]['function']) . ':' .  cli::info($trace[$i]['class']) . ':' . $trace[$i]['file'] . PHP_EOL;
+                    echo ' line :' . Cli::notice( $trace[$i]['line']) . ': function : ' . cli::notice($trace[$i]['function']) . ': class : ' .  cli::info($trace[$i]['class']) . ':' . $trace[$i]['file'] . PHP_EOL;
                 }
                 elseif(
                     array_key_exists('file', $trace[$i]) &&
