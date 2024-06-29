@@ -60,7 +60,7 @@ if(!function_exists('ddd')){
 }
 
 if(!function_exists('trace')){
-    function trace($length=5): void
+    function trace($length=null): void
     {
         $trace = debug_backtrace(1);
         if(!is_numeric($length)){
@@ -75,8 +75,16 @@ if(!function_exists('trace')){
                 if(
                     array_key_exists('file', $trace[$i]) &&
                     array_key_exists('line', $trace[$i]) &&
-                    array_key_exists('function', $trace[$i])
+                    array_key_exists('function', $trace[$i]) &&
+                    array_key_exists('class', $trace[$i])
 
+                ){
+                    echo $trace[$i]['file'] . ':' . $trace[$i]['line'] . ':' . $trace[$i]['class'] . ':' .$trace[$i]['function']. PHP_EOL;
+                }
+                if(
+                    array_key_exists('file', $trace[$i]) &&
+                    array_key_exists('line', $trace[$i]) &&
+                    array_key_exists('function', $trace[$i])
                 ){
                     echo $trace[$i]['file'] . ':' . $trace[$i]['line'] . ':' . $trace[$i]['function']. PHP_EOL;
                 }
