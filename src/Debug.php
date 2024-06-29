@@ -72,7 +72,7 @@ if(!function_exists('trace')){
         }
         // don't need the first one (0)
 
-        Cli::debug('Trace');
+        echo Cli::debug('Trace') . PHP_EOL;
 
         for($i = 1; $i < $length; $i++){
             if(array_key_exists($i, $trace)){
@@ -83,7 +83,7 @@ if(!function_exists('trace')){
                     array_key_exists('class', $trace[$i])
 
                 ){
-                    echo $trace[$i]['line'] . ':' . $trace[$i]['class'] . ':' . $trace[$i]['function'] . ':' . $trace[$i]['file'] . PHP_EOL;
+                    echo Cli::info($trace[$i]['line']) . ':' . $trace[$i]['class'] . ':' . cli::notice($trace[$i]['function']) . ':' . $trace[$i]['file'] . PHP_EOL;
                 }
                 elseif(
                     array_key_exists('file', $trace[$i]) &&
