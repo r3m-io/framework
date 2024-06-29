@@ -73,7 +73,7 @@ if(!function_exists('trace')){
         // don't need the first one (0)
         // we do, where did we put it...
 
-        echo Cli::debug('Trace') . PHP_EOL . PHP_EOL;
+        echo Cli::debug('Trace') . PHP_EOL;
 
         for($i = 0; $i < $length; $i++){
             if(array_key_exists($i, $trace)){
