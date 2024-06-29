@@ -69,7 +69,8 @@ if(!function_exists('trace')){
         if(!defined('IS_CLI')){
             echo '<pre class="priya-trace">';
         }
-        for($i = 0; $i < $length; $i++){
+        // don't need the first one (0)
+        for($i = 1; $i < $length; $i++){
             if(array_key_exists($i, $trace)){
                 if(
                     array_key_exists('file', $trace[$i]) &&
