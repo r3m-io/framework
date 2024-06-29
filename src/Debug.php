@@ -10,6 +10,7 @@
  */
 
 use JetBrains\PhpStorm\NoReturn;
+use R3m\Io\Module\Cli;
 
 if(!function_exists('d')){
     function d($data=null): void
@@ -70,6 +71,9 @@ if(!function_exists('trace')){
             echo '<pre class="priya-trace">';
         }
         // don't need the first one (0)
+
+        Cli::debug('Trace');
+
         for($i = 1; $i < $length; $i++){
             if(array_key_exists($i, $trace)){
                 if(
@@ -79,27 +83,27 @@ if(!function_exists('trace')){
                     array_key_exists('class', $trace[$i])
 
                 ){
-                    echo $trace[$i]['file'] . ':' . $trace[$i]['line'] . ':' . $trace[$i]['class'] . ':' .$trace[$i]['function']. PHP_EOL;
+                    echo $trace[$i]['line'] . ':' . $trace[$i]['class'] . ':' . $trace[$i]['function'] . ':' . $trace[$i]['file'] . PHP_EOL;
                 }
                 elseif(
                     array_key_exists('file', $trace[$i]) &&
                     array_key_exists('line', $trace[$i]) &&
                     array_key_exists('function', $trace[$i])
                 ){
-                    echo $trace[$i]['file'] . ':' . $trace[$i]['line'] . ':' . $trace[$i]['function']. PHP_EOL;
+                    echo $trace[$i]['line'] . ':' . $trace[$i]['function'] . ':' . $trace[$i]['file'] . PHP_EOL;
                 }
                 elseif(
                     array_key_exists('file', $trace[$i]) &&
                     array_key_exists('line', $trace[$i]) &&
                     array_key_exists('class', $trace[$i])
                 ){
-                    echo $trace[$i]['file'] . ':' . $trace[$i]['line'] . ':' . $trace[$i]['class']. PHP_EOL;
+                    echo $trace[$i]['line'] . ':' . $trace[$i]['class'] . ':' . $trace[$i]['file'] . PHP_EOL;
                 }
                 elseif(
                     array_key_exists('file', $trace[$i]) &&
                     array_key_exists('line', $trace[$i])
                 ) {
-                    echo $trace[$i]['file'] . ':' . $trace[$i]['line'] . PHP_EOL;
+                    echo $trace[$i]['line'] . ':' . $trace[$i]['file'] . PHP_EOL;
                 }
             }
         }
