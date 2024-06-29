@@ -71,6 +71,7 @@ if(!function_exists('trace')){
             echo '<pre class="priya-trace">';
         }
         // don't need the first one (0)
+        // we do, where did we put it...
 
         echo Cli::debug('Trace') . PHP_EOL . PHP_EOL;
 
