@@ -86,7 +86,11 @@ if(!function_exists('trace')){
                     array_key_exists('class', $trace[$i])
                 ){
                     echo $trace[$i]['file'] . ':' . $trace[$i]['line'] . ':' . $trace[$i]['class']. PHP_EOL;
-                } else {
+                }
+                elseif(
+                    array_key_exists('file', $trace[$i]) &&
+                    array_key_exists('line', $trace[$i])
+                ) {
                     echo $trace[$i]['file'] . ':' . $trace[$i]['line'] . PHP_EOL;
                 }
             }
