@@ -18,7 +18,13 @@ class SharedMemory {
 
     public static function open($key, $mode, $permission=File::CHMOD, $size=1): Shmop | bool
     {
-        return @shmop_open($key, $mode, $permission, $size);
+        try {
+            return @shmop_open($key, $mode, $permission, $size);
+        }
+        catch (ErrorException | Exception $exception){
+            return false;
+        }
+
     }
 
     public static function delete(Shmop $shmop): bool
