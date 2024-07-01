@@ -22,6 +22,7 @@ class SharedMemory {
             return @shmop_open($key, $mode, $permission, $size);
         }
         catch(ErrorException | Exception $exception){
+            $exception = (string) $exception;
             ddd($exception);
         }
     }
