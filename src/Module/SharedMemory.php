@@ -16,7 +16,8 @@ use Shmop;
 
 class SharedMemory {
 
-    public static function open($key, $mode, $permission=File::CHMOD, $size=1): Shmop | bool
+    const CHMOD = 0644;
+    public static function open($key, $mode, $permission=SharedMemory::CHMOD, $size=1): Shmop | bool
     {
         try {
             return @shmop_open($key, $mode, $permission, $size);
@@ -24,7 +25,6 @@ class SharedMemory {
         catch (ErrorException | Exception $exception){
             return false;
         }
-
     }
 
     public static function delete(Shmop $shmop): bool
