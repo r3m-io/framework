@@ -592,6 +592,9 @@ class Parse {
                 }
             }
             $mtime = $storage->data('r3m.io.parse.view.mtime');
+            if($mtime === null){
+                ddd($url);
+            }
             d($mtime);
 
             $file_exist = File::exist($url);
