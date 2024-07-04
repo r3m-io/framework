@@ -733,9 +733,9 @@ class Parse {
                 d($url);
                 d($mtime);
                 $write = $build->write($url, $document, $string);
-                d(File::mtime($url));
                 if($mtime !== null){
                     $touch = File::touch($url, $mtime);
+                    d(File::mtime($url));
                     opcache_invalidate($url, true);
                     if(opcache_is_script_cached($url) === false){
                         $status = opcache_get_status(true);
