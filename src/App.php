@@ -1332,6 +1332,8 @@ class App extends Data {
         if($logger){
             $this->logger($logger)->info(' parse_select: ' . $url, [$select ,$scope]);
         }
+        $parse->storage()->data('r3m.io.parse.view.url', $url);
+        $parse->storage()->data('r3m.io.parse.view.mtime', $mtime);
         $node->data(
             Core::object_select(
                 $parse,
@@ -1390,6 +1392,8 @@ class App extends Data {
         if($logger){
             $this->logger($logger)->info(' object_select: ' . $url, [$select ,$compile, $scope]);
         }
+        $parse->storage()->data('r3m.io.parse.view.url', $url);
+        $parse->storage()->data('r3m.io.parse.view.mtime', $mtime);
         return Core::object_select(
             $parse,
             $data,
