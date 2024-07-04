@@ -593,6 +593,7 @@ class Parse {
             }
             $mtime = $storage->data('r3m.io.parse.view.mtime');
             if($mtime === null){
+                trace();
                 ddd($url);
             }
             d($mtime);
