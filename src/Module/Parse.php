@@ -735,12 +735,12 @@ class Parse {
                 $document = $build->create('require', $tree, $document);
                 $document = $build->create('use', $tree, $document);
                 $document = $build->create('trait', $tree, $document);
-                d($url);
-                d($mtime);
+//                d($url);
+//                d($mtime);
                 $write = $build->write($url, $document, $string);
                 if($mtime !== null){
                     $touch = File::touch($url, $mtime);
-                    d(File::mtime($url));
+//                    d(File::mtime($url));
                     opcache_invalidate($url, true);
                     if(opcache_is_script_cached($url) === false){
                         $status = opcache_get_status(true);
