@@ -729,6 +729,10 @@ class Parse {
                 $document = $build->create('use', $tree, $document);
                 $document = $build->create('trait', $tree, $document);
                 d($url);
+                d($mtime);
+                d(File::mtime($url));
+
+
                 $write = $build->write($url, $document, $string);
                 if($mtime !== null){
                     $touch = File::touch($url, $mtime);
