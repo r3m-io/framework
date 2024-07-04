@@ -599,18 +599,13 @@ class Parse {
                 }
 
             }
-            d($mtime);
-
             $file_exist = File::exist($url);
             $file_mtime = false;
             if($file_exist){
                 $file_mtime = File::mtime($url);
             }
-            d($file_mtime);
-            d($mtime);
             if($file_exist && $file_mtime === $mtime){
                 //cache file
-                d('yes');
                 $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
                 try {
                     $template = new $class(new Parse($this->object()), $storage);
