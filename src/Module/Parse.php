@@ -418,7 +418,12 @@ class Parse {
                     ){
                         $string->{$key} = $value;
                     } else {
-                        if(stristr($value, '{{') !== false){
+                        if(
+                            is_string($value) &&
+                            stristr($value, '{{') !== false
+                        ){
+                            $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
+                        } elseif(!is_scalar($value)){
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                         }
                         $string->{$key} = $value;
