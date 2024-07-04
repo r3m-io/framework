@@ -418,8 +418,9 @@ class Parse {
                     ){
                         $string->{$key} = $value;
                     } else {
-                        d($value);
-                        $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
+                        if(stristr($value, '{{') !== false){
+                            $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
+                        }
                         $string->{$key} = $value;
                     }
                 } catch (Exception | ParseError $exception){
