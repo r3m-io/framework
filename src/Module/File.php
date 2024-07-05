@@ -666,7 +666,6 @@ class File {
                 if (File::exist($value)) {
                     $value = escapeshellarg($value);
                     $command = 'chown www-data:www-data ' . $value;
-                    d($command);
                     exec($command);
                 }
             }
