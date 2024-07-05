@@ -672,12 +672,12 @@ class File {
         }
         if ($object->config('framework.environment') === Config::MODE_DEVELOPMENT) {
             foreach($options as $key => $value){
-                if(Dir::is($value)){
+                if(Dir::is($value) && File::exist($value)){
                     $value = '\'' . escapeshellcmd($value) . '\'';
                     $command = 'chmod 777 ' . $value;
                     exec($command);
                 }
-                elseif(File::is($value)) {
+                elseif(File::is($value) && File::exist($value)) {
                     $value = '\'' . escapeshellcmd($value) . '\'';
                     $command = 'chmod 666 ' . $value;
                     exec($command);
