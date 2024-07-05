@@ -664,7 +664,7 @@ class File {
         if ($object->config(Config::POSIX_ID) === 0) {
             foreach ($options as $key => $value) {
                 if (File::exist($value)) {
-                    $value = '\'' . escapeshellcmd($value) . '\'';
+                    $value = '\'' . escapeshellarg($value) . '\'';
                     $command = 'chown www-data:www-data ' . $value;
                     exec($command);
                 }
