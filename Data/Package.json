@@ -60,6 +60,39 @@
         ]
       }
     },
+    "r3m_io/basic" : {
+      "composer.production" : "composer require {{$this.#key}}:~2024",
+      "composer" : "composer require {{$this.#key}}:dev-main",
+      "route" : [
+        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
+      ],
+      "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
+      "copy" : [
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Package/",
+          "to" : "{{package.dir(config('project.dir.package'), $this.#parentNode.#key)}}",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Node/",
+          "to" : "{{config('project.dir.node')}}",
+          "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Event/",
+          "to" : "{{config('project.dir.event')}}",
+          "recursive": true
+        }
+      ],
+      "command" : [
+        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
+      ],
+      "update" : {
+        "command" : [
+          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
+        ]
+      }
+    },
     "r3m_io/boot" : {
       "composer.production" : "composer require {{$this.#key}}:~2024",
       "composer" : "composer require {{$this.#key}}:dev-main",
@@ -559,38 +592,6 @@
       }
     },
     "r3m_io/output_filter" : {
-      "composer" : "composer require {{$this.#key}}:~2024",
-      "route" : [
-        "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
-      ],
-      "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
-      "copy" : [
-        {
-          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Package/",
-          "to" : "{{package.dir(config('project.dir.package'), $this.#parentNode.#key)}}",
-          "recursive": true
-        },
-        {
-          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Node/",
-          "to" : "{{config('project.dir.node')}}",
-          "recursive": true
-        },
-        {
-          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Event/",
-          "to" : "{{config('project.dir.event')}}",
-          "recursive": true
-        }
-      ],
-      "command" : [
-        "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
-      ],
-      "update" : {
-        "command" : [
-          "{{binary('php Bin/R3m.php')}} {{$this.#parentNode.#key}} update"
-        ]
-      }
-    },
-    "r3m_io/basic" : {
       "composer" : "composer require {{$this.#key}}:~2024",
       "route" : [
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
