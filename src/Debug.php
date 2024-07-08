@@ -74,7 +74,6 @@ if(!function_exists('trace')){
         // we do, where did we put it...
 
         echo Cli::debug('Trace') . PHP_EOL;
-
         for($i = 0; $i < $length; $i++){
             if(array_key_exists($i, $trace)){
                 if(
@@ -82,6 +81,7 @@ if(!function_exists('trace')){
                     array_key_exists('line', $trace[$i]) &&
                     array_key_exists('function', $trace[$i])
                 ){
+                    $list[] = $trace[$i]['function'] . ':' . $trace[$i]['file'] .':' . $trace[$i]['line'];
                     echo cli::notice($trace[$i]['function']) . ':' . $trace[$i]['file'] .':' . $trace[$i]['line']  . PHP_EOL;
                 }
                 elseif(
