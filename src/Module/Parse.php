@@ -607,7 +607,16 @@ class Parse {
                         $string = Literal::restore($storage, $string);
                     }
                     if(is_string($string)){
-                        d($string);
+                        $string = str_replace(
+                            [
+                                '{',
+                                '}'
+                            ],
+                            [
+                                '{' . PHP_EOL,
+                                '}' . PHP_EOL
+                            ], $string
+                        );
                     }
                     $storage->data('delete', 'this');
                     if(
@@ -764,6 +773,16 @@ class Parse {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = $template->run();
                     if(is_string($string)){
+                        $string = str_replace(
+                            [
+                                '{',
+                                '}'
+                            ],
+                            [
+                                '{' . PHP_EOL,
+                                '}' . PHP_EOL
+                            ], $string
+                        );
                         d($string);
                     }
                     if (empty($this->halt_literal())) {
