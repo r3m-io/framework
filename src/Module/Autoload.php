@@ -706,6 +706,7 @@ class Autoload {
         $data->set('Autoload.environment', $this->environment());
         $data->set('Autoload.expose', $this->expose());
         $data->set('Autoload.time', microtime(true));
+        $data->Set('Autoload.trace', trace());
 
         File::append(
             $dir_temp .
@@ -719,7 +720,7 @@ class Autoload {
             !empty($this->expose())
         ){
             if(empty($this->expose())){
-                throw new LocateException('Autoload error, cannot load (' . $load .') class. (see ' . $dir_temp . 'Autoload.log' . ')' . PHP_EOL . trace(), Autoload::exception_filelist($fileList));
+                throw new LocateException('Autoload error, cannot load (' . $load .') class. (see ' . $dir_temp . 'Autoload.log' . ')', Autoload::exception_filelist($fileList));
             }
             $object = new stdClass();
             $object->load = $load;
