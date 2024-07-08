@@ -701,10 +701,14 @@ class Parse {
                     [
                         '{$ldelim}{$ldelim}',
                         '{$rdelim}{$rdelim}',
+                        '{$ldelim}',
+                        '{$rdelim}',
                     ],
                     [
                         '{',
                         '}',
+                        '{$ldelim}' . PHP_EOL,
+                        '{$rdelim}' . PHP_EOL,
                     ],
                     $string
                 );
