@@ -11,10 +11,12 @@ Welcome to R3m.io                             {{terminal.color('blue')}}(c) Remc
 ])}}
 {{for.each($route as $nr => $record)}}
 {{if(is.array($record.info))}}
+{{d($record.info)}}
 {{$info = implode("\n", $record.info)}}
 {{parse.string($info)}}
 
 {{elseif(!is.empty($record.info))}}
+{{d($record.info)}}
 {{parse.string($record.info)}}
 
 {{/if}}
