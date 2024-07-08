@@ -595,6 +595,7 @@ class Parse {
             if($mtime === null){
 //                trace();
                 if(File::exist($url)){
+                    trace();
                     ddd($url);
                 }
 
