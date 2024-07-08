@@ -593,7 +593,11 @@ class Parse {
             }
             $mtime = $storage->data('r3m.io.parse.view.mtime');
             if($mtime === null){
-//                trace();
+                trace();
+                if(File::exist($url)){
+                    ddd($url);
+                }
+
             }
             $file_exist = File::exist($url);
             $file_mtime = false;
@@ -697,14 +701,10 @@ class Parse {
                     [
                         '{$ldelim}{$ldelim}',
                         '{$rdelim}{$rdelim}',
-                        '{$ldelim}',
-                        '{$rdelim}',
                     ],
                     [
                         '{',
                         '}',
-                        '{$ldelim}' . PHP_EOL,
-                        '{$rdelim}' . PHP_EOL,
                     ],
                     $string
                 );
@@ -735,7 +735,6 @@ class Parse {
                 $document = $build->create('require', $tree, $document);
                 $document = $build->create('use', $tree, $document);
                 $document = $build->create('trait', $tree, $document);
-//                d($url);
 //                d($mtime);
                 $write = $build->write($url, $document, $string);
                 if($mtime !== null){
