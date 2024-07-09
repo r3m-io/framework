@@ -175,6 +175,8 @@ class Value {
             $count = 0;
             $is_collect = false;
             d($line);
+            $chars = mb_str_split($line);
+            $line_check = '';
             foreach($contains as $nr_contains => $contain){
                 $trim = [];
                 foreach($contain as $word_index => $word){
@@ -194,18 +196,14 @@ class Value {
                         } else {
                             $pos[$nr_contains][$word_index] = false;
                         }
+                        d('whitspace');
                     } else {
-                        $chars = mb_str_split($line);
                         $previous_char = false;
                         $is_single_quote = false;
                         $is_double_quote = false;
-                        $line_check = '';
                         foreach($chars as $char_nr => $char){
                             if(
-                                (
-                                    $previous_char === false ||
-                                    $previous_char !== '\\'
-                                ) &&
+                                $previous_char !== '\\' &&
                                 $char === '\''
                             ){
                                 if(
@@ -218,10 +216,8 @@ class Value {
                                     $is_single_quote = false;
                                 }
                             }
-                            if((
-                                    $previous_char === false ||
-                                    $previous_char !== '\\'
-                                ) &&
+                            if(
+                                $previous_char !== '\\' &&
                                 $char === '"'
                             ){
                                 if(
