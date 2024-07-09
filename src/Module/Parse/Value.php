@@ -171,31 +171,40 @@ class Value {
         }
         $lines = explode(PHP_EOL, $string);
         foreach($lines as $nr => $line){
+            $pos = [];
+            $count = 0;
             foreach($contains as $nr_contains => $contain){
-                $pos = [];
                 $trim = [];
-                $count = 0;
-                $is_found = false;
                 foreach($contain as $word_index => $word){
                     if($word === 'whitespace'){
                         $trim[$word_index] = trim($word, "\n\t\r ");
                         if($trim[$word_index] !== $word){
-                            $pos[$word_index] = true;
+                            $pos[$nr_contains][$word_index] = true;
                         } else {
-                            $pos[$word_index] = false;
+                            $pos[$nr_contains][$word_index] = false;
                         }
                     } else {
-                        $pos[$word_index] = strpos($line, $word);
+                        $pos[$nr_contains][$word_index] = strpos($line, $word);
                     }
                     $count++;
                 }
-                foreach($pos as $word_index => $position){
+            }
+            $previous_pos = false;
+            foreach($pos as $nr_contains => $sublist){
+                foreach($sublist as $word_index => $position){
                     if($position === false){
+                        break;
+                    }
+                    if(
+                        $previous_pos &&
+                        $position < $previous_pos
+                    ){
                         break;
                     }
                     if($word_index === $count - 1){
                         $is_found = true;
                     }
+                    $previous_pos = $position;
                 }
                 if($is_found){
                     d($lines[$nr]);
