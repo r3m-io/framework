@@ -173,10 +173,16 @@ class Value {
         foreach($lines as $nr => $line){
             foreach($contains as $nr_contains => $contain){
                 $pos = [];
+                $trim = [];
                 $count = 0;
                 $is_found = false;
                 foreach($contain as $word_index => $word){
-                    $pos[$word_index] = strpos($line, $word);
+                    if($word === 'whitespace'){
+                        $trim[$word_index] = trim($word);
+                        $pos[$word_index] = true;
+                    } else {
+                        $pos[$word_index] = strpos($line, $word);
+                    }
                     $count++;
                 }
                 foreach($pos as $word_index => $position){
