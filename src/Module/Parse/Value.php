@@ -188,6 +188,7 @@ class Value {
                     }
                     $count++;
                 }
+                d($trim);
             }
             $previous_pos = false;
             $is_found = false;
