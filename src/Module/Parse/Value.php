@@ -233,13 +233,10 @@ class Value {
                             }
                             $previous_char = $char;
                         }
-                        d($word);
-                        d($line_check);
                         $pos[$nr_contains][$word_index] = strpos($line_check, $word);
                     }
                     $count++;
                 }
-                d($trim);
             }
             foreach($pos as $nr_contains => $sublist){
                 $is_break = false;
@@ -259,19 +256,10 @@ class Value {
                     $previous_pos = $position;
                 }
                 if($is_break === false){
-                    d($lines[$nr]);
-                    d($pos);
-
                     $lines[$nr] = str_replace($replace[$nr_contains][0], $replace[$nr_contains][1], $lines[$nr]);
                 }
             }
-            if(str_contains($lines[$nr], 'if(!in_array($command, User::COMMAND)){')){
-                d($is_break);
-                d($lines[$nr]);
-                ddd($pos);
-            }
         }
-
         return implode(PHP_EOL, $lines);
     }
 }
