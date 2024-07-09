@@ -93,14 +93,11 @@ class Value {
                 $record['value'] = str_replace('\\\'', '\'', $record['value']);
                 $record['value'] = str_replace('\'', '\\\'', $record['value']);
                 if($record['depth'] > 0){
-                    d('this3');
                     return '$this->parse()->compile(\'' . substr($record['value'], 1, -1) . '\', [], $this->storage())';
                 }
                 elseif(!empty($record['is_assign'])){
-                    d('this2');
                     return '$this->parse()->compile(\'' . substr($record['value'], 1, -1) . '\', [], $this->storage())';
                 } else {
-                    d('this');
                     return '$this->parse()->compile(\'' . $record['value'] . '\', [], $this->storage())';
                 }
             case Token::TYPE_CAST :
@@ -165,5 +162,14 @@ class Value {
                 throw new Exception('could not create cast: ' . $record['value']);
         }
         return '(' . $result . ')';
+    }
+
+    public static function line_contains_replace($contains=[], $replace=[], $string){
+        if(!is_string($string)){
+            return $string;
+        }
+        d($string);
+        d($replace);
+        ddd($contains);
     }
 }

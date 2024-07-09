@@ -15,9 +15,11 @@ use stdClass;
 
 use R3m\Io\App;
 use R3m\Io\Config;
-use R3m\Io\Module\Parse\Token;
+
 use R3m\Io\Module\Parse\Build;
 use R3m\Io\Module\Parse\Literal;
+use R3m\Io\Module\Parse\Value;
+use R3m\Io\Module\Parse\Token;
 
 use Exception;
 use ParseError;
@@ -774,8 +776,17 @@ class Parse {
                 if ($exists) {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = $template->run();
+
+                    $string = Value::line_contains_replace(['class', '{'],['{', '{' . PHP_EOL], $string);
+                    $string = Value::line_contains_replace([')', '{'],['{', '{' . PHP_EOL], $string);
+                    $string = Value::line_contains_replace(['else', '{'],['{', '{' . PHP_EOL], $string);
+                    $string = Value::line_contains_replace([Token::TYPE_WHITESPACE, '{'],['{', '{' . PHP_EOL], $string);
+
                     /*
                     if(is_string($string)){
+                        // line contains class && { after class an extra return
+                        // line contains ) && { after ) an extra return
+                        // line contains whitespace && } after whitespace an extra return
 
                         $string = str_replace(
                             [
