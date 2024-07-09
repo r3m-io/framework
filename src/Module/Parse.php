@@ -777,11 +777,44 @@ class Parse {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = $template->run();
 
-                    $string = Value::line_contains_replace(['class', '{'],['{', '{' . PHP_EOL], $string);
-                    $string = Value::line_contains_replace([')', '{'],['{', '{' . PHP_EOL], $string);
-                    $string = Value::line_contains_replace(['else', '{'],['{', '{' . PHP_EOL], $string);
-                    $string = Value::line_contains_replace([Token::TYPE_WHITESPACE, '{'],['{', '{' . PHP_EOL], $string);
-
+                    $string = Value::line_contains_replace(
+                        [
+                            [
+                                'class',
+                                '{'
+                            ],
+                            [
+                                '(',
+                                '{'
+                            ],
+                            [
+                                'else',
+                                '{'
+                            ],
+                            [
+                                Token::TYPE_WHITESPACE,
+                                '{'
+                            ]
+                        ],
+                        [
+                            [
+                                '{',
+                                '{' . PHP_EOL
+                            ],
+                            [
+                                '{',
+                                '{' . PHP_EOL
+                            ],
+                            [
+                                '{',
+                                '{' . PHP_EOL
+                            ],
+                            [
+                                '{',
+                                '{' . PHP_EOL
+                            ]
+                        ], $string
+                    );
                     /*
                     if(is_string($string)){
                         // line contains class && { after class an extra return
