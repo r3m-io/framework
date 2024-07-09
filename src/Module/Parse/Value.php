@@ -190,8 +190,8 @@ class Value {
                 }
             }
             $previous_pos = false;
+            $is_found = false;
             foreach($pos as $nr_contains => $sublist){
-                $is_found = false;
                 foreach($sublist as $word_index => $position){
                     if($position === false){
                         break;
