@@ -780,6 +780,22 @@ class Parse {
                     $string = Value::line_contains_replace(
                         [
                             [
+                                'try',
+                                '{'
+                            ],
+                        ],
+                        [
+                            [
+                                '{',
+                                '{' . PHP_EOL
+                            ],
+                        ], $string
+                    );
+
+                    /*
+                    $string = Value::line_contains_replace(
+                        [
+                            [
                                 'class',
                                 '{'
                             ],
@@ -823,6 +839,7 @@ class Parse {
                             ]
                         ], $string
                     );
+                    */
                     /*
                     if(is_string($string)){
                         // line contains class && { after class an extra return
