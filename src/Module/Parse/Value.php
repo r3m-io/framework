@@ -164,12 +164,14 @@ class Value {
         return '(' . $result . ')';
     }
 
-    public static function line_contains_replace($contains=[], $replace=[], $string){
+    public static function line_contains_replace($contains=[], $replace=[], $string): mixed
+    {
         if(!is_string($string)){
             return $string;
         }
         d($string);
         d($replace);
         d($contains);
+        return $string;
     }
 }
