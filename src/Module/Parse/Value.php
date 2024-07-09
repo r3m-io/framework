@@ -247,6 +247,7 @@ class Value {
                         if($pos[$nr_contains][$word_index] !== false){
                             d($line_check);
                             d($pos);
+                            d($contain);
                         }
 
                     }
