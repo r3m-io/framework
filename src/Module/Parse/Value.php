@@ -184,6 +184,8 @@ class Value {
                             $next_word = false;
                         }
                         if($trim[$word_index] !== $line){
+                            d($trim[$word_index]);
+                            d($line);
                             d($next_word);
                             $pos[$nr_contains][$word_index] = 0;
                         } else {
