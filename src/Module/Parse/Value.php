@@ -174,6 +174,7 @@ class Value {
             $pos = [];
             $count = 0;
             $is_collect = false;
+            d($line);
             foreach($contains as $nr_contains => $contain){
                 $trim = [];
                 foreach($contain as $word_index => $word){
