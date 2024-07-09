@@ -798,7 +798,11 @@ class Parse {
                             [
                                 Token::TYPE_WHITESPACE,
                                 '{'
-                            ]
+                            ],
+                            [
+                                Token::TYPE_WHITESPACE,
+                                '}'
+                            ],
                         ],
                         [
                             [
@@ -820,6 +824,10 @@ class Parse {
                             [
                                 '{',
                                 '{' . PHP_EOL
+                            ],
+                            [
+                                '}',
+                                '}' . PHP_EOL
                             ]
                         ], $string
                     );
