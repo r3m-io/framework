@@ -283,7 +283,7 @@ class Core
                     $notification = stream_get_contents($pipes[2]);
                     fclose($pipes[2]);
 //                    fclose($pipes[1]);
-                    fclose($pipes[0]);
+//                    fclose($pipes[0]);
                     return proc_close($process);
             }
         }
