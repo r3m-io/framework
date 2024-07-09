@@ -244,8 +244,11 @@ class Value {
                             $previous_char = $char;
                         }
                         $pos[$nr_contains][$word_index] = strpos($line_check, $word);
-                        d($line_check);
-                        d($pos);
+                        if($pos[$nr_contains][$word_index] !== false){
+                            d($line_check);
+                            d($pos);
+                        }
+
                     }
                     $count++;
                 }
