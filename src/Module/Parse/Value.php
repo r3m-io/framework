@@ -199,6 +199,7 @@ class Value {
                 }
                 if($is_found){
                     d($lines[$nr]);
+                    d($pos);
                     $lines[$nr] = str_replace($replace[$nr_contains][0], $replace[$nr_contains][1], $lines[$nr]);
                 }
             }
