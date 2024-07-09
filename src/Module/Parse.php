@@ -776,23 +776,6 @@ class Parse {
                 if ($exists) {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = $template->run();
-
-                    $string = Value::contains_replace(
-                        [
-                            [
-                                'try',
-                                '{'
-                            ],
-                        ],
-                        [
-                            [
-                                '{',
-                                '{' . PHP_EOL
-                            ],
-                        ], $string
-                    );
-
-                    /*
                     $string = Value::line_contains_replace(
                         [
                             [
@@ -839,7 +822,6 @@ class Parse {
                             ]
                         ], $string
                     );
-                    */
                     /*
                     if(is_string($string)){
                         // line contains class && { after class an extra return
