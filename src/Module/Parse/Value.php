@@ -192,22 +192,22 @@ class Value {
             $previous_pos = false;
             $is_found = false;
             foreach($pos as $nr_contains => $sublist){
+                $is_break = false;
                 foreach($sublist as $word_index => $position){
                     if($position === false){
+                        $is_break = true;
                         break;
                     }
                     if(
                         $previous_pos &&
                         $position < $previous_pos
                     ){
+                        $is_break = true;
                         break;
-                    }
-                    if($word_index === $count - 1){
-                        $is_found = true;
                     }
                     $previous_pos = $position;
                 }
-                if($is_found){
+                if($is_break === false){
                     d($lines[$nr]);
                     d($pos);
                     $lines[$nr] = str_replace($replace[$nr_contains][0], $replace[$nr_contains][1], $lines[$nr]);
