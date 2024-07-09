@@ -181,7 +181,7 @@ class Value {
                 d($string);
                 d($line);
                 d($replace);
-                ddd($contains);
+                d($contains);
             }
         }
 
