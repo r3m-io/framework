@@ -191,6 +191,7 @@ class Value {
             }
             $previous_pos = false;
             $is_found = false;
+            d($pos);
             foreach($pos as $nr_contains => $sublist){
                 foreach($sublist as $word_index => $position){
                     if($position === false){
