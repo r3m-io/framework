@@ -605,6 +605,60 @@ class Parse {
                 try {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = $template->run();
+                    $string = Value::contains_replace(
+                        [
+                            [
+                                'class',
+                                '{'
+                            ],
+                            [
+                                'try',
+                                '{'
+                            ],
+                            [
+                                '(',
+                                '{'
+                            ],
+                            [
+                                'else',
+                                '{'
+                            ],
+                            [
+                                Token::TYPE_WHITESPACE,
+                                '{'
+                            ],
+                            [
+                                Token::TYPE_WHITESPACE,
+                                '}'
+                            ],
+                        ],
+                        [
+                            [
+                                '{',
+                                '{' . PHP_EOL
+                            ],
+                            [
+                                '{',
+                                '{' . PHP_EOL
+                            ],
+                            [
+                                '{',
+                                '{' . PHP_EOL
+                            ],
+                            [
+                                '{',
+                                '{' . PHP_EOL
+                            ],
+                            [
+                                '{',
+                                '{' . PHP_EOL
+                            ],
+                            [
+                                '}',
+                                '}' . PHP_EOL
+                            ]
+                        ], $string
+                    );
                     if(empty($this->halt_literal())){
                         $string = Literal::restore($storage, $string);
                     }
@@ -830,24 +884,6 @@ class Parse {
                             ]
                         ], $string
                     );
-                    /*
-                    if(is_string($string)){
-                        // line contains class && { after class an extra return
-                        // line contains ) && { after ) an extra return
-                        // line contains whitespace && } after whitespace an extra return
-
-                        $string = str_replace(
-                            [
-                                '{',
-                                '}'
-                            ],
-                            [
-                                '{' . PHP_EOL,
-                                '}' . PHP_EOL
-                            ], $string
-                        );
-                    }
-                    */
                     if (empty($this->halt_literal())) {
                         $string = Literal::restore($storage, $string);
                     }
