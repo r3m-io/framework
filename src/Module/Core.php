@@ -276,7 +276,7 @@ class Core
                         2 => ["pipe", "w"],  // stderr
                     );
                     $process = proc_open($command, $descriptorspec, $pipes, Dir::current(), null);
-                    $output = fread($handle, 1024);
+                    $output = fread(STDOUT, 1024);
                     $notification = stream_get_contents($pipes[2]);
                     fclose($pipes[2]);
                     return proc_close($process);
