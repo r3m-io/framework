@@ -214,7 +214,7 @@ class Value {
                 ){
                     $line_check .= $char;
                 } else {
-                    $line_check = ' ';
+                    $line_check .= ' ';
                 }
                 $previous_char = $char;
             }
