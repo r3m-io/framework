@@ -776,6 +776,7 @@ class Parse {
                 if ($exists) {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = $template->run();
+                    $start = microtime(true);
                     $string = Value::contains_replace(
                         [
                             [
@@ -830,6 +831,8 @@ class Parse {
                             ]
                         ], $string
                     );
+                    $duration = microtime(true) - $start;
+                    d('duration: ' . round($duration * 1000, 2));
                     /*
                     if(is_string($string)){
                         // line contains class && { after class an extra return
