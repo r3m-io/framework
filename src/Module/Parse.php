@@ -777,7 +777,7 @@ class Parse {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = $template->run();
 
-                    $string = Value::line_contains_replace(
+                    $string = Value::contains_replace(
                         [
                             [
                                 'try',

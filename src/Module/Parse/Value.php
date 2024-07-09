@@ -164,7 +164,7 @@ class Value {
         return '(' . $result . ')';
     }
 
-    public static function line_contains_replace($contains=[], $replace=[], $string): mixed
+    public static function contains_replace($contains=[], $replace=[], $string): mixed
     {
         if(!is_string($string)){
             return $string;
@@ -244,11 +244,8 @@ class Value {
                             $previous_char = $char;
                         }
                         $pos[$nr_contains][$word_index] = strpos($line_check, $word);
-                        if(str_contains($line_check,'try')){
-                            $is_collect = true;
-                            d($line_check);
-                            ddd($pos);
-                        }
+                        d($line_check);
+                        ddd($pos);
                     }
                     $count++;
                 }
