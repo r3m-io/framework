@@ -174,7 +174,7 @@ class Value {
             $is_found = false;
             foreach($contains as $nr_contains => $contain){
                 foreach($contain as $word_index => $word){
-                    $pos = strpos($line, $contain);
+                    $pos = strpos($line, $word);
                     if($pos !== false){
                         $is_found = true;
                         d($contain);
