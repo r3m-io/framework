@@ -198,8 +198,8 @@ class Value {
                     }
                 }
                 if($is_found){
-                    d($line);
-                    $lines[$nr] = str_replace($replace[$nr_contains][0], $replace[$nr_contains][1], $line);
+                    d($lines[$nr]);
+                    $lines[$nr] = str_replace($replace[$nr_contains][0], $replace[$nr_contains][1], $lines[$nr]);
                 }
             }
         }
