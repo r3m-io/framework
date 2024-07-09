@@ -606,8 +606,8 @@ class Parse {
                     if(empty($this->halt_literal())){
                         $string = Literal::restore($storage, $string);
                     }
+                    /*
                     if(is_string($string)){
-                        /*
                         $string = str_replace(
                             [
                                 '{',
@@ -618,8 +618,8 @@ class Parse {
                                 '}' . PHP_EOL
                             ], $string
                         );
-                        */
                     }
+                    */
                     $storage->data('delete', 'this');
                     if(
                         $this->object()->config('framework.environment') === Config::MODE_DEVELOPMENT &&
@@ -774,8 +774,9 @@ class Parse {
                 if ($exists) {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = $template->run();
+                    /*
                     if(is_string($string)){
-                        /*
+
                         $string = str_replace(
                             [
                                 '{',
@@ -786,8 +787,8 @@ class Parse {
                                 '}' . PHP_EOL
                             ], $string
                         );
-                        */
                     }
+                    */
                     if (empty($this->halt_literal())) {
                         $string = Literal::restore($storage, $string);
                     }
