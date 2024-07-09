@@ -170,10 +170,10 @@ class Value {
             return $string;
         }
         $lines = explode(PHP_EOL, $string);
-        $is_collect = false;
         foreach($lines as $nr => $line){
             $pos = [];
             $count = 0;
+            $is_collect = false;
             foreach($contains as $nr_contains => $contain){
                 $trim = [];
                 foreach($contain as $word_index => $word){
