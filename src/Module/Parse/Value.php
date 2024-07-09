@@ -177,8 +177,8 @@ class Value {
                 $trim = [];
                 foreach($contain as $word_index => $word){
                     if($word === 'whitespace'){
-                        $trim[$word_index] = ltrim($word, "\n\t\r ");
-                        if($trim[$word_index] !== $word){
+                        $trim[$word_index] = ltrim($line, "\n\t\r ");
+                        if($trim[$word_index] !== $line){
                             $pos[$nr_contains][$word_index] = 0;
                         } else {
                             $pos[$nr_contains][$word_index] = false;
