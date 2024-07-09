@@ -170,6 +170,7 @@ class Value {
             return $string;
         }
         $lines = explode(PHP_EOL, $string);
+        $is_collect = false;
         foreach($lines as $nr => $line){
             $pos = [];
             $count = 0;
@@ -244,12 +245,18 @@ class Value {
                         }
                         d($line_check);
                         d($word);
+                        if($word === 'try'){
+                            $is_collect = true;
+                        }
                         $pos[$nr_contains][$word_index] = strpos($line_check, $word);
                     }
                     $count++;
                 }
             }
-            d($pos);
+            if($is_collect){
+                ddd($pos);
+            }
+
             foreach($pos as $nr_contains => $sublist){
                 $is_break = false;
                 $previous_pos = false;
