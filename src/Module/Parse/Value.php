@@ -173,13 +173,16 @@ class Value {
         foreach($lines as $nr => $line){
             $is_found = false;
             foreach($contains as $nr_contains => $contain){
+                $pos = [];
                 foreach($contain as $word_index => $word){
-                    $pos = strpos($line, $word);
-                    if($pos !== false){
+                    $pos[$word_index] = strpos($line, $word);
+                }
+                foreach($pos as $word_index => $position){
+                    if($position === false){
+                        break;
+                    }
+                    if($word_index === count($pos) - 1){
                         $is_found = true;
-                        d($contain);
-                        d($line);
-                        ddd($pos);
                     }
                 }
             }
