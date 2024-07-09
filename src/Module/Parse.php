@@ -832,7 +832,7 @@ class Parse {
                         ], $string
                     );
                     $duration = microtime(true) - $start;
-                    d('duration: ' . round($duration * 1000, 2));
+                    d('duration: ' . $duration * 1000 . ' msec');
                     /*
                     if(is_string($string)){
                         // line contains class && { after class an extra return
