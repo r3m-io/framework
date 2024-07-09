@@ -243,12 +243,12 @@ class Value {
                             }
                             $previous_char = $char;
                         }
-                        d($line_check);
-                        d($word);
-                        if($word === 'try'){
-                            $is_collect = true;
-                        }
                         $pos[$nr_contains][$word_index] = strpos($line_check, $word);
+                        if(str_contains($line_check,'try')){
+                            $is_collect = true;
+                            d($line_check);
+                            ddd($pos);
+                        }
                     }
                     $count++;
                 }
