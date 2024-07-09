@@ -245,7 +245,7 @@ class Value {
                         }
                         $pos[$nr_contains][$word_index] = strpos($line_check, $word);
                         d($line_check);
-                        ddd($pos);
+                        d($pos);
                     }
                     $count++;
                 }
