@@ -179,7 +179,11 @@ class Value {
                 foreach($contain as $word_index => $word){
                     if($word === 'whitespace'){
                         $trim[$word_index] = trim($word, "\n\t\r ");
-                        $pos[$word_index] = true;
+                        if($trim[$word_index] !== $word){
+                            $pos[$word_index] = true;
+                        } else {
+                            $pos[$word_index] = false;
+                        }
                     } else {
                         $pos[$word_index] = strpos($line, $word);
                     }
