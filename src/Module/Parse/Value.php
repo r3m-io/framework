@@ -189,7 +189,7 @@ class Value {
                         $is_single_quote = false;
                         $is_double_quote = false;
                         $line_check = '';
-                        foreach($chars as $nr => $char){
+                        foreach($chars as $char_nr => $char){
                             if(
                                 (
                                     $previous_char === false ||
