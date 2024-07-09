@@ -241,10 +241,9 @@ class Value {
                 }
                 d($trim);
             }
-            $previous_pos = false;
-            $is_found = false;
             foreach($pos as $nr_contains => $sublist){
                 $is_break = false;
+                $previous_pos = false;
                 foreach($sublist as $word_index => $position){
                     if($position === false){
                         $is_break = true;
@@ -262,6 +261,7 @@ class Value {
                 if($is_break === false){
                     d($lines[$nr]);
                     d($pos);
+
                     $lines[$nr] = str_replace($replace[$nr_contains][0], $replace[$nr_contains][1], $lines[$nr]);
                 }
             }
