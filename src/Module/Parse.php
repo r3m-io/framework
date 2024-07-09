@@ -797,18 +797,10 @@ class Parse {
                             ],
                             [
                                 Token::TYPE_WHITESPACE,
-                                '{'
-                            ],
-                            [
-                                Token::TYPE_WHITESPACE,
                                 '}'
                             ],
                         ],
                         [
-                            [
-                                '{',
-                                '{' . PHP_EOL
-                            ],
                             [
                                 '{',
                                 '{' . PHP_EOL
