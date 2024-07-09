@@ -194,7 +194,8 @@ class Value {
                     }
                 }
                 if($is_found){
-                    d($string);
+                    $lines[$nr] = str_replace($replace[$nr_contains][0], $replace[$nr_contains][1], $line);
+                    d($lines[$nr]);
                     d($line);
                     d($replace);
                     ddd($contains);
