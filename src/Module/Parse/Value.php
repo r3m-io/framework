@@ -169,9 +169,22 @@ class Value {
         if(!is_string($string)){
             return $string;
         }
-        d($string);
-        d($replace);
-        d($contains);
+        $lines = explode(PHP_EOL, $string);
+        foreach($lines as $nr => $line){
+            $is_found = false;
+            foreach($contains as $nr_contains => $contains){
+                if(str_contains($line, $contains)){
+                    $is_found = true;
+                }
+            }
+            if($is_found){
+                d($string);
+                d($line);
+                d($replace);
+                ddd($contains);
+            }
+        }
+
         return $string;
     }
 }
