@@ -174,14 +174,16 @@ class Value {
             $is_found = false;
             foreach($contains as $nr_contains => $contain){
                 $pos = [];
+                $count = 0;
                 foreach($contain as $word_index => $word){
                     $pos[$word_index] = strpos($line, $word);
+                    $count++;
                 }
                 foreach($pos as $word_index => $position){
                     if($position === false){
                         break;
                     }
-                    if($word_index === count($pos) - 1){
+                    if($word_index === $count - 1){
                         $is_found = true;
                     }
                 }
