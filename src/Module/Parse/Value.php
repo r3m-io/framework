@@ -178,7 +178,13 @@ class Value {
                 foreach($contain as $word_index => $word){
                     if($word === 'whitespace'){
                         $trim[$word_index] = ltrim($line, "\n\t\r ");
+                        if(array_key_exists($word_index + 1, $contain)){
+                            $next_word = $contain[$word_index + 1];
+                        } else {
+                            $next_word = false;
+                        }
                         if($trim[$word_index] !== $line){
+                            d($next_word);
                             $pos[$nr_contains][$word_index] = 0;
                         } else {
                             $pos[$nr_contains][$word_index] = false;
