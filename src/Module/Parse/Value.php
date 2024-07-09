@@ -249,6 +249,7 @@ class Value {
                     $count++;
                 }
             }
+            d($pos);
             foreach($pos as $nr_contains => $sublist){
                 $is_break = false;
                 $previous_pos = false;
