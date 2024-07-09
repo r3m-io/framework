@@ -170,6 +170,6 @@ class Value {
         }
         d($string);
         d($replace);
-        ddd($contains);
+        d($contains);
     }
 }
