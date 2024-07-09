@@ -172,9 +172,15 @@ class Value {
         $lines = explode(PHP_EOL, $string);
         foreach($lines as $nr => $line){
             $is_found = false;
-            foreach($contains as $nr_contains => $contains){
-                if(str_contains($line, $contains)){
-                    $is_found = true;
+            foreach($contains as $nr_contains => $contain){
+                foreach($contain as $word_index => $word){
+                    $pos = strpos($line, $contain);
+                    if($pos !== false){
+                        $is_found = true;
+                        d($contain);
+                        d($line);
+                        ddd($pos);
+                    }
                 }
             }
             if($is_found){
