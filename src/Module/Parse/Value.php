@@ -254,7 +254,7 @@ class Value {
                 }
             }
             if($is_collect){
-                ddd($pos);
+                d($pos);
             }
 
             foreach($pos as $nr_contains => $sublist){
