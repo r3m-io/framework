@@ -279,10 +279,10 @@ class Core
                     );
                     $process = proc_open($command, $descriptorspec, $pipes, Dir::current(), null);
                     d($pipes);
-                    $output = stream_get_contents($pipes[1]);
+//                    $output = stream_get_contents($pipes[1]);
                     $notification = stream_get_contents($pipes[2]);
                     fclose($pipes[2]);
-                    fclose($pipes[1]);
+//                    fclose($pipes[1]);
                     fclose($pipes[0]);
                     return proc_close($process);
             }
