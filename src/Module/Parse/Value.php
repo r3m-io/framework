@@ -173,7 +173,6 @@ class Value {
         foreach($lines as $nr => $line){
             $pos = [];
             $count = 0;
-            $is_collect = false;
             $chars = mb_str_split($line);
             $line_check = '';
             $previous_char = false;
@@ -218,8 +217,6 @@ class Value {
                 }
                 $previous_char = $char;
             }
-            d($line);
-            d($line_check);
             foreach($contains as $nr_contains => $contain){
                 $trim = [];
                 foreach($contain as $word_index => $word){
@@ -239,23 +236,12 @@ class Value {
                         } else {
                             $pos[$nr_contains][$word_index] = false;
                         }
-                        d('whitspace');
                     } else {
                         $pos[$nr_contains][$word_index] = strpos($line_check, $word);
-                        if($pos[$nr_contains][$word_index] !== false){
-                            d($line_check);
-                            d($pos);
-                            d($contain);
-                        }
-
                     }
                     $count++;
                 }
             }
-            if($is_collect){
-                d($pos);
-            }
-
             foreach($pos as $nr_contains => $sublist){
                 $is_break = false;
                 $previous_pos = false;
