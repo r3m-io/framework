@@ -262,6 +262,8 @@ class Value {
                 if(str_contains($lines[$nr], 'if(!in_array($command, User::COMMAND)){')){
                     d($is_break);
                     d($lines[$nr]);
+                    $lines[$nr] = str_replace($replace[$nr_contains][0], $replace[$nr_contains][1], $lines[$nr]);
+                    d($lines[$nr]);
                     ddd($pos);
                 }
                 if($is_break === false){
