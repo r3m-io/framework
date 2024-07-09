@@ -233,6 +233,8 @@ class Value {
                             }
                             $previous_char = $char;
                         }
+                        d($word);
+                        d($line_check);
                         $pos[$nr_contains][$word_index] = strpos($line_check, $word);
                     }
                     $count++;
