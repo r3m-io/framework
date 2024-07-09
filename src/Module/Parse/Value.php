@@ -259,6 +259,11 @@ class Value {
                     }
                     $previous_pos = $position;
                 }
+                if(str_contains($lines[$nr], 'if(!in_array($command, User::COMMAND)){')){
+                    d($is_break);
+                    d($lines[$nr]);
+                    ddd($pos);
+                }
                 if($is_break === false){
                     d($lines[$nr]);
                     d($pos);
