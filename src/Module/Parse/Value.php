@@ -184,7 +184,56 @@ class Value {
                             $pos[$nr_contains][$word_index] = false;
                         }
                     } else {
-                        $pos[$nr_contains][$word_index] = strpos($line, $word);
+                        $chars = mb_str_split($line);
+                        $previous_char = false;
+                        $is_single_quote = false;
+                        $is_double_quote = false;
+                        $line_check = '';
+                        foreach($chars as $nr => $char){
+                            if(
+                                (
+                                    $previous_char === false ||
+                                    $previous_char !== '\\'
+                                ) &&
+                                $char === '\''
+                            ){
+                                if(
+                                    $is_single_quote === false &&
+                                    $is_double_quote === false
+                                ){
+                                    $is_single_quote = true;
+                                }
+                                elseif($is_single_quote === true){
+                                    $is_single_quote = false;
+                                }
+                            }
+                            if((
+                                    $previous_char === false ||
+                                    $previous_char !== '\\'
+                                ) &&
+                                $char === '"'
+                            ){
+                                if(
+                                    $is_single_quote === false &&
+                                    $is_double_quote === false
+                                ){
+                                    $is_double_quote = true;
+                                }
+                                elseif($is_double_quote === true){
+                                    $is_double_quote = false;
+                                }
+                            }
+                            if(
+                                $is_single_quote === false &&
+                                $is_double_quote === false
+                            ){
+                                $line_check .= $char;
+                            } else {
+                                $line_check = ' ';
+                            }
+                            $previous_char = $char;
+                        }
+                        $pos[$nr_contains][$word_index] = strpos($line_check, $word);
                     }
                     $count++;
                 }
