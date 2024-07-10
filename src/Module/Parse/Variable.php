@@ -376,6 +376,9 @@ class Variable {
             $set = Set::get($token);
             while(Operator::has($set)){
                 $statement = Operator::get($set);
+                if($statement === false){
+                    ddd($set);
+                }
                 $set = Operator::remove($set, $statement);
                 $statement = Operator::create($build, $storage, $statement, $depth);
                 $key = key($statement);
