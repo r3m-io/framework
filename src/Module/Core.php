@@ -110,6 +110,7 @@ class Core
 
     /**
      * @throws ObjectException
+     * @throws Exception
      */
     public static function execute(App $object, $command, &$output = '', &$notification = '', $type = null): mixed
     {
