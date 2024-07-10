@@ -218,6 +218,7 @@ class Operator {
                 $is_variable !== false &&
                 $is_object_operator !== false
             ){
+                trace();
                 d($statement);
                 d($is_variable);
                 d($token);
