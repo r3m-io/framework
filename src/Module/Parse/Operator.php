@@ -218,6 +218,7 @@ class Operator {
                 $is_variable !== false &&
                 $is_object_operator !== false
             ){
+                d($statement);
                 d($is_variable);
                 ddd($is_object_operator);
                 throw new exception('Possible "." expected at "->" line: '.$is_object_operator['row'].' column: '.$is_object_operator['column']);
