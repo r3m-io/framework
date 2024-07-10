@@ -220,6 +220,7 @@ class Operator {
             ){
                 d($statement);
                 d($is_variable);
+                d($token);
                 ddd($is_object_operator);
                 throw new exception('Possible "." expected at "->" line: '.$is_object_operator['row'].' column: '.$is_object_operator['column']);
             }
