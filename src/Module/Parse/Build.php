@@ -107,6 +107,7 @@ class Build {
      */
     public function create($type='', $tree=[], $document=[], $options=[]): array
     {
+        trace();
         switch($type){
             case 'header' :
                 return $this->createHeader($document);
