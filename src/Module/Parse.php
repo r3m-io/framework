@@ -355,6 +355,48 @@ class Parse {
                         is_string($value) &&
                         stristr($value, '{') !== false
                     ){
+                        if($storage->get('ldelim') === null){
+                            $storage->set('ldelim','{');
+                        }
+                        if($storage->get('rdelim') === null){
+                            $storage->set('rdelim','}');
+                        }
+                        $uuid = Core::uuid();
+                        $storage->data('r3m.io.parse.compile.remove_newline', true);
+                        $value = str_replace(
+                            [
+                                '{',
+                                '}',
+                            ],
+                            [
+                                '[$ldelim-' . $uuid . ']',
+                                '[$rdelim-' . $uuid . ']',
+                            ],
+                            $value
+                        );
+                        $value = str_replace(
+                            [
+                                '[$ldelim-' . $uuid . ']',
+                                '[$rdelim-' . $uuid . ']',
+                            ],
+                            [
+                                '{$ldelim}',
+                                '{$rdelim}',
+                            ],
+                            $string
+                        );
+                        $value = str_replace(
+                            [
+                                '{$ldelim}{$ldelim}',
+                                '{$rdelim}{$rdelim}',
+                            ],
+                            [
+                                '{',
+                                '}',
+                            ],
+                            $string
+                        );
+                        $value = ltrim($value, " \t\n\r\0\x0B");
                         d($value);
 
                         $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
