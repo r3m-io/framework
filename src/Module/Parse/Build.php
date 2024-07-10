@@ -357,6 +357,8 @@ class Build {
         if(empty($data)){
             return $document;
         }
+        d($data);
+        d($type);
         $placeholder = $storage->data('placeholder.function');
         $url_list = [];
         $limit = $this->limit();
@@ -980,7 +982,6 @@ class Build {
      */
     private function createRequire($document=[]): array
     {
-        d($document);
         $document = $this->createRequireContent('modifier', $document);
         $document = $this->createRequireContent('function', $document);
         $document = str_replace('function ' . 'capture', 'private function ' . 'capture', $document);
