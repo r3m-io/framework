@@ -397,8 +397,6 @@ class Parse {
                             $value
                         );
                         $value = ltrim($value, " \t\n\r\0\x0B");
-                        d($value);
-
                         $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                     }
                     elseif(!is_scalar($value)){
@@ -821,7 +819,6 @@ class Parse {
                 $string = str_replace('{{', '{', $string);
                 $string = str_replace('}}', '}', $string);
             }
-            d($string);
             $tree = Token::tree($string, [
                 'object' => $object,
                 'url' => $url,
