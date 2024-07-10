@@ -823,7 +823,7 @@ class Parse {
                 'object' => $object,
                 'url' => $url,
             ]);
-//            d($tree);
+            d($tree);
             try {
                 $tree = $build->require('function', $tree);
                 $tree = $build->require('modifier', $tree);
