@@ -107,7 +107,6 @@ class Build {
      */
     public function create($type='', $tree=[], $document=[], $options=[]): array
     {
-        trace();
         switch($type){
             case 'header' :
                 return $this->createHeader($document);
@@ -357,8 +356,6 @@ class Build {
         if(empty($data)){
             return $document;
         }
-        d($data);
-        d($type);
         $placeholder = $storage->data('placeholder.function');
         $url_list = [];
         $limit = $this->limit();
