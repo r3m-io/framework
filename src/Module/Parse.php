@@ -356,6 +356,7 @@ class Parse {
                         stristr($value, '{') !== false
                     ){
                         d($value);
+
                         $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                     }
                     elseif(!is_scalar($value)){
@@ -778,11 +779,12 @@ class Parse {
                 $string = str_replace('{{', '{', $string);
                 $string = str_replace('}}', '}', $string);
             }
+            d($string);
             $tree = Token::tree($string, [
                 'object' => $object,
                 'url' => $url,
             ]);
-            d($tree);
+//            d($tree);
             try {
                 $tree = $build->require('function', $tree);
                 $tree = $build->require('modifier', $tree);
