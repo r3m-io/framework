@@ -383,7 +383,7 @@ class Parse {
                                 '{$ldelim}',
                                 '{$rdelim}',
                             ],
-                            $string
+                            $value
                         );
                         $value = str_replace(
                             [
@@ -394,7 +394,7 @@ class Parse {
                                 '{',
                                 '}',
                             ],
-                            $string
+                            $value
                         );
                         $value = ltrim($value, " \t\n\r\0\x0B");
                         d($value);
