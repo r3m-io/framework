@@ -406,6 +406,10 @@ class Variable {
         $operator = $token;
         while(Operator::has($operator)){            
             $statement = Operator::get($operator);
+            if($statement === false){
+                trace();
+                ddd($operator);
+            }
             $operator = Operator::remove($operator, $statement);
             $statement = Operator::create($build, $storage, $statement);
             if(empty($statement)){
