@@ -100,7 +100,10 @@ class Operator {
         }
         if($get === false){
             $get = Operator::get_by_type_3($token, Token::TYPE_IS_MINUS_MINUS);                        
-        }        
+        }
+        if($get === false){
+            $get = Operator::get_by_type($token, Token::TYPE_IS_OBJECT_OPERATOR);
+        }
         return $get;
     }
 
