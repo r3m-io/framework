@@ -408,7 +408,7 @@ class Variable {
             $statement = Operator::get($operator);
             if($statement === false){
                 trace();
-                ddd($operator);
+                d($operator);
             }
             $operator = Operator::remove($operator, $statement);
             $statement = Operator::create($build, $storage, $statement);
