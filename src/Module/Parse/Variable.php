@@ -377,6 +377,7 @@ class Variable {
             while(Operator::has($set)){
                 $statement = Operator::get($set);
                 if($statement === false){
+                    trace();
                     ddd($set);
                 }
                 $set = Operator::remove($set, $statement);
