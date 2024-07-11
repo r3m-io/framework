@@ -31,11 +31,13 @@ class Cache extends Controller {
 
     const COMMAND_INFO = 'info';
     const COMMAND_CLEAR = 'clear';
+    const COMMAND_STATUS = 'status';
     const COMMAND_GARBAGE = 'garbage';
     const COMMAND_COLLECTOR = 'collector';
     const COMMAND = [
         Cache::COMMAND_INFO,
         Cache::COMMAND_CLEAR,
+        Cache::COMMAND_STATUS,
         Cache::COMMAND_GARBAGE
     ];
 
