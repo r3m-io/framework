@@ -783,6 +783,7 @@ class Parse {
                 if ($exists) {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = $template->run();
+                    d($string);
                     $string = Value::contains_replace(
                         [
                             [
