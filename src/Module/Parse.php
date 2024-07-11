@@ -359,7 +359,14 @@ class Parse {
                         if(str_contains('literal', $value)){
                             ddd($value);
                         }
+                        $is_disabled = $this->object()->config('parse.read.disable.function.Value::contains_replace');
+                        $this->object()->config('parse.read.disable.function.Value::contains_replace', true);
                         $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
+                        if($is_disabled){
+                            $this->object()->config('parse.read.disable.function.Value::contains_replace', $is_disabled);
+                        } else {
+                            $this->object()->config('delete', 'parse.read.disable.function.Value::contains_replace');
+                        }
                     }
                     elseif(!is_scalar($value)){
                         $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
@@ -606,61 +613,64 @@ class Parse {
                 try {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = $template->run();
-                    $string = Value::contains_replace(
-                        [
+                    $is_disabled = $this->object()->config('parse.read.disable.function.Value::contains_replace');
+                    if(!$is_disabled){
+                        $string = Value::contains_replace(
                             [
-                                'class',
-                                '{'
+                                [
+                                    'class',
+                                    '{'
+                                ],
+                                [
+                                    'try',
+                                    '{'
+                                ],
+                                [
+                                    '(',
+                                    '{'
+                                ],
+                                [
+                                    'else',
+                                    '{'
+                                ],
+                                [
+                                    Token::TYPE_WHITESPACE,
+                                    '{'
+                                ],
+                                [
+                                    Token::TYPE_WHITESPACE,
+                                    '}'
+                                ],
                             ],
                             [
-                                'try',
-                                '{'
+                                [
+                                    '{',
+                                    '{' . PHP_EOL
+                                ],
+                                [
+                                    '{',
+                                    '{' . PHP_EOL
+                                ],
+                                [
+                                    '{',
+                                    '{' . PHP_EOL
+                                ],
+                                [
+                                    '{',
+                                    '{' . PHP_EOL
+                                ],
+                                [
+                                    '{',
+                                    '{' . PHP_EOL
+                                ],
+                                [
+                                    '}',
+                                    '}' . PHP_EOL
+                                ]
                             ],
-                            [
-                                '(',
-                                '{'
-                            ],
-                            [
-                                'else',
-                                '{'
-                            ],
-                            [
-                                Token::TYPE_WHITESPACE,
-                                '{'
-                            ],
-                            [
-                                Token::TYPE_WHITESPACE,
-                                '}'
-                            ],
-                        ],
-                        [
-                            [
-                                '{',
-                                '{' . PHP_EOL
-                            ],
-                            [
-                                '{',
-                                '{' . PHP_EOL
-                            ],
-                            [
-                                '{',
-                                '{' . PHP_EOL
-                            ],
-                            [
-                                '{',
-                                '{' . PHP_EOL
-                            ],
-                            [
-                                '{',
-                                '{' . PHP_EOL
-                            ],
-                            [
-                                '}',
-                                '}' . PHP_EOL
-                            ]
-                        ],
-                        $string
-                    );
+                            $string
+                        );
+                    }
                     if(empty($this->halt_literal())){
                         $string = Literal::restore($storage, $string);
                     }
@@ -783,62 +793,64 @@ class Parse {
                 if ($exists) {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = $template->run();
-                    d($string);
-                    $string = Value::contains_replace(
-                        [
+                    $is_disabled = $this->object()->config('parse.read.disable.function.Value::contains_replace');
+                    if(!$is_disabled){
+                        $string = Value::contains_replace(
                             [
-                                'class',
-                                '{'
+                                [
+                                    'class',
+                                    '{'
+                                ],
+                                [
+                                    'try',
+                                    '{'
+                                ],
+                                [
+                                    '(',
+                                    '{'
+                                ],
+                                [
+                                    'else',
+                                    '{'
+                                ],
+                                [
+                                    Token::TYPE_WHITESPACE,
+                                    '{'
+                                ],
+                                [
+                                    Token::TYPE_WHITESPACE,
+                                    '}'
+                                ],
                             ],
                             [
-                                'try',
-                                '{'
+                                [
+                                    '{',
+                                    '{' . PHP_EOL
+                                ],
+                                [
+                                    '{',
+                                    '{' . PHP_EOL
+                                ],
+                                [
+                                    '{',
+                                    '{' . PHP_EOL
+                                ],
+                                [
+                                    '{',
+                                    '{' . PHP_EOL
+                                ],
+                                [
+                                    '{',
+                                    '{' . PHP_EOL
+                                ],
+                                [
+                                    '}',
+                                    '}' . PHP_EOL
+                                ]
                             ],
-                            [
-                                '(',
-                                '{'
-                            ],
-                            [
-                                'else',
-                                '{'
-                            ],
-                            [
-                                Token::TYPE_WHITESPACE,
-                                '{'
-                            ],
-                            [
-                                Token::TYPE_WHITESPACE,
-                                '}'
-                            ],
-                        ],
-                        [
-                            [
-                                '{',
-                                '{' . PHP_EOL
-                            ],
-                            [
-                                '{',
-                                '{' . PHP_EOL
-                            ],
-                            [
-                                '{',
-                                '{' . PHP_EOL
-                            ],
-                            [
-                                '{',
-                                '{' . PHP_EOL
-                            ],
-                            [
-                                '{',
-                                '{' . PHP_EOL
-                            ],
-                            [
-                                '}',
-                                '}' . PHP_EOL
-                            ]
-                        ],
-                        $string
-                    );
+                            $string
+                        );
+                    }
                     if (empty($this->halt_literal())) {
                         $string = Literal::restore($storage, $string);
                     }
