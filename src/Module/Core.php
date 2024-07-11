@@ -208,7 +208,6 @@ class Core
                 $option = Core::STREAM;
                 $object->config('core.execute.stream.is.default', true);
             }
-            ddd('fuck');
             //get option from $command
             switch($option){
                 case Core::FILE:
