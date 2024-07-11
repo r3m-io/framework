@@ -723,6 +723,7 @@ class Parse {
             }
             $string = Parse::replace_raw($string);
             $string = Parse::prepare_code($object, $storage, $string);
+            d($string);
             $tree = Token::tree($string, [
                 'object' => $object,
                 'url' => $url,
