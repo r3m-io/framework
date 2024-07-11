@@ -443,9 +443,12 @@ class Parse {
                             stristr($value, '{') !== false
                         ){
                             $value = Literal::uniform($object, $value);
-                            d($value);
+                            $oldvalue = $value;
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
-                            d($value);
+                            if($oldvalue !== $value && $value ==''){
+                                ddd($oldvalue);
+                            }
+
                         }
                         elseif(!is_scalar($value)){
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
