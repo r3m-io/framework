@@ -355,7 +355,7 @@ class Parse {
                         is_string($value) &&
                         stristr($value, '{') !== false
                     ){
-                        d($value);
+//                        d($value);
                         /*
                         if($storage->get('ldelim') === null){
                             $storage->set('ldelim','{');
