@@ -555,7 +555,7 @@ class Build {
                     throw new Exception('Configure parse.dir.plugin');
                 }
                 if($exist === false){
-                    trace();
+//                    trace();
                     d($record);
                     ddd('end');
                     $text = $name . ' near ' . $record['value'] . ' on line: ' . $record['row'] . ' column: ' . $record['column'] . ' in: ' . $storage->data('source');
