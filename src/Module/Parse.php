@@ -859,6 +859,7 @@ class Parse {
                 return $exception;
             }
         }
+        d($string);
         if($string === 'null'){
             return null;
         }
