@@ -57,4 +57,5 @@ function function_cache_clear(Parse $parse, Data $data){
         $cacheDriver->deleteAll();
     }
     opcache_reset();
+    opcache_invalidate('/Application/vendor/r3m_io/framework/src/Module/Parse.php', true);
 }
