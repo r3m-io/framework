@@ -79,11 +79,15 @@ class Value {
             case Token::TYPE_QUOTE_SINGLE :
             case Token::TYPE_STRING :
                 $record['value'] = str_replace([
-                    '{$ldelim}',
-                    '{$rdelim}'
-                ],[
                     '{',
-                    '}'
+                    '},',
+                    '{$ldelim}',
+                    '{$rdelim}',
+                ],[
+                    '{{',
+                    '}}',
+                    '{',
+                    '}',
                 ], $record['value']);
                 return $record['value'];
             case Token::TYPE_QUOTE_DOUBLE_STRING :

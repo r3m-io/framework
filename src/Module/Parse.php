@@ -459,6 +459,7 @@ class Parse {
                             if(empty($this->halt_literal())){
                                 $value = Literal::restore($storage, $value);
                             }
+//                            $value = Value::get()
 //                            $value = Parse::finalize_code($object, $storage, $value);
                         }
                         elseif(!is_scalar($value)){
