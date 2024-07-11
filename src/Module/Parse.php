@@ -361,7 +361,8 @@ class Parse {
                         }
                         $is_disabled = $this->object()->config('parse.read.disable.function.Value::contains_replace');
                         $this->object()->config('parse.read.disable.function.Value::contains_replace', true);
-                        $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
+                        $string[$key] = Parse::prepare_code($object, $storage, $value);
+                        $string[$key] = $this->compile($string[$key], $storage->data(), $storage, $depth, $is_debug);
                         if($is_disabled){
                             $this->object()->config('parse.read.disable.function.Value::contains_replace', $is_disabled);
                         } else {
@@ -455,7 +456,7 @@ class Parse {
                                 $value = literal::apply($storage, $value);
                             }
                             $oldvalue = $value;
-                            $value = Parse::prepare_code($object, $storage, $value);
+//                            $value = Parse::prepare_code($object, $storage, $value);
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                             if(empty($this->halt_literal())){
                                 $value = Literal::restore($storage, $value);
