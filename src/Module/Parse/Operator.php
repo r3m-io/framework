@@ -107,6 +107,9 @@ class Operator {
         if($get === false){
             $get = Operator::get_by_type($token, Token::TYPE_DOUBLE_COLON);
         }
+        if($get === false){
+            $get = Operator::get_by_type($token, Token::TYPE_IS);
+        }
         return $get;
     }
 
