@@ -208,6 +208,7 @@ class Core
                 $option = Core::STREAM;
                 $object->config('core.execute.stream.is.default', true);
             }
+            trace();
             //get option from $command
             switch($option){
                 case Core::FILE:
