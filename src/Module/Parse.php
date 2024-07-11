@@ -355,51 +355,6 @@ class Parse {
                         is_string($value) &&
                         stristr($value, '{') !== false
                     ){
-//                        d($value);
-                        /*
-                        if($storage->get('ldelim') === null){
-                            $storage->set('ldelim','{');
-                        }
-                        if($storage->get('rdelim') === null){
-                            $storage->set('rdelim','}');
-                        }
-                        $uuid = Core::uuid();
-                        $storage->data('r3m.io.parse.compile.remove_newline', true);
-                        $value = str_replace(
-                            [
-                                '{',
-                                '}',
-                            ],
-                            [
-                                '[$ldelim-' . $uuid . ']',
-                                '[$rdelim-' . $uuid . ']',
-                            ],
-                            $value
-                        );
-                        $value = str_replace(
-                            [
-                                '[$ldelim-' . $uuid . ']',
-                                '[$rdelim-' . $uuid . ']',
-                            ],
-                            [
-                                '{$ldelim}',
-                                '{$rdelim}',
-                            ],
-                            $value
-                        );
-                        $value = str_replace(
-                            [
-                                '{$ldelim}{$ldelim}',
-                                '{$rdelim}{$rdelim}',
-                            ],
-                            [
-                                '{',
-                                '}',
-                            ],
-                            $value
-                        );
-                        $value = ltrim($value, " \t\n\r\0\x0B");
-                        */
                         $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                     }
                     elseif(!is_scalar($value)){
@@ -620,10 +575,7 @@ class Parse {
                 ];
                 $url = $build->url($string, $options);
             }
-            $string = str_replace('{{ literal }}', '{literal}', $string);
-            $string = str_replace('{{literal}}', '{literal}', $string);
-            $string = str_replace('{{ /literal }}', '{/literal}', $string);
-            $string = str_replace('{{/literal}}', '{/literal}', $string);
+            $string = Parse::replace_literal($object, $string);
             $storage->data('r3m.io.parse.compile.url', $url);
             if($this->useThis() === true){
                 $storage->data('this', $this->local($depth));
@@ -770,58 +722,7 @@ class Parse {
                 $string = literal::apply($storage, $string);
             }
             $string = Parse::replace_raw($string);
-            $string = str_replace('/*{{R3M}}*/', '{R3M}', $string); //rcss files
-            $string = str_replace('{{ R3M }}', '{R3M}', $string);
-            $string = str_replace('{{R3M}}', '{R3M}', $string);
-            $explode = explode('{R3M}', $string, 2);
-            if(array_key_exists(1, $explode)){
-                if($storage->get('ldelim') === null){
-                    $storage->set('ldelim','{');
-                }
-                if($storage->get('rdelim') === null){
-                    $storage->set('rdelim','}');
-                }
-                $uuid = Core::uuid();
-                $storage->data('r3m.io.parse.compile.remove_newline', true);
-                $string = str_replace(
-                    [
-                        '{',
-                        '}',
-                    ],
-                    [
-                        '[$ldelim-' . $uuid . ']',
-                        '[$rdelim-' . $uuid . ']',
-                    ],
-                    $explode[1]
-                );
-                $string = str_replace(
-                    [
-                        '[$ldelim-' . $uuid . ']',
-                        '[$rdelim-' . $uuid . ']',
-                    ],
-                    [
-                        '{$ldelim}',
-                        '{$rdelim}',
-                    ],
-                    $string
-                );
-                $string = str_replace(
-                    [
-                        '{$ldelim}{$ldelim}',
-                        '{$rdelim}{$rdelim}',
-                    ],
-                    [
-                        '{',
-                        '}',
-                    ],
-                    $string
-                );
-                $string = ltrim($string, " \t\n\r\0\x0B");
-            } else {
-                //where probably in json
-                $string = str_replace('{{', '{', $string);
-                $string = str_replace('}}', '}', $string);
-            }
+            $string = Parse::prepare_code($object, $storage, $string);
             $tree = Token::tree($string, [
                 'object' => $object,
                 'url' => $url,
@@ -994,5 +895,66 @@ class Parse {
         }
         $object->data($type, $data);
         return $data;
+    }
+
+    public static function prepare_code($object, $storage, $string){
+        $string = str_replace('/*{{R3M}}*/', '{R3M}', $string); //rcss files
+        $string = str_replace('{{ R3M }}', '{R3M}', $string);
+        $string = str_replace('{{R3M}}', '{R3M}', $string);
+        $explode = explode('{R3M}', $string, 2);
+        if(array_key_exists($explode[1])){
+           $string = $explode[1];
+        }
+        if($storage->get('ldelim') === null){
+            $storage->set('ldelim','{');
+        }
+        if($storage->get('rdelim') === null){
+            $storage->set('rdelim','}');
+        }
+        $uuid = Core::uuid();
+        $storage->data('r3m.io.parse.compile.remove_newline', true);
+        $string = str_replace(
+            [
+                '{',
+                '}',
+            ],
+            [
+                '[$ldelim-' . $uuid . ']',
+                '[$rdelim-' . $uuid . ']',
+            ],
+            $explode[1]
+        );
+        $string = str_replace(
+            [
+                '[$ldelim-' . $uuid . ']',
+                '[$rdelim-' . $uuid . ']',
+            ],
+            [
+                '{$ldelim}',
+                '{$rdelim}',
+            ],
+            $string
+        );
+        $string = str_replace(
+            [
+                '{$ldelim}{$ldelim}',
+                '{$rdelim}{$rdelim}',
+            ],
+            [
+                '{',
+                '}',
+            ],
+            $string
+        );
+        $string = ltrim($string, " \t\n\r\0\x0B");
+        return $string;
+    }
+
+    public static function replace_literal($object, $string){
+        $string = str_replace('{{ literal }}', '{literal}', $string);
+        $string = str_replace('{{literal}}', '{literal}', $string);
+        $string = str_replace('{{ /literal }}', '{/literal}', $string);
+        $string = str_replace('{{/literal}}', '{/literal}', $string);
+        return $string;
     }
 }
