@@ -991,8 +991,8 @@ class Parse {
             $string = str_replace('}', '}}', $string);
             $string = str_replace('{$ldelim}', '{', $string);
             $string = str_replace('{$rdelim}', '}', $string);
-            $string = str_replace('{{}', '{{', $string);
-            $string = str_replace('{}}', '}}', $string);
+            $string = str_replace('{{}', '{', $string);
+            $string = str_replace('{}}', '}', $string);
         }
         elseif(is_array($string)){
             foreach($string as $nr => $str){
