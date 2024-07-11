@@ -370,7 +370,7 @@ class Parse {
                         if(empty($this->halt_literal())){
                             $string[$key] = Literal::restore($storage, $string[$key]);
                         }
-                        $value = Parse::finalize_code($object, $storage, $value);
+                        $string[$key] = Parse::finalize_code($object, $storage, $string[$key]);
                     }
                     elseif(!is_scalar($value)){
                         $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
