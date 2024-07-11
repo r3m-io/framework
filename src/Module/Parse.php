@@ -903,7 +903,7 @@ class Parse {
         $string = str_replace('{{ R3M }}', '{R3M}', $string);
         $string = str_replace('{{R3M}}', '{R3M}', $string);
         $explode = explode('{R3M}', $string, 2);
-        if(array_key_exists($explode[1])){
+        if(array_key_exists(1, $explode)){
            $string = $explode[1];
         }
         if($storage->get('ldelim') === null){
@@ -923,7 +923,7 @@ class Parse {
                 '[$ldelim-' . $uuid . ']',
                 '[$rdelim-' . $uuid . ']',
             ],
-            $explode[1]
+            $string
         );
         $string = str_replace(
             [
