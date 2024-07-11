@@ -367,6 +367,9 @@ class Parse {
                         } else {
                             $this->object()->config('delete', 'parse.read.disable.function.Value::contains_replace');
                         }
+                        if(empty($this->halt_literal())){
+                            $string[$key] = Literal::restore($storage, $string[$key]);
+                        }
                     }
                     elseif(!is_scalar($value)){
                         $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
@@ -451,10 +454,9 @@ class Parse {
                             }
                             $oldvalue = $value;
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
-                            if($oldvalue !== $value && $value ==''){
-                                ddd($oldvalue);
+                            if(empty($this->halt_literal())){
+                                $value = Literal::restore($storage, $value);
                             }
-
                         }
                         elseif(!is_scalar($value)){
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
