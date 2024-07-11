@@ -463,6 +463,7 @@ class Parse {
 //                            $value = Parse::finalize_code($object, $storage, $value);
                         }
                         elseif(!is_scalar($value)){
+                            d($value);
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                         }
                         $string->{$key} = $value;
