@@ -356,6 +356,7 @@ class Parse {
                         stristr($value, '{') !== false
                     ){
                         $value = Literal::uniform($object, $value);
+                        d($value);
                         $is_disabled = $this->object()->config('parse.read.disable.function.Value::contains_replace');
                         $this->object()->config('parse.read.disable.function.Value::contains_replace', true);
                         $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
