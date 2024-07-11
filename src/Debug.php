@@ -24,7 +24,6 @@ if(!function_exists('d')){
         if(!defined('IS_CLI')){
             echo '</pre>' . PHP_EOL;
         }
-        die;
     }
 }
 
