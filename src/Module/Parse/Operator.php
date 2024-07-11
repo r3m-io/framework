@@ -363,6 +363,9 @@ class Operator {
                     case '::' :
                         $result[$assign_key]  = $left_value . ' :: ' . $right_value;
                         break;
+                    case '=' :
+                        $result[$assign_key]  = $left_value . ' = ' . $right_value;
+                        break;
                     default :
                         throw new Exception('Unknown operator (' . $operator['value'] .')');
                 }
