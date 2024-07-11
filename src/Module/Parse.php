@@ -355,6 +355,8 @@ class Parse {
                         is_string($value) &&
                         stristr($value, '{') !== false
                     ){
+                        ddd($value);
+                        /*
                         if($storage->get('ldelim') === null){
                             $storage->set('ldelim','{');
                         }
@@ -397,6 +399,7 @@ class Parse {
                             $value
                         );
                         $value = ltrim($value, " \t\n\r\0\x0B");
+                        */
                         $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                     }
                     elseif(!is_scalar($value)){
