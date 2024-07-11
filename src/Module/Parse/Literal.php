@@ -76,4 +76,13 @@ class Literal {
         }
         return $string;
     }
+
+    public static function uniform($object, $string): string
+    {
+        $string = str_replace('{{ literal }}', '{literal}', $string);
+        $string = str_replace('{{literal}}', '{literal}', $string);
+        $string = str_replace('{{ /literal }}', '{/literal}', $string);
+        $string = str_replace('{{/literal}}', '{/literal}', $string);
+        return $string;
+    }
 }

@@ -355,6 +355,7 @@ class Parse {
                         is_string($value) &&
                         stristr($value, '{') !== false
                     ){
+                        $string = Literal::uniform($object, $string);
                         $is_disabled = $this->object()->config('parse.read.disable.function.Value::contains_replace');
                         $this->object()->config('parse.read.disable.function.Value::contains_replace', true);
                         $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
@@ -441,9 +442,7 @@ class Parse {
                             is_string($value) &&
                             stristr($value, '{') !== false
                         ){
-                            if(str_contains($value, 'literal')){
-                                ddd($value);
-                            }
+                            $string = Literal::uniform($object, $string);
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                         }
                         elseif(!is_scalar($value)){
@@ -585,7 +584,7 @@ class Parse {
                 ];
                 $url = $build->url($string, $options);
             }
-            $string = Parse::replace_literal($object, $string);
+            $string = Literal::uniform($object, $string);
             $storage->data('r3m.io.parse.compile.url', $url);
             if($this->useThis() === true){
                 $storage->data('this', $this->local($depth));
@@ -915,7 +914,8 @@ class Parse {
         return $data;
     }
 
-    public static function prepare_code($object, $storage, $string){
+    public static function prepare_code($object, $storage, $string): string
+    {
         $string = str_replace('/*{{R3M}}*/', '{R3M}', $string); //rcss files
         $string = str_replace('{{ R3M }}', '{R3M}', $string);
         $string = str_replace('{{R3M}}', '{R3M}', $string);
@@ -968,11 +968,4 @@ class Parse {
         return $string;
     }
 
-    public static function replace_literal($object, $string){
-        $string = str_replace('{{ literal }}', '{literal}', $string);
-        $string = str_replace('{{literal}}', '{literal}', $string);
-        $string = str_replace('{{ /literal }}', '{/literal}', $string);
-        $string = str_replace('{{/literal}}', '{/literal}', $string);
-        return $string;
-    }
 }
