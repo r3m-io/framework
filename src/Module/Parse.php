@@ -788,53 +788,53 @@ class Parse {
                         [
                             [
                                 'class',
-                                '{$ldelim}'
+                                '{'
                             ],
                             [
                                 'try',
-                                '{$ldelim}'
+                                '{'
                             ],
                             [
                                 '(',
-                                '{$ldelim}'
+                                '{'
                             ],
                             [
                                 'else',
-                                '{$ldelim}'
+                                '{'
                             ],
                             [
                                 Token::TYPE_WHITESPACE,
-                                '{$ldelim}'
+                                '{'
                             ],
                             [
                                 Token::TYPE_WHITESPACE,
-                                '{$rdelim}'
+                                '}'
                             ],
                         ],
                         [
                             [
-                                '{$ldelim}',
-                                '{$ldelim}' . PHP_EOL
+                                '{',
+                                '{' . PHP_EOL
                             ],
                             [
-                                '{$ldelim}',
-                                '{$ldelim}' . PHP_EOL
+                                '{',
+                                '{' . PHP_EOL
                             ],
                             [
-                                '{$ldelim}',
-                                '{$ldelim}' . PHP_EOL
+                                '{',
+                                '{' . PHP_EOL
                             ],
                             [
-                                '{$ldelim}',
-                                '{$ldelim}' . PHP_EOL
+                                '{',
+                                '{' . PHP_EOL
                             ],
                             [
-                                '{$ldelim}',
-                                '{$ldelim}' . PHP_EOL
+                                '{',
+                                '{' . PHP_EOL
                             ],
                             [
-                                '{$rdelim}',
-                                '{$rdelim}' . PHP_EOL
+                                '}',
+                                '}' . PHP_EOL
                             ]
                         ],
                         $string
