@@ -331,6 +331,7 @@ class Parse {
         }
         if($type === 'array'){
             foreach($string as $key => $value){
+                d($value);
                 $value_type = gettype($value);
                 if(
                     $value === null ||
