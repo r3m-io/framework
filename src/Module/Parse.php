@@ -851,12 +851,14 @@ class Parse {
                             $string
                         );
                     }
+                    d($string);
                     if (empty($this->halt_literal())) {
                         $string = Literal::restore($storage, $string);
                     }
                     if ($this->useThis() === true) {
                         $storage->data('delete', 'this');
                     }
+                    d($string);
                 } else {
                     $exception = new Exception('Class (' . $class . ') doesn\'t exist');
                     Event::trigger($object, 'parse.compile.exception', [
