@@ -735,6 +735,8 @@ class Parse {
             if(empty($this->halt_literal())){
                 $string = literal::apply($storage, $string);
             }
+            d($this->halt_literal());
+            d($string);
             $string = Parse::replace_raw($string);
             $string = Parse::prepare_code($object, $storage, $string);
             $tree = Token::tree($string, [
