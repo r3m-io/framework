@@ -674,6 +674,7 @@ class Parse {
                             $string
                         );
                     }
+                    d($string);
                     if(empty($this->halt_literal())){
                         $string = Literal::restore($storage, $string);
                     }
