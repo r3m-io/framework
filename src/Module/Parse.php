@@ -445,6 +445,7 @@ class Parse {
                             $value = Literal::uniform($object, $value);
                             d($value);
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
+                            d($value);
                         }
                         elseif(!is_scalar($value)){
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
