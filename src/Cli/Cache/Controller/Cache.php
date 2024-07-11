@@ -140,6 +140,32 @@ class Cache extends Controller {
 
     /**
      * @throws ObjectException
+     */
+    private static function status(App $object){
+        $name = false;
+        $url = false;
+        try {
+            $object->config('ramdisk.is.disabled', true);
+            $name = Cache::name(__FUNCTION__, Cache::NAME);
+            $url = Cache::locate($object, $name);
+            $response = Cache::response($object, $url);
+            Event::trigger($object, 'cli.' . strtolower(Cache::NAME) . '.' . __FUNCTION__, [
+                'name' => $name,
+                'url' => $url
+            ]);
+            return $response;
+        } catch(Exception | LocateException | UrlEmptyException | UrlNotExistException $exception){
+            Event::trigger($object, 'cli.' . strtolower(Cache::NAME) . '.' . __FUNCTION__, [
+                'name' => $name,
+                'url' => $url,
+                'exception' => $exception
+            ]);
+            return $exception;
+        }
+    }
+
+    /**
+     * @throws ObjectException
      * @throws Exception
      */
     private static function garbage(App $object): void
