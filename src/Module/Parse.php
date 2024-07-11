@@ -355,7 +355,7 @@ class Parse {
                         is_string($value) &&
                         stristr($value, '{') !== false
                     ){
-                        $string = Literal::uniform($object, $string);
+                        $value = Literal::uniform($object, $value);
                         $is_disabled = $this->object()->config('parse.read.disable.function.Value::contains_replace');
                         $this->object()->config('parse.read.disable.function.Value::contains_replace', true);
                         $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
@@ -442,7 +442,7 @@ class Parse {
                             is_string($value) &&
                             stristr($value, '{') !== false
                         ){
-                            $string = Literal::uniform($object, $string);
+                            $value = Literal::uniform($object, $value);
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                         }
                         elseif(!is_scalar($value)){
