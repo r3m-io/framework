@@ -15,8 +15,9 @@ use R3m\Io\Module\Cli;
 if(!function_exists('d')){
     function d($data=null): void
     {
-        die('kut');
+
         $trace = debug_backtrace(1);
+        var_dump($trace);
         if(!defined('IS_CLI')){
             echo '<pre class="priya-debug">' . PHP_EOL;
         }
