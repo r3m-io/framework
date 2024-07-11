@@ -986,7 +986,7 @@ class Parse {
         return $string;
     }
 
-    public static function finalize_code($object, $storage, $string): string
+    public static function finalize_code($object, $storage, $string): mixed
     {
         if(is_string($string)){
             $string = str_replace('{', '{{', $string);
