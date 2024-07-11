@@ -467,6 +467,7 @@ class Parse {
                         }
                         $string->{$key} = $value;
                     }
+                    d($string);
                 } catch (Exception | ParseError $exception){
                     Event::trigger($object, 'parse.compile.exception', [
                         'string' => $string,
