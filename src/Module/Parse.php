@@ -441,7 +441,7 @@ class Parse {
                             is_string($value) &&
                             stristr($value, '{') !== false
                         ){
-                            if(str_contains('literal', $value)){
+                            if(str_contains($value, 'literal')){
                                 ddd($value);
                             }
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
