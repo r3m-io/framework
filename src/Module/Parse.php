@@ -456,7 +456,7 @@ class Parse {
                                 $value = literal::apply($storage, $value);
                             }
                             $oldvalue = $value;
-                            $value = Parse::prepare_code($object, $storage, $value);
+//                            $value = Parse::prepare_code($object, $storage, $value);
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                             if(empty($this->halt_literal())){
                                 $value = Literal::restore($storage, $value);
