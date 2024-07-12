@@ -768,6 +768,7 @@ class Parse {
                 'object' => $object,
                 'url' => $url,
             ]);
+            d($string);
             if(str_contains($string, '$user = new')){
                 ddd($tree);
             }
