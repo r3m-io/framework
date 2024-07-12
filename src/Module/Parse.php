@@ -993,13 +993,19 @@ class Parse {
 
     public static function comment($string, $comment): string
     {
-        $string .=
-            PHP_EOL .
-            '/*' .
-            PHP_EOL .
-            $comment .
-            PHP_EOL .
-            '*/';
+        if(
+            is_string($string) &&
+            is_string($comment)
+        ){
+            $string .=
+                PHP_EOL .
+                '/*' .
+                PHP_EOL .
+                $comment .
+                PHP_EOL .
+                '*/';
+        }
+
         return $string;
     }
 }
