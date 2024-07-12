@@ -362,6 +362,7 @@ class Parse {
                         }
                         */
                         $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
+                        d($string[$key]);
                         /*
                         if(empty($this->halt_literal())){
                             $string[$key] = Literal::restore($storage, $string[$key]);
@@ -466,17 +467,7 @@ class Parse {
                             stristr($value, '{') !== false
                         ){
                             $value = Literal::uniform($object, $value);
-                            if(empty($this->halt_literal())){
-                                $value = literal::apply($storage, $value);
-                            }
-                            $oldvalue = $value;
-//                            $value = Parse::prepare_code($object, $storage, $value);
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
-                            if(empty($this->halt_literal())){
-                                $value = Literal::restore($storage, $value);
-                            }
-//                            $value = Value::get()
-//                            $value = Parse::finalize_code($object, $storage, $value);
                         }
                         elseif(!is_scalar($value)){
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
