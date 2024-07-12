@@ -621,9 +621,33 @@ class Parse {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = $template->run();
                     $is_disabled = $this->object()->config('parse.compile.disable.function.Value::contains_replace');
-                    $is_disabled = true;
+//                    $is_disabled = true;
 //                    $string = Parse::comment($string, 'is_disabled: ' . $is_disabled);
                     if(!$is_disabled){
+                        $string = Value::contains_replace(
+                            [
+                                [
+                                    Token::TYPE_WHITESPACE,
+                                    '{'
+                                ],
+                                [
+                                    Token::TYPE_WHITESPACE,
+                                    '}'
+                                ],
+                            ],
+                            [
+                                [
+                                    '{',
+                                    '{' . PHP_EOL
+                                ],
+                                [
+                                    '}',
+                                    '}' . PHP_EOL
+                                ]
+                            ],
+                            $string
+                        );
+                        /*
                         $string = Value::contains_replace(
                             [
                                 [
@@ -679,6 +703,7 @@ class Parse {
                             ],
                             $string
                         );
+                        */
                     }
                     if(empty($this->halt_literal())){
                         $string = Literal::restore($storage, $string);
@@ -789,8 +814,32 @@ class Parse {
                     $string = $template->run();
                     $is_disabled = $this->object()->config('parse.compile.disable.function.Value::contains_replace');
 //                    $string = Parse::comment($string, 'is_disabled: ' . $is_disabled);
-                    $is_disabled = true;
+//                    $is_disabled = true;
                     if(!$is_disabled){
+                        $string = Value::contains_replace(
+                            [
+                                [
+                                    Token::TYPE_WHITESPACE,
+                                    '{'
+                                ],
+                                [
+                                    Token::TYPE_WHITESPACE,
+                                    '}'
+                                ],
+                            ],
+                            [
+                                [
+                                    '{',
+                                    '{' . PHP_EOL
+                                ],
+                                [
+                                    '}',
+                                    '}' . PHP_EOL
+                                ]
+                            ],
+                            $string
+                        );
+                        /*
                         $string = Value::contains_replace(
                             [
                                 [
@@ -846,6 +895,7 @@ class Parse {
                             ],
                             $string
                         );
+                        */
                     }
                     if (empty($this->halt_literal())) {
                         $string = Literal::restore($storage, $string);
