@@ -765,10 +765,12 @@ class Parse {
                 ]);
                 opcache_invalidate($url, true);
             }
+            /*
             if(str_contains($string, 'literal')){
                 $is_debug = true;
                 ddd($string);
             }
+            */
             if(empty($this->halt_literal())){
                 $string = literal::apply($storage, $string);
             }
