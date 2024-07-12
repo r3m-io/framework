@@ -766,6 +766,7 @@ class Build {
                         $run[] = $this->indent() . '$this->parse()->is_assign(true);';
                         $test = Variable::assign($this, $storage, $selection, false) . ';';
                         if(str_contains($test, 'php_define')){
+                            d($test);
                             ddd($selection);
                         }
 
