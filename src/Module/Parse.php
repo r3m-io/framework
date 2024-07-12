@@ -766,7 +766,7 @@ class Parse {
                 'object' => $object,
                 'url' => $url,
             ]);
-            if(str_contains($string, '$command = {{')){
+            if(str_contains($string, '$command = {')){
                 d($string);
                 ddd($tree);
             }
