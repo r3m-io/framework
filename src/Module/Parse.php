@@ -759,6 +759,10 @@ class Parse {
                 ]);
                 opcache_invalidate($url, true);
             }
+            if(str_contains($string, 'literal')){
+                $is_debug = true;
+                d($string);
+            }
             if(empty($this->halt_literal())){
                 $string = literal::apply($storage, $string);
             }
