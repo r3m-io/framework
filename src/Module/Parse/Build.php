@@ -767,7 +767,7 @@ class Build {
                         $test = Variable::assign($this, $storage, $selection, false) . ';';
                         if(str_contains($test, 'implements')){
                             d($test);
-                            d($selection);
+                            ddd($selection);
                         }
 
                         $run[] = $this->indent() . Variable::assign($this, $storage, $selection, false) . ';';
