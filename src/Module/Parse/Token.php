@@ -759,7 +759,7 @@ class Token {
         $prepare = Token::tree_prepare($string, $count, $options);
         $prepare = Token::prepare($prepare, $count, $options);
         if(array_key_exists('debug', $options)){
-//            d($prepare);
+            d($prepare);
         }
         $token = Token::define($prepare);
         $token = Token::group($token, $options);
