@@ -757,7 +757,7 @@ class Token {
             }
         }
         $prepare = Token::tree_prepare($string, $count, $options);
-        $prepare = Token::prepare($prepare, $count);
+        $prepare = Token::prepare($prepare, $count, $options);
         if(array_key_exists('debug', $options)){
             ddd($prepare);
         }
