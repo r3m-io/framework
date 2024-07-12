@@ -1029,6 +1029,7 @@ class Token {
             $modifier = null;
             $is_attribute = 0;
             $parse = '';
+            $check_attribute = false;
             foreach($modifier_list as $modifier_nr => $modifier_record){
                 if($modifier === null){
                     $modifier = $modifier_nr;
@@ -1051,8 +1052,42 @@ class Token {
                     $token[$token_nr][$modifier]['has_attribute'] = true;
                     $parse .= $modifier_record['value'];
                     unset($token[$token_nr][$modifier_nr]);
+                    $check_attribute = true;
                 }
-            }            
+            }
+            if($check_attribute === true){
+                $depth = 0;
+                $array_start = null;
+                $array = [];
+                foreach($token[$token_nr][$modifier]['attribute'] as $attribute_nr => $attribute){
+                    if($attribute['value'] === '['){
+                        $depth++;
+                        if($array_start === null){
+                            $array_start = $attribute_nr;
+                        }
+                    }
+                    elseif($attribute['value'] === ']'){
+                        $depth--;
+                    }
+                    if($depth > 0){
+                        if(array_key_exists('execute', $attribute)){
+                            $array[] = $attribute['execute'];
+                        } else {
+                            $array[] = $attribute['value'];
+                        }
+
+                    } elseif(
+                        $array &&
+                        $array_start
+                    ){
+                        $token[$token_nr][$modifier]['attribute'][$array_start]['type'] = Token::TYPE_ARRAY;
+                        $token[$token_nr][$modifier]['attribute'][$array_start]['value'] = $array;
+                        for($i= $array_start + 1; $i <= $attribute_nr; $i++){
+                            unset($token[$token_nr][$modifier]['attribute'][$i]);
+                        }
+                    }
+                }
+            }
             $token[$token_nr][$modifier]['parse'] = $parse;            
         }
         return $token;
