@@ -762,13 +762,11 @@ class Parse {
             }
             $string = Parse::replace_raw($string);
             $string = Parse::prepare_code($object, $storage, $string);
-            d($string);
 //            $string = ltrim($string, " \t\n\r\0\x0B"); //@disabled @ 2024-07-12
             $tree = Token::tree($string, [
                 'object' => $object,
                 'url' => $url,
             ]);
-            d($tree);
             try {
                 $tree = $build->require('function', $tree);
                 $tree = $build->require('modifier', $tree);
