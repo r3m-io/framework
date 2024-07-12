@@ -764,7 +764,14 @@ class Parse {
             }
             $string = Parse::replace_raw($string);
             $string = Parse::prepare_code($object, $storage, $string);
-            if(str_contains($string, '$user = new')){
+            if(str_contains($string, 'literal')){
+                $tree = Token::tree($string, [
+                    'object' => $object,
+                    'url' => $url,
+                    'debug' => true
+                ]);
+            }
+            elseif(str_contains($string, '$user = new')){
                 $tree = Token::tree($string, [
                     'object' => $object,
                     'url' => $url,
