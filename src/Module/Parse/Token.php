@@ -2140,7 +2140,7 @@ class Token {
                     }
                 }
             } else {
-                d($record);
+//                d($record);
             }
             $previous_nr = $nr;
         }
