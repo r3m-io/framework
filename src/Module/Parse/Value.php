@@ -15,13 +15,13 @@ use R3m\Io\Module\Data;
 use Exception;
 
 class Value {
-    const TYPE_CAST_BOOLEAN = 'bool';
-    const TYPE_CAST_INT = 'int';
-    const TYPE_CAST_FLOAT = 'float';
-    const TYPE_CAST_STRING = 'string';
-    const TYPE_CAST_ARRAY = 'array';
-    const TYPE_CAST_CLONE = 'clone';
-    const TYPE_CAST_OBJECT = 'object';
+    const TYPE_CAST_BOOLEAN = '( bool )';
+    const TYPE_CAST_INT = '( int )';
+    const TYPE_CAST_FLOAT = '( float )';
+    const TYPE_CAST_STRING = '( string )';
+    const TYPE_CAST_ARRAY = '( array )';
+    const TYPE_CAST_CLONE = '( clone )';
+    const TYPE_CAST_OBJECT = '( object )';
 
     /**
      * @throws Exception
