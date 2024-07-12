@@ -1024,7 +1024,7 @@ class Token {
         return $token;
     }
 
-    private static function modifier($token=[]): array
+    public static function modifier($token=[]): array
     {
         foreach($token as $token_nr => $modifier_list){
             $modifier = null;
