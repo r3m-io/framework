@@ -1259,7 +1259,7 @@ class Token {
         $is_tag_close_nr = null;
         $tag_close = '';
         if(array_key_exists('debug', $options)){
-            ddd($token);
+            d($token);
         }
         foreach($token as $nr => $record){
             $record['depth'] = $depth;
@@ -1290,6 +1290,7 @@ class Token {
             elseif($record['type'] === Token::TYPE_CURLY_CLOSE){
                 $curly_count--;
             }
+            d($record['curly_count']);
             if(
                 $record['type'] === Token::TYPE_COMMENT_CLOSE &&
                 $quote_single_toggle === false &&
