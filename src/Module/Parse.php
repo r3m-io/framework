@@ -621,7 +621,7 @@ class Parse {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = $template->run();
                     $is_disabled = $this->object()->config('parse.read.disable.function.Value::contains_replace');
-                    $string .= PHP_EOL .'is_disabled: ' . $is_disabled . PHP_EOL;
+                    $string = Parse::comment($string, 'is_disabled: ' . $is_disabled);
                     if(!$is_disabled){
                         $string = Value::contains_replace(
                             [
@@ -990,4 +990,15 @@ class Parse {
         return $string;
     }
 
+    public static function comment($string, $comment): string
+    {
+        $string .=
+            PHP_EOL .
+            '/*' .
+            PHP_EOL .
+            $comment .
+            PHP_EOL .
+            '*/';
+        return $string;
+    }
 }
