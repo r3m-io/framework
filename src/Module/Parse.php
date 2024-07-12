@@ -721,10 +721,6 @@ class Parse {
                 'object' => $object,
                 'url' => $url,
             ]);
-            if(str_contains($string, '$command = {')){
-                d($string);
-//                ddd($tree);
-            }
             try {
                 $tree = $build->require('function', $tree);
                 $tree = $build->require('modifier', $tree);
