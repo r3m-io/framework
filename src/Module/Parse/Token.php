@@ -1708,6 +1708,10 @@ class Token {
                 $quote_single_toggle === false &&
                 $quote_double_toggle === false
             ){
+                if(array_key_exists('debug', $options)){
+                    d($curly_count);
+                    ddd($record);
+                }
                 $variable_nr = $nr;
                 $token[$variable_nr]['variable']['name'] = $record['value'];
                 $token[$variable_nr]['variable']['attribute'] = substr($record['value'], 1);
