@@ -761,7 +761,7 @@ class Parse {
             }
             if(str_contains($string, 'literal')){
                 $is_debug = true;
-                d($string);
+                ddd($string);
             }
             if(empty($this->halt_literal())){
                 $string = literal::apply($storage, $string);
