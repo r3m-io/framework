@@ -359,6 +359,13 @@ class Parse {
                         if(empty($this->halt_literal())){
                             $value = literal::apply($storage, $value);
                         }
+                        $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
+
+                        /*
+                        $value = Literal::uniform($object, $value);
+                        if(empty($this->halt_literal())){
+                            $value = literal::apply($storage, $value);
+                        }
                         $is_disabled = $this->object()->config('parse.read.disable.function.Value::contains_replace');
                         $this->object()->config('parse.read.disable.function.Value::contains_replace', true);
                         $value = Parse::prepare_code($object, $storage, $value);
@@ -372,6 +379,7 @@ class Parse {
                             $string[$key] = Literal::restore($storage, $string[$key]);
                         }
 //                        $string[$key] = Parse::finalize_code($object, $storage, $string[$key]);
+                        */
 
                     }
                     elseif(!is_scalar($value)){
