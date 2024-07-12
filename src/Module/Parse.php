@@ -764,12 +764,13 @@ class Parse {
             }
             $string = Parse::replace_raw($string);
             $string = Parse::prepare_code($object, $storage, $string);
-            d($string);
             $tree = Token::tree($string, [
                 'object' => $object,
                 'url' => $url,
             ]);
-            d($tree);
+            if(str_contains($string, '$user = new')){
+                ddd($tree);
+            }
             try {
                 $tree = $build->require('function', $tree);
                 $tree = $build->require('modifier', $tree);
