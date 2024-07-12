@@ -769,7 +769,7 @@ class Parse {
             ]);
             if(str_contains($string, '$command = {')){
                 d($string);
-                ddd($tree);
+//                ddd($tree);
             }
             try {
                 $tree = $build->require('function', $tree);
