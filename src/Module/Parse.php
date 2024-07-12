@@ -592,7 +592,6 @@ class Parse {
         elseif($type === 'string' && stristr($string, '{') === false){
             return $string;
         } else {
-            d($string);
             //this section takes at least 5 msec per document: file:put 2msec, opcache::put 2msec, rest 1msec
             $build = $this->build(new Build($this->object(), $this, $is_debug));
             $build->cache_dir($this->cache_dir());
@@ -612,7 +611,6 @@ class Parse {
                 $url = $build->url($string, $options);
             }
             $string = Literal::uniform($object, $string);
-            d($string);
             $storage->data('r3m.io.parse.compile.url', $url);
             if($this->useThis() === true){
                 $storage->data('this', $this->local($depth));
@@ -762,11 +760,9 @@ class Parse {
             if(empty($this->halt_literal())){
                 $string = literal::apply($storage, $string);
             }
-            d($string);
             $string = Parse::replace_raw($string);
-            d($string);
             $string = Parse::prepare_code($object, $storage, $string);
-            d($string);
+//            $string = ltrim($string, " \t\n\r\0\x0B");
             $tree = Token::tree($string, [
                 'object' => $object,
                 'url' => $url,
@@ -998,7 +994,6 @@ class Parse {
             ],
             $string
         );
-        $string = ltrim($string, " \t\n\r\0\x0B");
         return $string;
     }
 
