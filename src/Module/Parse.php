@@ -763,6 +763,7 @@ class Parse {
             $string = Parse::replace_raw($string);
             $string = Parse::prepare_code($object, $storage, $string);
 //            $string = ltrim($string, " \t\n\r\0\x0B"); //@disabled @ 2024-07-12
+            d($string);
             $tree = Token::tree($string, [
                 'object' => $object,
                 'url' => $url,
