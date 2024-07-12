@@ -1087,6 +1087,7 @@ class Token {
                         for($i= $array_start + 1; $i <= $attribute_nr; $i++){
                             unset($token[$token_nr][$modifier]['attribute'][$i]);
                         }
+                        $array_start = null;
                     }
                 }
                 if(
