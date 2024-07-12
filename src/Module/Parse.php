@@ -901,7 +901,11 @@ class Parse {
         $string = str_replace('{{R3M}}', '{R3M}', $string);
         $explode = explode('{R3M}', $string, 2);
         if(array_key_exists(1, $explode)){
-           $string = $explode[1];
+            if(substr($explode[1], 0, 1) === PHP_EOL){
+                $string = substr($explode[1], 1);
+            } else {
+                $string = $explode[1];
+            }
         }
         if($storage->get('ldelim') === null){
             $storage->set('ldelim','{');
