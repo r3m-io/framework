@@ -412,6 +412,7 @@ class Method {
         $result = end($attribute); //'$this->' . $record['method']['php_name'] . '($this->parse(), $this->storage(), ' . $attribute . ')';
         $record['value'] = $result;
         $record['type'] = Token::TYPE_CODE;
+        d($record);
         return $record;
     }
 
