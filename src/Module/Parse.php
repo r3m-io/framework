@@ -356,39 +356,7 @@ class Parse {
                         stristr($value, '{') !== false
                     ){
                         $value = Literal::uniform($object, $value);
-                        /*
-                        if(empty($this->halt_literal())){
-                            $value = literal::apply($storage, $value);
-                        }
-                        */
-                        d($value);
                         $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
-                        d($string[$key]);
-                        /*
-                        if(empty($this->halt_literal())){
-                            $string[$key] = Literal::restore($storage, $string[$key]);
-                        }
-                        */
-                        /*
-                        $value = Literal::uniform($object, $value);
-                        if(empty($this->halt_literal())){
-                            $value = literal::apply($storage, $value);
-                        }
-                        $is_disabled = $this->object()->config('parse.read.disable.function.Value::contains_replace');
-                        $this->object()->config('parse.read.disable.function.Value::contains_replace', true);
-                        $value = Parse::prepare_code($object, $storage, $value);
-                        $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
-                        if($is_disabled){
-                            $this->object()->config('parse.read.disable.function.Value::contains_replace', $is_disabled);
-                        } else {
-                            $this->object()->config('delete', 'parse.read.disable.function.Value::contains_replace');
-                        }
-                        if(empty($this->halt_literal())){
-                            $string[$key] = Literal::restore($storage, $string[$key]);
-                        }
-//                        $string[$key] = Parse::finalize_code($object, $storage, $string[$key]);
-                        */
-
                     }
                     elseif(!is_scalar($value)){
                         $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
@@ -698,20 +666,6 @@ class Parse {
                     if(empty($this->halt_literal())){
                         $string = Literal::restore($storage, $string);
                     }
-                    /*
-                    if(is_string($string)){
-                        $string = str_replace(
-                            [
-                                '{',
-                                '}'
-                            ],
-                            [
-                                '{' . PHP_EOL,
-                                '}' . PHP_EOL
-                            ], $string
-                        );
-                    }
-                    */
                     $storage->data('delete', 'this');
                     if(
                         $this->object()->config('framework.environment') === Config::MODE_DEVELOPMENT &&
@@ -762,7 +716,7 @@ class Parse {
             }
             $string = Parse::replace_raw($string);
             $string = Parse::prepare_code($object, $storage, $string);
-//            $string = ltrim($string, " \t\n\r\0\x0B");
+//            $string = ltrim($string, " \t\n\r\0\x0B"); //@disabled @ 2024-07-12
             $tree = Token::tree($string, [
                 'object' => $object,
                 'url' => $url,
