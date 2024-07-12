@@ -119,8 +119,8 @@ class Value {
                     if(empty($record['method']['trait'])){
                         return '$this->' . $record['method']['php_name'] . '($this->parse(), $this->storage())';
                     } else {
-                        $trait_name = str_replace('function_', '', $record['method']['php_name']);
-                        return '$this->' . $trait_name . '()';
+                        $trait_name = explode('function_', $record['method']['php_name'], 2);
+                        return '$this->' . $trait_name[1] . '()';
                     }
                 }
             case Token::TYPE_COMMENT :
