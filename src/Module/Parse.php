@@ -329,6 +329,7 @@ class Parse {
         } else {
             $storage->data($data);
         }
+        d($string);
         if($type === 'array'){
             foreach($string as $key => $value){
                 $value_type = gettype($value);
