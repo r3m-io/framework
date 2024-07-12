@@ -764,6 +764,11 @@ class Build {
                         break;
                     case Build::VARIABLE_ASSIGN :
                         $run[] = $this->indent() . '$this->parse()->is_assign(true);';
+                        $test = Variable::assign($this, $storage, $selection, false) . ';';
+                        if(str_contains($test, 'php_define')){
+                            ddd($selection);
+                        }
+
                         $run[] = $this->indent() . Variable::assign($this, $storage, $selection, false) . ';';
                         $run[] = $this->indent() . '$this->parse()->is_assign(false);';
                         $remove_newline = true;
