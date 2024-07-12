@@ -770,6 +770,7 @@ class Parse {
                 if ($exists) {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = $template->run();
+                    ddd($this->object()->config('parse'));
                     $is_disabled = $this->object()->config('parse.read.disable.function.Value::contains_replace');
                     if(!$is_disabled){
                         $string = Value::contains_replace(
