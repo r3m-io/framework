@@ -1054,6 +1054,7 @@ class Token {
                     $parse .= $modifier_record['value'];
                     unset($token[$token_nr][$modifier_nr]);
                     $check_attribute = true;
+                    ddd('yes');
                 }
             }
             if($check_attribute === true){
