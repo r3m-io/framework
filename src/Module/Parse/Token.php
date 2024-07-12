@@ -1069,7 +1069,6 @@ class Token {
                         $depth++;
                         if($array_start === null){
                             $array_start = $attribute_nr;
-                            ddd('yee');
                         }
                         continue;
                     }
