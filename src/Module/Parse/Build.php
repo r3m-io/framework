@@ -378,7 +378,7 @@ class Build {
             }
             $modifier_count = 0;
             $modifier_name = explode('modifier_', $name, 2);
-            if(array_key_exists(1, $function_name)){
+            if(array_key_exists(1, $modifier_name)){
                 $modifier_name = $modifier_name[1];
                 $modifier_count = 1;
             }
