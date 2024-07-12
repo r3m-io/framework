@@ -759,7 +759,7 @@ class Token {
         $prepare = Token::tree_prepare($string, $count, $options);
         $prepare = Token::prepare($prepare, $count, $options);
         if(array_key_exists('debug', $options)){
-            d($prepare);
+//            d($prepare);
         }
         $token = Token::define($prepare);
         $token = Token::group($token, $options);
@@ -1708,10 +1708,6 @@ class Token {
                     $quote_single_toggle === false &&
                     $quote_double_toggle === false
                 ){
-                    if(array_key_exists('debug', $options)){
-                        d($curly_count);
-                        d($record);
-                    }
                     $variable_nr = $nr;
                     $token[$variable_nr]['variable']['name'] = $record['value'];
                     $token[$variable_nr]['variable']['attribute'] = substr($record['value'], 1);
