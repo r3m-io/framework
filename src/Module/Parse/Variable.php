@@ -365,7 +365,7 @@ class Variable {
     /**
      * @throws Exception
      */
-    public static function getValue(Build $build, Data $storage, $token=[], $is_result=false): string
+    public static function getValue(Build $build, Data $storage, $token=[], $is_result=false): mixed
     {
         $set_max = 1024;
         $set_counter = 0;
