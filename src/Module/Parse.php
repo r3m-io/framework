@@ -621,7 +621,7 @@ class Parse {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = $template->run();
                     $is_disabled = $this->object()->config('parse.read.disable.function.Value::contains_replace');
-                    d('is_disbaled: ' . $is_disabled);
+                    $string . PHP_EOL .'is_disabled: ' . $is_disabled . PHP_EOL;
                     if(!$is_disabled){
                         $string = Value::contains_replace(
                             [
