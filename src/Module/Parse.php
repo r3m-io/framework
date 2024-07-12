@@ -356,7 +356,14 @@ class Parse {
                         stristr($value, '{') !== false
                     ){
                         $value = Literal::uniform($object, $value);
+                        $disable_function = $this->object()->config('parse.compile.disable.function.Value::contains_replace');
+                        $this->object()->config('parse.compile.disable.function.Value::contains_replace', true);
                         $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
+                        if($disable_function){
+                            $this->object()->config('parse.compile.disable.function.Value::contains_replace', $disable_function);
+                        } else {
+                            $this->object()->config('delete', 'parse.compile.disable.function.Value::contains_replace');
+                        }
                     }
                     elseif(!is_scalar($value)){
                         $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
@@ -436,14 +443,19 @@ class Parse {
                             stristr($value, '{') !== false
                         ){
                             $value = Literal::uniform($object, $value);
+                            $disable_function = $this->object()->config('parse.compile.disable.function.Value::contains_replace');
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
+                            if($disable_function){
+                                $this->object()->config('parse.compile.disable.function.Value::contains_replace', $disable_function);
+                            } else {
+                                $this->object()->config('delete', 'parse.compile.disable.function.Value::contains_replace');
+                            }
                         }
                         elseif(!is_scalar($value)){
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                         }
                         $string->{$key} = $value;
                     }
-//                    d($string);
                 } catch (Exception | ParseError $exception){
                     Event::trigger($object, 'parse.compile.exception', [
                         'string' => $string,
@@ -770,8 +782,7 @@ class Parse {
                 if ($exists) {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = $template->run();
-                    ddd($this->object()->config('parse'));
-                    $is_disabled = $this->object()->config('parse.read.disable.function.Value::contains_replace');
+                    $is_disabled = $this->object()->config('parse.compile.disable.function.Value::contains_replace');
                     if(!$is_disabled){
                         $string = Value::contains_replace(
                             [
