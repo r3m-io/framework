@@ -717,6 +717,9 @@ class Token {
             $prepare[] = $record;
             unset($token[$nr]);
         }
+        if(array_key_exists('debug', $options)){
+            ddd($prepare);
+        }
         return $prepare;
     }
 

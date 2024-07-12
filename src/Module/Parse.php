@@ -764,13 +764,17 @@ class Parse {
             }
             $string = Parse::replace_raw($string);
             $string = Parse::prepare_code($object, $storage, $string);
-            $tree = Token::tree($string, [
-                'object' => $object,
-                'url' => $url,
-            ]);
-            d($string);
             if(str_contains($string, '$user = new')){
-                ddd($tree);
+                $tree = Token::tree($string, [
+                    'object' => $object,
+                    'url' => $url,
+                    'debug' => true
+                ]);
+            } else {
+                $tree = Token::tree($string, [
+                    'object' => $object,
+                    'url' => $url,
+                ]);
             }
             try {
                 $tree = $build->require('function', $tree);
