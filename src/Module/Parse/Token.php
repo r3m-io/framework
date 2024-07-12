@@ -1056,7 +1056,7 @@ class Token {
                     $check_attribute = true;
 
                     d($token[$token_nr][$modifier]['attribute']);
-                    ddd($check_attribute);
+
                 }
             }
             if($check_attribute === true){
@@ -1069,6 +1069,7 @@ class Token {
                         $depth++;
                         if($array_start === null){
                             $array_start = $attribute_nr;
+                            ddd('yee');
                         }
                         continue;
                     }
