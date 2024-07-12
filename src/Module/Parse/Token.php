@@ -717,9 +717,6 @@ class Token {
             $prepare[] = $record;
             unset($token[$nr]);
         }
-        if(array_key_exists('debug', $options)){
-            ddd($prepare);
-        }
         return $prepare;
     }
 
@@ -761,6 +758,9 @@ class Token {
         }
         $prepare = Token::tree_prepare($string, $count, $options);
         $prepare = Token::prepare($prepare, $count);
+        if(array_key_exists('debug', $options)){
+            ddd($prepare);
+        }
         $token = Token::define($prepare);
         $token = Token::group($token, $options);
         $token = Token::cast($token);
