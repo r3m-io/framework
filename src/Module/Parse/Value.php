@@ -120,6 +120,7 @@ class Value {
                         return '$this->' . $record['method']['php_name'] . '($this->parse(), $this->storage())';
                     } else {
                         $trait_name = explode('function_', $record['method']['php_name'], 2);
+                        d($trait_name);
                         return '$this->' . $trait_name[1] . '()';
                     }
                 }
