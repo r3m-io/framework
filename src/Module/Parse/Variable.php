@@ -371,6 +371,7 @@ class Variable {
         $set_counter = 0;
         $operator_max = 1024;
         $operator_counter = 0;
+        trace();
         d($token);
         while(Set::has($token)){
             $set = Set::get($token);
