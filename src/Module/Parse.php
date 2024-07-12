@@ -358,14 +358,10 @@ class Parse {
                         $value = Literal::uniform($object, $value);
                         $disable_function = $this->object()->config('parse.compile.disable.function.Value::contains_replace');
                         $this->object()->config('parse.compile.disable.function.Value::contains_replace', true);
-                        $test = false;
                         if(str_contains($value, 'try')){
-                            $test = true;
+                            $is_debug = true;
                         }
                         $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
-                        if($test){
-                            ddd($string[$key]);
-                        }
                         if($disable_function){
                             $this->object()->config('parse.compile.disable.function.Value::contains_replace', $disable_function);
                         } else {
@@ -625,6 +621,7 @@ class Parse {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = $template->run();
                     $is_disabled = $this->object()->config('parse.read.disable.function.Value::contains_replace');
+                    d('is_disbaled: ' . $is_disabled);
                     if(!$is_disabled){
                         $string = Value::contains_replace(
                             [
