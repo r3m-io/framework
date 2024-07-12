@@ -1075,7 +1075,6 @@ class Token {
                         } else {
                             $array[] = $attribute['value'];
                         }
-
                     } elseif(
                         $array &&
                         $array_start
