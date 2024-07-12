@@ -361,6 +361,7 @@ class Parse {
                             $value = literal::apply($storage, $value);
                         }
                         */
+                        d($value);
                         $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                         d($string[$key]);
                         /*
