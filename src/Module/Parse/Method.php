@@ -285,7 +285,12 @@ class Method {
                         $result = '$this->' . $record['method']['php_name'] . '($this->parse(), $this->storage(), ' . $attribute . ')';
                     }
                 } else {
-                    $trait_name = str_replace('function_', '', $record['method']['php_name']);
+                    $trait_name = explode('function_', $record['method']['php_name'], 2);
+                    if(array_key_exists(1, $trait_name)){
+                        $trait_name = $trait_name[1];
+                    } else {
+                        $trait_name = $trait_name[0];
+                    }
                     if(empty($attribute)){
                         if(
                             $attribute === 0 ||
