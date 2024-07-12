@@ -765,7 +765,7 @@ class Build {
                     case Build::VARIABLE_ASSIGN :
                         $run[] = $this->indent() . '$this->parse()->is_assign(true);';
                         $test = Variable::assign($this, $storage, $selection, false) . ';';
-                        if(str_contains($test, 'php_define')){
+                        if(str_contains($test, 'implements')){
                             d($test);
                             d($selection);
                         }
