@@ -21,6 +21,7 @@ class Value {
     const TYPE_CAST_STRING = 'string';
     const TYPE_CAST_ARRAY = 'array';
     const TYPE_CAST_CLONE = 'clone';
+    const TYPE_CAST_OBJECT = 'object';
 
     /**
      * @throws Exception
@@ -162,6 +163,9 @@ class Value {
             break;
             case 'clone':
                 $result = Value::TYPE_CAST_CLONE . ' ';
+                return $result;
+            case 'object':
+                $result = Value::TYPE_CAST_OBJECT . ' ';
                 return $result;
             default:
                 throw new Exception('could not create cast: ' . $record['value']);
