@@ -991,7 +991,7 @@ class Parse {
         return $string;
     }
 
-    public static function comment($string, $comment): string
+    public static function comment($string, $comment): mixed
     {
         if(
             is_string($string) &&
