@@ -1231,7 +1231,7 @@ class Token {
     /**
      * @throws Exception
      */
-    public static function prepare($token=[], $count=0): array
+    public static function prepare($token=[], $count=0, $options=[]): array
     {
         $hex = null;
         $start = null;
@@ -1258,6 +1258,9 @@ class Token {
         $comment_single_line_nr = null;
         $is_tag_close_nr = null;
         $tag_close = '';
+        if(array_key_exists('debug', $options)){
+            ddd($token);
+        }
         foreach($token as $nr => $record){
             $record['depth'] = $depth;
             $token[$nr]['depth'] = $depth;
