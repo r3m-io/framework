@@ -1710,7 +1710,7 @@ class Token {
                 ){
                     if(array_key_exists('debug', $options)){
                         d($curly_count);
-                        ddd($record);
+                        d($record);
                     }
                     $variable_nr = $nr;
                     $token[$variable_nr]['variable']['name'] = $record['value'];
