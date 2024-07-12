@@ -1290,7 +1290,7 @@ class Token {
             elseif($record['type'] === Token::TYPE_CURLY_CLOSE){
                 $curly_count--;
             }
-            if($curly_count > 0){
+            if($record['curly_count'] > 0){
                 if(
                     $record['type'] === Token::TYPE_COMMENT_CLOSE &&
                     $quote_single_toggle === false &&
