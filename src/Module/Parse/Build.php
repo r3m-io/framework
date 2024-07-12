@@ -361,7 +361,11 @@ class Build {
         $limit = $this->limit();
         foreach($data as $name => $record){
             $exist = false;
-            $function_name = str_replace('function_', '', $name, $function_count);
+            $function_name = explode('function_', $name, 2);
+            if(array_key_exists(1, $function_name)){
+                $function_name = $function_name[1];
+                $function_count = 1;
+            }
             if(
                 $function_count >= 1 &&
                 array_key_exists('method', $record) &&
@@ -371,7 +375,11 @@ class Build {
                 //traits goes a different path
                 continue;
             }
-            $modifier_name = str_replace('modifier_', '', $name, $modifier_count);
+            $modifier_name = explode('modifier_', $name, 2);
+            if(array_key_exists(1, $function_name)){
+                $modifier_name = $modifier_name[1];
+                $modifier_count = 1;
+            }
             if(
                 empty($limit) ||
                 (
