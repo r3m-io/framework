@@ -72,7 +72,6 @@ class Install extends Controller {
             $url,
             'package.' . $key
         );
-        ddd($package);
         if($package->has('composer')){
             Dir::change($object->config('project.dir.root'));
             Core::execute($object, $package->get('composer'), $output, $notification);
