@@ -765,30 +765,15 @@ class Parse {
                 ]);
                 opcache_invalidate($url, true);
             }
-            /*
-            if(str_contains($string, 'literal')){
-                $is_debug = true;
-                ddd($string);
-            }
-            */
             if(empty($this->halt_literal())){
                 $string = literal::apply($storage, $string);
             }
             $string = Parse::replace_raw($string);
             $string = Parse::prepare_code($object, $storage, $string);
-            d($string);
-            if(str_contains($string, '$user = new')){
-                $tree = Token::tree($string, [
-                    'object' => $object,
-                    'url' => $url,
-                    'debug' => true
-                ]);
-            } else {
-                $tree = Token::tree($string, [
-                    'object' => $object,
-                    'url' => $url,
-                ]);
-            }
+            $tree = Token::tree($string, [
+                'object' => $object,
+                'url' => $url,
+            ]);
             try {
                 $tree = $build->require('function', $tree);
                 $tree = $build->require('modifier', $tree);
