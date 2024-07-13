@@ -1065,6 +1065,9 @@ class Token {
             }
             elseif($record['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE){
                 $depth--;
+                if($is_nested_array > 0){
+                    $array[] = $record;
+                }
             }
             if($depth > 0){
                 if(
