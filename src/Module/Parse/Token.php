@@ -1036,6 +1036,7 @@ class Token {
                 $depth_match = false;
                 for($i = $nr; $i < $count; $i++) {
                     $selection[$i] = $array[$i];
+                    $selection[$i]['depth'] = $depth;
                     if ($array[$i]['type'] === Token::TYPE_BRACKET_SQUARE_OPEN) {
                         $depth_match = $depth;
                         $depth++;
@@ -1065,7 +1066,7 @@ class Token {
                 $key[] = $nr;
             } else {
                 $record['depth'] = $depth;
-                $array[$nr] = $record;
+//                $array[$nr] = $record;
 //                $nested_array[implode('-', $key)] = $record['value'];
 //                $nested_structure[] = $record['value'];
                 $is_array_operator = false;
