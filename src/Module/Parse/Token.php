@@ -1021,6 +1021,48 @@ class Token {
         return $token;
     }
 
+    public static function array($token=[], $options=[]){
+        $array = [];
+        $array_start = null;
+        $count = count($token);
+        $depth = 0;
+        $is_nested_array = false;
+        foreach($token as $nr => $record){
+            if($record['value'] === '['){
+                $depth++;
+                if($array_start === null){
+                    $array_start = $nr;
+                    for($i = $nr + 1; $i < $count; $i++){
+                        if($record['type'] == Token::TYPE_IS_ARRAY_OPERATOR){
+                            $is_nested_array = true;
+                            break;
+                        }
+                    }
+                }
+                continue;
+            }
+            elseif($record['value'] === ']'){
+                $depth--;
+            }
+            if($depth > 0){
+                if($is_nested_array){
+                    if(!array_key_exists('execute', $record)){
+                        ddd($record);
+                        continue;
+                    }
+                    if(!$key){
+                        $key = $record['execute'];
+                    } else {
+                        $array[$key] = $record;
+                    }
+                } else {
+                    $array[] = $record;
+                }
+            }
+        }
+        return $array;
+    }
+
     public static function modifier($token=[], $options=[]): array
     {
         foreach($token as $token_nr => $modifier_list){
@@ -1064,6 +1106,7 @@ class Token {
                 $object= (object) [];
                 $object_start = null;
                 $token[$token_nr][$modifier]['attribute'] = Token::cast($token[$token_nr][$modifier]['attribute']);
+                $token[$token_nr][$modifier]['attribute'] = Token::array($token[$token_nr][$modifier]['attribute']);
                 ddd($token[$token_nr][$modifier]['attribute']);
 
 //                $token[$token_nr][$modifier]['attribute'] = Token::group($token[$token_nr][$modifier]['attribute'], $options);
