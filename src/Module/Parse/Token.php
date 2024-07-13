@@ -1023,13 +1023,11 @@ class Token {
 
     private static function nested_array($array=[], $options, $depth=1, &$structure=[]){
         $count = count($array);
-        $nested_array = [];
-        $nested_structure = [];
-        $key = [];
+        $counter = 0;
+        $result = [];
         $is_array_operator = false;
         array_pop($array); //remove square_close
         array_shift($array); //remove square_open
-        d($array);
         foreach($array as $nr => $record){
             if($record['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
                 $selection = [];
@@ -1072,14 +1070,11 @@ class Token {
         ksort($array, SORT_NATURAL);
         foreach($array as $nr => $record){
             if($record['type'] === Token::TYPE_COMMA){
-
+                $counter++;
             }
+            $result[$counter][] = $record;
         }
-        d($nested_array);
-        d($array);
-        d($options);
-        d($structure);
-        return $array;
+        return $result;
     }
 
     public static function array($token=[], $options=[]){
