@@ -1173,6 +1173,13 @@ class Token {
                     unset($token[$nr]);
                     continue;
                 }
+                elseif($record['type'] === Token::TYPE_PIPE){
+                    $variable_nr++;
+                    unset($token[$nr]);
+                    continue;
+                }
+                $variable[$variable_nr][] = $record;
+                unset($token[$nr]);
             }
 
 
@@ -1256,6 +1263,7 @@ class Token {
             }
             */
         }
+        d($variable);
         d($token);
         return $token;
     }
