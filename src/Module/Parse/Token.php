@@ -1047,7 +1047,7 @@ class Token {
             }
             if($depth > 0){
                 if($is_nested_array){
-                    if($record-['type'] === Token::TYPE_IS_ARRAY_OPERATOR){
+                    if($record['type'] === Token::TYPE_IS_ARRAY_OPERATOR){
                         continue;
                     }
                     if(!$key){
