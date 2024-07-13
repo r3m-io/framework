@@ -1053,6 +1053,7 @@ class Token {
                 continue;
             }
             if($record['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE){
+                $is_array_operator = false;
                 $depth--;
                 continue;
             }
