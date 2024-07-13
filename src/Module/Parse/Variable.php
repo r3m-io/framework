@@ -372,11 +372,11 @@ class Variable {
                 foreach($record['variable']['modifier'] as $variable_modifier_nr => $modifier_list){
                     foreach($modifier_list as $modifier_nr => $modifier){
                         d($modifier);
-                        $depth = 0;
-                        $array_start = null;
-                        $attribute_nr = null;
-                        $array = [];
                         if(array_key_exists('attribute', $modifier)){
+                            $depth = 0;
+                            $array_start = null;
+                            $attribute_nr = null;
+                            $array = [];
                             foreach($modifier['attribute'] as $attribute_nr => $attribute){
                                 if($attribute['value'] === '['){
                                     $depth++;
@@ -396,6 +396,7 @@ class Variable {
                                         $array[] = $attribute['value'];
                                     }
                                 } elseif($array_start){
+                                    d('found1');
                                     $token[$token_nr]['variable']['modifier'][$modifier_nr]['attribute'][$array_start]['type'] = Token::TYPE_ARRAY;
                                     $token[$token_nr]['variable']['modifier'][$modifier_nr]['attribute'][$array_start]['value'] = $array;
                                     for($i= $array_start + 1; $i <= $attribute_nr; $i++){
@@ -404,11 +405,13 @@ class Variable {
                                     $array_start = null;
                                     $array = [];
                                 }
+
                             }
                             if(
                                 $array_start &&
                                 $attribute_nr
                             ){
+                                d('found2');
                                 $token[$token_nr]['variable']['modifier'][$modifier_nr]['attribute'][$array_start]['type'] = Token::TYPE_ARRAY;
                                 $token[$token_nr]['variable']['modifier'][$modifier_nr]['attribute'][$array_start]['value'] = $array;
                                 for($i= $array_start + 1; $i <= $attribute_nr; $i++){
