@@ -1177,6 +1177,7 @@ class Token {
                             unset($token[$unset]);
                         }
                     }
+                    d($token[$is_method]);
                     $method = [];
                     $is_method = null;
                     $depth = null;
