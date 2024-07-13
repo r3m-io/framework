@@ -1060,8 +1060,7 @@ class Token {
             if(!$is_array_operator){
                 $key[] = $nr;
             } else {
-                d($record);
-                d($key);
+                $record['depth'] = $depth;
                 $array[$nr] = $record;
 //                $nested_array[implode('-', $key)] = $record['value'];
 //                $nested_structure[] = $record['value'];
