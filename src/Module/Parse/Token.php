@@ -1026,7 +1026,7 @@ class Token {
         $array_start = null;
         $count = count($token);
         $depth = 0;
-        $is_nested_array = false;
+        $is_nested_array = 0;
         $key = false;
         foreach($token as $nr => $record){
             if($record['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
@@ -1035,7 +1035,7 @@ class Token {
                     $array_start = $nr;
                     for($i = $nr + 1; $i < $count; $i++){
                         if($token[$i]['type'] == Token::TYPE_IS_ARRAY_OPERATOR){
-                            $is_nested_array = true;
+                            $is_nested_array = 1;
                             break;
                         }
                     }
@@ -1044,18 +1044,20 @@ class Token {
             }
             elseif($record['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE){
                 $depth--;
+                $is_nested_array--;
             }
             if($depth > 0){
                 if($is_nested_array){
                     if($record['type'] === Token::TYPE_IS_ARRAY_OPERATOR){
-                        continue;
+                        $is_nested_array++;
                     }
                     elseif(!$key){
                         $key = $record;
                     } else {
                         $array[] = [
                             'key' => $key,
-                            'value' => $record
+                            'value' => $record,
+                            'level' => $is_nested_array
                         ];
                         $key = false;
                     }
