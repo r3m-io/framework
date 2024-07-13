@@ -1028,16 +1028,16 @@ class Token {
             ddd($record);
         }
         if($depth > 1){
-            $array[$key['value']][$record['value']];
+//            $array[$key['value']][$record['value']];
             d($array);
-            d($key);
+//            d($key);
             ddd($record);
             /*
             $array[$key['value']] = Token::nested_array($array[$key['value']], $key, $record, $depth-1);
             return $array;
             */
         }
-        $array[$key['value']] = $record['value'];
+//        $array[$key['value']] = $record['value'];
         return $array;
     }
 
