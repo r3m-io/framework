@@ -396,7 +396,7 @@ class Variable {
                                         $array[] = $attribute['value'];
                                     }
                                 }
-                                if(
+                                elseif(
                                     $depth === 0 &&
                                     (
                                         $array_start ||

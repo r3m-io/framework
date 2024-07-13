@@ -1075,7 +1075,6 @@ class Token {
                     }
                     elseif($attribute['value'] === ']'){
                         $depth--;
-                        continue;
                     }
                     if($depth > 0){
                         if(array_key_exists('execute', $attribute)){
@@ -1083,7 +1082,15 @@ class Token {
                         } else {
                             $array[] = $attribute['value'];
                         }
-                    } elseif($array_start){
+                    }
+                    elseif(
+                        $depth === 0 &&
+                        (
+                            $array_start ||
+                            $array_start === 0
+                        )
+                    ){
+                        ddd($token[$token_nr]);
                         $token[$token_nr][$modifier]['attribute'][$array_start]['type'] = Token::TYPE_ARRAY;
                         $token[$token_nr][$modifier]['attribute'][$array_start]['value'] = $array;
                         for($i= $array_start + 1; $i <= $attribute_nr; $i++){
