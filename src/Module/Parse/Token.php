@@ -1022,7 +1022,13 @@ class Token {
     }
 
     private static function nested_array($array=[], $key, $record, $depth){
+        if($depth === 0){
+            d($array);
+            d($key);
+            ddd($record);
+        }
         if($depth > 1){
+            $array[$key['value']][$record['value']];
             d($array);
             d($key);
             ddd($record);
@@ -1062,17 +1068,7 @@ class Token {
             }
             if($depth > 0){
                 if($is_nested_array){
-                    if($record['type'] === Token::TYPE_IS_ARRAY_OPERATOR){
-                        $is_nested_array++;
-                    }
-                    elseif($record['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE){
-                        continue;
-                    }
-                    elseif(!$key){
-                        $key = $record;
-                    } else {
-                        $array = Token::nested_array($array, $key, $record, $is_nested_array-1);
-                    }
+                    $array = Token::nested_array($array, $key, $record, $is_nested_array-1);
                 } else {
                     $array[] = $record;
                 }
