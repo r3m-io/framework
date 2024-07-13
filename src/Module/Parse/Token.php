@@ -1033,6 +1033,8 @@ class Token {
         foreach($array as $nr => $record){
             if($record['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
                 d($nested_structure);
+                d($is_array_operator);
+                d($key);
                 ddd($depth);
                 $selection = [];
                 $array = Token::nested_array($selection, $options, ++$depth, $struct);
