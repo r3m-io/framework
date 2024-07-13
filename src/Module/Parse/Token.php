@@ -1031,6 +1031,7 @@ class Token {
             $parse = '';
             $check_attribute = false;
             foreach($modifier_list as $modifier_nr => $modifier_record){
+                d($modifier_record);
                 if($modifier === null){
                     $modifier = $modifier_nr;
                     $parse = $modifier_record['value'];                    
