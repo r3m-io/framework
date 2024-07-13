@@ -1057,6 +1057,7 @@ class Token {
             }
             if($check_attribute === true){
                 $depth = 0;
+                $curly_depth = 0;
                 $attribute_nr = false;
                 $array_start = null;
                 $array = [];
