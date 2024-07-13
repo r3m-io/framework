@@ -1051,6 +1051,9 @@ class Token {
                     if($record['type'] === Token::TYPE_IS_ARRAY_OPERATOR){
                         $is_nested_array++;
                     }
+                    if($record['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE){
+                        continue;
+                    }
                     elseif(!$key){
                         $key = $record;
                     } else {
