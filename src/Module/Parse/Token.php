@@ -1182,7 +1182,10 @@ class Token {
                     $is_method = $nr;
                     $depth = $record['depth'];
                 }
-                elseif($is_method !== null){
+                elseif(
+                    $is_method !== null &&
+                    $record['type'] === Token::TYPE_CURLY_CLOSE
+                ){
                     /*
                     if(
                         $record['value'] === '(' &&
