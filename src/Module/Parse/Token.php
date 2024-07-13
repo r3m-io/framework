@@ -1035,18 +1035,18 @@ class Token {
                 $selection = [];
                 $depth_match = false;
                 for($i = $nr; $i < $count; $i++){
+                    $selection[] = $array[$i];
                     if($array[$i]['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
-                        $depth++;
                         $depth_match = $depth;
+                        $depth++;
                     }
                     elseif($array[$i]['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE){
                         $depth--;
                     }
-                    if($depth == $depth_match){
+                    if($depth === $depth_match){
                         ddd($selection);
                         break;
                     }
-                    $selection[] = $array[$i];
                 }
 
                 $array = Token::nested_array($selection, $options, ++$depth, $struct);
