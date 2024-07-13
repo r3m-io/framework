@@ -756,12 +756,9 @@ class Token {
                 return Core::object($read->get('token'), Core::OBJECT_ARRAY);
             }
         }
-        $prepare = Token::tree_prepare($string, $count, $options);
-        $prepare = Token::prepare($prepare, $count, $options);
-        if(array_key_exists('debug', $options)){
-//            d($prepare);
-        }
-        $token = Token::define($prepare, $options);
+        $token = Token::tree_prepare($string, $count, $options);
+        $token = Token::prepare($token, $count, $options);
+        $token = Token::define($token, $options);
         d($token);
         $token = Token::group($token, $options);
 
