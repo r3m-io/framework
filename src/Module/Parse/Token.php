@@ -1311,11 +1311,9 @@ class Token {
                         $record['type'] !== Token::TYPE_COLON
                     )
                 ){
-                    d($variable);
-                    d($is_method);
-                    d($method);
                     $token[$is_variable]['type'] = Token::TYPE_VARIABLE;
-                    $variable = Token::modifier($variable);                    
+                    $variable = Token::modifier($variable);
+                    d($variable);
                     $token[$is_variable]['variable']['modifier'] = $variable;
                     $token[$is_variable]['parse'] = $token[$is_variable]['value'];
                     foreach($token[$is_variable]['variable']['modifier'] as $modifier_nr => $modifier_list){
