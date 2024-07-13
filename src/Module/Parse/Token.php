@@ -1043,7 +1043,7 @@ class Token {
                         $depth--;
                     }
                     if ($depth === $depth_match) {
-                        $nested_array[$key] = Token::nested_array($selection, $options, ++$depth, $struct);
+                        $nested_array[] = Token::nested_array($selection, $options, ++$depth, $struct);
                         break;
                     }
                 }
@@ -1058,9 +1058,11 @@ class Token {
                 continue;
             }
             if(!$is_array_operator){
-                $key = $record['value'];
+                $key[] = $record['value'];
             } else {
-                $nested_array[$key] = $record['value'];
+                d($record);
+                ddd($key);
+//                $nested_array[$key] = $record['value'];
 //                $nested_structure[] = $record['value'];
                 $is_array_operator = false;
                 $key = false;
