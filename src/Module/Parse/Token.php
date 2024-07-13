@@ -1310,7 +1310,6 @@ class Token {
             }
             */
         }
-        d($token);
         return $token;
     }
 
