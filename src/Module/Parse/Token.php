@@ -1063,8 +1063,15 @@ class Token {
                 $array = [];
                 $object= (object) [];
                 $object_start = null;
-                foreach($token[$token_nr][$modifier]['attribute'] as $attribute_nr => $attribute){
 
+                $token[$token_nr][$modifier]['attribute'] = Token::group($token[$token_nr][$modifier]['attribute'], $options);
+                $token[$token_nr][$modifier]['attribute'] = Token::cast($token[$token_nr][$modifier]['attribute']);
+                $token[$token_nr][$modifier]['attribute'] = Token::method($token[$token_nr][$modifier]['attribute']);
+
+                d($token[$token_nr]);
+
+                foreach($token[$token_nr][$modifier]['attribute'] as $attribute_nr => $attribute){
+                    //add cast
                     if($attribute['value'] === '['){
                         $depth++;
                         if($array_start === null){
