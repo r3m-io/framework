@@ -1058,7 +1058,7 @@ class Token {
                 continue;
             }
             if(!$is_array_operator){
-                $key[] = $nr;
+                $key[] = $record;
             } else {
                 d($record);
                 ddd($key);
