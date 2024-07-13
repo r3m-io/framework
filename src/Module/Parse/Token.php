@@ -1060,7 +1060,7 @@ class Token {
                 }
             }
         }
-        return $array;
+        return $token;
     }
 
     public static function modifier($token=[], $options=[]): array
