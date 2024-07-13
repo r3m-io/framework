@@ -1168,7 +1168,10 @@ class Token {
                 $depth = $record['depth'];
             }
             elseif($is_method !== null){
-                if($record['value'] === '(' && $record['depth'] === $depth + 1){
+                if(
+                    $record['value'] === '(' &&
+                    $record['depth'] === $depth + 1
+                ){
                     if(!empty($method)){
                         foreach($method as $unset => $item){
                             $token[$is_method]['value'] .= $item['value'];
@@ -1215,6 +1218,9 @@ class Token {
                         $record['type'] !== Token::TYPE_COLON
                     )
                 ){
+                    if($record['type'] === Token::TYPE_CURLY_CLOSE){
+                        $variable[$variable_nr][] = $record;
+                    }
                     $token[$is_variable]['type'] = Token::TYPE_VARIABLE;
                     $variable = Token::modifier($variable);                    
                     $token[$is_variable]['variable']['modifier'] = $variable;
