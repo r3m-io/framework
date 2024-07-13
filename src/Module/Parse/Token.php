@@ -762,7 +762,6 @@ class Token {
 //            d($prepare);
         }
         $token = Token::define($prepare);
-        d($token);
         $token = Token::group($token, $options);
         $token = Token::cast($token);
         $token = Token::method($token);
@@ -1026,7 +1025,6 @@ class Token {
 
     public static function modifier($token=[]): array
     {
-        d($token);
         foreach($token as $token_nr => $modifier_list){
             $modifier = null;
             $is_attribute = 0;
@@ -1055,9 +1053,6 @@ class Token {
                     $parse .= $modifier_record['value'];
                     unset($token[$token_nr][$modifier_nr]);
                     $check_attribute = true;
-
-                    d($token[$token_nr][$modifier]['attribute']);
-
                 }
             }
             if($check_attribute === true){
