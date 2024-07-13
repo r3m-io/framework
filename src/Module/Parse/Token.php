@@ -1310,7 +1310,7 @@ class Token {
         $is_tag_close_nr = null;
         $tag_close = '';
         if(array_key_exists('debug', $options)){
-            d($token);
+//            d($token);
         }
         foreach($token as $nr => $record){
             $record['depth'] = $depth;

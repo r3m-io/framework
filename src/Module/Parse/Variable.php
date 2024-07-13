@@ -362,6 +362,54 @@ class Variable {
         return $define;
     }
 
+    public static function modifier($token=[]){
+        foreach($token as $token_nr => $record){
+            if(
+                array_key_exists('type', $record) &&
+                $record['type'] === Token::TYPE_VARIABLE
+            ){
+                foreach($record['variable']['modifier'] as $variable_modifier_nr => $modifier_list){
+                    foreach($modifier_list as $modifier_nr => $modifier){
+                        $depth = 0;
+                        $array_start = null;
+                        if(array_key_exist($modifier, 'attribute')){
+                            foreach($modifier['attribute'] as $attribute_nr => $attribute){
+                                if($attribute['value'] === '['){
+                                    $depth++;
+                                    if($array_start === null){
+                                        $array_start = $attribute_nr;
+                                    }
+                                    continue;
+                                }
+                                elseif($attribute['value'] === ']'){
+                                    $depth--;
+                                    continue;
+                                }
+                                if($depth > 0){
+                                    if(array_key_exists('execute', $attribute)){
+                                        $array[] = $attribute['execute'];
+                                    } else {
+                                        $array[] = $attribute['value'];
+                                    }
+                                } elseif($array_start){
+                                    $token[$token_nr]['variable']['modifier'][$modifier_nr]['attribute'][$array_start]['type'] = Token::TYPE_ARRAY;
+                                    $token[$token_nr]['variable']['modifier'][$modifier_nr]['attribute'][$array_start]['value'] = $array;
+                                    for($i= $array_start + 1; $i <= $attribute_nr; $i++){
+                                        unset($token[$token_nr]['variable']['modifier'][$modifier_nr]['attribute'][$i]);
+                                    }
+                                    $array_start = null;
+                                    $array = [];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        d($token);
+        return $token;
+    }
+
     /**
      * @throws Exception
      */
@@ -372,6 +420,7 @@ class Variable {
         $operator_max = 1024;
         $operator_counter = 0;
         trace();
+        $token = Variable::modifier($token);
         d($token);
         while(Set::has($token)){
             $set = Set::get($token);
