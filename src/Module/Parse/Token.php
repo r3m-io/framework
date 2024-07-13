@@ -1021,6 +1021,11 @@ class Token {
         return $token;
     }
 
+    private static function nested_array($array=[], $key, $record, $depth){
+        $array[$key['value']] = $record;
+        return $array;
+    }
+
     public static function array($token=[], $options=[]){
         $array = [];
         $array_start = null;
