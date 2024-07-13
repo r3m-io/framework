@@ -1032,11 +1032,8 @@ class Token {
         d($array);
         foreach($array as $nr => $record){
             if($record['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
-                d($nested_structure);
-                d($is_array_operator);
-                d($key);
-                ddd($depth);
                 $selection = [];
+                $depth_match = false;
                 for($i = $nr; $i < $count; $i++){
                     if($array[$i]['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
                         $depth++;
