@@ -1064,6 +1064,9 @@ class Token {
                 $object= (object) [];
                 $object_start = null;
 
+
+                ddd($token[$token_nr][$modifier]['attribute']);
+
                 $token[$token_nr][$modifier]['attribute'] = Token::cast($token[$token_nr][$modifier]['attribute']);
 
                 d($token[$token_nr][$modifier]['attribute']);
