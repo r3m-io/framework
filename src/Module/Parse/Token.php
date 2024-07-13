@@ -1201,9 +1201,9 @@ class Token {
                     }
                     */
                     $method[$nr] = $record;
-                    d($method);
+//                    d($method);
                 }
-                elseif(
+                if(
                     $record['type'] === Token::TYPE_CURLY_CLOSE ||
                     $record['type'] !== Token::TYPE_COLON
                 ){
