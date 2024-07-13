@@ -1031,6 +1031,9 @@ class Token {
                 $result[$count][$nr] = Token::nested_array_finalize($record, $options);
             } else {
                 $result[$count][$nr] = $record;
+                if(is_string($record)){
+                    ddd($record);
+                }
                 if($record['type'] === Token::TYPE_COMMA){
                     $count++;
                 }
