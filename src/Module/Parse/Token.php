@@ -1027,8 +1027,8 @@ class Token {
         $nested_structure = [];
         $key = false;
         $is_array_operator = false;
-        array_pop($array);
-        array_shift($array);
+        array_pop($array); //remove square_close
+        array_shift($array); //remove square_open
         d($array);
         foreach($array as $nr => $record){
             if($record['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
