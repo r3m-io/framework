@@ -1027,8 +1027,9 @@ class Token {
         $count = count($token);
         $depth = 0;
         $is_nested_array = false;
+        $key = false;
         foreach($token as $nr => $record){
-            if($record['value'] === '['){
+            if($record['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
                 $depth++;
                 if($array_start === null){
                     $array_start = $nr;
@@ -1041,23 +1042,41 @@ class Token {
                 }
                 continue;
             }
-            elseif($record['value'] === ']'){
+            elseif($record['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE){
                 $depth--;
             }
             if($depth > 0){
                 if($is_nested_array){
-                    if(!array_key_exists('execute', $record)){
-                        ddd($record);
-                        continue;
-                    }
                     if(!$key){
-                        $key = $record['execute'];
+                        $key = $record;
                     } else {
-                        $array[$key] = $record;
+                        $array[] = [
+                            'key' => $key,
+                            'value' => $record
+                        ];
+                        $key = false;
                     }
                 } else {
                     $array[] = $record;
                 }
+            }
+            elseif(
+                $depth === 0 &&
+                (
+                    $array_start ||
+                    $array_start === 0
+                )
+            ){
+                $token[$array_start]['type'] = Token::TYPE_ARRAY;
+                $token[$array_start]['value'] = $array;
+                $token[$array_start]['is_nested'] = $is_nested_array;
+                for($i = $array_start + 1; $i <= $nr; $i++){
+                    unset($token[$i]);
+                }
+                $array_start = null;
+                $array = [];
+                $is_nested_array = false;
+                $key = false;
             }
         }
         return $token;
