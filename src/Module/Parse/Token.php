@@ -1064,6 +1064,7 @@ class Token {
                 $object= (object) [];
                 $object_start = null;
                 foreach($token[$token_nr][$modifier]['attribute'] as $attribute_nr => $attribute){
+                    d($attribute);
                     if($attribute['value'] === '['){
                         $depth++;
                         if($array_start === null){
@@ -1074,6 +1075,7 @@ class Token {
                     elseif($attribute['value'] === ']'){
                         $depth--;
                     }
+                    /*
                     elseif($attribute['value'] === '{'){
                         $curly_depth++;
                         if($object_start === null){
@@ -1084,6 +1086,7 @@ class Token {
                     elseif($attribute['value'] === '}'){
                         $curly_depth--;
                     }
+                    */
                     if($depth > 0){
                         if(array_key_exists('execute', $attribute)){
                             $array[] = $attribute['execute'];
