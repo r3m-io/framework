@@ -1068,11 +1068,7 @@ class Token {
                 $depth--;
             }
             if($depth > 0){
-                if($is_nested_array){
-                    $array = Token::nested_array($array, $record, $is_nested_array);
-                } else {
-                    $array[] = $record;
-                }
+                $array[] = $record;
             }
             elseif(
                 $depth === 0 &&
@@ -1081,6 +1077,9 @@ class Token {
                     $array_start === 0
                 )
             ){
+                if($is_nested_array){
+                    ddd($array);
+                }
                 $token[$array_start]['type'] = Token::TYPE_ARRAY;
                 $token[$array_start]['value'] = $array;
                 $token[$array_start]['is_nested'] = $is_nested_array;
