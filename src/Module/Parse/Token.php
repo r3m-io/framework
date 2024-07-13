@@ -1256,7 +1256,10 @@ class Token {
         $variable_nr = 0;
         d($token);
         foreach($token as $nr => $record){
-            if($record['type'] === Token::TYPE_METHOD){
+            if(
+                $is_variable === null &&
+                $record['type'] === Token::TYPE_METHOD
+            ){
                 $is_method = $nr;
                 $depth = $record['depth'];
             }
