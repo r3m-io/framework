@@ -1073,7 +1073,7 @@ class Token {
         d($array);
         d($options);
         d($structure);
-        return $nested_array;
+        return $array;
     }
 
     public static function array($token=[], $options=[]){
