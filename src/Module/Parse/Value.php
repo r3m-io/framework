@@ -75,7 +75,6 @@ class Value {
             case Token::TYPE_IS_SMALLER_SMALLER :
             case Token::TYPE_IS_SPACESHIP :
             case Token::TYPE_IS_XOR_EQUAL :
-            case Token::TYPE_ARRAY :
                 return $record['value'];
             case Token::TYPE_CODE :
             case Token::TYPE_QUOTE_SINGLE :
@@ -108,6 +107,8 @@ class Value {
                 }
             case Token::TYPE_CAST :
                 return Value::getCast($record);
+            case Token::TYPE_ARRAY :
+                return '[' . implode(', ', $record['value']) . ']';
             case Token::TYPE_VARIABLE :
                 //adding modifiers
                 $token = [];
