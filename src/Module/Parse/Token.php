@@ -1034,22 +1034,19 @@ class Token {
             if($record['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
                 $selection = [];
                 $depth_match = false;
-                for($i = $nr; $i < $count; $i++){
+                for($i = $nr; $i < $count; $i++) {
                     $selection[] = $array[$i];
-                    if($array[$i]['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
+                    if ($array[$i]['type'] === Token::TYPE_BRACKET_SQUARE_OPEN) {
                         $depth_match = $depth;
                         $depth++;
-                    }
-                    elseif($array[$i]['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE){
+                    } elseif ($array[$i]['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE) {
                         $depth--;
                     }
-                    if($depth === $depth_match){
-                        ddd($selection);
+                    if ($depth === $depth_match) {
+                        $nested_array[$key] = Token::nested_array($selection, $options, ++$depth, $struct);
                         break;
                     }
                 }
-
-                $array = Token::nested_array($selection, $options, ++$depth, $struct);
                 continue;
             }
             if($record['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE){
@@ -1060,20 +1057,20 @@ class Token {
                 $is_array_operator = true;
                 continue;
             }
-            $nested_array[$count] = $record;
             if(!$is_array_operator){
                 $key = $record['value'];
             } else {
-                $nested_structure[$key] = $record;
+                $nested_array[$key] = $record['value'];
+//                $nested_structure[] = $record['value'];
                 $is_array_operator = false;
                 $key = false;
             }
         }
-        ddd($nested_structure);
+        d($nested_array);
         d($array);
         d($options);
         d($structure);
-        return $array;
+        return $nested_array;
     }
 
     public static function array($token=[], $options=[]){
