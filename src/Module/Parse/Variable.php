@@ -403,7 +403,7 @@ class Variable {
                                         $array_start === 0
                                     )
                                 ){
-                                    d('found1');
+                                    ddd($token[$token_nr]);
                                     $token[$token_nr]['variable']['modifier'][$modifier_nr]['attribute'][$array_start]['type'] = Token::TYPE_ARRAY;
                                     $token[$token_nr]['variable']['modifier'][$modifier_nr]['attribute'][$array_start]['value'] = $array;
                                     for($i= $array_start + 1; $i <= $attribute_nr; $i++){
