@@ -1114,7 +1114,7 @@ class Token {
                 )
             ){
                 if($is_nested_array > 0){
-                    $array = Token::nested_array($array, $options, $structure);
+                    $array = Token::nested_array($array, $options, 1, $structure);
                     ddd($array);
                 }
                 $token[$array_start]['type'] = Token::TYPE_ARRAY;
