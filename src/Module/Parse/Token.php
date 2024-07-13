@@ -1063,7 +1063,6 @@ class Token {
                 $array = [];
                 $object= (object) [];
                 $object_start = null;
-                d($token[$token_nr]);
                 foreach($token[$token_nr][$modifier]['attribute'] as $attribute_nr => $attribute){
 
                     if($attribute['value'] === '['){
@@ -1147,6 +1146,7 @@ class Token {
             }
             $token[$token_nr][$modifier]['parse'] = $parse;            
         }
+        d($token);
         return $token;
     }
 
