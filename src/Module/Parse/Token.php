@@ -1186,7 +1186,6 @@ class Token {
                     $is_method !== null &&
                     $record['type'] !== Token::TYPE_CURLY_CLOSE
                 ){
-                    /*
                     if(
                         $record['value'] === '(' &&
                         $record['depth'] === $depth + 1
@@ -1202,7 +1201,6 @@ class Token {
                         $depth = null;
                         continue;
                     }
-                    */
                     $method[$nr] = $record;
 //                    d($method);
                 }
@@ -1216,6 +1214,7 @@ class Token {
                     )
                 ){
                     d($method);
+                    d($variable);
                     $token[$is_variable]['type'] = Token::TYPE_VARIABLE;
                     $variable = Token::modifier($variable);
                     $token[$is_variable]['variable']['modifier'] = $variable;
