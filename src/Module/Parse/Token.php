@@ -1068,7 +1068,7 @@ class Token {
             }
             if($depth > 0){
                 if(
-                    !$is_nested_array &&
+                    $is_nested_array === 0 &&
                     in_array(
                         $record['type'],
                         [
@@ -1088,7 +1088,7 @@ class Token {
                     $array_start === 0
                 )
             ){
-                if($is_nested_array){
+                if($is_nested_array > 0){
                     ddd($array);
                 }
                 $token[$array_start]['type'] = Token::TYPE_ARRAY;
