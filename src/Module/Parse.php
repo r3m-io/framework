@@ -627,6 +627,10 @@ class Parse {
                         $string = Value::contains_replace(
                             [
                                 [
+                                    'class',
+                                    '{'
+                                ],
+                                [
                                     Token::TYPE_WHITESPACE,
                                     '{'
                                 ],
@@ -638,6 +642,10 @@ class Parse {
                                 */
                             ],
                             [
+                                [
+                                    '{',
+                                    '{' . PHP_EOL
+                                ],
                                 [
                                     '{',
                                     '{' . PHP_EOL
@@ -824,6 +832,10 @@ class Parse {
                         $string = Value::contains_replace(
                             [
                                 [
+                                    'class',
+                                    '{'
+                                ],
+                                [
                                     Token::TYPE_WHITESPACE,
                                     '{'
                                 ],
@@ -835,6 +847,10 @@ class Parse {
                                 */
                             ],
                             [
+                                [
+                                    '{',
+                                    '{' . PHP_EOL
+                                ],
                                 [
                                     '{',
                                     '{' . PHP_EOL
