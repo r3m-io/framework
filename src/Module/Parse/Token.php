@@ -1072,6 +1072,7 @@ class Token {
                 $key = false;
             }
         }
+        ksort($array, SORT_NATURAL);
         d($nested_array);
         d($array);
         d($options);
