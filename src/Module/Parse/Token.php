@@ -1022,6 +1022,36 @@ class Token {
     }
 
     private static function nested_array($array=[], $options, &$structure=[]){
+        $count = 0;
+        $depth = 0;
+        $nested_array = [];
+        $nested_structure = [];
+        $key = false;
+        $is_array_operator = false;
+        foreach($array as $nr => $record){
+            if($record['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
+                $depth++;
+                continue;
+            }
+            if($record['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE){
+                $depth--;
+                continue;
+            }
+            if($record['type'] === Token::TYPE_IS_ARRAY_OPERATOR){
+                $is_array_operator = true;
+                continue;
+            }
+            $nested_array[$count] = $record;
+            if(!$is_array_operator){
+                $key = $record['value'];
+            } else {
+                $nested_structure[$key] = $record;
+                $is_array_operator = false;
+                $key = false;
+            }
+            $count++;
+        }
+        ddd($nested_structure);
         d($array);
         d($options);
         d($structure);
