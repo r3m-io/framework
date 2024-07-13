@@ -1337,7 +1337,6 @@ class Token {
         }
         return $token;
     }
-    */
 
     public static function to_string($token=[]): string
     {
