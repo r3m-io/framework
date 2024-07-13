@@ -1022,6 +1022,8 @@ class Token {
     }
 
     private static function nested_array($array=[], $record, $depth){
+        d($depth);
+        ddd($record);
         if($depth === 0){
             d($array);
             d($depth);
