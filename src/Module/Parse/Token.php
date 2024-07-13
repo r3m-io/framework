@@ -1204,8 +1204,13 @@ class Token {
 //                    d($method);
                 }
                 if(
-                    $record['type'] === Token::TYPE_CURLY_CLOSE ||
-                    $record['type'] !== Token::TYPE_COLON
+                    (
+                        $record['type'] === Token::TYPE_CURLY_CLOSE
+                    ) ||
+                    (
+                        $record['is_operator'] === true &&
+                        $record['type'] !== Token::TYPE_COLON
+                    )
                 ){
                     d($method);
                     $token[$is_variable]['type'] = Token::TYPE_VARIABLE;
