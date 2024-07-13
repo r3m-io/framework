@@ -1058,11 +1058,11 @@ class Token {
                 continue;
             }
             if(!$is_array_operator){
-                $key[$nr] = $record;
+                $key[] = $nr;
             } else {
                 d($record);
                 ddd($key);
-//                $nested_array[$key] = $record['value'];
+                $nested_array[implode('-', $key)] = $record['value'];
 //                $nested_structure[] = $record['value'];
                 $is_array_operator = false;
                 $key = false;
