@@ -371,6 +371,7 @@ class Variable {
             ){
                 foreach($record['variable']['modifier'] as $variable_modifier_nr => $modifier_list){
                     foreach($modifier_list as $modifier_nr => $modifier){
+                        d($modifier);
                         $depth = 0;
                         $array_start = null;
                         $attribute_nr = null;
@@ -413,8 +414,6 @@ class Variable {
                                 for($i= $array_start + 1; $i <= $attribute_nr; $i++){
                                     unset($token[$token_nr]['variable']['modifier'][$modifier_nr]['attribute'][$i]);
                                 }
-                                $array_start = null;
-                                $array = [];
                             }
                         }
                     }
