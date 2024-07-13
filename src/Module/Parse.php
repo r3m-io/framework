@@ -784,7 +784,7 @@ class Parse {
                 'object' => $object,
                 'url' => $url,
             ]);
-            if(str_contains('$test')){
+            if(str_contains($string, '$test')){
                 $object->config('test', true);
             }
             if($object->config('test')){
