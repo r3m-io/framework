@@ -1042,13 +1042,20 @@ class Token {
                 continue;
             }
             $nested_array[$count] = $record;
-            if(!$is_array_operator){
-                $key = $record['value'];
+            if($depth > 0){
+                d($key);
+                d($record);
+                ddd($nested_structure);
             } else {
-                $nested_structure[$key] = $record;
-                $is_array_operator = false;
-                $key = false;
+                if(!$is_array_operator){
+                    $key = $record['value'];
+                } else {
+                    $nested_structure[$key] = $record;
+                    $is_array_operator = false;
+                    $key = false;
+                }
             }
+
             $count++;
         }
         ddd($nested_structure);
