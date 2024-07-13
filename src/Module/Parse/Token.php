@@ -1315,7 +1315,10 @@ class Token {
                     ) ||
                     (
                         $record['is_operator'] === true &&
-                        $record['type'] !== Token::TYPE_COLON
+                        (
+                            $record['type'] !== Token::TYPE_COLON &&
+                            $record['type'] !== Token::TYPE_IS_ARRAY_OPERATOR
+                        )
                     )
                 ){
                     $token[$is_variable]['type'] = Token::TYPE_VARIABLE;
