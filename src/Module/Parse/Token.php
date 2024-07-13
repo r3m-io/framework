@@ -1178,10 +1178,35 @@ class Token {
                     unset($token[$nr]);
                     continue;
                 }
+                elseif($record['type'] === Token::TYPE_METHOD){
+                    $is_method = $nr;
+                    $depth = $record['depth'];
+                }
+                elseif($is_method !== null){
+                    /*
+                    if(
+                        $record['value'] === '(' &&
+                        $record['depth'] === $depth + 1
+                    ){
+                        if(!empty($method)){
+                            foreach($method as $unset => $item){
+                                $token[$is_method]['value'] .= $item['value'];
+                                unset($token[$unset]);
+                            }
+                        }
+                        $method = [];
+                        $is_method = null;
+                        $depth = null;
+                        continue;
+                    }
+                    */
+                    $method[$nr] = $record;
+                }
                 elseif(
                     $record['type'] === Token::TYPE_CURLY_CLOSE ||
                     $record['type'] !== Token::TYPE_COLON
                 ){
+                    d($method);
                     $token[$is_variable]['type'] = Token::TYPE_VARIABLE;
                     $variable = Token::modifier($variable);
                     $token[$is_variable]['variable']['modifier'] = $variable;
