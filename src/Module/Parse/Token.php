@@ -761,7 +761,7 @@ class Token {
         if(array_key_exists('debug', $options)){
 //            d($prepare);
         }
-        $token = Token::define($prepare);
+        $token = Token::define($prepare, $options);
         $token = Token::group($token, $options);
         $token = Token::cast($token);
         $token = Token::method($token);
@@ -1023,7 +1023,7 @@ class Token {
         return $token;
     }
 
-    public static function modifier($token=[]): array
+    public static function modifier($token=[], $options=[]): array
     {
         foreach($token as $token_nr => $modifier_list){
             $modifier = null;
@@ -1250,7 +1250,7 @@ class Token {
     */
 
 
-    public static function define($token=[]): array
+    public static function define($token=[], $options=[]): array
     {
         $define = [];
         $method = [];
@@ -1319,7 +1319,7 @@ class Token {
                     )
                 ){
                     $token[$is_variable]['type'] = Token::TYPE_VARIABLE;
-                    $variable = Token::modifier($variable);
+                    $variable = Token::modifier($variable, $options);
                     d($variable);
                     $token[$is_variable]['variable']['modifier'] = $variable;
                     $token[$is_variable]['parse'] = $token[$is_variable]['value'];
