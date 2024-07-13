@@ -1126,7 +1126,7 @@ class Token {
                 $object_start = null;
                 $token[$token_nr][$modifier]['attribute'] = Token::cast($token[$token_nr][$modifier]['attribute']);
                 $token[$token_nr][$modifier]['attribute'] = Token::array($token[$token_nr][$modifier]['attribute']);
-                ddd($token[$token_nr][$modifier]['attribute']);
+                d($token[$token_nr][$modifier]['attribute']);
 
 //                $token[$token_nr][$modifier]['attribute'] = Token::group($token[$token_nr][$modifier]['attribute'], $options);
 //                d($token[$token_nr]);
@@ -1134,99 +1134,9 @@ class Token {
                 d($token[$token_nr][$modifier]['attribute']);
 
 
-                $token[$token_nr][$modifier]['attribute'] = Token::method($token[$token_nr][$modifier]['attribute']);
-
-                d($token[$token_nr][$modifier]['attribute']);
-                $is_nested_array = false;
-                $key = false;
-                foreach($token[$token_nr][$modifier]['attribute'] as $attribute_nr => $attribute){
-                    if($attribute['value'] === '['){
-                        $depth++;
-                        if($array_start === null){
-                            $array_start = $attribute_nr;
-                            for($i = $attribute_nr + 1; $i < $count; $i++){
-                                if($attribute['type'] == Token::TYPE_IS_ARRAY_OPERATOR){
-                                    $is_nested_array = true;
-                                    break;
-                                }
-                            }
-                        }
-                        continue;
-                    }
-                    elseif($attribute['value'] === ']'){
-                        $depth--;
-                    }
-                    /*
-                    elseif($attribute['value'] === '{'){
-                        $curly_depth++;
-                        if($object_start === null){
-                            $object_start = $attribute_nr;
-                        }
-                        continue;
-                    }
-                    elseif($attribute['value'] === '}'){
-                        $curly_depth--;
-                    }
-                    */
-                    if($depth > 0){
-                        if($is_nested_array){
-                            if(!array_key_exists('execute', $attribute)){
-                                continue;
-                            }
-                            if(!$key){
-                                $key = $attribute['execute'];
-                            } else {
-                                $array[$key] = $attribute['execute'];
-                            }
-                        } else {
-                            $array[] = $attribute;
-                        }
-                    }
-                    elseif(
-                        $depth === 0 &&
-                        (
-                            $array_start ||
-                            $array_start === 0
-                        )
-                    ){
-                        $token[$token_nr][$modifier]['attribute'][$array_start]['type'] = Token::TYPE_ARRAY;
-                        $token[$token_nr][$modifier]['attribute'][$array_start]['value'] = $array;
-                        for($i= $array_start + 1; $i <= $attribute_nr; $i++){
-                            unset($token[$token_nr][$modifier]['attribute'][$i]);
-                        }
-                        $array_start = null;
-                        $array = [];
-                        $is_nested_array = false;
-                        $key = false;
-                    }
-                    /*
-                    elseif(
-                        $curly_depth === 0 &&
-                        (
-                            $object_start ||
-                            $object_start === 0
-                        )
-                    ){
-                        $token[$token_nr][$modifier]['attribute'][$array_start]['type'] = Token::TYPE_OBJECT;
-                        $token[$token_nr][$modifier]['attribute'][$array_start]['value'] = $object;
-                        for($i= $array_start + 1; $i <= $attribute_nr; $i++){
-                            unset($token[$token_nr][$modifier]['attribute'][$i]);
-                        }
-                        $object_start = null;
-                        $object = (object) [];
-                    }
-                    */
-                }
-                if(
-                    $array_start &&
-                    $attribute_nr
-                ){
-                    $token[$token_nr][$modifier]['attribute'][$array_start]['type'] = Token::TYPE_ARRAY;
-                    $token[$token_nr][$modifier]['attribute'][$array_start]['value'] = $array;
-                    for($i= $array_start + 1; $i <= $attribute_nr; $i++){
-                        unset($token[$token_nr][$modifier]['attribute'][$i]);
-                    }
-                }
+//                $token[$token_nr][$modifier]['attribute'] = Token::method($token[$token_nr][$modifier]['attribute']);
+//
+//                d($token[$token_nr][$modifier]['attribute']);
             }
             $token[$token_nr][$modifier]['parse'] = $parse;            
         }
