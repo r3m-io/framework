@@ -1178,6 +1178,28 @@ class Token {
                     unset($token[$nr]);
                     continue;
                 }
+                elseif(
+                    $record['type'] === Token::TYPE_CURLY_CLOSE ||
+                    $record['type'] !== Token::TYPE_COLON
+                ){
+                    $token[$is_variable]['type'] = Token::TYPE_VARIABLE;
+                    $variable = Token::modifier($variable);
+                    $token[$is_variable]['variable']['modifier'] = $variable;
+                    $token[$is_variable]['parse'] = $token[$is_variable]['value'];
+                    foreach($token[$is_variable]['variable']['modifier'] as $modifier_nr => $modifier_list){
+                        foreach($modifier_list as $modifier_key => $modifier){
+                            $token[$is_variable]['parse'] .= $token[$is_variable]['variable']['operator'] . $modifier['parse'];
+                        }
+                    }
+                    $is_variable = null;
+                    $variable_nr = 0;
+                    $variable = [];
+                    continue;
+                }
+                if(empty($variable[$variable_nr])){
+                    $variable[$variable_nr] = [];
+                    $record['type'] = Token::TYPE_MODIFIER;
+                }
                 $variable[$variable_nr][] = $record;
                 unset($token[$nr]);
             }
@@ -1263,7 +1285,6 @@ class Token {
             }
             */
         }
-        d($variable);
         d($token);
         return $token;
     }
