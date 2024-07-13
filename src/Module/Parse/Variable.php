@@ -373,6 +373,7 @@ class Variable {
                     foreach($modifier_list as $modifier_nr => $modifier){
                         $depth = 0;
                         $array_start = null;
+                        $attribute_nr = null;
                         $array = [];
                         if(array_key_exists('attribute', $modifier)){
                             foreach($modifier['attribute'] as $attribute_nr => $attribute){
@@ -402,6 +403,18 @@ class Variable {
                                     $array_start = null;
                                     $array = [];
                                 }
+                            }
+                            if(
+                                $array_start &&
+                                $attribute_nr
+                            ){
+                                $token[$token_nr]['variable']['modifier'][$modifier_nr]['attribute'][$array_start]['type'] = Token::TYPE_ARRAY;
+                                $token[$token_nr]['variable']['modifier'][$modifier_nr]['attribute'][$array_start]['value'] = $array;
+                                for($i= $array_start + 1; $i <= $attribute_nr; $i++){
+                                    unset($token[$token_nr]['variable']['modifier'][$modifier_nr]['attribute'][$i]);
+                                }
+                                $array_start = null;
+                                $array = [];
                             }
                         }
                     }
