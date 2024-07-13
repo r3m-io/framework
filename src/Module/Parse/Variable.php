@@ -399,7 +399,10 @@ class Variable {
                                 }
                                 if(
                                     $depth === 0 &&
-                                    $array_start
+                                    (
+                                        $array_start ||
+                                        $array_start === 0
+                                    )
                                 ){
                                     d('found1');
                                     $token[$token_nr]['variable']['modifier'][$modifier_nr]['attribute'][$array_start]['type'] = Token::TYPE_ARRAY;
