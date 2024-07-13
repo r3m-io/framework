@@ -1097,7 +1097,6 @@ class Token {
                         }
                         $array_start = null;
                         $array = [];
-                        ddd($token);
                     }
                 }
                 if(
