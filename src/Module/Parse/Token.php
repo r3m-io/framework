@@ -1068,7 +1068,7 @@ class Token {
 
                 d($token[$token_nr][$modifier]['attribute']);
 
-                $token[$token_nr][$modifier]['attribute'] = Token::group($token[$token_nr][$modifier]['attribute'], $options);
+//                $token[$token_nr][$modifier]['attribute'] = Token::group($token[$token_nr][$modifier]['attribute'], $options);
 //                d($token[$token_nr]);
 
                 d($token[$token_nr][$modifier]['attribute']);
@@ -1076,7 +1076,7 @@ class Token {
 
                 $token[$token_nr][$modifier]['attribute'] = Token::method($token[$token_nr][$modifier]['attribute']);
 
-
+                d($token[$token_nr][$modifier]['attribute']);
 
                 foreach($token[$token_nr][$modifier]['attribute'] as $attribute_nr => $attribute){
                     //add cast
