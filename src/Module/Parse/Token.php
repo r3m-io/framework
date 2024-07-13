@@ -1047,7 +1047,7 @@ class Token {
                         foreach($selection as $key => $unused){
                             unset($array[$key]);
                         }
-                        $array[$nr] = Token::nested_array($selection, $options, ++$depth, $struct);
+                        $array[$nr] = Token::nested_array($selection, $options, $depth, $struct);
                         break;
                     }
                 }
@@ -1065,15 +1065,16 @@ class Token {
             if(!$is_array_operator){
                 $key[] = $nr;
             } else {
-                $record['depth'] = $depth;
-//                $array[$nr] = $record;
-//                $nested_array[implode('-', $key)] = $record['value'];
-//                $nested_structure[] = $record['value'];
                 $is_array_operator = false;
                 $key = false;
             }
         }
         ksort($array, SORT_NATURAL);
+        foreach($array as $nr => $record){
+            if($record['type'] === Token::TYPE_COMMA){
+
+            }
+        }
         d($nested_array);
         d($array);
         d($options);
