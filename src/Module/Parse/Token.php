@@ -1028,6 +1028,7 @@ class Token {
             $is_attribute = 0;
             $parse = '';
             $check_attribute = false;
+            $count = 0;
             foreach($modifier_list as $modifier_nr => $modifier_record){
                 if($modifier === null){
                     $modifier = $modifier_nr;
@@ -1051,6 +1052,7 @@ class Token {
                     $parse .= $modifier_record['value'];
                     unset($token[$token_nr][$modifier_nr]);
                     $check_attribute = true;
+                    $count++;
                 }
             }
             if($check_attribute === true){
@@ -1075,13 +1077,19 @@ class Token {
                 $token[$token_nr][$modifier]['attribute'] = Token::method($token[$token_nr][$modifier]['attribute']);
 
                 d($token[$token_nr][$modifier]['attribute']);
-
+                $is_nested_array = false;
+                $key = false;
                 foreach($token[$token_nr][$modifier]['attribute'] as $attribute_nr => $attribute){
-                    //add cast
                     if($attribute['value'] === '['){
                         $depth++;
                         if($array_start === null){
                             $array_start = $attribute_nr;
+                            for($i = $attribute_nr + 1; $i < $count; $i++){
+                                if($attribute['type'] == Token::TYPE_IS_ARRAY_OPERATOR){
+                                    $is_nested_array = true;
+                                    break;
+                                }
+                            }
                         }
                         continue;
                     }
@@ -1101,7 +1109,18 @@ class Token {
                     }
                     */
                     if($depth > 0){
-                        $array[] = $attribute;
+                        if($is_nested_array){
+                            if(!array_key_exists('execute', $attribute)){
+                                continue;
+                            }
+                            if(!$key){
+                                $key = $attribute['execute'];
+                            } else {
+                                $array[$key] = $attribute['execute'];
+                            }
+                        } else {
+                            $array[] = $attribute;
+                        }
                     }
                     elseif(
                         $depth === 0 &&
@@ -1117,6 +1136,8 @@ class Token {
                         }
                         $array_start = null;
                         $array = [];
+                        $is_nested_array = false;
+                        $key = false;
                     }
                     /*
                     elseif(
