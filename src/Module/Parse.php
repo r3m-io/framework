@@ -784,6 +784,12 @@ class Parse {
                 'object' => $object,
                 'url' => $url,
             ]);
+            if(str_contains('$test')){
+                $object->config('test', true);
+            }
+            if($object->config('test')){
+                d($tree);
+            }
             try {
                 $tree = $build->require('function', $tree);
                 $tree = $build->require('modifier', $tree);
