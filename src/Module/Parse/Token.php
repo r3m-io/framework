@@ -1293,9 +1293,6 @@ class Token {
                     unset($token[$nr]);
                     continue;
                 }
-                elseif($record['type'] === Token::TYPE_PARENTHESE_CLOSE){
-                    continue;
-                }
                 elseif($record['type'] === Token::TYPE_PIPE){
                     $variable_nr++;
                     unset($token[$nr]);
