@@ -1021,7 +1021,25 @@ class Token {
         return $token;
     }
 
-    private static function nested_array($array=[], $options, $depth=1, &$structure=[]){
+    private static function nested_array_finalize($array=[], $options): array
+    {
+        $result = [];
+        $count = 0;
+        foreach($array as $nr => $record){
+            if(is_array($record)){
+                $result[$count][$nr] = Token::nested_array_finalize($record, $options);
+            } else {
+                $result[$count][$nr] = $record;
+                if($record['type'] === Token::TYPE_COMMA){
+                    $count++;
+                }
+            }
+        }
+        return $result;
+    }
+
+    private static function nested_array($array=[], $options, $depth=1): array
+    {
         $count = count($array);
         $counter = 0;
         $result = [];
@@ -1045,7 +1063,7 @@ class Token {
                         foreach($selection as $key => $unused){
                             unset($array[$key]);
                         }
-                        $array[$nr] = Token::nested_array($selection, $options, $depth, $struct);
+                        $array[$nr] = Token::nested_array($selection, $options, $depth);
                         break;
                     }
                 }
@@ -1068,16 +1086,11 @@ class Token {
             }
         }
         ksort($array, SORT_NATURAL);
-        foreach($array as $nr => $record){
-            if($record['type'] === Token::TYPE_COMMA){
-                $counter++;
-            }
-            $result[$counter][] = $record;
-        }
-        return $result;
+        return $array;
     }
 
-    public static function array($token=[], $options=[]){
+    public static function array($token=[], $options=[]): array
+    {
         $array = [];
         $array_start = null;
         $count = count($token);
@@ -1128,7 +1141,8 @@ class Token {
                 )
             ){
                 if($is_nested_array > 0){
-                    $array = Token::nested_array($array, $options, 1, $structure);
+                    $array = Token::nested_array($array, $options);
+                    $array = Token::nested_array_finalize($array, $options);
                     ddd($array);
                 }
                 $token[$array_start]['type'] = Token::TYPE_ARRAY;
