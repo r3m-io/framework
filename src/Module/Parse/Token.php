@@ -1057,12 +1057,7 @@ class Token {
                     elseif(!$key){
                         $key = $record;
                     } else {
-                        $array[] = [
-                            'key' => $key,
-                            'value' => $record,
-                            'level' => $is_nested_array
-                        ];
-                        $key = false;
+                        $array = Token::nested_array($array, $key, $record, $is_nested_array);
                     }
                 } else {
                     $array[] = $record;
