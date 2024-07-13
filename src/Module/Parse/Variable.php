@@ -372,6 +372,7 @@ class Variable {
                     foreach($modifier_list as $modifier_nr => $modifier){
                         $depth = 0;
                         $array_start = null;
+                        $array = [];
                         if(array_key_exist($modifier, 'attribute')){
                             foreach($modifier['attribute'] as $attribute_nr => $attribute){
                                 if($attribute['value'] === '['){
