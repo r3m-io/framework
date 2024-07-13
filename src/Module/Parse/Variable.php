@@ -388,7 +388,6 @@ class Variable {
                                 }
                                 elseif($attribute['value'] === ']'){
                                     $depth--;
-                                    continue;
                                 }
                                 if($depth > 0){
                                     if(array_key_exists('execute', $attribute)){
@@ -413,22 +412,6 @@ class Variable {
                                     $array_start = null;
                                     $array = [];
                                 }
-                            }
-                            if(
-                                $depth === 0 &&
-                                (
-                                    $array_start ||
-                                    $array_start === 0
-                                )
-                            ){
-                                d('found1');
-                                $token[$token_nr]['variable']['modifier'][$modifier_nr]['attribute'][$array_start]['type'] = Token::TYPE_ARRAY;
-                                $token[$token_nr]['variable']['modifier'][$modifier_nr]['attribute'][$array_start]['value'] = $array;
-                                for($i= $array_start + 1; $i <= $attribute_nr; $i++){
-                                    unset($token[$token_nr]['variable']['modifier'][$modifier_nr]['attribute'][$i]);
-                                }
-                                $array_start = null;
-                                $array = [];
                             }
                         }
                     }
