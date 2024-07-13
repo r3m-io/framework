@@ -1053,6 +1053,9 @@ class Token {
         foreach($token as $nr => $record){
             if($record['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
                 $depth++;
+                if($is_nested_array > 0){
+                    $array[] = $record;
+                }
                 if($array_start === null){
                     $array_start = $nr;
                     for($i = $nr + 1; $i < $count; $i++){
@@ -1071,7 +1074,6 @@ class Token {
             }
             if($depth > 0){
                 if(
-                    $is_nested_array === 0 &&
                     in_array(
                         $record['type'],
                         [
