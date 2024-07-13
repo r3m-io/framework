@@ -1026,7 +1026,7 @@ class Token {
         $result = [];
         $count = 0;
         foreach($array as $nr => $record){
-            if(is_array($record)){
+            if(is_array($record) && array_key_exists(0, $record)){
                 d($record);
                 $result[$count][$nr] = Token::nested_array_finalize($record, $options);
             } else {
