@@ -1042,7 +1042,7 @@ class Token {
                 continue;
             }
             $nested_array[$count] = $record;
-            if($depth > 0){
+            if($depth > 1){
                 d($key);
                 d($record);
                 ddd($nested_structure);
