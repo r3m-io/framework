@@ -1332,7 +1332,7 @@ class Token {
                             $record['type'] !== Token::TYPE_IS_ARRAY_OPERATOR &&
                             $record['type'] !== Token::TYPE_IS_PLUS &&
                             $record['type'] !== Token::TYPE_IS_MINUS &&
-                            $record['type'] !== Token::TYPE_IS_DOT
+                            $record['type'] !== Token::TYPE_DOT
                         )
                     )
                 ){
