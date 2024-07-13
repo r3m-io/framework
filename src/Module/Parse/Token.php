@@ -762,8 +762,9 @@ class Token {
 //            d($prepare);
         }
         $token = Token::define($prepare, $options);
-        d($prepare);
+        d($token);
         $token = Token::group($token, $options);
+
         $token = Token::cast($token);
         $token = Token::method($token);
         if(
