@@ -1050,7 +1050,7 @@ class Token {
                     if($record['type'] === Token::TYPE_IS_ARRAY_OPERATOR){
                         continue;
                     }
-                    if(!$key){
+                    elseif(!$key){
                         $key = $record;
                     } else {
                         $array[] = [
