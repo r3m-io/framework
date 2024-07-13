@@ -1028,9 +1028,14 @@ class Token {
         $nested_structure = [];
         $key = false;
         $is_array_operator = false;
+        array_pop($array);
+        array_shift($array);
         foreach($array as $nr => $record){
             if($record['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
-                $depth++;
+                d($nested_structure);
+                ddd($depth);
+                $selection = [];
+                $array = Token::nested_array($selection, $options, $struct);
                 continue;
             }
             if($record['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE){
@@ -1042,21 +1047,14 @@ class Token {
                 continue;
             }
             $nested_array[$count] = $record;
-            if($depth > 1){
-                d($key);
-                d($record);
-                ddd($nested_structure);
-            } else {
                 d($depth);
-                if(!$is_array_operator){
-                    $key = $record['value'];
-                } else {
-                    $nested_structure[$key] = $record;
-                    $is_array_operator = false;
-                    $key = false;
-                }
+            if(!$is_array_operator){
+                $key = $record['value'];
+            } else {
+                $nested_structure[$key] = $record;
+                $is_array_operator = false;
+                $key = false;
             }
-
             $count++;
         }
         ddd($nested_structure);
