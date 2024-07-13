@@ -1275,6 +1275,10 @@ class Build {
                 array_key_exists('variable', $record) &&
                 array_key_exists('has_modifier', $record['variable'])
             ){
+                if(!array_key_exists('modifier', $record['variable'])){
+                    d($record);
+                    ddd($tree);
+                }
                 foreach($record['variable']['modifier'] as $modifier_list_nr => $modifier_list){
                     foreach($modifier_list as $modifier_nr => $modifier){
                         if(
