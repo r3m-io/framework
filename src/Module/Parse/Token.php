@@ -1021,9 +1021,8 @@ class Token {
         return $token;
     }
 
-    private static function nested_array($array=[], $options, &$structure=[]){
+    private static function nested_array($array=[], $options, $depth=1, &$structure=[]){
         $count = 0;
-        $depth = 0;
         $nested_array = [];
         $nested_structure = [];
         $key = false;
@@ -1036,7 +1035,7 @@ class Token {
                 d($nested_structure);
                 ddd($depth);
                 $selection = [];
-                $array = Token::nested_array($selection, $options, $struct);
+                $array = Token::nested_array($selection, $options, ++$depth, $struct);
                 continue;
             }
             if($record['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE){
@@ -1048,7 +1047,6 @@ class Token {
                 continue;
             }
             $nested_array[$count] = $record;
-                d($depth);
             if(!$is_array_operator){
                 $key = $record['value'];
             } else {
