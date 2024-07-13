@@ -433,7 +433,7 @@ class Variable {
         $set_counter = 0;
         $operator_max = 1024;
         $operator_counter = 0;
-        d($token);
+//        d($token);
         while(Set::has($token)){
             $set = Set::get($token);
             while(Operator::has($set)){
@@ -594,7 +594,7 @@ class Variable {
         if(substr($result, -3) === ' . '){
             $result = substr($result,0, -3);
         }
-        d($result);
+//        d($result);
         return $result;
     }
 }
