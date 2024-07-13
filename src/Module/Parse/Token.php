@@ -1025,7 +1025,7 @@ class Token {
         $count = count($array);
         $nested_array = [];
         $nested_structure = [];
-        $key = false;
+        $key = [];
         $is_array_operator = false;
         array_pop($array); //remove square_close
         array_shift($array); //remove square_open
