@@ -1047,6 +1047,7 @@ class Token {
                 d($record);
                 ddd($nested_structure);
             } else {
+                d($depth);
                 if(!$is_array_operator){
                     $key = $record['value'];
                 } else {
