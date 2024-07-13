@@ -1090,7 +1090,6 @@ class Token {
                             $array_start === 0
                         )
                     ){
-                        ddd($token[$token_nr]);
                         $token[$token_nr][$modifier]['attribute'][$array_start]['type'] = Token::TYPE_ARRAY;
                         $token[$token_nr][$modifier]['attribute'][$array_start]['value'] = $array;
                         for($i= $array_start + 1; $i <= $attribute_nr; $i++){
@@ -1098,6 +1097,7 @@ class Token {
                         }
                         $array_start = null;
                         $array = [];
+                        ddd($token);
                     }
                 }
                 if(
