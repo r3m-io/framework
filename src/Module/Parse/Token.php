@@ -1060,6 +1060,7 @@ class Token {
                 $attribute_nr = false;
                 $array_start = null;
                 $array = [];
+                $object= (object) [];
                 foreach($token[$token_nr][$modifier]['attribute'] as $attribute_nr => $attribute){
                     if($attribute['value'] === '['){
                         $depth++;
@@ -1071,7 +1072,25 @@ class Token {
                     elseif($attribute['value'] === ']'){
                         $depth--;
                     }
+                    elseif($attribute['value'] === '{'){
+                        $curly_depth++;
+                        if($object_start === null){
+                            $object_start = $attribute_nr;
+                        }
+                        continue;
+                    }
+                    elseif($attribute['value'] === '}'){
+                        $curly_depth--;
+                    }
                     if($depth > 0){
+                        if(array_key_exists('execute', $attribute)){
+                            $array[] = $attribute['execute'];
+                        } else {
+                            $array[] = $attribute['value'];
+                        }
+                    }
+                    elseif($curly_depth > 0){
+                        ddd($attribute);
                         if(array_key_exists('execute', $attribute)){
                             $array[] = $attribute['execute'];
                         } else {
@@ -1092,6 +1111,21 @@ class Token {
                         }
                         $array_start = null;
                         $array = [];
+                    }
+                    elseif(
+                        $curly_depth === 0 &&
+                        (
+                            $object_start ||
+                            $object_start === 0
+                        )
+                    ){
+                        $token[$token_nr][$modifier]['attribute'][$array_start]['type'] = Token::TYPE_OBJECT;
+                        $token[$token_nr][$modifier]['attribute'][$array_start]['value'] = $object;
+                        for($i= $array_start + 1; $i <= $attribute_nr; $i++){
+                            unset($token[$token_nr][$modifier]['attribute'][$i]);
+                        }
+                        $object_start = null;
+                        $object = (object) [];
                     }
                 }
                 if(
