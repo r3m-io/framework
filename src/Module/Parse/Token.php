@@ -1070,6 +1070,7 @@ class Token {
                 $token[$array_start]['type'] = Token::TYPE_ARRAY;
                 $token[$array_start]['value'] = $array;
                 $token[$array_start]['is_nested'] = $is_nested_array;
+                ddd($token[$array_start]);
                 for($i = $array_start + 1; $i <= $nr; $i++){
                     unset($token[$i]);
                 }
@@ -1309,10 +1310,10 @@ class Token {
                     )
                 ){
                     $token[$is_variable]['type'] = Token::TYPE_VARIABLE;
-                    d($variable);
+//                    d($variable);
                     $variable = Token::modifier($variable, $options);
-                    trace();
-                    d($variable);
+//                    trace();
+//                    d($variable);
                     $token[$is_variable]['variable']['modifier'] = $variable;
                     $token[$is_variable]['parse'] = $token[$is_variable]['value'];
                     foreach($token[$is_variable]['variable']['modifier'] as $modifier_nr => $modifier_list){
