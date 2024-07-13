@@ -1021,10 +1021,10 @@ class Token {
         return $token;
     }
 
-    private static function nested_array($array=[], $key, $record, $depth){
+    private static function nested_array($array=[], $record, $depth){
         if($depth === 0){
             d($array);
-            d($key);
+            d($depth);
             ddd($record);
         }
         if($depth > 1){
@@ -1068,7 +1068,7 @@ class Token {
             }
             if($depth > 0){
                 if($is_nested_array){
-                    $array = Token::nested_array($array, $key, $record, $is_nested_array-1);
+                    $array = Token::nested_array($array, $record, $is_nested_array-1);
                 } else {
                     $array[] = $record;
                 }
