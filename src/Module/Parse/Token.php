@@ -1067,23 +1067,19 @@ class Token {
                 $depth--;
             }
             if($depth > 0){
-                if($is_nested_array){
-                    $array[] = $record;
-                } else {
-                    if(
-                        in_array(
-                            $record['type'],
-                            [
-                                Token::TYPE_BRACKET_SQUARE_OPEN,
-                                Token::TYPE_BRACKET_SQUARE_CLOSE
-                            ]
-                        )
-                    ){
-                        continue;
-                    }
-                    $array[] = $record;
+                if(
+                    !$is_nested_array &&
+                    in_array(
+                        $record['type'],
+                        [
+                            Token::TYPE_BRACKET_SQUARE_OPEN,
+                            Token::TYPE_BRACKET_SQUARE_CLOSE
+                        ]
+                    )
+                ){
+                    continue;
                 }
-
+                $array[] = $record;
             }
             elseif(
                 $depth === 0 &&
