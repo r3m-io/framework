@@ -374,7 +374,7 @@ class Variable {
                         $depth = 0;
                         $array_start = null;
                         $array = [];
-                        if(array_key_exists($modifier, 'attribute')){
+                        if(array_key_exists('attribute', $modifier)){
                             foreach($modifier['attribute'] as $attribute_nr => $attribute){
                                 if($attribute['value'] === '['){
                                     $depth++;
