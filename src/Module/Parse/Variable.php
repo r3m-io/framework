@@ -396,7 +396,11 @@ class Variable {
                                     } else {
                                         $array[] = $attribute['value'];
                                     }
-                                } elseif($array_start){
+                                }
+                                if(
+                                    $depth === 0 &&
+                                    $array_start
+                                ){
                                     d('found1');
                                     $token[$token_nr]['variable']['modifier'][$modifier_nr]['attribute'][$array_start]['type'] = Token::TYPE_ARRAY;
                                     $token[$token_nr]['variable']['modifier'][$modifier_nr]['attribute'][$array_start]['value'] = $array;
@@ -406,8 +410,8 @@ class Variable {
                                     $array_start = null;
                                     $array = [];
                                 }
-
                             }
+                            /*
                             if(
                                 $array_start &&
                                 $attribute_nr
@@ -419,6 +423,7 @@ class Variable {
                                     unset($token[$token_nr]['variable']['modifier'][$modifier_nr]['attribute'][$i]);
                                 }
                             }
+                            */
                         }
                     }
                 }
