@@ -1022,7 +1022,7 @@ class Token {
     }
 
     private static function nested_array($array=[], $options, $depth=1, &$structure=[]){
-        $count = 0;
+        $count = count($array);
         $nested_array = [];
         $nested_structure = [];
         $key = false;
@@ -1037,6 +1037,21 @@ class Token {
                 d($key);
                 ddd($depth);
                 $selection = [];
+                for($i = $nr; $i < $count; $i++){
+                    if($array[$i]['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
+                        $depth++;
+                        $depth_match = $depth;
+                    }
+                    elseif($array[$i]['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE){
+                        $depth--;
+                    }
+                    if($depth == $depth_match){
+                        ddd($selection);
+                        break;
+                    }
+                    $selection[] = $array[$i];
+                }
+
                 $array = Token::nested_array($selection, $options, ++$depth, $struct);
                 continue;
             }
@@ -1056,7 +1071,6 @@ class Token {
                 $is_array_operator = false;
                 $key = false;
             }
-            $count++;
         }
         ddd($nested_structure);
         d($array);
