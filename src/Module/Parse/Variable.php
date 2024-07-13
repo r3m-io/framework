@@ -366,7 +366,8 @@ class Variable {
         foreach($token as $token_nr => $record){
             if(
                 array_key_exists('type', $record) &&
-                $record['type'] === Token::TYPE_VARIABLE
+                $record['type'] === Token::TYPE_VARIABLE &&
+                array_key_exists('modifier', $record['variable'])
             ){
                 foreach($record['variable']['modifier'] as $variable_modifier_nr => $modifier_list){
                     foreach($modifier_list as $modifier_nr => $modifier){
