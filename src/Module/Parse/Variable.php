@@ -362,6 +362,7 @@ class Variable {
         return $define;
     }
 
+    /* token::modifier...
     public static function modifier($token=[]){
         foreach($token as $token_nr => $record){
             if(
@@ -421,6 +422,7 @@ class Variable {
         d($token);
         return $token;
     }
+    */
 
     /**
      * @throws Exception
