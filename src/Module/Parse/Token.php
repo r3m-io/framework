@@ -717,6 +717,7 @@ class Token {
             $prepare[] = $record;
             unset($token[$nr]);
         }
+        d($prepare);
         return $prepare;
     }
 
