@@ -1218,9 +1218,11 @@ class Token {
                         $record['type'] !== Token::TYPE_COLON
                     )
                 ){
+                    /*
                     if($record['type'] === Token::TYPE_CURLY_CLOSE){
                         $variable[$variable_nr][] = $record;
                     }
+                    */
                     $token[$is_variable]['type'] = Token::TYPE_VARIABLE;
                     $variable = Token::modifier($variable);                    
                     $token[$is_variable]['variable']['modifier'] = $variable;
