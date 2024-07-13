@@ -1022,7 +1022,11 @@ class Token {
     }
 
     private static function nested_array($array=[], $key, $record, $depth){
-        $array[$key['value']] = $record;
+        if($depth > 1){
+            $array[$key['value']] = Token::nested_array($array[$key['value']], $record, $depth-1);
+            return $array;
+        }
+        $array[$key['value']] = $record['value'];
         return $array;
     }
 
@@ -1062,7 +1066,7 @@ class Token {
                     elseif(!$key){
                         $key = $record;
                     } else {
-                        $array = Token::nested_array($array, $key, $record, $is_nested_array);
+                        $array = Token::nested_array($array, $key, $record, $is_nested_array-1);
                     }
                 } else {
                     $array[] = $record;
