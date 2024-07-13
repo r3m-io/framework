@@ -1095,7 +1095,6 @@ class Token {
                         }
                     }
                     elseif($curly_depth > 0){
-                        ddd($attribute);
                         if(array_key_exists('execute', $attribute)){
                             $array[] = $attribute['execute'];
                         } else {
@@ -1146,7 +1145,6 @@ class Token {
             }
             $token[$token_nr][$modifier]['parse'] = $parse;            
         }
-        d($token);
         return $token;
     }
 
