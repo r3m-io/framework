@@ -759,7 +759,6 @@ class Token {
         $token = Token::tree_prepare($string, $count, $options);
         $token = Token::prepare($token, $count, $options);
         $token = Token::define($token, $options);
-        d($token);
         $token = Token::group($token, $options);
 
         $token = Token::cast($token);
@@ -1268,7 +1267,7 @@ class Token {
         $depth = null;
         $attribute_nr = 0;
         $variable_nr = 0;
-//        d($token);
+        d($token);
         foreach($token as $nr => $record){
             if(
                 $is_variable === null &&
