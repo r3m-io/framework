@@ -1101,18 +1101,7 @@ class Token {
                     }
                     */
                     if($depth > 0){
-                        if(array_key_exists('execute', $attribute)){
-                            $array[] = $attribute['execute'];
-                        } else {
-                            $array[] = $attribute['value'];
-                        }
-                    }
-                    elseif($curly_depth > 0){
-                        if(array_key_exists('execute', $attribute)){
-                            $array[] = $attribute['execute'];
-                        } else {
-                            $array[] = $attribute['value'];
-                        }
+                        $array[] = $attribute;
                     }
                     elseif(
                         $depth === 0 &&
@@ -1129,6 +1118,7 @@ class Token {
                         $array_start = null;
                         $array = [];
                     }
+                    /*
                     elseif(
                         $curly_depth === 0 &&
                         (
@@ -1144,6 +1134,7 @@ class Token {
                         $object_start = null;
                         $object = (object) [];
                     }
+                    */
                 }
                 if(
                     $array_start &&
