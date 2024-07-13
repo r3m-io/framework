@@ -1062,6 +1062,7 @@ class Token {
                 $array_start = null;
                 $array = [];
                 $object= (object) [];
+                $object_start = null;
                 foreach($token[$token_nr][$modifier]['attribute'] as $attribute_nr => $attribute){
                     if($attribute['value'] === '['){
                         $depth++;
