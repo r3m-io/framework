@@ -1184,7 +1184,7 @@ class Token {
                 }
                 elseif(
                     $is_method !== null &&
-                    $record['type'] === Token::TYPE_CURLY_CLOSE
+                    $record['type'] !== Token::TYPE_CURLY_CLOSE
                 ){
                     /*
                     if(
