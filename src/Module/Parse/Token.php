@@ -1031,7 +1031,6 @@ class Token {
             $parse = '';
             $check_attribute = false;
             foreach($modifier_list as $modifier_nr => $modifier_record){
-                d($modifier_record);
                 if($modifier === null){
                     $modifier = $modifier_nr;
                     $parse = $modifier_record['value'];                    
@@ -1161,7 +1160,24 @@ class Token {
         $attribute_nr = 0;
         $variable_nr = 0;
         foreach($token as $nr => $record){
-            d($record);
+            if(
+                $record['type'] === Token::TYPE_VARIABLE &&
+                key_exists('variable', $record) &&
+                key_exists('has_modifier', $record['variable']) &&
+                $record['variable']['has_modifier'] === true
+            ){
+                $is_variable = $nr;
+            }
+            elseif($is_variable !== null) {
+                if ($record['type'] === Token::TYPE_WHITESPACE) {
+                    unset($token[$nr]);
+                    continue;
+                }
+            }
+
+
+
+            /*
             if($record['type'] === Token::TYPE_METHOD){
                 $is_method = $nr;
                 $depth = $record['depth'];
@@ -1177,7 +1193,6 @@ class Token {
                             unset($token[$unset]);
                         }
                     }
-                    d($token[$is_method]);
                     $method = [];
                     $is_method = null;
                     $depth = null;
@@ -1201,11 +1216,9 @@ class Token {
                     unset($token[$nr]);
                     continue;
                 }
-                /*
                 elseif($record['type'] === Token::TYPE_PARENTHESE_CLOSE){
                     continue;
                 }
-                */
                 elseif($record['type'] === Token::TYPE_PIPE){
                     $variable_nr++;
                     unset($token[$nr]);
@@ -1220,11 +1233,101 @@ class Token {
                         $record['type'] !== Token::TYPE_COLON
                     )
                 ){
-                    /*
-                    if($record['type'] === Token::TYPE_CURLY_CLOSE){
-                        $variable[$variable_nr][] = $record;
+                    $token[$is_variable]['type'] = Token::TYPE_VARIABLE;
+                    $variable = Token::modifier($variable);
+                    $token[$is_variable]['variable']['modifier'] = $variable;
+                    $token[$is_variable]['parse'] = $token[$is_variable]['value'];
+                    foreach($token[$is_variable]['variable']['modifier'] as $modifier_nr => $modifier_list){
+                        foreach($modifier_list as $modifier_key => $modifier){
+                            $token[$is_variable]['parse'] .= $token[$is_variable]['variable']['operator'] . $modifier['parse'];
+                        }
                     }
-                    */
+                    $is_variable = null;
+                    $variable_nr = 0;
+                    $variable = [];
+                    continue;
+                }
+                if(empty($variable[$variable_nr])){
+                    $variable[$variable_nr] = [];
+                    $record['type'] = Token::TYPE_MODIFIER;
+                }
+                $variable[$variable_nr][] = $record;
+                unset($token[$nr]);
+            }
+            */
+        }
+        d($token);
+        return $token;
+    }
+
+    /*
+    public static function define($token=[]): array
+    {
+        $define = [];
+        $method = [];
+        $variable = [];
+        $unset = [];
+        $is_method = null;
+        $is_variable = null;
+        $depth = null;
+        $attribute_nr = 0;
+        $variable_nr = 0;
+        foreach($token as $nr => $record){
+            if($record['type'] === Token::TYPE_METHOD){
+                $is_method = $nr;
+                $depth = $record['depth'];
+            }
+            elseif($is_method !== null){
+                if(
+                    $record['value'] === '(' &&
+                    $record['depth'] === $depth + 1
+                ){
+                    if(!empty($method)){
+                        foreach($method as $unset => $item){
+                            $token[$is_method]['value'] .= $item['value'];
+                            unset($token[$unset]);
+                        }
+                    }
+                    $method = [];
+                    $is_method = null;
+                    $depth = null;
+                    continue;
+                }
+                if($record['type'] === Token::TYPE_WHITESPACE){
+                    continue;
+                }
+                $method[$nr] = $record;
+            }
+            elseif(
+                $record['type'] === Token::TYPE_VARIABLE &&
+                key_exists('variable', $record) &&
+                key_exists('has_modifier', $record['variable']) &&
+                $record['variable']['has_modifier'] === true
+            ){
+                $is_variable = $nr;
+            }
+            elseif($is_variable !== null){
+                if($record['type'] === Token::TYPE_WHITESPACE){
+                    unset($token[$nr]);
+                    continue;
+                }
+                elseif($record['type'] === Token::TYPE_PARENTHESE_CLOSE){
+                    continue;
+                }
+                elseif($record['type'] === Token::TYPE_PIPE){
+                    $variable_nr++;
+                    unset($token[$nr]);
+                    continue;
+                }
+                elseif(
+                    (
+                        $record['type'] === Token::TYPE_CURLY_CLOSE
+                    ) ||
+                    (
+                        $record['is_operator'] === true &&
+                        $record['type'] !== Token::TYPE_COLON
+                    )
+                ){
                     $token[$is_variable]['type'] = Token::TYPE_VARIABLE;
                     $variable = Token::modifier($variable);                    
                     $token[$is_variable]['variable']['modifier'] = $variable;
@@ -1249,6 +1352,7 @@ class Token {
         }
         return $token;
     }
+    */
 
     public static function to_string($token=[]): string
     {
