@@ -33,6 +33,9 @@ class Value {
                 foreach($record as $nr => $sub_record){
                     $record[$nr] = Value::get($build, $storage, $sub_record);
                 }
+                if(count($record) === 1){
+                    return array_shift($record);
+                }
                 ddd($record);
             } else {
                 ddd($record);
