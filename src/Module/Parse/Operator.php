@@ -181,6 +181,9 @@ class Operator {
         $previous_nr = null;
         $previous= null;
         foreach($token as $nr => $record){
+            if(!array_key_exists('type', $record)){
+                continue;
+            }
             if(
                 $record['type'] == $type &&
                 $previous_nr !== null
