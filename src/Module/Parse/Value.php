@@ -30,11 +30,15 @@ class Value {
     {
         if(!array_key_exists('type', $record)){
             if(is_array($record)){
-                foreach($record as $nr => $sub_record){
-                    $record[$nr] = Value::get($build, $storage, $sub_record);
+                $result = [];
+                foreach($record as $nr => $sub_records){
+                    foreach($sub_records as $sub_nr => $sub_record){
+                        $result[] = Value::get($build, $storage, $sub_record);
+                    }
+
                 }
-                if(count($record) === 1){
-                    return array_shift($record);
+                if(count($result) === 1){
+                    return array_shift($result);
                 }
                 ddd($record);
             } else {
@@ -137,7 +141,6 @@ class Value {
                         return '$this->' . $record['method']['php_name'] . '($this->parse(), $this->storage())';
                     } else {
                         $trait_name = explode('function_', $record['method']['php_name'], 2);
-                        d($trait_name);
                         return '$this->' . $trait_name[1] . '()';
                     }
                 }
