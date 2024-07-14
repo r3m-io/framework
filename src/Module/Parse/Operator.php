@@ -320,9 +320,6 @@ class Operator {
                     break;
                 }            
             } else {
-                if($operator['value'] === '=>'){
-//                    d($right);
-                }
                 $right_value = Value::get($build, $storage, $right);                
                 switch($operator['value']){
                     case '&&' :
