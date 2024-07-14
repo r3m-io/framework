@@ -1021,7 +1021,7 @@ class Token {
         return $token;
     }
 
-    private static function nested_array_finalize($array=[], $options): array
+    private static function array_finalize($array=[], $options): array
     {
         $result = [];
         $count = 0;
@@ -1145,17 +1145,14 @@ class Token {
             ){
                 if($is_nested_array > 0){
                     $array = Token::nested_array($array, $options);
-                    ddd($array);
-                    $array = Token::nested_array_finalize($array, $options);
+                    $array = Token::array_finalize($array, $options);
                     ddd($array);
                 } else {
-                    $array = Token::nested_array_finalize($array, $options);
-                    ddd($array);
+                    $array = Token::array_finalize($array, $options);
                 }
                 $token[$array_start]['type'] = Token::TYPE_ARRAY;
                 $token[$array_start]['value'] = $array;
                 $token[$array_start]['is_nested'] = $is_nested_array;
-                ddd($token[$array_start]);
                 for($i = $array_start + 1; $i <= $nr; $i++){
                     unset($token[$i]);
                 }
