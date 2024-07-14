@@ -1055,6 +1055,7 @@ class Token {
                 $depth_match = false;
                 for($i = $nr; $i < $count; $i++) {
                     if(!array_key_exists($i, $array)){
+                        d($i);
                         ddd($array);
                     }
                     $selection[$i] = $array[$i];
