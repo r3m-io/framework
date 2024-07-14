@@ -303,10 +303,10 @@ class Value {
                 $result = [];
                 foreach($record['value'] as $key => $value){
                     $value = Variable::getValue($build, $storage, $value);
-                    $result[] = $value . ',';
+                    $result[] = $value . ', ';
                 }
                 $last = array_pop($result);
-                $last = substr($last, 0, -1);
+                $last = substr($last, 0, -2);
                 $result[] = $last;
                 return implode('', $result);
             }
