@@ -32,8 +32,8 @@ class Value {
             if(is_array($record)){
                 foreach($record as $nr => $sub_record){
                     $record[$nr] = Value::get($build, $storage, $sub_record);
-                    ddd($record[$nr]);
                 }
+                ddd($record[$nr]);
             } else {
                 ddd($record);
             }
