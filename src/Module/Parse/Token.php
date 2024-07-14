@@ -1075,9 +1075,6 @@ class Token {
                         foreach($selection as $key => $unused){
                             unset($array[$key]);
                         }
-                        d($depth_match);
-                        ddd($selection);
-
                         $test = Token::array($selection, $options);
 
                         d($test);
