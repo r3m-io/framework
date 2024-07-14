@@ -306,8 +306,10 @@ class Value {
                     $result[] = $value . ', ';
                 }
                 $last = array_pop($result);
-                $last = substr($last, 0, -2);
-                $result[] = $last;
+                if($last){
+                    $last = substr($last, 0, -2);
+                    $result[] = $last;
+                }
                 return implode('', $result);
             }
         }
