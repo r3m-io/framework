@@ -123,7 +123,10 @@ class Operator {
         }
         $operator = [];        
         foreach($token as $nr => $record){
-            if(
+            if(!array_key_exists('type', $record)){
+                continue;
+            }
+            elseif(
                 $record['type'] == $type                
             ){                
                 $operator[$nr] = $record;
@@ -148,7 +151,10 @@ class Operator {
         $previous= null;
         $previous_nr = null;
         foreach($token as $nr => $record){
-            if(
+            if(!array_key_exists('type', $record)){
+                continue;
+            }
+            elseif(
                 $record['type'] == $type && 
                 $previous_nr !== null
             ){
@@ -184,7 +190,7 @@ class Operator {
             if(!array_key_exists('type', $record)){
                 continue;
             }
-            if(
+            elseif(
                 $record['type'] == $type &&
                 $previous_nr !== null
             ){
