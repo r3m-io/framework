@@ -1043,6 +1043,7 @@ class Token {
                     // nothing
                 } else {
                     $result[$count][] = $record;
+                    $count++;
                 }
             }
             elseif($record['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE){
@@ -1053,6 +1054,7 @@ class Token {
                     // nothing
                 } else {
                     $result[$count][] = $record;
+                    $count++;
                 }
             }
             elseif($record['type'] === Token::TYPE_COMMA){
