@@ -290,14 +290,17 @@ class Value {
     private static function array($build, $storage, $record=[]){
         if(array_key_exists('value', $record)){
             if(is_array($record['value'])){
+                $result = [];
+                $result[] = '[';
                 foreach($record['value'] as $key => $value){
                     $value = Variable::getValue($build, $storage, $value);
-                    ddd($value);
-                    if(is_array($value)){
-
-                        ddd($record);
-                    }
+                    $result[] = $value . ',';
                 }
+                $last = array_pop($result);
+                $last = substr($last, 0, -1);
+                $result[] = $last;
+                $result[] = ']';
+                return implode('', $result);
                 return '[' . implode(', ', $record['value']) . ']';
             }
         }
