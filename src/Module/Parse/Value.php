@@ -28,10 +28,15 @@ class Value {
      */
     public static function get(Build $build, Data $storage, $record=[]): mixed
     {
-        if(array_key_exists('type', $record) === false && is_array($record)){
-            foreach($record as $nr => $sub_record){
-                $record[$nr] = Value::get($build, $storage, $sub_record);
+        if(!array_key_exists('type', $record)){
+            if(is_array($record)){
+                foreach($record as $nr => $sub_record){
+                    $record[$nr] = Value::get($build, $storage, $sub_record);
+                }
+            } else {
+                ddd($record);
             }
+
         }
         switch($record['type']){
             case Token::TYPE_INT :
