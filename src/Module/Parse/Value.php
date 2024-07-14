@@ -108,7 +108,7 @@ class Value {
             case Token::TYPE_CAST :
                 return Value::getCast($record);
             case Token::TYPE_ARRAY :
-                return Value::array($record);
+                return Value::array($build, $storage, $record);
             case Token::TYPE_VARIABLE :
                 //adding modifiers
                 $token = [];
@@ -279,11 +279,15 @@ class Value {
         return implode(PHP_EOL, $lines);
     }
 
-    private static function array($record=[]){
+    /**
+     * @throws Exception
+     */
+    private static function array($build, $storage, $record=[]){
         if(array_key_exists('value', $record)){
             if(is_array($record['value'])){
                 foreach($record['value'] as $key => $value){
-                    d($value);
+                    $value = Variable::getValue($build, $storage, $value);
+                    ddd($value);
                     if(is_array($value)){
 
                         ddd($record);
