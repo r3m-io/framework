@@ -1054,6 +1054,9 @@ class Token {
                 $selection = [];
                 $depth_match = false;
                 for($i = $nr; $i < $count; $i++) {
+                    if(!array_key_exists($i, $array)){
+                        ddd($array);
+                    }
                     $selection[$i] = $array[$i];
                     $selection[$i]['depth'] = $depth;
                     if ($array[$i]['type'] === Token::TYPE_BRACKET_SQUARE_OPEN) {
