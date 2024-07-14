@@ -1058,14 +1058,15 @@ class Token {
                         continue;
                     }
                     $selection[$i] = $array[$i];
-                    $selection[$i]['depth'] = $depth;
                     if ($array[$i]['type'] === Token::TYPE_BRACKET_SQUARE_OPEN) {
                         if($depth_match === false){
                             $depth_match = $depth;
                         }
+                        $selection[$i]['depth'] = $depth;
                         $depth++;
                     } elseif ($array[$i]['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE) {
                         $depth--;
+                        $selection[$i]['depth'] = $depth;
                     }
                     if ($depth === $depth_match) {
                         foreach($selection as $key => $unused){
