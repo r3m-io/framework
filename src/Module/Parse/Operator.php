@@ -188,6 +188,8 @@ class Operator {
         $previous= null;
         foreach($token as $nr => $record){
             if(!array_key_exists('type', $record)){
+                $previous_nr = $nr;
+                $previous = $record;
                 continue;
             }
             elseif(
