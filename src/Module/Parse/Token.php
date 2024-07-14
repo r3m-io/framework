@@ -1060,7 +1060,6 @@ class Token {
                     $selection[$i] = $array[$i];
                     if ($array[$i]['type'] === Token::TYPE_BRACKET_SQUARE_OPEN) {
                         if($depth_match === false){
-                            ddd($depth);
                             $depth_match = $depth;
                             d($depth_match);
                         }
