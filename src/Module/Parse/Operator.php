@@ -244,7 +244,7 @@ class Operator {
                 d($is_variable);
                 d($token);
                 ddd($is_object_operator);
-                throw new exception('Possible "." expected at "->" line: '.$is_object_operator['row'].' column: '.$is_object_operator['column']);
+                throw new exception('Possible ".", expected "->" at line: '.$is_object_operator['row'].' column: '.$is_object_operator['column']);
             }
 //            throw new exception('Statement must be an array in Operator::remove');
         }
