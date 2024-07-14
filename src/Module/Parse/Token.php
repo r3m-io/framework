@@ -1180,12 +1180,28 @@ class Token {
                 if($is_nested_array > 0){
                     $array = Token::nested_array($array, $options);
                     $array = Token::array_finalize($array, $options);
+                    $record = $token[$array_start];
+                    $token[$array_start]['type'] = Token::TYPE_BRACKET_SQUARE_OPEN;
+                    $token[$array_start]['value'] = '[';
+                    $token[$array_start + 1] = $record;
+                    $token[$array_start + 1]['type'] = Token::TYPE_ARRAY;
+                    $token[$array_start + 1]['value'] = $array;
+                    $token[$array_start + 1]['is_nested'] = $is_nested_array;
+                    $token[$array_start + 2] = $record;
+                    $token[$array_start + 2]['type'] = Token::TYPE_BRACKET_SQUARE_CLOSE;
+                    $token[$array_start + 2]['value'] = ']';
+
+                    for($i = $array_start + 3; $i <= $nr; $i++){
+                        unset($token[$i]);
+                    }
+                    /*
                     $token[$array_start]['type'] = Token::TYPE_ARRAY;
                     $token[$array_start]['value'] = $array;
                     $token[$array_start]['is_nested'] = $is_nested_array;
                     for($i = $array_start + 1; $i <= $nr; $i++){
                         unset($token[$i]);
                     }
+                    */
                 } else {
                     $array = Token::array_finalize($array, $options);
                     $record = $token[$array_start];
