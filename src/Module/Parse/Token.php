@@ -1036,10 +1036,24 @@ class Token {
                 $result[$count][] = Token::array_finalize($record, $options);
             }
             elseif($record['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
-                // nothing
+                if(
+                    array_key_exists($options['remove_bracket'], $options) &&
+                    $options['remove_bracket'] === true
+                ){
+                    // nothing
+                } else {
+                    $result[$count][] = $record;
+                }
             }
             elseif($record['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE){
-                // nothing
+                if(
+                    array_key_exists($options['remove_bracket'], $options) &&
+                    $options['remove_bracket'] === true
+                ){
+                    // nothing
+                } else {
+                    $result[$count][] = $record;
+                }
             }
             elseif($record['type'] === Token::TYPE_COMMA){
                 $count++;
@@ -1080,8 +1094,18 @@ class Token {
                         foreach($selection as $key => $unused){
                             unset($array[$key]);
                         }
-                        d($selection);
-                        $selection = Token::array($selection, $options);
+                        if(
+                            array_key_exists('remove_bracket', $options)
+                        ){
+                            $remove_bracket = $options['remove_bracket'];
+                            $options['remove_bracket'] = false;
+                            $selection = Token::array($selection, $options);
+                            $options['remove_bracket'] = $remove_bracket;
+                        } else {
+                            $options['remove_bracket'] = false;
+                            $selection = Token::array($selection, $options);
+                            unset($options['remove_bracket']);
+                        }
                         $selection = array_values($selection);
                         d($selection);
                         $array[$nr] = Token::nested_array($selection, $options, $depth);
