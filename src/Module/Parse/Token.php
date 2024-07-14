@@ -1069,7 +1069,9 @@ class Token {
                         foreach($selection as $key => $unused){
                             unset($array[$key]);
                         }
-                        d($selection);
+                        $test = Token::array($selection, $options);
+
+                        d($test);
                         $array[$nr] = Token::nested_array($selection, $options, $depth);
                         ksort($array, SORT_NATURAL);
                         break;
