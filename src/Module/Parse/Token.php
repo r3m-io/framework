@@ -1277,12 +1277,12 @@ class Token {
                 $object_start = null;
                 $token[$token_nr][$modifier]['attribute'] = Token::cast($token[$token_nr][$modifier]['attribute']);
                 $token[$token_nr][$modifier]['attribute'] = Token::array($token[$token_nr][$modifier]['attribute']);
-                d($token[$token_nr][$modifier]['attribute']);
+//                d($token[$token_nr][$modifier]['attribute']);
 
 //                $token[$token_nr][$modifier]['attribute'] = Token::group($token[$token_nr][$modifier]['attribute'], $options);
 //                d($token[$token_nr]);
 
-                d($token[$token_nr][$modifier]['attribute']);
+//                d($token[$token_nr][$modifier]['attribute']);
 
 
 //                $token[$token_nr][$modifier]['attribute'] = Token::method($token[$token_nr][$modifier]['attribute']);
