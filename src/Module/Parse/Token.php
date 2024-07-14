@@ -1069,6 +1069,8 @@ class Token {
                         foreach($selection as $key => $unused){
                             unset($array[$key]);
                         }
+                        ddd($selection);
+
                         $test = Token::array($selection, $options);
 
                         d($test);
@@ -1138,10 +1140,6 @@ class Token {
                 )
             ){
                 if($is_nested_array > 0){
-                    $test = Token::array($array, $options);
-
-                    ddd($test);
-
                     $array = Token::nested_array($array, $options);
                     ddd($array);
                     $array = Token::nested_array_finalize($array, $options);
