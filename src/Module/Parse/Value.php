@@ -284,7 +284,9 @@ class Value {
         if(array_key_exists('value', $record)){
             if(is_array($record['value'])){
                 foreach($record['value'] as $key => $value){
+                    d($value);
                     if(is_array($value)){
+
                         ddd($record);
                     }
                 }
