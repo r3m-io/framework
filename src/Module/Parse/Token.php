@@ -1068,6 +1068,8 @@ class Token {
                     } elseif ($array[$i]['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE) {
                         $depth--;
                         $selection[$i]['depth'] = $depth;
+                    } else {
+                        $selection[$i]['depth'] = $depth;
                     }
                     if ($depth === $depth_match) {
                         foreach($selection as $key => $unused){
