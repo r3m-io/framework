@@ -304,7 +304,11 @@ class Value {
                 $result[] = '[';
                 foreach($record['value'] as $key => $value){
                     $value = Variable::getValue($build, $storage, $value);
-                    if($value){
+                    if(
+                        $value ||
+                        $value === 0 ||
+                        $value === '0'
+                    ){
                         $result[] = $value . ', ';
                     }
                 }
