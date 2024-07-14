@@ -191,6 +191,10 @@ class Operator {
                 $is_test = true;
             }
             if(!array_key_exists('type', $record)){
+                if(!empty($operator)){
+                    $operator[$nr] = $record;
+                    return $operator;
+                }
                 continue;
             }
             elseif(
