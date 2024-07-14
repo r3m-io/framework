@@ -28,6 +28,11 @@ class Value {
      */
     public static function get(Build $build, Data $storage, $record=[]): mixed
     {
+        if(array_key_exists('type', $record) === false && is_array($record)){
+            foreach($record as $nr => $sub_record){
+                $record[$nr] = Value::get($build, $storage, $sub_record);
+            }
+        }
         switch($record['type']){
             case Token::TYPE_INT :
             case Token::TYPE_FLOAT :
