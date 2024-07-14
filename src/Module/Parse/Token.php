@@ -1105,6 +1105,9 @@ class Token {
                             break;
                         }
                     }
+                } else {
+                    d($array);
+                    ddd($record);
                 }
                 if($is_nested_array > 0){
                     $array[] = $record;
