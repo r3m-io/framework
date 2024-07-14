@@ -1035,6 +1035,12 @@ class Token {
             ){
                 $result[$count][] = Token::array_finalize($record, $options);
             }
+            elseif($record['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
+                // nothing
+            }
+            elseif($record['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE){
+                // nothing
+            }
             elseif($record['type'] === Token::TYPE_COMMA){
                 $count++;
             } else {
