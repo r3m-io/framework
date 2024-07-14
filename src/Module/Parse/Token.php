@@ -1033,7 +1033,7 @@ class Token {
                 is_array($record) &&
                 !array_key_exists('value', $record)
             ){
-                $result[$count][] = Token::nested_array_finalize($record, $options);
+                $result[$count][] = Token::array_finalize($record, $options);
             }
             elseif($record['type'] === Token::TYPE_COMMA){
                 $count++;
