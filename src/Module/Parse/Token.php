@@ -1106,6 +1106,10 @@ class Token {
                 if($array_start === null){
                     $array_start = $nr;
                     for($i = $nr + 1; $i < $count; $i++){
+                        //only check the first array
+                        if($token[$i]['type'] === Token::TYPE_COMMA){
+                            break;
+                        }
                         if($token[$i]['type'] == Token::TYPE_IS_ARRAY_OPERATOR){
                             $is_nested_array = 1;
                             break;
