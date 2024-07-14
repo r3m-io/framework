@@ -1149,6 +1149,7 @@ class Token {
                     $array = Token::nested_array_finalize($array, $options);
                     ddd($array);
                 } else {
+                    $array = Token::nested_array_finalize($array, $options);
                     ddd($array);
                 }
                 $token[$array_start]['type'] = Token::TYPE_ARRAY;
