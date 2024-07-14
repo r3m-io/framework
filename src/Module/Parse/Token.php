@@ -1049,7 +1049,6 @@ class Token {
         array_pop($array); //remove square_close
         array_shift($array); //remove square_open
         $count = count($array);
-        d($count);
         foreach($array as $nr => $record){
             if($record['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
                 $selection = [];
