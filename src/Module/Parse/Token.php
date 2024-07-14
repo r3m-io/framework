@@ -1106,6 +1106,7 @@ class Token {
 //                        $remove_bracket = $options['remove_bracket'];
 //                        $options['remove_bracket'] = false;
                         $array[$nr] = Token::nested_array($selection, $options, $depth);
+                        d($array[$nr]);
 //                        $options['remove_bracket'] = $remove_bracket;
                         ksort($array, SORT_NATURAL);
                         break;
