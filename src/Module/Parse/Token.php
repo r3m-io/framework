@@ -1047,9 +1047,6 @@ class Token {
     private static function nested_array($array=[], $options, $depth=1): array
     {
         $count = count($array);
-        $counter = 0;
-        $result = [];
-        $is_array_operator = false;
         array_pop($array); //remove square_close
         array_shift($array); //remove square_open
         foreach($array as $nr => $record){
@@ -1076,19 +1073,7 @@ class Token {
                 continue;
             }
             if($record['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE){
-                $is_array_operator = false;
                 $depth--;
-                continue;
-            }
-            if($record['type'] === Token::TYPE_IS_ARRAY_OPERATOR){
-                $is_array_operator = true;
-                continue;
-            }
-            if(!$is_array_operator){
-                $key[] = $nr;
-            } else {
-                $is_array_operator = false;
-                $key = false;
             }
         }
         ksort($array, SORT_NATURAL);
