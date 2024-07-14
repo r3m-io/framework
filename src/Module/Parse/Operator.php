@@ -197,7 +197,9 @@ class Operator {
                 $record['type'] == $type &&
                 $previous_nr !== null
             ){
-                d('yes');
+                if($is_test){
+                    d('yes');
+                }
                 $operator[$previous_nr] = $previous;
                 $operator[$nr] = $record;
             }
