@@ -187,9 +187,6 @@ class Operator {
         $previous_nr = null;
         $previous= null;
         foreach($token as $nr => $record){
-            if($type === Token::TYPE_IS_ARRAY_OPERATOR){
-                $is_test = true;
-            }
             if(!array_key_exists('type', $record)){
                 if(!empty($operator)){
                     $operator[$nr] = $record;
@@ -203,9 +200,6 @@ class Operator {
             ){
                 $operator[$previous_nr] = $previous;
                 $operator[$nr] = $record;
-                if($is_test){
-                    d($operator);
-                }
             }
             elseif(!empty($operator)){
                 $operator[$nr] = $record;
