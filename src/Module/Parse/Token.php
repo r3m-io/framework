@@ -1069,6 +1069,7 @@ class Token {
                         foreach($selection as $key => $unused){
                             unset($array[$key]);
                         }
+                        d($selection);
                         $array[$nr] = Token::nested_array($selection, $options, $depth);
                         ksort($array, SORT_NATURAL);
                         break;
@@ -1138,6 +1139,8 @@ class Token {
                     $array = Token::nested_array($array, $options);
                     ddd($array);
                     $array = Token::nested_array_finalize($array, $options);
+                    ddd($array);
+                } else {
                     ddd($array);
                 }
                 $token[$array_start]['type'] = Token::TYPE_ARRAY;
