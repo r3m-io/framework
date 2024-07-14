@@ -248,7 +248,7 @@ class Operator {
             }
 //            throw new exception('Statement must be an array in Operator::remove');
         }
-        
+        d($token);
         return $token;
     }
 
