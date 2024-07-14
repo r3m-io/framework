@@ -1210,6 +1210,7 @@ class Token {
                 $is_nested_array = 0;
             }
         }
+        d($token);
         return $token;
     }
 
