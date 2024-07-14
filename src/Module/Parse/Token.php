@@ -1136,6 +1136,7 @@ class Token {
             ){
                 if($is_nested_array > 0){
                     $array = Token::nested_array($array, $options);
+                    ddd($array);
                     $array = Token::nested_array_finalize($array, $options);
                     ddd($array);
                 }
