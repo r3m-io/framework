@@ -1075,6 +1075,7 @@ class Token {
                             unset($array[$key]);
                         }
                         $selection = Token::array($selection, $options);
+                        d($selection);
                         $array[$nr] = Token::nested_array($selection, $options, $depth);
                         ksort($array, SORT_NATURAL);
                         break;
