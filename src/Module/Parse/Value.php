@@ -280,7 +280,6 @@ class Value {
     }
 
     private static function array($record=[]){
-        ddd($record);
         if(array_key_exists('value', $record)){
             if(is_array($record['value'])){
                 foreach($record['value'] as $key => $value){
