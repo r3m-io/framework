@@ -1080,6 +1080,7 @@ class Token {
                         foreach($selection as $key => $unused){
                             unset($array[$key]);
                         }
+                        d($selection);
                         $selection = Token::array($selection, $options);
                         $selection = array_values($selection);
                         d($selection);
