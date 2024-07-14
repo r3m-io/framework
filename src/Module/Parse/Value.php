@@ -301,7 +301,6 @@ class Value {
                 $result[] = $last;
                 $result[] = ']';
                 return implode('', $result);
-                return '[' . implode(', ', $record['value']) . ']';
             }
         }
         return '';
