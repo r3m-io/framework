@@ -526,6 +526,7 @@ class Variable {
             }
             elseif($record['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
                 $in_array = true;
+                d('1');
                 if(substr($result, -3, 3) === ' . '){
                     $result = substr($result, 0, -3);
                 }
@@ -535,6 +536,7 @@ class Variable {
                 $record['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE &&
                 $in_array === true
             ){
+                d('2');
                 $result .= ']';
                 if(
                     array_key_exists('array_depth', $record) &&
