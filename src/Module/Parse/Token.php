@@ -1105,6 +1105,7 @@ class Token {
                         $selection = array_values($selection);
 //                        $remove_bracket = $options['remove_bracket'];
 //                        $options['remove_bracket'] = false;
+                        d($selection);
                         $array[$nr] = Token::nested_array($selection, $options, $depth);
                         d($array[$nr]);
 //                        $options['remove_bracket'] = $remove_bracket;
