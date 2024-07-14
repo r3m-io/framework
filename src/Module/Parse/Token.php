@@ -1057,6 +1057,8 @@ class Token {
                 for($i = $nr; $i < $count; $i++) {
                     if(!array_key_exists($i, $array)){
                         d($i);
+                        ksort($array, SORT_NATURAL);
+                        d($array[$i]);
                         ddd($array);
                     }
                     $selection[$i] = $array[$i];
