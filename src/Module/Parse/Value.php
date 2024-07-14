@@ -287,7 +287,8 @@ class Value {
     /**
      * @throws Exception
      */
-    private static function array($build, $storage, $record=[]){
+    private static function array($build, $storage, $record=[]): string
+    {
         if(array_key_exists('value', $record)){
             if(is_array($record['value'])){
                 $result = [];
