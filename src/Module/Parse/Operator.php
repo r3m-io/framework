@@ -225,6 +225,9 @@ class Operator {
             $is_variable = false;
             $is_object_operator = false;
             foreach($token as $nr => $record){
+                if(!array_key_exists('type', $record)){
+                    continue;
+                }
                 if($record['type'] === Token::TYPE_VARIABLE){
                     $is_variable = $record;
                 }
