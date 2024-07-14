@@ -1056,10 +1056,7 @@ class Token {
                 $depth_match = false;
                 for($i = $nr; $i < $count; $i++) {
                     if(!array_key_exists($i, $array)){
-                        d($i);
-//                        ksort($array, SORT_NATURAL);
-//                        d($array[$i]);
-                        ddd($array);
+                        continue;
                     }
                     $selection[$i] = $array[$i];
                     $selection[$i]['depth'] = $depth;
