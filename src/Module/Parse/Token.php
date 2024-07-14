@@ -1180,7 +1180,7 @@ class Token {
                 if($is_nested_array > 0){
                     $array = Token::nested_array($array, $options);
                     $array = Token::array_finalize($array, $options);
-                    d($array);
+//                    d($array);
                     $record = $token[$array_start];
                     $token[$array_start]['type'] = Token::TYPE_BRACKET_SQUARE_OPEN;
                     $token[$array_start]['value'] = '[';
@@ -1229,7 +1229,7 @@ class Token {
                 $is_nested_array = 0;
             }
         }
-        d($token);
+//        d($token);
         return $token;
     }
 
