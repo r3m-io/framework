@@ -319,7 +319,10 @@ class Operator {
                         $result[$assign_key] = '$this->value_min_min(' . $left_value . ')';
                     break;
                 }            
-            } else {                
+            } else {
+                if($operator['value'] === '=>'){
+                    ddd($right);
+                }
                 $right_value = Value::get($build, $storage, $right);                
                 switch($operator['value']){
                     case '&&' :
