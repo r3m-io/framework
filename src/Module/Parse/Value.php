@@ -304,7 +304,7 @@ class Value {
         if(array_key_exists('value', $record)){
             if(is_array($record['value'])){
                 $result = [];
-//                $result[] = '[';
+                $result[] = '[';
                 foreach($record['value'] as $key => $value){
                     d($value);
                     $value = Variable::getValue($build, $storage, $value);
@@ -322,7 +322,7 @@ class Value {
                     $last = substr($last, 0, -2);
                     $result[] = $last;
                 }
-//                $result[] = ']';
+                $result[] = ']';
                 return implode('', $result);
             }
         }
