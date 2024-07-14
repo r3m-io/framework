@@ -306,13 +306,14 @@ class Value {
                 $result = [];
 //                $result[] = '[';
                 foreach($record['value'] as $key => $value){
+                    d($value);
                     $value = Variable::getValue($build, $storage, $value);
                     if(
                         $value ||
                         $value === 0 ||
                         $value === '0'
                     ){
-                        $result[] = $value;
+                        $result[] = $value . ', ';
                     }
                 }
                 $last = array_pop($result);
