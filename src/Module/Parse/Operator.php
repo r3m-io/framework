@@ -197,11 +197,11 @@ class Operator {
                 $record['type'] == $type &&
                 $previous_nr !== null
             ){
-                if($is_test){
-                    d('yes');
-                }
                 $operator[$previous_nr] = $previous;
                 $operator[$nr] = $record;
+                if($is_test){
+                    d($operator);
+                }
             }
             elseif(!empty($operator)){
                 $operator[$nr] = $record;
