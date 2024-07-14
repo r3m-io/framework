@@ -1181,7 +1181,6 @@ class Token {
                     $token[$array_start]['type'] = Token::TYPE_ARRAY;
                     $token[$array_start]['value'] = $array;
                     $token[$array_start]['is_nested'] = $is_nested_array;
-                    ddd($array);
                     for($i = $array_start + 1; $i <= $nr; $i++){
                         unset($token[$i]);
                     }
