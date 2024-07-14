@@ -321,7 +321,7 @@ class Operator {
                 }            
             } else {
                 if($operator['value'] === '=>'){
-                    ddd($right);
+                    d($right);
                 }
                 $right_value = Value::get($build, $storage, $right);                
                 switch($operator['value']){
