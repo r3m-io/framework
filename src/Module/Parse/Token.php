@@ -1046,9 +1046,9 @@ class Token {
 
     private static function nested_array($array=[], $options, $depth=1): array
     {
-        $count = count($array);
         array_pop($array); //remove square_close
         array_shift($array); //remove square_open
+        $count = count($array);
         foreach($array as $nr => $record){
             if($record['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
                 $selection = [];
