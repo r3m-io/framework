@@ -1066,10 +1066,15 @@ class Token {
         return $result;
     }
 
-    private static function nested_array($array=[], $options, $depth=1): array
+    private static function nested_array($array=[], $options=[], $depth=1): array
     {
-        array_pop($array); //remove square_close
-        array_shift($array); //remove square_open
+        if(!array_key_exists('remove_bracket', $options)){
+            $options['remove_bracket'] = true;
+        }
+        if($options['remove_bracket'] === true){
+            array_pop($array); //remove square_close
+            array_shift($array); //remove square_open
+        }
         $count = count($array);
         foreach($array as $nr => $record){
             if($record['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
@@ -1096,21 +1101,12 @@ class Token {
                         foreach($selection as $key => $unused){
                             unset($array[$key]);
                         }
-                        if(
-                            array_key_exists('remove_bracket', $options)
-                        ){
-                            $remove_bracket = $options['remove_bracket'];
-                            $options['remove_bracket'] = false;
-                            $selection = Token::array($selection, $options);
-                            $options['remove_bracket'] = $remove_bracket;
-                        } else {
-                            $options['remove_bracket'] = false;
-                            $selection = Token::array($selection, $options);
-                            unset($options['remove_bracket']);
-                        }
+                        $selection = Token::array($selection, $options);
                         $selection = array_values($selection);
-                        d($selection);
+                        $remove_bracket = $options['remove_bracket'];
+                        $options['remove_bracket'] = false;
                         $array[$nr] = Token::nested_array($selection, $options, $depth);
+                        $options['remove_bracket'] = $remove_bracket;
                         ksort($array, SORT_NATURAL);
                         break;
                     }
