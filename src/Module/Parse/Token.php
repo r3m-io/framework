@@ -1105,9 +1105,6 @@ class Token {
                             break;
                         }
                     }
-                } else {
-                    d($array);
-                    ddd($record);
                 }
                 if($is_nested_array > 0){
                     $array[] = $record;
@@ -1141,6 +1138,10 @@ class Token {
                 )
             ){
                 if($is_nested_array > 0){
+                    $test = Token::array($array, $options);
+
+                    ddd($test);
+
                     $array = Token::nested_array($array, $options);
                     ddd($array);
                     $array = Token::nested_array_finalize($array, $options);
