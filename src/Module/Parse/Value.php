@@ -307,7 +307,7 @@ class Value {
                 $result[] = '[';
                 foreach($record['value'] as $key => $value){
 //                    $value = Variable::getValue($build, $storage, $value);
-                    $value = Value::getValue($build, $storage, $value);
+                    $value = Value::get($build, $storage, $value);
                     if(
                         $value ||
                         $value === 0 ||
