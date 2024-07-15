@@ -340,6 +340,7 @@ class Variable {
                                 switch($attribute['type']){
                                     case Token::TYPE_CAST:
                                     case Token::TYPE_EXCLAMATION:
+                                    case Token::TYPE_OPERATOR:
                                         $temp = [];
                                         $temp[] = $attribute;
                                         $define_modifier .= Value::get($build, $storage, $attribute) . ' ';
