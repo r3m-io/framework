@@ -307,6 +307,10 @@ class Value {
                 $result = [];
                 $result[] = '[';
                 foreach($record['value'] as $key => $value){
+                    if(!array_key_exists('type', $value)){
+                        $value = Value::array($build, $storage, $value);
+                        d($value);
+                    }
 //                    $value = Variable::getValue($build, $storage, $value);
                     $value = Variable::getValue($build, $storage, $value);
                     if(
