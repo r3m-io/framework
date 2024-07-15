@@ -306,7 +306,7 @@ class Value {
                 $result = [];
                 $result[] = '[';
                 foreach($record['value'] as $array_nr => $array_list){
-                    ddd($array_list);
+                    d($array_list);
                     $value = Variable::getValue($build, $storage, $array_list);
                     d($value);
                     /*
