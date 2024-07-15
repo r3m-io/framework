@@ -306,15 +306,10 @@ class Value {
             if(is_array($record['value'])){
                 $result = [];
                 $result[] = '[';
-                foreach($record['value'] as $key => $value){
-                    if(!array_key_exists('type', $value)){
-                        $value = Value::array($build, $storage, $value);
-                        d($value);
-                    } else {
+                foreach($record['value'] as $array_nr => $array_list){
+                    foreach($array_list as $array_list_nr => $value){
                         $value = Variable::getValue($build, $storage, $value);
                     }
-//                    $value = Variable::getValue($build, $storage, $value);
-
                     if(
                         $value ||
                         $value === 0 ||
