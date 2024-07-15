@@ -314,6 +314,7 @@ class Operator {
                     break;
                 }            
             } else {
+                d($right);
                 $right_value = Value::get($build, $storage, $right);                
                 switch($operator['value']){
                     case '&&' :
