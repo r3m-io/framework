@@ -547,6 +547,7 @@ class Variable {
             }
             elseif($is_collect === false){                                
                 $record = Method::get($build, $storage, $record);
+                d($record);
                 $result .= Value::get($build, $storage, $record);
                 trace();
                 d($result);
