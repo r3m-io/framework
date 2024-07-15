@@ -516,6 +516,10 @@ class Variable {
                 }
                 $selection[] = $record;
             }
+            if(is_string($record)){
+                trace();
+                ddd($record);
+            }
             if(!array_key_exists('type', $record)){
                 trace();
                 ddd($record);
