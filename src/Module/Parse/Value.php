@@ -301,13 +301,13 @@ class Value {
      */
     private static function array($build, $storage, $record=[]): string
     {
-        d($record);
         if(array_key_exists('value', $record)){
             if(is_array($record['value'])){
                 $result = [];
                 $result[] = '[';
                 foreach($record['value'] as $array_nr => $array_list){
                     $value = Variable::getValue($build, $storage, $array_list);
+                    d($value);
                     /*
                     foreach($array_list as $array_list_nr => $value){
 
