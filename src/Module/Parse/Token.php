@@ -1238,7 +1238,7 @@ class Token {
         d($token);
         foreach($token as $token_nr => $modifier_list){
             $modifier = null;
-            $is_attribute = 0;
+            $is_attribute = -1;
             $parse = '';
             $check_attribute = false;
             $count = 0;
@@ -1254,14 +1254,19 @@ class Token {
                     unset($token[$token_nr][$modifier_nr]);
                     continue;
                 }
-                if($is_attribute == 0){
+                if($is_attribute == -1){
                     $token[$token_nr][$modifier]['value'] .= $modifier_record['value'];
                     $token[$token_nr][$modifier]['has_attribute'] = false;
                     $parse .= $modifier_record['value'];
                     unset($token[$token_nr][$modifier_nr]);
                 } else {
-                    ddd($token[$token_nr][$modifier]);
-                    $token[$token_nr][$modifier]['attribute'][($is_attribute-1)][] = $modifier_record;
+                    if(!array_key_exists('attribute', $token[$token_nr][$modifier])){
+                        $token[$token_nr][$modifier]['attribute'] = [];
+                    }
+                    if(!array_key_exists($is_attribute, $token[$token_nr][$modifier]['attribute'])){
+                        $token[$token_nr][$modifier]['attribute'][$is_attribute] = [];
+                    }
+                    $token[$token_nr][$modifier]['attribute'][$is_attribute][] = $modifier_record;
                     $token[$token_nr][$modifier]['has_attribute'] = true;
                     $parse .= $modifier_record['value'];
                     unset($token[$token_nr][$modifier_nr]);
