@@ -335,22 +335,24 @@ class Variable {
                     }
                     $define_modifier .= '$this->' . $modifier['php_name'] . '($this->parse(), $this->storage(), ' . $define . ', ';
                     if(!empty($modifier['has_attribute'])){
-                        foreach($modifier['attribute'] as $attribute){
-                            switch($attribute['type']){
-                                case Token::TYPE_METHOD :
-                                    $tree = [];
-                                    $tree[]= $attribute;
-                                    $tree = $build->require('modifier', $tree);
-                                    $tree = $build->require('function', $tree);
-                                    $define_modifier .= Value::get($build, $storage, reset($tree)) . ', ';
-                                break;
-                                case Token::TYPE_VARIABLE:
-                                    $temp = [];
-                                    $temp[] = $attribute;
-                                    $define_modifier .= Variable::define($build, $storage, $temp) . ', ';
-                                break;
-                                default :
-                                    $define_modifier .= Value::get($build, $storage, $attribute) . ', ';
+                        foreach($modifier['attribute'] as $attribute_nr => $attribute_list){
+                            foreach($attribute_list as $attribute_nr => $attribute){
+                                switch($attribute['type']){
+                                    case Token::TYPE_METHOD :
+                                        $tree = [];
+                                        $tree[]= $attribute;
+                                        $tree = $build->require('modifier', $tree);
+                                        $tree = $build->require('function', $tree);
+                                        $define_modifier .= Value::get($build, $storage, reset($tree)) . ', ';
+                                        break;
+                                    case Token::TYPE_VARIABLE:
+                                        $temp = [];
+                                        $temp[] = $attribute;
+                                        $define_modifier .= Variable::define($build, $storage, $temp) . ', ';
+                                        break;
+                                    default :
+                                        $define_modifier .= Value::get($build, $storage, $attribute) . ', ';
+                                }
                             }
                         }
                     }
