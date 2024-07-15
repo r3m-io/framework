@@ -517,6 +517,7 @@ class Variable {
                 $selection[] = $record;
             }
             if(!array_key_exists('type', $record)){
+                d($result);
                 d($selection);
                 d($is_collect);
                 ddd($record);
