@@ -126,7 +126,7 @@ class Value {
             case Token::TYPE_CAST :
                 return Value::getCast($record);
             case Token::TYPE_ARRAY :
-                return '';//Value::array($build, $storage, $record);
+                return Value::array($build, $storage, $record);
             case Token::TYPE_VARIABLE :
                 //adding modifiers
                 $token = [];
