@@ -1260,7 +1260,8 @@ class Token {
                     $parse .= $modifier_record['value'];
                     unset($token[$token_nr][$modifier_nr]);
                 } else {
-                    $token[$token_nr][$modifier]['attribute'][] = $modifier_record;
+                    ddd($token[$token_nr][$modifier]);
+                    $token[$token_nr][$modifier]['attribute'][($is_attribute-1)][] = $modifier_record;
                     $token[$token_nr][$modifier]['has_attribute'] = true;
                     $parse .= $modifier_record['value'];
                     unset($token[$token_nr][$modifier_nr]);
