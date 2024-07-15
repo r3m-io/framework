@@ -339,6 +339,7 @@ class Variable {
                             foreach($attribute_list as $attribute_nr => $attribute){
                                 switch($attribute['type']){
                                     case Token::TYPE_CAST:
+                                    case Token::TYPE_EXCLAMATION:
                                         $temp = [];
                                         $temp[] = $attribute;
                                         $define_modifier .= Value::get($build, $storage, $attribute) . ' ';
@@ -533,7 +534,6 @@ class Variable {
             }
             elseif($record['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
                 $in_array = true;
-                d('1');
                 if(substr($result, -3, 3) === ' . '){
                     $result = substr($result, 0, -3);
                 }
@@ -543,7 +543,6 @@ class Variable {
                 $record['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE &&
                 $in_array === true
             ){
-                d('2');
                 $result .= ']';
                 if(
                     array_key_exists('array_depth', $record) &&
@@ -555,10 +554,6 @@ class Variable {
             elseif($is_collect === false){
                 $record = Method::get($build, $storage, $record);
                 $result .= Value::get($build, $storage, $record);
-                if($record['value'] === '$options.constant2'){
-                    d($record);
-                    ddd($result);
-                }
                 if(
                     !in_array(
                         $record['type'],
