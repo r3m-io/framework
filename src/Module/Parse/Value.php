@@ -333,6 +333,8 @@ class Value {
             }
         }
         elseif(is_array($record)){
+            $value = Variable::getValue($build, $storage, $record);
+            d($value);
             ddd($record);
         }
         return '';
