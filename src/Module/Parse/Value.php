@@ -333,6 +333,9 @@ class Value {
                 return implode('', $result);
             }
         }
+        elseif(is_array($record)){
+            ddd($record);
+        }
         return '';
     }
 }
