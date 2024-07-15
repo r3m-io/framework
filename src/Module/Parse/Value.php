@@ -23,6 +23,16 @@ class Value {
     const TYPE_CAST_CLONE = '( clone )';
     const TYPE_CAST_OBJECT = '( object )';
 
+    const TYPE_CAST = [
+        'bool',
+        'int',
+        'float',
+        'string',
+        'array',
+        'clone',
+        'object',
+    ];
+
     /**
      * @throws Exception
      */
