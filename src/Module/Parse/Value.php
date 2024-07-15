@@ -306,9 +306,7 @@ class Value {
                 $result = [];
                 $result[] = '[';
                 foreach($record['value'] as $key => $value){
-                    d($value);
                     $value = Variable::getValue($build, $storage, $value);
-                    d($value);
                     if(
                         $value ||
                         $value === 0 ||
