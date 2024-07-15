@@ -184,6 +184,7 @@ class Variable {
                     $assign = '$this->storage()->set(\'';
                     $assign .= $variable['variable']['attribute'] . '\', ';
                     $value = Variable::getValue($build, $storage, $token, $is_result);
+                    d($value);
                     if(stristr($value, '( . ') !== false){
                         $value = str_replace('( . ', '( ', $value);
                         $value = str_replace(' . )', ' )', $value);
