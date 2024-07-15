@@ -516,6 +516,9 @@ class Variable {
                 }
                 $selection[] = $record;
             }
+            if(!array_key_exists('type', $record)){
+                ddd($record);
+            }
             if($record['type'] === Token::TYPE_CURLY_OPEN){
                 $selection = [];
                 $is_collect = true;
