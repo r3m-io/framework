@@ -657,6 +657,12 @@ class Variable {
                             } else {
                                 d($record['type']);
                                 if($record['type'] === 'code'){
+                                    $rev = strrev($record['value']);
+                                    $explode = explode('(', $rev, 2);
+                                    if(array_key_exists(1,$explode)){
+                                        $cast = strrev($explode[0]);
+                                        ddd($cast);
+                                    }
                                     d($record);
                                 }
                                 d($result);
