@@ -575,6 +575,7 @@ class Variable {
                             elseif($record['type'] === Token::TYPE_PARENTHESE_CLOSE) {
                                 $result = substr($result, 0, -3) . ')';
                             } else {
+                                d($record);
                                 //maybe need next...
                                 $result .= ' . ';
                             }
