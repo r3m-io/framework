@@ -546,12 +546,12 @@ class Variable {
                 }
             }
             elseif($is_collect === false){
-                d($record);
                 $record = Method::get($build, $storage, $record);
-                d($record);
                 $result .= Value::get($build, $storage, $record);
-                trace();
-                d($result);
+                if($record['value'] === '$options.constant2'){
+                    d($record);
+                    ddd($result);
+                }
                 if(
                     !in_array(
                         $record['type'],
