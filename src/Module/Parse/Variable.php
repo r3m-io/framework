@@ -522,9 +522,16 @@ class Variable {
                 ddd($record);
             }
             if(!array_key_exists('type', $record)){
+                if(is_array($record)){
+                    foreach($record as $count => $set){
+                        ddd($set);
+                    }
+                }
+
                 trace();
                 ddd($record);
                 if($is_collect === false){
+
                     $record = Method::get($build, $storage, $record);
                     $result .= Value::get($build, $storage, $record);
                     if(
