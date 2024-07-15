@@ -1111,12 +1111,7 @@ class Token {
                         }
                         $selection = Token::array($selection, $options);
                         $selection = array_values($selection);
-//                        $remove_bracket = $options['remove_bracket'];
-//                        $options['remove_bracket'] = false;
-                        d($selection);
                         $array[$nr] = Token::nested_array($selection, $options, $depth);
-                        d($array[$nr]);
-//                        $options['remove_bracket'] = $remove_bracket;
                         ksort($array, SORT_NATURAL);
                         break;
                     }
@@ -1229,7 +1224,7 @@ class Token {
 
     public static function modifier($token=[], $options=[]): array
     {
-        d($token);
+//        d($token);
         foreach($token as $token_nr => $modifier_list){
             $modifier = null;
             $is_attribute = -1;
