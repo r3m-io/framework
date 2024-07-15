@@ -1282,7 +1282,14 @@ class Token {
                 $array = [];
                 $object= (object) [];
                 $object_start = null;
+
+
+                foreach($token[$token_nr][$modifier]['attribute'] as $attribute_nr => $attribute){
+                    $attribute = Token::cast($attribute);
+                    $token[$token_nr][$modifier]['attribute'] = Token::array($attribute);
+                }
                 ddd($token[$token_nr]);
+
                 $token[$token_nr][$modifier]['attribute'] = Token::cast($token[$token_nr][$modifier]['attribute']);
                 $token[$token_nr][$modifier]['attribute'] = Token::array($token[$token_nr][$modifier]['attribute']);
 //                d($token[$token_nr][$modifier]['attribute']);
