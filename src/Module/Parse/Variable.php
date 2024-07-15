@@ -526,7 +526,8 @@ class Variable {
                     $list = [];
                     $counter = 0;
                     foreach($record as $count => $set){
-                        $set = Method::get($build, $storage, $set);
+                        d($set);
+//                        $set = Method::get($build, $storage, $set);
                         $list[] = Variable::getValue($build, $storage, $set);
                         $counter++;
                     }
