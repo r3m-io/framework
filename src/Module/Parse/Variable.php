@@ -535,7 +535,7 @@ class Variable {
                         throw new Exception('Not implemented...');
                     }
                 }
-                if($is_collect === false){
+                elseif($is_collect === false){
                     $record = Method::get($build, $storage, $record);
                     $result .= Value::get($build, $storage, $record);
                     if(
