@@ -353,6 +353,7 @@ class Variable {
                                         $define_modifier .= Variable::define($build, $storage, $temp) . ', ';
                                         break;
                                     default :
+                                        d($attribute['type']);
                                         $define_modifier .= Value::get($build, $storage, $attribute) . ', ';
                                 }
                             }
