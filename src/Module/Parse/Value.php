@@ -301,19 +301,20 @@ class Value {
      */
     private static function array($build, $storage, $record=[]): string
     {
+        d($record);
         if(array_key_exists('value', $record)){
             if(is_array($record['value'])){
                 $result = [];
                 $result[] = '[';
-                foreach($record['value'] as $array_nr => $array_list){
-                    d($array_list);
-                    $value = Variable::getValue($build, $storage, $array_list);
-                    d($value);
-                    /*
-                    foreach($array_list as $array_list_nr => $value){
-
+                foreach($record['value'] as $key => $value){
+                    if(!array_key_exists('type', $value)){
+                        $value = Value::array($build, $storage, $value);
+                        d($value);
+                    } else {
+                        $value = Variable::getValue($build, $storage, $value);
                     }
-                    */
+//                    $value = Variable::getValue($build, $storage, $value);
+
                     if(
                         $value ||
                         $value === 0 ||
@@ -332,7 +333,6 @@ class Value {
             }
         }
         elseif(is_array($record)){
-            ddd($record);
             $value = Variable::getValue($build, $storage, $record);
             d($value);
             ddd($record);
