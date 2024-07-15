@@ -524,15 +524,17 @@ class Variable {
             if(!array_key_exists('type', $record)){
                 if(is_array($record)){
                     $list = [];
+                    $counter = 0;
                     foreach($record as $count => $set){
                         $list[] = Variable::getValue($build, $storage, $set);
+                        $counter++;
                     }
-                    d($result);
-                    ddd($list);
+                    if($counter === 1){
+                        $result .= $list[0];
+                    } else {
+                        throw new Exception('Not implemented...');
+                    }
                 }
-
-                trace();
-                ddd($record);
                 if($is_collect === false){
 
                     $record = Method::get($build, $storage, $record);
