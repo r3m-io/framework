@@ -1071,10 +1071,16 @@ class Token {
 
         $pop = array_pop($array); //remove square_close
         $shift = array_shift($array); //remove square_open
-        if($pop['type'] !== Token::TYPE_BRACKET_SQUARE_CLOSE){
+        if(
+            $pop &&
+            $pop['type'] !== Token::TYPE_BRACKET_SQUARE_CLOSE
+        ){
             $array[] = $pop;
         }
-        if($shift['type'] !== Token::TYPE_BRACKET_SQUARE_OPEN){
+        if(
+            $shift &&
+            $shift['type'] !== Token::TYPE_BRACKET_SQUARE_OPEN
+        ){
             array_unshift($array, $shift);
         }
         $count = count($array);
