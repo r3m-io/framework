@@ -661,7 +661,7 @@ class Variable {
                                     $explode = explode('(', $rev, 2);
                                     if(array_key_exists(1, $explode)){
                                         $cast = strrev($explode[1]);
-                                        ddd($cast);
+                                        d($cast);
                                     }
                                     d($record);
                                 }
