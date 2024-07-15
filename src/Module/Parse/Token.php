@@ -1182,17 +1182,11 @@ class Token {
                     $array = Token::array_finalize($array, $options);
 //                    d($array);
                     $record = $token[$array_start];
-                    $token[$array_start]['type'] = Token::TYPE_BRACKET_SQUARE_OPEN;
-                    $token[$array_start]['value'] = '[';
-                    $token[$array_start + 1] = $record;
-                    $token[$array_start + 1]['type'] = Token::TYPE_ARRAY;
-                    $token[$array_start + 1]['value'] = $array;
-                    $token[$array_start + 1]['is_nested'] = $is_nested_array;
-                    $token[$array_start + 2] = $record;
-                    $token[$array_start + 2]['type'] = Token::TYPE_BRACKET_SQUARE_CLOSE;
-                    $token[$array_start + 2]['value'] = ']';
+                    $token[$array_start]['type'] = Token::TYPE_ARRAY;
+                    $token[$array_start]['value'] = $array;
+                    $token[$array_start]['is_nested'] = $is_nested_array;
 
-                    for($i = $array_start + 3; $i <= $nr; $i++){
+                    for($i = $array_start + 1; $i <= $nr; $i++){
                         unset($token[$i]);
                     }
                     /*
@@ -1205,18 +1199,10 @@ class Token {
                     */
                 } else {
                     $array = Token::array_finalize($array, $options);
-                    $record = $token[$array_start];
-                    $token[$array_start]['type'] = Token::TYPE_BRACKET_SQUARE_OPEN;
-                    $token[$array_start]['value'] = '[';
-                    $token[$array_start + 1] = $record;
-                    $token[$array_start + 1]['type'] = Token::TYPE_ARRAY;
-                    $token[$array_start + 1]['value'] = $array;
-                    $token[$array_start + 1]['is_nested'] = $is_nested_array;
-                    $token[$array_start + 2] = $record;
-                    $token[$array_start + 2]['type'] = Token::TYPE_BRACKET_SQUARE_CLOSE;
-                    $token[$array_start + 2]['value'] = ']';
-
-                    for($i = $array_start + 3; $i <= $nr; $i++){
+                    $token[$array_start]['type'] = Token::TYPE_ARRAY;
+                    $token[$array_start]['value'] = $array;
+                    $token[$array_start]['is_nested'] = $is_nested_array;
+                    for($i = $array_start + 1; $i <= $nr; $i++){
                         unset($token[$i]);
                     }
                 }
@@ -1288,6 +1274,12 @@ class Token {
                     $attribute = Token::cast($attribute);
                     $token[$token_nr][$modifier]['attribute'][$attribute_nr] = Token::array($attribute);
                 }
+                foreach($token[$token_nr][$modifier]['attribute'] as $attribute_nr => $attribute){
+
+                }
+
+
+
                 ddd($token[$token_nr]);
 
                 $token[$token_nr][$modifier]['attribute'] = Token::cast($token[$token_nr][$modifier]['attribute']);
