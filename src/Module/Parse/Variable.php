@@ -668,10 +668,7 @@ class Variable {
                                         }
 
                                     }
-                                    d($record);
                                 }
-                                d($result);
-                                d('here');
                                 //maybe need next...
                                 $result .= ' . ';
                             }
