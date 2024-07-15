@@ -308,7 +308,6 @@ class Value {
                 $result[] = '[';
                 foreach($record['value'] as $key => $value){
                     if(!array_key_exists('type', $value)){
-                        ddd($value);
                         $value = Value::array($build, $storage, $value);
                         d($value);
                     } else {
