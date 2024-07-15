@@ -1068,12 +1068,14 @@ class Token {
 
     private static function nested_array($array=[], $options=[], $depth=1): array
     {
-        if(!array_key_exists('remove_bracket', $options)){
-            $options['remove_bracket'] = true;
+
+        $pop = array_pop($array); //remove square_close
+        $shift = array_shift($array); //remove square_open
+        if($pop['type'] !== Token::TYPE_BRACKET_SQUARE_CLOSE){
+            $array[] = $pop;
         }
-        if($options['remove_bracket'] === true){
-            array_pop($array); //remove square_close
-            array_shift($array); //remove square_open
+        if($shift['type'] !== Token::TYPE_BRACKET_SQUARE_OPEN){
+            array_unshift($array, $shift);
         }
         $count = count($array);
         foreach($array as $nr => $record){
