@@ -517,88 +517,133 @@ class Variable {
                 $selection[] = $record;
             }
             if(!array_key_exists('type', $record)){
-                d($result);
-                d($selection);
-                d($is_collect);
-                ddd($record);
-            }
-            if($record['type'] === Token::TYPE_CURLY_OPEN){
-                $selection = [];
-                $is_collect = true;
-                continue;
-            }
-            elseif($record['type'] === Token::TYPE_CURLY_CLOSE){
-                $result .= Code::result($build, $storage, $type, $selection);
-                $result .= ' . ';
-                $is_collect = false;
-                $type = null;
-                $selection = [];
-            }
-            elseif($record['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
-                $in_array = true;
-                if(substr($result, -3, 3) === ' . '){
-                    $result = substr($result, 0, -3);
-                }
-                $result .= '[';
-            }
-            elseif(
-                $record['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE &&
-                $in_array === true
-            ){
-                $result .= ']';
-                if(
-                    array_key_exists('array_depth', $record) &&
-                    $record['array_depth'] === 0
-                ){
-                    $in_array = false;
-                }
-            }
-            elseif($is_collect === false){
-                $record = Method::get($build, $storage, $record);
-                $result .= Value::get($build, $storage, $record);
-                if(
-                    !in_array(
-                        $record['type'],
-                        [
-                            Token::TYPE_EXCLAMATION,
-                            Token::TYPE_CAST
-                        ],
-                        true
-                    )
-                ){
+                if($is_collect === false){
+                    $record = Method::get($build, $storage, $record);
+                    $result .= Value::get($build, $storage, $record);
                     if(
-                        $in_array === false &&
-                        empty($record['is_foreach'])
+                        !in_array(
+                            $record['type'],
+                            [
+                                Token::TYPE_EXCLAMATION,
+                                Token::TYPE_CAST
+                            ],
+                            true
+                        )
                     ){
                         if(
-                            in_array(
-                                $record['type'],
-                                [
-                                    Token::TYPE_CODE
-                                ],
-                                true
-                            ) &&
-                            substr($record['value'], -1, 1) == '!'
+                            $in_array === false &&
+                            empty($record['is_foreach'])
                         ){
-                            //nothing
-                        }
-                        elseif($in_array === true){
-                            //nothing
-                        }
-                        elseif($record['type'] === Token::TYPE_PARENTHESE_OPEN) {
-                            $result .= ' ';
-                        }
-                        elseif($record['type'] === Token::TYPE_PARENTHESE_CLOSE) {
-                            $result = substr($result, 0, -3) . ')';
-                        } else {
-                            //maybe need next...
-                            $result .= ' . ';
+                            if(
+                                in_array(
+                                    $record['type'],
+                                    [
+                                        Token::TYPE_CODE
+                                    ],
+                                    true
+                                ) &&
+                                substr($record['value'], -1, 1) == '!'
+                            ){
+                                //nothing
+                            }
+                            elseif($in_array === true){
+                                //nothing
+                            }
+                            elseif($record['type'] === Token::TYPE_PARENTHESE_OPEN) {
+                                $result .= ' ';
+                            }
+                            elseif($record['type'] === Token::TYPE_PARENTHESE_CLOSE) {
+                                $result = substr($result, 0, -3) . ')';
+                            } else {
+                                //maybe need next...
+                                $result .= ' . ';
+                            }
                         }
                     }
+                    $operator_counter++;
+                    if($operator_counter > $operator_max){
+                        break;
+                    }
                 }
-                $operator_counter++;
-                if($operator_counter > $operator_max){
-                    break;
+            } else {
+                if($record['type'] === Token::TYPE_CURLY_OPEN){
+                    $selection = [];
+                    $is_collect = true;
+                    continue;
+                }
+                elseif($record['type'] === Token::TYPE_CURLY_CLOSE){
+                    $result .= Code::result($build, $storage, $type, $selection);
+                    $result .= ' . ';
+                    $is_collect = false;
+                    $type = null;
+                    $selection = [];
+                }
+                elseif($record['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
+                    $in_array = true;
+                    if(substr($result, -3, 3) === ' . '){
+                        $result = substr($result, 0, -3);
+                    }
+                    $result .= '[';
+                }
+                elseif(
+                    $record['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE &&
+                    $in_array === true
+                ){
+                    $result .= ']';
+                    if(
+                        array_key_exists('array_depth', $record) &&
+                        $record['array_depth'] === 0
+                    ){
+                        $in_array = false;
+                    }
+                }
+                elseif($is_collect === false){
+                    $record = Method::get($build, $storage, $record);
+                    $result .= Value::get($build, $storage, $record);
+                    if(
+                        !in_array(
+                            $record['type'],
+                            [
+                                Token::TYPE_EXCLAMATION,
+                                Token::TYPE_CAST
+                            ],
+                            true
+                        )
+                    ){
+                        if(
+                            $in_array === false &&
+                            empty($record['is_foreach'])
+                        ){
+                            if(
+                                in_array(
+                                    $record['type'],
+                                    [
+                                        Token::TYPE_CODE
+                                    ],
+                                    true
+                                ) &&
+                                substr($record['value'], -1, 1) == '!'
+                            ){
+                                //nothing
+                            }
+                            elseif($in_array === true){
+                                //nothing
+                            }
+                            elseif($record['type'] === Token::TYPE_PARENTHESE_OPEN) {
+                                $result .= ' ';
+                            }
+                            elseif($record['type'] === Token::TYPE_PARENTHESE_CLOSE) {
+                                $result = substr($result, 0, -3) . ')';
+                            } else {
+                                //maybe need next...
+                                $result .= ' . ';
+                            }
+                        }
+                    }
+                    $operator_counter++;
+                    if($operator_counter > $operator_max){
+                        break;
+                    }
                 }
             }
         }
