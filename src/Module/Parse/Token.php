@@ -1286,7 +1286,7 @@ class Token {
 
                 foreach($token[$token_nr][$modifier]['attribute'] as $attribute_nr => $attribute){
                     $attribute = Token::cast($attribute);
-                    $token[$token_nr][$modifier]['attribute'] = Token::array($attribute);
+                    $token[$token_nr][$modifier]['attribute'][$attribute_nr] = Token::array($attribute);
                 }
                 ddd($token[$token_nr]);
 
