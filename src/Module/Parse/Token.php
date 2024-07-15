@@ -1269,40 +1269,10 @@ class Token {
                 }
             }
             if($check_attribute === true){
-                $depth = 0;
-                $curly_depth = 0;
-                $attribute_nr = false;
-                $array_start = null;
-                $array = [];
-                $object= (object) [];
-                $object_start = null;
-
-
                 foreach($token[$token_nr][$modifier]['attribute'] as $attribute_nr => $attribute){
                     $attribute = Token::cast($attribute);
                     $token[$token_nr][$modifier]['attribute'][$attribute_nr] = Token::array($attribute);
                 }
-                foreach($token[$token_nr][$modifier]['attribute'] as $attribute_nr => $attribute){
-
-                }
-
-
-
-                ddd($token[$token_nr]);
-
-                $token[$token_nr][$modifier]['attribute'] = Token::cast($token[$token_nr][$modifier]['attribute']);
-                $token[$token_nr][$modifier]['attribute'] = Token::array($token[$token_nr][$modifier]['attribute']);
-//                d($token[$token_nr][$modifier]['attribute']);
-
-//                $token[$token_nr][$modifier]['attribute'] = Token::group($token[$token_nr][$modifier]['attribute'], $options);
-//                d($token[$token_nr]);
-
-//                d($token[$token_nr][$modifier]['attribute']);
-
-
-//                $token[$token_nr][$modifier]['attribute'] = Token::method($token[$token_nr][$modifier]['attribute']);
-//
-//                d($token[$token_nr][$modifier]['attribute']);
             }
             $token[$token_nr][$modifier]['parse'] = $parse;            
         }
