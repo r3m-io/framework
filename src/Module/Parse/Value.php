@@ -301,7 +301,7 @@ class Value {
      */
     private static function array($build, $storage, $record=[]): string
     {
-        d($record);
+//        d($record);
         if(array_key_exists('value', $record)){
             if(is_array($record['value'])){
                 $result = [];
