@@ -311,6 +311,7 @@ class Value {
                         $value = Value::array($build, $storage, $value);
                         d($value);
                     } else {
+                        d($value);
                         $value = Variable::getValue($build, $storage, $value);
                     }
 //                    $value = Variable::getValue($build, $storage, $value);
