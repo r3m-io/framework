@@ -656,6 +656,9 @@ class Variable {
                                 $result = substr($result, 0, -3) . ')';
                             } else {
                                 d($record['type']);
+                                if($record['type'] === 'code'){
+                                    d($record);
+                                }
                                 d($result);
                                 d('here');
                                 //maybe need next...
