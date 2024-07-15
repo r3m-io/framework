@@ -310,9 +310,11 @@ class Value {
                     if(!array_key_exists('type', $value)){
                         $value = Value::array($build, $storage, $value);
                         d($value);
+                    } else {
+                        $value = Variable::getValue($build, $storage, $value);
                     }
 //                    $value = Variable::getValue($build, $storage, $value);
-                    $value = Variable::getValue($build, $storage, $value);
+
                     if(
                         $value ||
                         $value === 0 ||
