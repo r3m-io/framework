@@ -655,7 +655,6 @@ class Variable {
                             elseif($record['type'] === Token::TYPE_PARENTHESE_CLOSE) {
                                 $result = substr($result, 0, -3) . ')';
                             } else {
-                                d($record['type']);
                                 if($record['type'] === 'code'){
                                     $rev = strrev($record['value']);
                                     $explode = explode('(', $rev, 2);
