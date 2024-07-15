@@ -523,9 +523,11 @@ class Variable {
             }
             if(!array_key_exists('type', $record)){
                 if(is_array($record)){
+                    $list = [];
                     foreach($record as $count => $set){
-                        ddd($set);
+                        $list[] = Variable::getValue($build, $storage, $set);
                     }
+                    ddd($list);
                 }
 
                 trace();
