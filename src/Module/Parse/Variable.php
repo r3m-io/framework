@@ -664,7 +664,7 @@ class Variable {
                                         $cast = explode(')', $cast, 2);
                                         if(array_key_exists(1, $cast)){
                                             $cast = trim($cast[0]);
-                                            ddd($cast);
+                                            d($cast);
                                         }
 
                                     }
