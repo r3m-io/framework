@@ -517,6 +517,7 @@ class Variable {
                 $selection[] = $record;
             }
             if(!array_key_exists('type', $record)){
+                ddd($record);
                 if($is_collect === false){
                     $record = Method::get($build, $storage, $record);
                     $result .= Value::get($build, $storage, $record);
