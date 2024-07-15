@@ -660,7 +660,7 @@ class Variable {
                                     $rev = strrev($record['value']);
                                     $explode = explode('(', $rev, 2);
                                     if(array_key_exists(1, $explode)){
-                                        $cast = strrev($explode[1]);
+                                        $cast = strrev($explode[0]);
                                         d($cast);
                                     }
                                     d($record);
