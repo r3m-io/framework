@@ -34,6 +34,9 @@ class Method {
             $record['method']['attribute'] = [];
         }
         if(array_key_exists('attribute', $record['method'])){
+            if(!array_key_exists('php_name', $record['method'])){
+                ddd($record);
+            }
             if($record['method']['php_name'] == Token::TYPE_FOR){
                 $record['method']['assign_before'] = Method::getAssign($record['method']['attribute'], Method::WHERE_BEFORE);
                 $record['method']['assign_after'] = Method::getAssign($record['method']['attribute'], Method::WHERE_AFTER);
