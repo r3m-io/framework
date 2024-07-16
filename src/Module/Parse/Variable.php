@@ -536,6 +536,7 @@ class Variable {
                         if($is_set){
                             $set = Token::define($set);
                             foreach($set as $nr => $item){
+                                $set[$nr] = Method::get($build, $storage, $item);
                                 if(
                                     array_key_exists('value', $set[$nr]) &&
                                     array_key_exists('type', $set[$nr]) &&
@@ -544,7 +545,7 @@ class Variable {
                                 ){
                                     ddd($set[$nr]);
                                 }
-                                $set[$nr] = Method::get($build, $storage, $item);
+
                             }
 
                         }
