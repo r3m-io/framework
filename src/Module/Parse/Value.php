@@ -196,11 +196,11 @@ class Value {
             case 'unset':
                 $result = Value::TYPE_CAST_UNSET . ' ';
             break;
-            case 'clone':
-                $result = Value::TYPE_CAST_CLONE . ' ';
-                return $result;
             case 'object':
                 $result = Value::TYPE_CAST_OBJECT . ' ';
+            break;
+            case 'clone':
+                $result = Value::TYPE_CAST_CLONE . ' ';
                 return $result;
             default:
                 throw new Exception('could not create cast: ' . $record['value']);
