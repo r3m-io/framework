@@ -146,16 +146,15 @@ class Value {
                 $token[] = $record;
                 return Variable::define($build, $storage, $token);
             case Token::TYPE_METHOD :
-                $method = Method::get($build, $storage, $record);
                 if(
-                    array_key_exists('value', $method) &&
-                    array_key_exists('type',$method) &&
-                    $method['type'] === Token::TYPE_METHOD &&
-                    !array_key_exists('php_name', $method)
+                    array_key_exists('value', $record) &&
+                    array_key_exists('type',$record) &&
+                    $record['type'] === Token::TYPE_METHOD &&
+                    !array_key_exists('php_name', $record)
                 ){
-                    ddd($method);
+                    ddd($record);
                 }
-
+                $method = Method::get($build, $storage, $record);
                 if($method['type'] == Token::TYPE_CODE){
                     return $method['value'];
                 } else {
