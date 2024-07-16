@@ -15,13 +15,14 @@ use R3m\Io\Module\Data;
 use Exception;
 
 class Value {
-    const TYPE_CAST_BOOLEAN = '( bool )';
-    const TYPE_CAST_INT = '( int )';
-    const TYPE_CAST_FLOAT = '( float )';
-    const TYPE_CAST_STRING = '( string )';
-    const TYPE_CAST_ARRAY = '( array )';
-    const TYPE_CAST_CLONE = '( clone )';
-    const TYPE_CAST_OBJECT = '( object )';
+    const TYPE_CAST_BOOLEAN = 'bool';
+    const TYPE_CAST_INT = 'int';
+    const TYPE_CAST_FLOAT = 'float';
+    const TYPE_CAST_STRING = 'string';
+    const TYPE_CAST_ARRAY = 'array';
+    const TYPE_CAST_CLONE = 'clone';
+    const TYPE_CAST_OBJECT = 'object';
+    const TYPE_CAST_UNSET = 'unset';
 
     const TYPE_CAST = [
         'bool',
@@ -31,6 +32,7 @@ class Value {
         'array',
         'clone',
         'object',
+        'unset'
     ];
 
     /**
@@ -191,12 +193,16 @@ class Value {
             case 'array':
                 $result = Value::TYPE_CAST_ARRAY;
             break;
+            case 'unset':
+                $result = Value::TYPE_CAST_UNSET . ' ';
+            break;
             case 'clone':
                 $result = Value::TYPE_CAST_CLONE . ' ';
                 return $result;
             case 'object':
                 $result = Value::TYPE_CAST_OBJECT . ' ';
                 return $result;
+
             default:
                 throw new Exception('could not create cast: ' . $record['value']);
         }
