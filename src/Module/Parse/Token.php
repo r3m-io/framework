@@ -793,6 +793,10 @@ class Token {
         $previous_nr = null;
         $previous_previous_nr = null;
         foreach($token as $nr => $record){
+            if(!array_key_exists('type', $record)){
+                $token[$nr] = Token::cast($record);
+                continue;
+            }
             if(
                 $previous_nr !== null &&
                 $previous_previous_nr !== null &&
