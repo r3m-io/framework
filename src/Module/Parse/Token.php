@@ -1202,14 +1202,6 @@ class Token {
                     $array = Token::cast($array);
                     $array = Token::define($array, $options);
                     $array = Token::method($array);
-                    ddd($array);
-
-
-//                    $array = Token::method($array);
-                    d($array);
-//                    $array = Token::cast($array);
-//                    $array = Token::method($array);
-//                    d($array);
                     $record = $token[$array_start];
                     $token[$array_start]['type'] = Token::TYPE_ARRAY;
                     $token[$array_start]['value'] = $array;
@@ -1228,9 +1220,9 @@ class Token {
                     */
                 } else {
                     $array = Token::array_finalize($array, $options);
-                    d($array);
-//                    $array = Token::cast($array);
-//                    $array = Token::method($array);
+                    $array = Token::cast($array);
+                    $array = Token::define($array, $options);
+                    $array = Token::method($array);
                     $token[$array_start]['type'] = Token::TYPE_ARRAY;
                     $token[$array_start]['value'] = $array;
                     $token[$array_start]['is_nested'] = $is_nested_array;
