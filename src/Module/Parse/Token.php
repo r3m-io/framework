@@ -1197,7 +1197,7 @@ class Token {
                 if($is_nested_array > 0){
                     $array = Token::nested_array($array, $options);
                     $array = Token::array_finalize($array, $options);
-                    $array = Token::cast($array);
+//                    $array = Token::cast($array);
                     $array = Token::method($array);
 //                    d($array);
                     $record = $token[$array_start];
@@ -1218,7 +1218,7 @@ class Token {
                     */
                 } else {
                     $array = Token::array_finalize($array, $options);
-                    $array = Token::cast($array);
+//                    $array = Token::cast($array);
                     $array = Token::method($array);
                     $token[$array_start]['type'] = Token::TYPE_ARRAY;
                     $token[$array_start]['value'] = $array;
