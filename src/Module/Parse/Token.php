@@ -1183,7 +1183,6 @@ class Token {
                 if($is_nested_array > 0){
                     $array = Token::nested_array($array, $options);
                     $array = Token::array_finalize($array, $options);
-                    $array = Token::prepare($array, count($array), $options);
                     $array = Token::define($array, $options);
                     $array = Token::group($array, $options);
                     $array = Token::cast($array);
@@ -1207,7 +1206,6 @@ class Token {
                     */
                 } else {
                     $array = Token::array_finalize($array, $options);
-                    $array = Token::prepare($array, count($array), $options);
                     $array = Token::define($array, $options);
                     $array = Token::group($array, $options);
                     $array = Token::cast($array);
