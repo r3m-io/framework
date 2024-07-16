@@ -534,9 +534,8 @@ class Variable {
                             }
                         }
                         if($is_set){
-                            d($set);
+                            $set = Token::define($set);
                             foreach($set as $nr => $item){
-                                $item = Token::define($item);
                                 $set[$nr] = Method::get($build, $storage, $item);
                             }
                             ddd($set);
