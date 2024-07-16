@@ -537,15 +537,6 @@ class Variable {
                             $set = Token::define($set);
                             foreach($set as $nr => $item){
                                 $set[$nr] = Method::get($build, $storage, $item);
-                                if(
-                                    array_key_exists('value', $set[$nr]) &&
-                                    array_key_exists('type', $set[$nr]) &&
-                                    $set[$nr]['type'] === Token::TYPE_METHOD &&
-                                    !array_key_exists('php_name', $set[$nr])
-                                ){
-                                    ddd($set[$nr]);
-                                }
-
                             }
 
                         }
@@ -706,7 +697,6 @@ class Variable {
                             } else {
                                 $add_dot = true;
                                 if($record['type'] === 'code'){
-                                    d($record['value']);
                                     $rev = strrev($record['value']);
                                     if(substr($rev, 0, 6) === ' enolc'){
                                         //check for clone at the end
