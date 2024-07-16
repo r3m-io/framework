@@ -1403,6 +1403,10 @@ class Token {
         $attribute_nr = 0;
         $variable_nr = 0;
         foreach($token as $nr => $record){
+            if(is_string($record)){
+                trace();
+                ddd($token);
+            }
             if(!array_key_exists('type', $record)){
                 $token[$nr] = Token::define($record, $options);
             }
