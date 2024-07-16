@@ -583,23 +583,23 @@ class Variable {
                                         //check for clone at the end
                                         $add_dot = false;
                                     } else {
-                                    $explode = explode('(', $rev, 2);
-                                    if(array_key_exists(1, $explode)){
-                                        $cast = strrev($explode[0]);
-                                        $cast = explode(')', $cast, 2);
-                                        if(array_key_exists(1, $cast)){
-                                            $cast = trim($cast[0]);
-                                            if(
-                                                in_array(
-                                                    $cast,
-                                                    Value::TYPE_CAST,
-                                                    true
-                                                )
-                                            ){
-                                                $add_dot = false;
+                                        $explode = explode('(', $rev, 2);
+                                        if (array_key_exists(1, $explode)) {
+                                            $cast = strrev($explode[0]);
+                                            $cast = explode(')', $cast, 2);
+                                            if (array_key_exists(1, $cast)) {
+                                                $cast = trim($cast[0]);
+                                                if (
+                                                    in_array(
+                                                        $cast,
+                                                        Value::TYPE_CAST,
+                                                        true
+                                                    )
+                                                ) {
+                                                    $add_dot = false;
+                                                }
                                             }
                                         }
-
                                     }
                                 }
                                 //maybe need next...
