@@ -1111,13 +1111,13 @@ class Token {
                         if($depth_match === false){
                             $depth_match = $depth;
                         }
-                        $selection[$i]['depth'] = $depth;
+                        $selection[$i]['array_depth'] = $depth;
                         $depth++;
                     } elseif ($array[$i]['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE) {
                         $depth--;
-                        $selection[$i]['depth'] = $depth;
+                        $selection[$i]['array_depth'] = $depth;
                     } else {
-                        $selection[$i]['depth'] = $depth;
+                        $selection[$i]['array_depth'] = $depth;
                     }
                     if ($depth === $depth_match) {
                         foreach($selection as $key => $unused){
@@ -1144,12 +1144,12 @@ class Token {
         $array = [];
         $array_start = null;
         $count = count($token);
-        $depth = 0;
+        $array_depth = 0;
         $is_nested_array = 0;
         $key = false;
         foreach($token as $nr => $record){
             if($record['type'] === Token::TYPE_BRACKET_SQUARE_OPEN){
-                $depth++;
+                $array_depth++;
                 if($array_start === null){
                     $array_start = $nr;
                     for($i = $nr + 1; $i < $count; $i++){
@@ -1168,12 +1168,12 @@ class Token {
                 }
             }
             elseif($record['type'] === Token::TYPE_BRACKET_SQUARE_CLOSE){
-                $depth--;
+                $array_depth--;
                 if($is_nested_array > 0) {
                     $array[] = $record;
                 }
             }
-            if($depth > 0){
+            if($array_depth > 0){
                 if(
                     in_array(
                         $record['type'],
@@ -1197,6 +1197,7 @@ class Token {
                 if($is_nested_array > 0){
                     $array = Token::nested_array($array, $options);
                     $array = Token::array_finalize($array, $options);
+                    $array = Token::method($array);
                     d($array);
 //                    $array = Token::cast($array);
 //                    $array = Token::method($array);
