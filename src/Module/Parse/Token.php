@@ -1188,7 +1188,7 @@ class Token {
                 $array[] = $record;
             }
             elseif(
-                $depth === 0 &&
+                $array_depth === 0 &&
                 (
                     $array_start ||
                     $array_start === 0
@@ -1206,7 +1206,7 @@ class Token {
                     $token[$array_start]['type'] = Token::TYPE_ARRAY;
                     $token[$array_start]['value'] = $array;
                     $token[$array_start]['is_nested'] = $is_nested_array;
-
+                    $token[$array_start]['array_depth'] = $array_depth;
                     for($i = $array_start + 1; $i <= $nr; $i++){
                         unset($token[$i]);
                     }
@@ -1226,6 +1226,7 @@ class Token {
                     $token[$array_start]['type'] = Token::TYPE_ARRAY;
                     $token[$array_start]['value'] = $array;
                     $token[$array_start]['is_nested'] = $is_nested_array;
+                    $token[$array_start]['array_depth'] = $array_depth;
                     for($i = $array_start + 1; $i <= $nr; $i++){
                         unset($token[$i]);
                     }
