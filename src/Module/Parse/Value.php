@@ -194,10 +194,10 @@ class Value {
                 $result = Value::TYPE_CAST_ARRAY;
             break;
             case 'unset':
-                $result = Value::TYPE_CAST_UNSET . ' ';
+                $result = Value::TYPE_CAST_UNSET;
             break;
             case 'object':
-                $result = Value::TYPE_CAST_OBJECT . ' ';
+                $result = Value::TYPE_CAST_OBJECT;
             break;
             case 'clone':
                 $result = Value::TYPE_CAST_CLONE . ' ';
