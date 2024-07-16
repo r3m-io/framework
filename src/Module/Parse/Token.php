@@ -1200,6 +1200,7 @@ class Token {
                     $array = Token::nested_array($array, $options);
                     $array = Token::array_finalize($array, $options);
                     $array = Token::cast($array);
+                    $array = Token::define($array, $options);
                     $array = Token::method($array);
                     ddd($array);
 
