@@ -1389,7 +1389,10 @@ class Token {
         $attribute_nr = 0;
         $variable_nr = 0;
         foreach($token as $nr => $record){
-            if(
+            if(!array_key_exists('type', $record)){
+                $token[$nr] = define($record, $options);
+            }
+            elseif(
                 $is_variable === null &&
                 $record['type'] === Token::TYPE_METHOD
             ){
