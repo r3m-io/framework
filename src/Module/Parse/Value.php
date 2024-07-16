@@ -167,6 +167,7 @@ class Value {
                     }
                 }
             case Token::TYPE_COMMENT :
+            case Token::TYPE_COMMENT_SINGLE_LINE :
             case Token::TYPE_DOC_COMMENT :
                 return '\'\'';
             case Token::TYPE_WHITESPACE :
