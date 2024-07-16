@@ -526,7 +526,9 @@ class Variable {
                     $list = [];
                     $counter = 0;
                     foreach($record as $count => $set){
-//                        $set = Method::get($build, $storage, $set);
+                        foreach($set as $nr => $item){
+                            $set[$nr] = Method::get($build, $storage, $item);
+                        }
                         $list[] = Variable::getValue($build, $storage, $set);
                         $counter++;
                     }
@@ -574,7 +576,6 @@ class Variable {
                             elseif($record['type'] === Token::TYPE_PARENTHESE_CLOSE) {
                                 $result = substr($result, 0, -3) . ')';
                             } else {
-                                d('gwrw');
                                 //maybe need next...
                                 $result .= ' . ';
                             }
@@ -657,6 +658,7 @@ class Variable {
                             } else {
                                 $add_dot = true;
                                 if($record['type'] === 'code'){
+                                    d($record['value']);
                                     $rev = strrev($record['value']);
                                     $explode = explode('(', $rev, 2);
                                     if(array_key_exists(1, $explode)){
