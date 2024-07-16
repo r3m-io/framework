@@ -1493,6 +1493,7 @@ class Token {
                 unset($token[$nr]);
             }
         }
+        d($token);
         return $token;
     }
 
