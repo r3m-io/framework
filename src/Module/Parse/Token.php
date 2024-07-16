@@ -941,7 +941,10 @@ class Token {
         $is_outside = true;
         $curly_depth = 0;
         foreach($token as $nr => $record){
-            if($record['type'] === Token::TYPE_CURLY_OPEN){
+            if(!array_key_exists('type', $record)){
+                $token[$nr] = Token::group($record, $options);
+            }
+            elseif($record['type'] === Token::TYPE_CURLY_OPEN){
                 $curly_depth++;
                 $is_outside = false;
                 continue;
