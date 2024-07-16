@@ -195,8 +195,10 @@ class Value {
             break;
             case 'float':
             case 'double':
+            case 'real':
                 $result = Value::TYPE_CAST_FLOAT;
             break;
+            case 'binary':
             case 'string':
                 $result = Value::TYPE_CAST_STRING;
             break;
