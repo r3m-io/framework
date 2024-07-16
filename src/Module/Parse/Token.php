@@ -1405,6 +1405,7 @@ class Token {
         foreach($token as $nr => $record){
             if(is_string($record)){
                 trace();
+                d($record);
                 ddd($token);
             }
             if(
