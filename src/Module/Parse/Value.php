@@ -205,7 +205,7 @@ class Value {
             default:
                 throw new Exception('could not create cast: ' . $record['value']);
         }
-        return '(' . $result . ')';
+        return '(' . $result . ') ';
     }
 
     public static function contains_replace($contains=[], $replace=[], $string): mixed
