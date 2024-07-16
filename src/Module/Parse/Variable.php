@@ -578,8 +578,11 @@ class Variable {
                             } else {
                                 $add_dot = true;
                                 if($record['type'] === 'code'){
-                                    d($record['value']);
                                     $rev = strrev($record['value']);
+                                    if(substr($rev, 0, 6) === ' enolc'){
+                                        //check for clone at the end
+                                        $add_dot = false;
+                                    } else {
                                     $explode = explode('(', $rev, 2);
                                     if(array_key_exists(1, $explode)){
                                         $cast = strrev($explode[0]);
@@ -685,23 +688,27 @@ class Variable {
                                 if($record['type'] === 'code'){
                                     d($record['value']);
                                     $rev = strrev($record['value']);
-                                    $explode = explode('(', $rev, 2);
-                                    if(array_key_exists(1, $explode)){
-                                        $cast = strrev($explode[0]);
-                                        $cast = explode(')', $cast, 2);
-                                        if(array_key_exists(1, $cast)){
-                                            $cast = trim($cast[0]);
-                                            if(
-                                                in_array(
-                                                    $cast,
-                                                    Value::TYPE_CAST,
-                                                    true
-                                                )
-                                            ){
-                                                $add_dot = false;
+                                    if(substr($rev, 0, 6) === ' enolc'){
+                                        //check for clone at the end
+                                        $add_dot = false;
+                                    } else {
+                                        $explode = explode('(', $rev, 2);
+                                        if(array_key_exists(1, $explode)){
+                                            $cast = strrev($explode[0]);
+                                            $cast = explode(')', $cast, 2);
+                                            if(array_key_exists(1, $cast)){
+                                                $cast = trim($cast[0]);
+                                                if(
+                                                    in_array(
+                                                        $cast,
+                                                        Value::TYPE_CAST,
+                                                        true
+                                                    )
+                                                ){
+                                                    $add_dot = false;
+                                                }
                                             }
                                         }
-
                                     }
                                 }
                                 //maybe need next...
