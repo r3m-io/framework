@@ -525,16 +525,29 @@ class Variable {
                 if(is_array($record)){
                     $list = [];
                     $counter = 0;
+                    $is_set = false;
                     foreach($record as $count => $set){
-                        $set = Token::prepare($set, $count, []);
-                        $set = Token::define($set, []);
-                        $set = Token::group($set, []);
-                        $set = Token::cast($set);
-                        $set = Token::method($set);
-                        ddd($set);
                         foreach($set as $nr => $item){
-                            $set[$nr] = Method::get($build, $storage, $item);
+                            if(array_key_exists('type', $item)){
+                                $is_set = true;
+                                break;
+                            }
                         }
+                        if($is_set){
+                            $set = Token::prepare($set, $count, []);
+                            $set = Token::define($set, []);
+                            $set = Token::group($set, []);
+                            $set = Token::cast($set);
+                            $set = Token::method($set);
+                            d($set);
+                            foreach($set as $nr => $item){
+                                $set[$nr] = Method::get($build, $storage, $item);
+                            }
+                            ddd($set);
+                        }
+
+
+
                         $list[] = Variable::getValue($build, $storage, $set);
                         $counter++;
                     }
