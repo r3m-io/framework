@@ -985,7 +985,10 @@ class Token {
                 unset($token[$nr]);
                 continue;
             }
-            if(is_int($is_outside)){
+            if(
+                array_key_exists('type', $record) &&
+                is_int($is_outside)
+            ){
                 if(
                     in_array(
                         $record['type'],
