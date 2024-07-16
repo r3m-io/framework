@@ -936,6 +936,7 @@ class Token {
                     }
                     $token[$target]['method']['attribute'][$attribute_nr][$nr] = $record;
                 } else {
+                    d($record);
                     $attribute[$nr] = $record;                
                 }
                 unset($token[$nr]);
