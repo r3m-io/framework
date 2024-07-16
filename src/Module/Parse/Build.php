@@ -1296,7 +1296,7 @@ class Build {
     /**
      * @throws Exception
      */
-    public function requireFunction($tree=[]): array
+    private function requireFunction($tree=[]): array
     {
         $storage = $this->storage();
         if(!$storage){
