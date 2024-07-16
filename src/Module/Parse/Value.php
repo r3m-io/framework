@@ -136,7 +136,6 @@ class Value {
                     return '$this->parse()->compile(\'' . $record['value'] . '\', [], $this->storage())';
                 }
             case Token::TYPE_CAST :
-                trace();
                 return Value::getCast($record);
             case Token::TYPE_ARRAY :
                 return Value::array($build, $storage, $record);
