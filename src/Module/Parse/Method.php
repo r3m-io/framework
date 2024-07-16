@@ -35,6 +35,7 @@ class Method {
         }
         if(array_key_exists('attribute', $record['method'])){
             if(!array_key_exists('php_name', $record['method'])){
+                trace();
                 ddd($record);
             }
             if($record['method']['php_name'] == Token::TYPE_FOR){
