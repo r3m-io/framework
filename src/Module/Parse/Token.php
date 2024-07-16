@@ -1407,7 +1407,10 @@ class Token {
                 trace();
                 ddd($token);
             }
-            if(!array_key_exists('type', $record)){
+            if(
+                !array_key_exists('type', $record) &&
+                is_array($record)
+            ){
                 $token[$nr] = Token::define($record, $options);
             }
             elseif(
