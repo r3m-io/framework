@@ -538,7 +538,6 @@ class Variable {
                             foreach($set as $nr => $item){
                                 $set[$nr] = Method::get($build, $storage, $item);
                             }
-                            ddd($set);
                         }
                         $list[] = Variable::getValue($build, $storage, $set);
                         $counter++;
