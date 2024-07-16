@@ -1403,11 +1403,6 @@ class Token {
         $attribute_nr = 0;
         $variable_nr = 0;
         foreach($token as $nr => $record){
-            if(is_string($record)){
-                trace();
-                d($record);
-                ddd($token);
-            }
             if(
                 !array_key_exists('type', $record) &&
                 is_array($record)
@@ -1500,7 +1495,6 @@ class Token {
                 unset($token[$nr]);
             }
         }
-        d($token);
         return $token;
     }
 
