@@ -526,6 +526,10 @@ class Variable {
                     $list = [];
                     $counter = 0;
                     foreach($record as $count => $set){
+                        $set = Token::prepare($set, $count, []);
+                        $set = Token::define($set, []);
+                        $set = Token::group($set, []);
+                        $set = Token::cast($set);
                         $set = Token::method($set);
                         ddd($set);
                         foreach($set as $nr => $item){
