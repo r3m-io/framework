@@ -202,7 +202,6 @@ class Value {
             case 'object':
                 $result = Value::TYPE_CAST_OBJECT . ' ';
                 return $result;
-
             default:
                 throw new Exception('could not create cast: ' . $record['value']);
         }
