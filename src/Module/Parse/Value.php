@@ -149,9 +149,11 @@ class Value {
                 if(
                     array_key_exists('value', $record) &&
                     array_key_exists('type',$record) &&
+                    array_key_exists('method',$record) &&
                     $record['type'] === Token::TYPE_METHOD &&
-                    !array_key_exists('php_name', $record)
+                    !array_key_exists('php_name', $record['method'])
                 ){
+                    $record['method']['php_name'] = 'function_' . str_replace('.', '_', $record['value']);
                     ddd($record);
                 }
                 $method = Method::get($build, $storage, $record);
