@@ -545,9 +545,6 @@ class Variable {
                             }
                             ddd($set);
                         }
-
-
-
                         $list[] = Variable::getValue($build, $storage, $set);
                         $counter++;
                     }
