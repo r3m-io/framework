@@ -833,6 +833,10 @@ class Token {
         $assign_nr = 0;
         $value = '';
         foreach($token as $nr => $record){
+            if(!array_key_exists('type', $record)){
+                $token[$nr] = Token::method($record);
+                continue;
+            }
             if($skip > 0){
                 $skip--;
                 $value .= $record['value'];
