@@ -1390,7 +1390,7 @@ class Token {
         $variable_nr = 0;
         foreach($token as $nr => $record){
             if(!array_key_exists('type', $record)){
-                $token[$nr] = define($record, $options);
+                $token[$nr] = Token::define($record, $options);
             }
             elseif(
                 $is_variable === null &&
