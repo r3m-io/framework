@@ -205,9 +205,6 @@ class Value {
             case 'array':
                 $result = Value::TYPE_CAST_ARRAY;
             break;
-            case 'unset':
-                $result = Value::TYPE_CAST_UNSET;
-            break;
             case 'object':
                 $result = Value::TYPE_CAST_OBJECT;
             break;
