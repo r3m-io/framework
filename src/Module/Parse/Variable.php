@@ -534,11 +534,6 @@ class Variable {
                             }
                         }
                         if($is_set){
-                            $set = Token::prepare($set, $count, []);
-                            $set = Token::define($set, []);
-                            $set = Token::group($set, []);
-                            $set = Token::cast($set);
-                            $set = Token::method($set);
                             d($set);
                             foreach($set as $nr => $item){
                                 $set[$nr] = Method::get($build, $storage, $item);
