@@ -527,6 +527,7 @@ class Variable {
                     $counter = 0;
                     foreach($record as $count => $set){
                         $set = Token::method($set);
+                        ddd($set);
                         foreach($set as $nr => $item){
                             $set[$nr] = Method::get($build, $storage, $item);
                         }
