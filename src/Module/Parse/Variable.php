@@ -314,11 +314,24 @@ class Variable {
             } else {
                 $variable['variable']['attribute'] = substr($variable['variable']['attribute'], 0, -2) . '\'';
             }
-            d($variable);
-            $define = '$this->storage()->data(\'' . $variable['variable']['attribute'] . ')';
+            if(
+                array_key_exists('is_literal', $variable) &&
+                $variable['is_literal'] === true
+            ){
+                $define = $variable['variable']['name'];
+            } else {
+                $define = '$this->storage()->data(\'' . $variable['variable']['attribute'] . ')';
+            }
+
         } else {
-            d($variable);
-            $define = '$this->storage()->data(\'' . $variable['variable']['attribute'] . '\')';
+            if(
+                array_key_exists('is_literal', $variable) &&
+                $variable['is_literal'] === true
+            ){
+                $define = $variable['variable']['name'];
+            } else {
+                $define = '$this->storage()->data(\'' . $variable['variable']['attribute'] . '\')';
+            }
         }
         $define_modifier = '';
         if(
