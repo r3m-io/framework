@@ -897,23 +897,23 @@ class Token {
                             continue;
                         }
                         $attribute_value['array_depth'] = $square_depth;
-                        $literal = [];
-                        $literal_names = [];
+                        $is_literal = false;
                         if($object){
                             $literal = $object->config('parse.plugin.literal');
                             foreach($literal as $literal_key => $literal_value){
                                 if(property_exists($literal_value, 'name')){
-                                    $literal_names[] = $literal_value->name;
+                                    if($token[$target]['method']['name'] === $literal_value->name){
+                                        $is_literal = $literal_value;
+                                        break;
+                                    }
                                 }
                             }
                         }
                         if(
-                            in_array(
-                                $token[$target]['method']['name'],
-                                $literal_names,
-                                true
-                            )
+                            $is_literal
                         ){
+                            d($attribute_nr);
+                            ddd($is_literal);
                             $attribute_value['is_literal'] = true;
                         }
                         $token[$target]['method']['attribute'][$attribute_nr][$attribute_key] = $attribute_value;
