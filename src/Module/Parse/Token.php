@@ -900,7 +900,15 @@ class Token {
                         $literal = [];
                         if($object){
                             $literal = $object->config('parse.plugin.literal');
-                            ddd($literal);
+                        }
+                        if(
+                            in_array(
+                                $token[$target]['method']['name'],
+                                $literal,
+                                true
+                            )
+                        ){
+                            $attribute_value['is_literal'] = true;
                         }
                         $token[$target]['method']['attribute'][$attribute_nr][$attribute_key] = $attribute_value;
                     }                    
