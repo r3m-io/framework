@@ -144,7 +144,6 @@ class Value {
                 //adding modifiers
                 $token = [];
                 $token[] = $record;
-                d($record);
                 return Variable::define($build, $storage, $token);
             case Token::TYPE_METHOD :
                 if(
