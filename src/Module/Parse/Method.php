@@ -122,6 +122,7 @@ class Method {
                         $list[$nr] = '';
                     }
                     foreach($token as $token_key => $token_value){
+                        d($token_value);
                         if(array_key_exists('parse', $token_value)){
                             $list[$nr] .= $token_value['parse'];
                         } else {
@@ -151,6 +152,7 @@ class Method {
                     if(is_string($value)){
                         $value = '$this->parse()->compile(\'' . $value .'\', [], $this->storage())';
                     }
+
                     $attribute .= $value . ', ';
                 }                
             } else {
