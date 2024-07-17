@@ -318,7 +318,7 @@ class Variable {
                 array_key_exists('is_literal', $variable) &&
                 $variable['is_literal'] === true
             ){
-                $define = $variable['variable']['name'];
+                $define = '\'' . $variable['variable']['name'] . '\'';
             } else {
                 $define = '$this->storage()->data(\'' . $variable['variable']['attribute'] . ')';
             }
@@ -328,7 +328,7 @@ class Variable {
                 array_key_exists('is_literal', $variable) &&
                 $variable['is_literal'] === true
             ){
-                $define = $variable['variable']['name'];
+                $define = '\'' . $variable['variable']['name'] . '\'';
             } else {
                 $define = '$this->storage()->data(\'' . $variable['variable']['attribute'] . '\')';
             }
