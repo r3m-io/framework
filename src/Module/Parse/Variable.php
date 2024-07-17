@@ -314,6 +314,7 @@ class Variable {
             } else {
                 $variable['variable']['attribute'] = substr($variable['variable']['attribute'], 0, -2) . '\'';
             }
+            d($variable);
             $define = '$this->storage()->data(\'' . $variable['variable']['attribute'] . ')';
         } else {
             $define = '$this->storage()->data(\'' . $variable['variable']['attribute'] . '\')';
