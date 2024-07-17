@@ -252,6 +252,9 @@
                 "capture.append",
                 "script",
                 "trait"
+            ],
+            "literal": [
+                "unset"
             ]
         },
         "use": [
