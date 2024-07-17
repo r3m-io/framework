@@ -872,7 +872,20 @@ class Token {
                 $depth == $record['depth'] - 1
             ){
                 if(!empty($attribute)){
-                    $attribute = Token::method($attribute);                    
+                    $attribute = Token::method($attribute);
+                    $is_literal = false;
+                    if($object){
+                        $literal = $object->config('parse.plugin.literal');
+                        foreach($literal as $literal_key => $literal_value){
+                            if(property_exists($literal_value, 'name')){
+                                if($token[$target]['method']['name'] === $literal_value->name){
+                                    $is_literal = $literal_value;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    d($is_literal);
                     foreach($attribute as $attribute_key => $attribute_value){
                         if($attribute_value['type'] === Token::TYPE_CURLY_OPEN){
                             $curly_depth++;
@@ -897,18 +910,7 @@ class Token {
                             continue;
                         }
                         $attribute_value['array_depth'] = $square_depth;
-                        $is_literal = false;
-                        if($object){
-                            $literal = $object->config('parse.plugin.literal');
-                            foreach($literal as $literal_key => $literal_value){
-                                if(property_exists($literal_value, 'name')){
-                                    if($token[$target]['method']['name'] === $literal_value->name){
-                                        $is_literal = $literal_value;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
+
                         if(
                             $is_literal
                         ){
