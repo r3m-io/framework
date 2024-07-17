@@ -18,6 +18,7 @@ function function_execute(Parse $parse, Data $data, $command='', $notification='
     $command = escapeshellcmd($command);
     $output = false;
     Core::execute($object, $command, $output, $notify);
+    d($notification);
     d($notify);
     if($notification){
         if(
