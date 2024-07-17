@@ -1243,7 +1243,6 @@ class Token {
                     $array = Token::cast($array);
                     $array = Token::define($array, $options);
                     $array = Token::method($array);
-                    $record = $token[$array_start];
                     $token[$array_start]['type'] = Token::TYPE_ARRAY;
                     $token[$array_start]['value'] = $array;
                     $token[$array_start]['is_nested'] = $is_nested_array;
@@ -1251,14 +1250,6 @@ class Token {
                     for($i = $array_start + 1; $i <= $nr; $i++){
                         unset($token[$i]);
                     }
-                    /*
-                    $token[$array_start]['type'] = Token::TYPE_ARRAY;
-                    $token[$array_start]['value'] = $array;
-                    $token[$array_start]['is_nested'] = $is_nested_array;
-                    for($i = $array_start + 1; $i <= $nr; $i++){
-                        unset($token[$i]);
-                    }
-                    */
                 } else {
                     $array = Token::array_finalize($array, $options);
                     $array = Token::cast($array);
@@ -1272,10 +1263,6 @@ class Token {
                         unset($token[$i]);
                     }
                 }
-//                $token[$array_start]['type'] = Token::TYPE_ARRAY;
-//                $token[$array_start]['value'] = $array;
-//                $token[$array_start]['is_nested'] = $is_nested_array;
-
                 $array_start = null;
                 $array = [];
                 $is_nested_array = 0;
@@ -1499,7 +1486,9 @@ class Token {
                 elseif(
                     (
                         $record['type'] === Token::TYPE_CURLY_CLOSE
-                    ) ||
+                    )
+                    /*
+                    ||
                     (
                         $record['is_operator'] === true &&
                         (
@@ -1510,6 +1499,7 @@ class Token {
                             $record['type'] !== Token::TYPE_DOT
                         )
                     )
+                    */
                 ){
                     $token[$is_variable]['type'] = Token::TYPE_VARIABLE;
 //                    d($variable);
