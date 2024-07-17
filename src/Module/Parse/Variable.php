@@ -175,7 +175,7 @@ class Variable {
             $attribute = Variable::getArrayAttribute($build, $storage, $variable);
             $assign = '$this->storage()->set(';
             $assign .= $attribute . ', ';
-            $value = Variable::getValue($build, $storage, $token, 0, $is_result);
+            $value = Variable::getValue($build, $storage, $token, $is_result);
             $assign .= $value . ')';
             return $assign;
         } else {
@@ -183,7 +183,7 @@ class Variable {
                 case '=' :
                     $assign = '$this->storage()->set(\'';
                     $assign .= $variable['variable']['attribute'] . '\', ';
-                    $value = Variable::getValue($build, $storage, $token, 0, $is_result);
+                    $value = Variable::getValue($build, $storage, $token, $is_result);
                     $assign .= $value . ')';
                     return $assign;
                 case '+=' :
@@ -192,7 +192,7 @@ class Variable {
                     $assign .= '$this->assign_plus_equal(' ;
                     $assign .= '$this->storage()->data(\'';
                     $assign .= $variable['variable']['attribute'] . '\'), ';
-                    $value = Variable::getValue($build, $storage, $token, 0, $is_result);
+                    $value = Variable::getValue($build, $storage, $token, $is_result);
                     $assign .= $value . '))';
                     return $assign;
                 case '-=' :
@@ -201,7 +201,7 @@ class Variable {
                     $assign .= '$this->assign_min_equal(' ;
                     $assign .= '$this->storage()->data(\'';
                     $assign .= $variable['variable']['attribute'] . '\'), ';
-                    $value = Variable::getValue($build, $storage, $token, 0, $is_result);
+                    $value = Variable::getValue($build, $storage, $token, $is_result);
                     $assign .= $value . '))';
                     return $assign;
                 case '.=' :
@@ -210,7 +210,7 @@ class Variable {
                     $assign .= '$this->assign_dot_equal(' ;
                     $assign .= '$this->storage()->data(\'';
                     $assign .= $variable['variable']['attribute'] . '\'), ';
-                    $value = Variable::getValue($build, $storage, $token, 0, $is_result);
+                    $value = Variable::getValue($build, $storage, $token, $is_result);
                     $assign .= $value . '))';
                     return $assign;
                 case '++' :
@@ -395,7 +395,7 @@ class Variable {
     /**
      * @throws Exception
      */
-    public static function getValue(Build $build, Data $storage, $token=[], $index=0, $is_result=false): mixed
+    public static function getValue(Build $build, Data $storage, $token=[], $is_result=false): mixed
     {
         $set_max = 1024;
         $set_counter = 0;
