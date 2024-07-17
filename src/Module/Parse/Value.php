@@ -158,7 +158,6 @@ class Value {
                 }
                 $method = Method::get($build, $storage, $record);
                 if($method['type'] == Token::TYPE_CODE){
-                    d($method['value']);
                     return $method['value'];
                 } else {
                     if(empty($record['method']['trait'])){
