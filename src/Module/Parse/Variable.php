@@ -318,8 +318,6 @@ class Variable {
                 array_key_exists('is_literal', $variable) &&
                 $variable['is_literal'] === true
             ){
-                $literal = $object->config('parse.plugin.literal');
-                ddd($literal);
                 $define = '\'' . $variable['variable']['name'] . '\'';
             } else {
                 $define = '$this->storage()->data(\'' . $variable['variable']['attribute'] . ')';
@@ -330,20 +328,6 @@ class Variable {
                 array_key_exists('is_literal', $variable) &&
                 $variable['is_literal'] === true
             ){
-                $literal = $object->config('parse.plugin.literal');
-
-                /*
-                if($literal){
-                    foreach($literal as $plugin){
-                        if(property_exists($plugin, 'name')){
-                            if($plugin->name === $variable['variable']['name']){
-//                                return $plugin->value;
-                            }
-                        }
-                    }
-                }
-                */
-                ddd($literal);
                 $define = '\'' . $variable['variable']['name'] . '\'';
             } else {
                 $define = '$this->storage()->data(\'' . $variable['variable']['attribute'] . '\')';
