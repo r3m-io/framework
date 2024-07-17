@@ -317,6 +317,7 @@ class Variable {
             d($variable);
             $define = '$this->storage()->data(\'' . $variable['variable']['attribute'] . ')';
         } else {
+            d($variable);
             $define = '$this->storage()->data(\'' . $variable['variable']['attribute'] . '\')';
         }
         $define_modifier = '';
