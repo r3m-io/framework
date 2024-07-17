@@ -912,7 +912,6 @@ class Token {
                             continue;
                         }
                         $attribute_value['array_depth'] = $square_depth;
-
                         if(
                             $is_literal
                         ){
