@@ -2294,7 +2294,7 @@ class Token {
                         Token::is_hex($record['value']) &&
                         $hex === null
                     ){
-                        ddd($record);
+                        d($record);
                         $token[$nr]['execute'] = strtoupper($record['value']);
                         $token[$nr]['is_executed'] = true;
                         $token[$nr]['type'] = Token::TYPE_HEX;
