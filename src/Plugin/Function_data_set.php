@@ -12,5 +12,11 @@ use R3m\Io\Module\Parse;
 use R3m\Io\Module\Data;
 
 function function_data_set(Parse $parse, Data $data, $attribute, $value=null){
+    if(
+        is_string($attribute) &&
+        substr($attribute, 0, 1) === '$'
+    ){
+        $attribute = substr($attribute, 1);
+    }
     $data->set($attribute, $value);
 }

@@ -13,6 +13,12 @@ use R3m\Io\Module\Data;
 use R3m\Io\Module\Core;
 
 function function_cookie(Parse $parse, Data $data, $attribute=null, $value=null, $duration=null){
+    if(
+        is_string($attribute) &&
+        substr($attribute, 0, 1) === '$'
+    ){
+        $attribute = substr($attribute, 1);
+    }
     $object = $parse->object();
     if(!empty($parse->is_assign())){
         $cookie = $object->cookie($attribute, $value, $duration);

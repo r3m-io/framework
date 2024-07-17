@@ -19,6 +19,12 @@ function function_execute(Parse $parse, Data $data, $command='', $notification='
     $output = false;
     Core::execute($object, $command, $output, $notify);
     if($notification){
+        if(
+            is_string($notification) &&
+            substr($notification, 0, 1) === '$'
+        ){
+            $notification = substr($notification, 1);
+        }
         $object->data($notification, $notify);
     }
 //    exec($command, $output);

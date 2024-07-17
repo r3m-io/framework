@@ -18,6 +18,12 @@ function function_data(Parse $parse, Data $data, $attribute=null, $value=null){
     ){
         return $data->data();
     } else {
+        if(
+            is_string($attribute) &&
+            substr($attribute, 0, 1) === '$'
+        ){
+            $attribute = substr($attribute, 1);
+        }
         return $data->data($attribute, $value);
     }
 }

@@ -12,6 +12,9 @@ use R3m\Io\Module\Parse;
 use R3m\Io\Module\Data;
 
 function function_config(Parse $parse, Data $data, $attribute=null, $value=null){
+    if(substr($attribute, 0, 1) === '$'){
+        $attribute = substr($attribute, 1);
+    }
     $object = $parse->object();
     if($value !== null){
         $object->config($attribute, $value);

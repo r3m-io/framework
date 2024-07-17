@@ -12,5 +12,11 @@ use R3m\Io\Module\Parse;
 use R3m\Io\Module\Data;
 
 function function_data_delete(Parse $parse, Data $data, $attribute){
+    if(
+        is_string($attribute) &&
+        substr($attribute, 0, 1) === '$'
+    ){
+        $attribute = substr($attribute, 1);
+    }
     $data->delete($attribute);
 }

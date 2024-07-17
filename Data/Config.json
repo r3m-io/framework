@@ -294,7 +294,100 @@
                     "name": "array_shift",
                     "count": 1
                 },
-
+                {
+                    "name": "array_unshift",
+                    "count": 1
+                },
+                {
+                    "name": "capture_append",
+                    "count": 1
+                },
+                {
+                    "name": "capture_prepend",
+                    "count": 1
+                },
+                {
+                    "name": "config",
+                    "count": 1
+                },
+                {
+                    "name": "core_exec",
+                    "count": 1,
+                    "index": 1
+                },
+                {
+                    "name": "core_execute",
+                    "count": 1,
+                    "index": 1
+                },
+                {
+                    "name": "core_stream",
+                    "count": 1,
+                    "index": 1
+                },
+                {
+                    "name": "core_stream_app",
+                    "count": 1,
+                    "index": 1
+                },
+                {
+                    "name": "data",
+                    "count": 1
+                },
+                {
+                    "name": "data_delete",
+                    "count": 1
+                },
+                {
+                    "name": "data_extract",
+                    "count": 1
+                },
+                {
+                    "name": "data_get",
+                    "count": 1
+                },
+                {
+                    "name": "data_has",
+                    "count": 1
+                },
+                {
+                    "name": "data_index",
+                    "count": 1
+                },
+                {
+                    "name": "data_set",
+                    "count": 1
+                },
+                {
+                    "name": "execute",
+                    "count": 1,
+                    "index": 1
+                },
+                {
+                    "name": "preg_match",
+                    "count": 1,
+                    "index": 2
+                },
+                {
+                    "name": "preg_match_all",
+                    "count": 1,
+                    "index": 2
+                },
+                {
+                    "name": "preg_match_replace",
+                    "count": 1,
+                    "index": 4
+                },
+                {
+                    "name": "string_replace",
+                    "count": 1,
+                    "index": 3
+                },
+                {
+                    "name": "string_replace_case_insensitive",
+                    "count": 1,
+                    "index": 3
+                }
             ]
         },
         "use": [

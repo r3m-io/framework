@@ -12,5 +12,11 @@ use R3m\Io\Module\Parse;
 use R3m\Io\Module\Data;
 
 function function_data_extract(Parse $parse, Data $data, $attribute=null){
+    if(
+        is_string($attribute) &&
+        substr($attribute, 0, 1) === '$'
+    ){
+        $attribute = substr($attribute, 1);
+    }
     return $data->extract($attribute);
 }

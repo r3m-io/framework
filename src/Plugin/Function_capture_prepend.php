@@ -12,6 +12,9 @@ use R3m\Io\Module\Parse;
 use R3m\Io\Module\Data;
 
 function function_capture_prepend(Parse $parse, Data $data, $name, $value=null){
+    if(substr($name, 0, 1) === '$'){
+        $name = substr($name, 1);
+    }
     $list = $data->data($name);
     if(empty($list)){
         $list = [];

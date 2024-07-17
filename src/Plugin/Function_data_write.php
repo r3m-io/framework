@@ -18,8 +18,8 @@ use R3m\Io\Module\File;
  * @throws \R3m\Io\Exception\ObjectException
  * @throws \R3m\Io\Exception\FileWriteException
  */
-function function_data_write(Parse $parse, Data $data, $url='', $write=false){
-    $write = Core::object($write, 'json');
+function function_data_write(Parse $parse, Data $data, $url='', $write=false, $output='json'){
+    $write = Core::object($write, $output);
     $bytes = File::write($url, $write);    
     return null;
 }
