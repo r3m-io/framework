@@ -18,8 +18,6 @@ function function_execute(Parse $parse, Data $data, $command='', $notification='
     $command = escapeshellcmd($command);
     $output = false;
     Core::execute($object, $command, $output, $notify);
-    d($notification);
-    d($notify);
     if($notification){
         if(
             is_string($notification) &&
@@ -27,8 +25,8 @@ function function_execute(Parse $parse, Data $data, $command='', $notification='
         ){
             $notification = substr($notification, 1);
         }
-        $object->data($notification, $notify);
-        ddd($object->data());
+        $data->data($notification, $notify);
+        ddd($data->data());
     }
 //    exec($command, $output);
     return $output;
