@@ -175,7 +175,7 @@ class Variable {
             $attribute = Variable::getArrayAttribute($build, $storage, $variable);
             $assign = '$this->storage()->set(';
             $assign .= $attribute . ', ';
-            $value = Variable::getValue($build, $storage, $token, $is_result);
+            $value = Variable::getValue($build, $storage, $token, 0, $is_result);
             $assign .= $value . ')';
             return $assign;
         } else {
@@ -183,7 +183,7 @@ class Variable {
                 case '=' :
                     $assign = '$this->storage()->set(\'';
                     $assign .= $variable['variable']['attribute'] . '\', ';
-                    $value = Variable::getValue($build, $storage, $token, $is_result);
+                    $value = Variable::getValue($build, $storage, $token, 0, $is_result);
                     $assign .= $value . ')';
                     return $assign;
                 case '+=' :
@@ -192,7 +192,7 @@ class Variable {
                     $assign .= '$this->assign_plus_equal(' ;
                     $assign .= '$this->storage()->data(\'';
                     $assign .= $variable['variable']['attribute'] . '\'), ';
-                    $value = Variable::getValue($build, $storage, $token, $is_result);
+                    $value = Variable::getValue($build, $storage, $token, 0, $is_result);
                     $assign .= $value . '))';
                     return $assign;
                 case '-=' :
@@ -201,7 +201,7 @@ class Variable {
                     $assign .= '$this->assign_min_equal(' ;
                     $assign .= '$this->storage()->data(\'';
                     $assign .= $variable['variable']['attribute'] . '\'), ';
-                    $value = Variable::getValue($build, $storage, $token, $is_result);
+                    $value = Variable::getValue($build, $storage, $token, 0, $is_result);
                     $assign .= $value . '))';
                     return $assign;
                 case '.=' :
@@ -210,7 +210,7 @@ class Variable {
                     $assign .= '$this->assign_dot_equal(' ;
                     $assign .= '$this->storage()->data(\'';
                     $assign .= $variable['variable']['attribute'] . '\'), ';
-                    $value = Variable::getValue($build, $storage, $token, $is_result);
+                    $value = Variable::getValue($build, $storage, $token, 0, $is_result);
                     $assign .= $value . '))';
                     return $assign;
                 case '++' :
@@ -264,7 +264,7 @@ class Variable {
     /**
      * @throws Exception
      */
-    public static function define(Build $build, Data $storage, $token=[]): string
+    public static function define(Build $build, Data $storage, $token=[], $index=0): string
     {
         $variable = array_shift($token);
         $object = $build->object();
@@ -318,6 +318,7 @@ class Variable {
                 array_key_exists('is_literal', $variable) &&
                 $variable['is_literal'] === true
             ){
+                d($index);
                 $define = '\'' . $variable['variable']['name'] . '\'';
             } else {
                 $define = '$this->storage()->data(\'' . $variable['variable']['attribute'] . ')';
@@ -328,6 +329,7 @@ class Variable {
                 array_key_exists('is_literal', $variable) &&
                 $variable['is_literal'] === true
             ){
+                d($index);
                 $define = '\'' . $variable['variable']['name'] . '\'';
             } else {
                 $define = '$this->storage()->data(\'' . $variable['variable']['attribute'] . '\')';
@@ -346,29 +348,29 @@ class Variable {
                     $define_modifier .= '$this->' . $modifier['php_name'] . '($this->parse(), $this->storage(), ' . $define . ', ';
                     if(!empty($modifier['has_attribute'])){
                         foreach($modifier['attribute'] as $attribute_nr => $attribute_list){
-                            foreach($attribute_list as $attribute_nr => $attribute){
+                            foreach($attribute_list as $token_nr => $attribute){
                                 switch($attribute['type']){
                                     case Token::TYPE_CAST:
                                     case Token::TYPE_EXCLAMATION:
                                     case Token::TYPE_OPERATOR:
                                         $temp = [];
                                         $temp[] = $attribute;
-                                        $define_modifier .= Value::get($build, $storage, $attribute) . ' ';
+                                        $define_modifier .= Value::get($build, $storage, $attribute, $attribute_nr) . ' ';
                                         break;
                                     case Token::TYPE_METHOD :
                                         $tree = [];
                                         $tree[]= $attribute;
                                         $tree = $build->require('modifier', $tree);
                                         $tree = $build->require('function', $tree);
-                                        $define_modifier .= Value::get($build, $storage, reset($tree)) . ', ';
+                                        $define_modifier .= Value::get($build, $storage, reset($tree), $attribute_nr) . ', ';
                                         break;
                                     case Token::TYPE_VARIABLE:
                                         $temp = [];
                                         $temp[] = $attribute;
-                                        $define_modifier .= Variable::define($build, $storage, $temp) . ', ';
+                                        $define_modifier .= Variable::define($build, $storage, $temp, $attribute_nr) . ', ';
                                         break;
                                     default :
-                                        $define_modifier .= Value::get($build, $storage, $attribute) . ', ';
+                                        $define_modifier .= Value::get($build, $storage, $attribute, $attribute_nr) . ', ';
                                 }
                             }
                         }
@@ -447,7 +449,7 @@ class Variable {
     /**
      * @throws Exception
      */
-    public static function getValue(Build $build, Data $storage, $token=[], $is_result=false): mixed
+    public static function getValue(Build $build, Data $storage, $token=[], $index=0, $is_result=false): mixed
     {
         $set_max = 1024;
         $set_counter = 0;
@@ -552,7 +554,6 @@ class Variable {
                             foreach($set as $nr => $item){
                                 $set[$nr] = Method::get($build, $storage, $item);
                             }
-
                         }
                         $list[] = Variable::getValue($build, $storage, $set);
                         $counter++;

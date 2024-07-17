@@ -898,13 +898,19 @@ class Token {
                         }
                         $attribute_value['array_depth'] = $square_depth;
                         $literal = [];
+                        $literal_names = [];
                         if($object){
                             $literal = $object->config('parse.plugin.literal');
+                            foreach($literal as $literal_key => $literal_value){
+                                if(property_exists($literal_value, 'name')){
+                                    $literal_names[] = $literal_value->name;
+                                }
+                            }
                         }
                         if(
                             in_array(
                                 $token[$target]['method']['name'],
-                                $literal,
+                                $literal_names,
                                 true
                             )
                         ){

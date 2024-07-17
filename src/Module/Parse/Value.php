@@ -38,7 +38,7 @@ class Value {
     /**
      * @throws Exception
      */
-    public static function get(Build $build, Data $storage, $record=[]): mixed
+    public static function get(Build $build, Data $storage, $record=[], $index=0): mixed
     {
         if(!array_key_exists('type', $record)){
             if(is_array($record)){
@@ -143,7 +143,7 @@ class Value {
                 //adding modifiers
                 $token = [];
                 $token[] = $record;
-                return Variable::define($build, $storage, $token);
+                return Variable::define($build, $storage, $token, $index);
             case Token::TYPE_METHOD :
                 if(
                     array_key_exists('value', $record) &&

@@ -159,7 +159,7 @@ class Method {
                 foreach($record['method']['attribute'] as $nr => $token){
                     $token = $build->require('modifier', $token);
                     $token = $build->require('function', $token);
-                    $value = Variable::getValue($build, $storage, $token);
+                    $value = Variable::getValue($build, $storage, $token, $nr);
                     d($value);
                     $attribute .= $value . ', ';
                 }
@@ -416,7 +416,7 @@ class Method {
             } else {
                 foreach($record['method']['attribute'] as $nr => $token){
                     $token = $build->require('function', $token);
-                    $value = Variable::getValue($build, $storage, $token);
+                    $value = Variable::getValue($build, $storage, $token, $nr);
                     $attribute[] = $value;
                 }
             }
