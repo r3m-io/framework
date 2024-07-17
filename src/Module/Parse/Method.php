@@ -488,6 +488,7 @@ class Method {
         $method = array_shift($token);
         $record = Method::get($build, $storage, $method);
         if($record['type'] === Token::TYPE_CODE){
+            d($record);
             return $record['value'];
         }
         throw new Exception('Method type (' . $record['type'] . ') undefined');

@@ -788,7 +788,7 @@ class Parse {
                 $object->config('test', true);
             }
             if($object->config('test')){
-                ddd($tree);
+//                ddd($tree);
             }
             try {
                 $tree = $build->require('function', $tree);
