@@ -264,7 +264,7 @@ class Variable {
     /**
      * @throws Exception
      */
-    public static function define(Build $build, Data $storage, $token=[], $index=0): string
+    public static function define(Build $build, Data $storage, $token=[]): string
     {
         $variable = array_shift($token);
         $object = $build->object();
@@ -318,7 +318,8 @@ class Variable {
                 array_key_exists('is_literal', $variable) &&
                 $variable['is_literal'] === true
             ){
-                d($index);
+                $literal = $object->config('parse.plugin.literal');
+                ddd($literal);
                 $define = '\'' . $variable['variable']['name'] . '\'';
             } else {
                 $define = '$this->storage()->data(\'' . $variable['variable']['attribute'] . ')';
@@ -342,7 +343,7 @@ class Variable {
                     }
                 }
                 */
-                d($index);
+                ddd($literal);
                 $define = '\'' . $variable['variable']['name'] . '\'';
             } else {
                 $define = '$this->storage()->data(\'' . $variable['variable']['attribute'] . '\')';
@@ -546,6 +547,10 @@ class Variable {
                 }
                 $selection[] = $record;
             }
+            if(is_string($record)){
+                trace();
+                ddd($record);
+            }
             if(!array_key_exists('type', $record)){
                 if(is_array($record)){
                     $list = [];
@@ -564,7 +569,7 @@ class Variable {
                                 $set[$nr] = Method::get($build, $storage, $item);
                             }
                         }
-                        $list[] = Variable::getValue($build, $storage, $set, $counter);
+                        $list[] = Variable::getValue($build, $storage, $set);
                         $counter++;
                     }
                     if($counter === 1){
@@ -575,7 +580,7 @@ class Variable {
                 }
                 elseif($is_collect === false){
                     $record = Method::get($build, $storage, $record);
-                    $result .= Value::get($build, $storage, $record, $index);
+                    $result .= Value::get($build, $storage, $record);
                     if(
                         !in_array(
                             $record['type'],
@@ -683,7 +688,7 @@ class Variable {
                 }
                 elseif($is_collect === false){
                     $record = Method::get($build, $storage, $record);
-                    $result .= Value::get($build, $storage, $record, $index);
+                    $result .= Value::get($build, $storage, $record);
                     if(
                         !in_array(
                             $record['type'],
