@@ -28,6 +28,7 @@ function function_execute(Parse $parse, Data $data, $command='', $notification='
             $notification = substr($notification, 1);
         }
         $object->data($notification, $notify);
+        ddd($object->data());
     }
 //    exec($command, $output);
     return $output;
