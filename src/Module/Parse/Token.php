@@ -762,7 +762,7 @@ class Token {
         $token = Token::group($token, $options);
 
         $token = Token::cast($token);
-        $token = Token::method($token);
+        $token = Token::method($token, $options);
         if(
             $object &&
             $object->config('ramdisk.parse.tree') &&
@@ -823,8 +823,12 @@ class Token {
         return $token;
     }
 
-    public static function method($token=[]): array
+    public static function method($token=[], $options=[]): array
     {
+        $object = false;
+        if(array_key_exists('object', $options)){
+            $object = $options['object'];
+        }
         $selection = [];
         $collect = false;
         $depth = null;
@@ -893,6 +897,11 @@ class Token {
                             continue;
                         }
                         $attribute_value['array_depth'] = $square_depth;
+                        $literal = [];
+                        if($object){
+                            $literal = $object->config('parse.plugin.literal');
+                            ddd($literal);
+                        }
                         $token[$target]['method']['attribute'][$attribute_nr][$attribute_key] = $attribute_value;
                     }                    
                 }                
