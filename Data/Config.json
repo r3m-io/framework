@@ -254,7 +254,47 @@
                 "trait"
             ],
             "literal": [
-                "unset"
+                {
+                    "name": "unset",
+                    "count": "*"
+                },
+                {
+                    "name":  "array_current",
+                    "count": 1
+                },
+                {
+                    "name":  "array_cycle",
+                    "count": 1
+                },
+                {
+                    "name": "array_end",
+                    "count": 1
+                },
+                {
+                    "name": "array_next",
+                    "count": 1
+                },
+                {
+                    "name": "array_pop",
+                    "count": 1
+                },
+                {
+                    "name": "array_previous",
+                    "count": 1
+                },
+                {
+                    "name": "array_push",
+                    "count": 1
+                },
+                {
+                    "name": "array_reset",
+                    "count": 1
+                },
+                {
+                    "name": "array_shift",
+                    "count": 1
+                },
+
             ]
         },
         "use": [

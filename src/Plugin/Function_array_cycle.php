@@ -13,6 +13,9 @@ use R3m\Io\Module\Data;
 
 function function_array_cycle(Parse $parse, Data $data, $name, $arguments=[]){
     $name = 'r3m.io.cycle.' . $name;
+    if(substr($name, 0, 1) === '$'){
+        $name = substr($name, 1);
+    }
     $array = $parse->object()->data($name);
     if(
         $array &&
