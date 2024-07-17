@@ -40,6 +40,7 @@ class Value {
      */
     public static function get(Build $build, Data $storage, $record=[], $index=0): mixed
     {
+        $object = $build->object();
         if(!array_key_exists('type', $record)){
             if(is_array($record)){
                 $result = [];

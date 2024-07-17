@@ -769,7 +769,7 @@ class Build {
                         $remove_newline = true;
                         break;
                     case Build::VARIABLE_DEFINE :
-                        $define = Variable::define($this, $storage, $selection);
+                        $define = Variable::define($this, $storage, $selection, $nr);
                         /*
                         if($extra){
                             $run[] = $this->indent() . $extra . PHP_EOL;

@@ -546,10 +546,6 @@ class Variable {
                 }
                 $selection[] = $record;
             }
-            if(is_string($record)){
-                trace();
-                ddd($record);
-            }
             if(!array_key_exists('type', $record)){
                 if(is_array($record)){
                     $list = [];
@@ -568,7 +564,7 @@ class Variable {
                                 $set[$nr] = Method::get($build, $storage, $item);
                             }
                         }
-                        $list[] = Variable::getValue($build, $storage, $set);
+                        $list[] = Variable::getValue($build, $storage, $set, $counter);
                         $counter++;
                     }
                     if($counter === 1){
@@ -579,7 +575,7 @@ class Variable {
                 }
                 elseif($is_collect === false){
                     $record = Method::get($build, $storage, $record);
-                    $result .= Value::get($build, $storage, $record);
+                    $result .= Value::get($build, $storage, $record, $index);
                     if(
                         !in_array(
                             $record['type'],
@@ -687,7 +683,7 @@ class Variable {
                 }
                 elseif($is_collect === false){
                     $record = Method::get($build, $storage, $record);
-                    $result .= Value::get($build, $storage, $record);
+                    $result .= Value::get($build, $storage, $record, $index);
                     if(
                         !in_array(
                             $record['type'],
