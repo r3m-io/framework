@@ -888,7 +888,6 @@ class Token {
                             }
                         }
                     }
-                    d($is_literal);
                     foreach($attribute as $attribute_key => $attribute_value){
                         if($attribute_value['type'] === Token::TYPE_CURLY_OPEN){
                             $curly_depth++;
@@ -923,20 +922,19 @@ class Token {
                             ){
                                 //all arguments are literal
                                 $attribute_value['is_literal'] = true;
-                            } else {
-                                if(
-                                    is_array($is_literal->index) &&
-                                    in_array(
-                                        $attribute_nr,
-                                        $is_literal->index,
-                                        true
-                                    )
-                                ){
-                                    $attribute_value['is_literal'] = true;
-                                    //we have multiple indexes
-                                } elseif($is_literal->index === $attribute_nr){
-                                    $attribute_value['is_literal'] = true;
-                                }
+                            } elseif(
+                                is_array($is_literal->index) &&
+                                in_array(
+                                    $attribute_nr,
+                                    $is_literal->index,
+                                    true
+                                )
+                            ){
+                                //we have multiple indexes
+                                $attribute_value['is_literal'] = true;
+
+                            } elseif($is_literal->index === $attribute_nr){
+                                $attribute_value['is_literal'] = true;
                             }
                         }
                         $token[$target]['method']['attribute'][$attribute_nr][$attribute_key] = $attribute_value;
