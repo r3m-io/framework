@@ -932,8 +932,8 @@ class Token {
                             ){
                                 //we have multiple indexes
                                 $attribute_value['is_literal'] = true;
-
                             } elseif($is_literal->index === $attribute_nr){
+                                //we have a single index
                                 $attribute_value['is_literal'] = true;
                             }
                         }
