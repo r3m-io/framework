@@ -784,11 +784,11 @@ class Parse {
                 'object' => $object,
                 'url' => $url,
             ]);
-            if(str_contains($string, '$test')){
+            if(str_contains($string, 'unset')){
                 $object->config('test', true);
             }
             if($object->config('test')){
-//                d($tree);
+                ddd($tree);
             }
             try {
                 $tree = $build->require('function', $tree);
