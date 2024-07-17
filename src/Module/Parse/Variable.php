@@ -346,6 +346,7 @@ class Variable {
                     $define_modifier .= '$this->' . $modifier['php_name'] . '($this->parse(), $this->storage(), ' . $define . ', ';
                     if(!empty($modifier['has_attribute'])){
                         foreach($modifier['attribute'] as $attribute_nr => $attribute_list){
+                            $no_comma = false;
                             foreach($attribute_list as $token_nr => $attribute){
                                 switch($attribute['type']){
                                     case Token::TYPE_CAST:
@@ -353,23 +354,32 @@ class Variable {
                                     case Token::TYPE_OPERATOR:
                                         $temp = [];
                                         $temp[] = $attribute;
-                                        $define_modifier .= Value::get($build, $storage, $attribute, $attribute_nr) . ' ';
+                                        $define_modifier .= Value::get($build, $storage, $attribute);
+                                        $no_comma = true;
                                         break;
                                     case Token::TYPE_METHOD :
                                         $tree = [];
                                         $tree[]= $attribute;
                                         $tree = $build->require('modifier', $tree);
                                         $tree = $build->require('function', $tree);
-                                        $define_modifier .= Value::get($build, $storage, reset($tree), $attribute_nr) . ', ';
+                                        $define_modifier .= Value::get($build, $storage, reset($tree));
+                                        $no_comma = false;
                                         break;
                                     case Token::TYPE_VARIABLE:
                                         $temp = [];
                                         $temp[] = $attribute;
-                                        $define_modifier .= Variable::define($build, $storage, $temp, $attribute_nr) . ', ';
+                                        $define_modifier .= Variable::define($build, $storage, $temp);
+                                        $no_comma = false;
                                         break;
                                     default :
-                                        $define_modifier .= Value::get($build, $storage, $attribute, $attribute_nr) . ', ';
+                                        $define_modifier .= Value::get($build, $storage, $attribute);
+                                        $no_comma = false;
                                 }
+                            }
+                            if($no_comma === false){
+                                $define_modifier .= ', ';
+                            } else {
+                                $define_modifier .= ' ';
                             }
                         }
                     }
