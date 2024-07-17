@@ -880,6 +880,9 @@ class Token {
                             if(property_exists($literal_value, 'name')){
                                 if($token[$target]['method']['name'] === $literal_value->name){
                                     $is_literal = $literal_value;
+                                    if(!property_exists($is_literal, 'index')) {
+                                        $is_literal->index = 0;
+                                    }
                                     break;
                                 }
                             }
@@ -914,9 +917,27 @@ class Token {
                         if(
                             $is_literal
                         ){
-                            d($attribute_nr);
-                            ddd($is_literal);
-                            $attribute_value['is_literal'] = true;
+                            if(
+                                property_exists($is_literal, 'count') &&
+                                $is_literal->count === '*'
+                            ){
+                                //all arguments are literal
+                                $attribute_value['is_literal'] = true;
+                            } else {
+                                if(
+                                    is_array($is_literal->index) &&
+                                    in_array(
+                                        $attribute_nr,
+                                        $is_literal->index,
+                                        true
+                                    )
+                                ){
+                                    $attribute_value['is_literal'] = true;
+                                    //we have multiple indexes
+                                } elseif($is_literal->index === $attribute_nr){
+                                    $attribute_value['is_literal'] = true;
+                                }
+                            }
                         }
                         $token[$target]['method']['attribute'][$attribute_nr][$attribute_key] = $attribute_value;
                     }                    
