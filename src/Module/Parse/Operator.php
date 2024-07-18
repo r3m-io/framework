@@ -48,9 +48,9 @@ class Operator {
                 throw new Exception('Operator error');
             }
             $key = key($statement);
-            $set[$key]['value'] = $statement[$key];
-            $set[$key]['type'] = Token::TYPE_CODE;
-            $set[$key]['depth'] = $depth;
+            $token[$key]['value'] = $statement[$key];
+            $token[$key]['type'] = Token::TYPE_CODE;
+            $token[$key]['depth'] = $depth;
             unset($token[$key]['execute']);
             unset($token[$key]['is_executed']);
             unset($token[$key]['is_operator']);
