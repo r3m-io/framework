@@ -71,6 +71,10 @@ class Set {
     {
         $target += 0;
         $nr = 0;
+        // () is empty, remove target
+        if(empty($set)){
+            unset($token[$target]);
+        }
         foreach($set as $record){
             $token[$target + $nr] = $record;
             $nr++;
