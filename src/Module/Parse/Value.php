@@ -62,6 +62,9 @@ class Value {
         switch($record['type']){
             case Token::TYPE_INT :
             case Token::TYPE_FLOAT :
+                if(!array_key_exists('execute', $record)){
+                    ddd($record);
+                }
                 return $record['execute'];
             case Token::TYPE_BOOLEAN :
             case Token::TYPE_NULL :
