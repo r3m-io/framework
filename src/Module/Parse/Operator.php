@@ -37,6 +37,7 @@ class Operator {
         $operator_max = 1024;
         $operator_counter = 0;
         while (Operator::has($set)) {
+            d($set);
             $statement = Operator::get($set);
             if ($statement === false) {
                 trace();
