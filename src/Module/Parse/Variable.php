@@ -432,6 +432,8 @@ class Variable {
         $is_collect = false;
         $type = null;
         $selection = [];
+        $operator_max = 1024;
+        $operator_counter = 0;
         while(count($operator) >= 1){
             $record = array_shift($operator);
             if(is_bool($record) && $record === false){
