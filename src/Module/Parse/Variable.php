@@ -361,6 +361,7 @@ class Variable {
                                     break;
                                 }
                             }
+                            d($attribute_list);
                             $attribute_list = Operator::solve($build, $storage, $attribute_list, $attribute_list);
                             foreach($attribute_list as $token_nr => $attribute){
                                 switch($attribute['type']){
