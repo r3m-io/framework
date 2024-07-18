@@ -193,9 +193,10 @@ class Main {
             return $variable1 - $variable2;
         }
         catch(ErrorException | Exception $exception){
-            ddd($this->object()->data());
+            trace();
+//            ddd($this->object()->data());
         }
-
+        return 0;
 	}
 
 	protected function value_multiply($variable1=null, $variable2=null): int |  float
