@@ -350,6 +350,7 @@ class Variable {
 
                             while(Operator::has($attribute_list)) {
                                 $statement = Operator::get($attribute_list);
+                                ddd($statement);
                                 if ($statement === false) {
                                     trace();
                                     ddd($attribute_list);
