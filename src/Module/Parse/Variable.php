@@ -353,29 +353,7 @@ class Variable {
                             $operator_counter = 0;
                             while(Set::has($attribute_list)) {
                                 $set = Set::get($attribute_list);
-                                while (Operator::has($set)) {
-                                    $statement = Operator::get($set);
-                                    if ($statement === false) {
-                                        trace();
-                                        ddd($set);
-                                    }
-                                    $set = Operator::remove($set, $statement);
-                                    $statement = Operator::create($build, $storage, $statement, $depth);
-                                    if (empty($statement)) {
-                                        throw new Exception('Operator error');
-                                    }
-                                    $key = key($statement);
-                                    $set[$key]['value'] = $statement[$key];
-                                    $set[$key]['type'] = Token::TYPE_CODE;
-                                    $set[$key]['depth'] = $depth;
-                                    unset($attribute_list[$key]['execute']);
-                                    unset($attribute_list[$key]['is_executed']);
-                                    unset($attribute_list[$key]['is_operator']);
-                                    $operator_counter++;
-                                    if ($operator_counter > $operator_max) {
-                                        break;
-                                    }
-                                }
+                                $attribute_list = Operator::solve($build, $storage, $attribute_list, $set);
                                 d($attribute_list);
                                 $target = Set::target($attribute_list);
                                 $attribute_list = Set::pre_remove($attribute_list);

@@ -32,6 +32,39 @@ class Operator {
     /**
      * @throws Exception
      */
+    public static function solve($build, $storage, $token=[], $set=[]): array
+    {
+        $operator_max = 1024;
+        $operator_counter = 0;
+        while (Operator::has($set)) {
+            $statement = Operator::get($set);
+            if ($statement === false) {
+                trace();
+                ddd($set);
+            }
+            $set = Operator::remove($set, $statement);
+            $statement = Operator::create($build, $storage, $statement, $depth);
+            if (empty($statement)) {
+                throw new Exception('Operator error');
+            }
+            $key = key($statement);
+            $set[$key]['value'] = $statement[$key];
+            $set[$key]['type'] = Token::TYPE_CODE;
+            $set[$key]['depth'] = $depth;
+            unset($token[$key]['execute']);
+            unset($token[$key]['is_executed']);
+            unset($token[$key]['is_operator']);
+            $operator_counter++;
+            if ($operator_counter > $operator_max) {
+                break;
+            }
+        }
+        return $token;
+    }
+
+    /**
+     * @throws Exception
+     */
     public static function get($token=[]): bool | array
     {
         $get = false;
