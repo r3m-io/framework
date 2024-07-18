@@ -376,6 +376,7 @@ class Variable {
                                         break;
                                     }
                                 }
+                                d($attribute_list);
                                 $target = Set::target($attribute_list);
                                 $attribute_list = Set::pre_remove($attribute_list);
                                 $attribute_list = Set::replace($attribute_list, $set, $target);
