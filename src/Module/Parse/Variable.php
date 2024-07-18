@@ -347,6 +347,19 @@ class Variable {
                     if(!empty($modifier['has_attribute'])){
                         foreach($modifier['attribute'] as $attribute_nr => $attribute_list){
                             $no_comma = false;
+
+                            while(Operator::has($attribute_list)) {
+                                $statement = Operator::get($attribute_list);
+                                if ($statement === false) {
+                                    trace();
+                                    ddd($attribute_list);
+                                }
+                                $attribute_list = Operator::remove($attribute_list, $statement);
+                                $statement = Operator::create($build, $storage, $statement);
+                                d($statement);
+                            }
+
+                            $attribute_list = Operator::create($build, $storage, $attribute_list);
                             foreach($attribute_list as $token_nr => $attribute){
                                 switch($attribute['type']){
                                     case Token::TYPE_CAST:
