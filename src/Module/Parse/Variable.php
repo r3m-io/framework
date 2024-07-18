@@ -346,7 +346,7 @@ class Variable {
                     $define_modifier .= '$this->' . $modifier['php_name'] . '($this->parse(), $this->storage(), ' . $define . ', ';
                     if(!empty($modifier['has_attribute'])){
                         foreach($modifier['attribute'] as $attribute_nr => $attribute_list){
-                            $no_comma = false;
+                            $use_comma = true;
                             $operator_max = 1024;
                             $operator_counter = 0;
                             while(Operator::has($attribute_list)) {
@@ -370,8 +370,6 @@ class Variable {
                                 if($operator_counter > $operator_max){
                                     break;
                                 }
-                                d($attribute_list);
-                                ddd($statement);
                             }
                             foreach($attribute_list as $token_nr => $attribute){
                                 switch($attribute['type']){
@@ -381,7 +379,7 @@ class Variable {
                                         $temp = [];
                                         $temp[] = $attribute;
                                         $define_modifier .= Value::get($build, $storage, $attribute);
-                                        $no_comma = true;
+                                        $use_comma = false;
                                         break;
                                     case Token::TYPE_METHOD :
                                         $tree = [];
@@ -389,20 +387,20 @@ class Variable {
                                         $tree = $build->require('modifier', $tree);
                                         $tree = $build->require('function', $tree);
                                         $define_modifier .= Value::get($build, $storage, reset($tree));
-                                        $no_comma = false;
+                                        $use_comma = true;
                                         break;
                                     case Token::TYPE_VARIABLE:
                                         $temp = [];
                                         $temp[] = $attribute;
                                         $define_modifier .= Variable::define($build, $storage, $temp);
-                                        $no_comma = false;
+                                        $use_comma = true;
                                         break;
                                     default :
                                         $define_modifier .= Value::get($build, $storage, $attribute);
-                                        $no_comma = false;
+                                        $use_comma = true;
                                 }
                             }
-                            if($no_comma === false){
+                            if($use_comma === true){
                                 $define_modifier .= ', ';
                             } else {
                                 $define_modifier .= ' ';
