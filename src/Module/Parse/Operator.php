@@ -59,6 +59,7 @@ class Operator {
             unset($token[$key]['is_operator']);
             $operator_counter++;
             if ($operator_counter > $operator_max) {
+                ddd('max reached');
                 break;
             }
         }
