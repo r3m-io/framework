@@ -350,14 +350,14 @@ class Variable {
 
                             while(Operator::has($attribute_list)) {
                                 $statement = Operator::get($attribute_list);
-                                ddd($statement);
                                 if ($statement === false) {
                                     trace();
                                     ddd($attribute_list);
                                 }
                                 $attribute_list = Operator::remove($attribute_list, $statement);
                                 $statement = Operator::create($build, $storage, $statement);
-                                d($statement);
+                                d($attribute_list);
+                                ddd($statement);
                             }
                             foreach($attribute_list as $token_nr => $attribute){
                                 switch($attribute['type']){
