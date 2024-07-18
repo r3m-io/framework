@@ -359,8 +359,6 @@ class Variable {
                                 $statement = Operator::create($build, $storage, $statement);
                                 d($statement);
                             }
-
-                            $attribute_list = Operator::create($build, $storage, $attribute_list);
                             foreach($attribute_list as $token_nr => $attribute){
                                 switch($attribute['type']){
                                     case Token::TYPE_CAST:
