@@ -376,6 +376,7 @@ class Variable {
                                         break;
                                     }
                                 }
+                                d($set);
                                 $target = Set::target($attribute_list);
                                 $attribute_list = Set::pre_remove($attribute_list);
                                 $attribute_list = Set::replace($attribute_list, $set, $target);
@@ -471,7 +472,7 @@ class Variable {
             }
         }
         $operator = $token;
-        while(Operator::has($operator)){            
+        while(Operator::has($operator)){
             $statement = Operator::get($operator);
             if($statement === false){
                 trace();
