@@ -352,7 +352,6 @@ class Variable {
                             while(Set::has($attribute_list)) {
                                 $set = Set::get($attribute_list);
                                 $attribute_list = Operator::solve($build, $storage, $attribute_list, $set);
-                                d($attribute_list);
                                 $target = Set::target($attribute_list);
                                 $attribute_list = Set::pre_remove($attribute_list);
                                 $attribute_list = Set::replace($attribute_list, $set, $target);
@@ -362,6 +361,7 @@ class Variable {
                                     break;
                                 }
                             }
+                            $attribute_list = Operator::solve($build, $storage, $attribute_list, $attribute_list);
                             foreach($attribute_list as $token_nr => $attribute){
                                 switch($attribute['type']){
                                     case Token::TYPE_CAST:
