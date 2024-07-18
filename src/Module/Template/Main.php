@@ -186,15 +186,23 @@ class Main {
 
 	protected function value_minus($variable1=null, $variable2=null): int |  float
     {
+        d($variable1);
+        d($variable2);
 		$variable1 += 0;
 		$variable2 += 0;
+        d($variable1);
+        d($variable2);
 		return $variable1 - $variable2;        
 	}
 
 	protected function value_multiply($variable1=null, $variable2=null): int |  float
     {
+        d($variable1);
+        d($variable2);
         $variable1 += 0;
         $variable2 += 0;
+        d($variable1);
+        d($variable2);
         return $variable1 * $variable2;
 	}
 
