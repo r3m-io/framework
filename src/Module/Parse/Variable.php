@@ -347,7 +347,8 @@ class Variable {
                     if(!empty($modifier['has_attribute'])){
                         foreach($modifier['attribute'] as $attribute_nr => $attribute_list){
                             $no_comma = false;
-
+                            $operator_max = 1024;
+                            $operator_counter = 0;
                             while(Operator::has($attribute_list)) {
                                 $statement = Operator::get($attribute_list);
                                 if ($statement === false) {
@@ -356,6 +357,19 @@ class Variable {
                                 }
                                 $attribute_list = Operator::remove($attribute_list, $statement);
                                 $statement = Operator::create($build, $storage, $statement);
+                                if(empty($statement)){
+                                    throw new Exception('Operator error');
+                                }
+                                $key = key($statement);
+                                $attribute_list[$key]['value'] = $statement[$key];
+                                $attribute_list[$key]['type'] = Token::TYPE_CODE;
+                                unset($attribute_list[$key]['execute']);
+                                unset($attribute_list[$key]['is_executed']);
+                                unset($attribute_list[$key]['is_operator']);
+                                $operator_counter++;
+                                if($operator_counter > $operator_max){
+                                    break;
+                                }
                                 d($attribute_list);
                                 ddd($statement);
                             }
