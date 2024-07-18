@@ -349,8 +349,6 @@ class Variable {
                             $use_comma = true;
                             $set_max = 1024;
                             $set_counter = 0;
-                            $operator_max = 1024;
-                            $operator_counter = 0;
                             while(Set::has($attribute_list)) {
                                 $set = Set::get($attribute_list);
                                 $attribute_list = Operator::solve($build, $storage, $attribute_list, $set);
