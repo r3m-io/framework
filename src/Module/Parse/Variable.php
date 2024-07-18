@@ -347,27 +347,41 @@ class Variable {
                     if(!empty($modifier['has_attribute'])){
                         foreach($modifier['attribute'] as $attribute_nr => $attribute_list){
                             $use_comma = true;
+                            $set_max = 1024;
+                            $set_counter = 0;
                             $operator_max = 1024;
                             $operator_counter = 0;
-                            while(Operator::has($attribute_list)) {
-                                $statement = Operator::get($attribute_list);
-                                if ($statement === false) {
-                                    trace();
-                                    ddd($attribute_list);
+                            while(Set::has($attribute_list)) {
+                                $set = Set::get($attribute_list);
+                                while (Operator::has($set)) {
+                                    $statement = Operator::get($set);
+                                    if ($statement === false) {
+                                        trace();
+                                        ddd($set);
+                                    }
+                                    $set = Operator::remove($set, $statement);
+                                    $statement = Operator::create($build, $storage, $statement, $depth);
+                                    if (empty($statement)) {
+                                        throw new Exception('Operator error');
+                                    }
+                                    $key = key($statement);
+                                    $set[$key]['value'] = $statement[$key];
+                                    $set[$key]['type'] = Token::TYPE_CODE;
+                                    $set[$key]['depth'] = $depth;
+                                    unset($attribute_list[$key]['execute']);
+                                    unset($attribute_list[$key]['is_executed']);
+                                    unset($attribute_list[$key]['is_operator']);
+                                    $operator_counter++;
+                                    if ($operator_counter > $operator_max) {
+                                        break;
+                                    }
                                 }
-                                $attribute_list = Operator::remove($attribute_list, $statement);
-                                $statement = Operator::create($build, $storage, $statement);
-                                if(empty($statement)){
-                                    throw new Exception('Operator error');
-                                }
-                                $key = key($statement);
-                                $attribute_list[$key]['value'] = $statement[$key];
-                                $attribute_list[$key]['type'] = Token::TYPE_CODE;
-                                unset($attribute_list[$key]['execute']);
-                                unset($attribute_list[$key]['is_executed']);
-                                unset($attribute_list[$key]['is_operator']);
-                                $operator_counter++;
-                                if($operator_counter > $operator_max){
+                                $target = Set::target($attribute_list);
+                                $attribute_list = Set::pre_remove($attribute_list);
+                                $attribute_list = Set::replace($attribute_list, $set, $target);
+                                $attribute_list = Set::remove($attribute_list);
+                                $set_counter++;
+                                if($set_counter > $set_max){
                                     break;
                                 }
                             }
