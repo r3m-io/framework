@@ -478,13 +478,14 @@ class Variable {
                 ddd($operator);
             }
             $operator = Operator::remove($operator, $statement);
-            $statement = Operator::create($build, $storage, $statement);
+            $statement = Operator::create($build, $storage, $statement, $depth);
             if(empty($statement)){
                 throw new Exception('Operator error');
             }
             $key = key($statement);
             $operator[$key]['value'] = $statement[$key];
             $operator[$key]['type'] = Token::TYPE_CODE;
+            $operator[$key]['depth'] = $depth;
             unset($operator[$key]['execute']);
             unset($operator[$key]['is_executed']);
             unset($operator[$key]['is_operator']);
