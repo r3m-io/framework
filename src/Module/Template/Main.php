@@ -193,7 +193,7 @@ class Main {
             return $variable1 - $variable2;
         }
         catch(ErrorException | Exception $exception){
-            ddd($this->storage());
+            ddd($this->object()->data());
         }
 
 	}
