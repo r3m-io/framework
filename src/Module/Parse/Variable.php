@@ -361,9 +361,7 @@ class Variable {
                                     break;
                                 }
                             }
-                            d($attribute_list);
                             $attribute_list = Operator::solve($build, $storage, $attribute_list);
-                            d($attribute_list);
                             foreach($attribute_list as $token_nr => $attribute){
                                 switch($attribute['type']){
                                     case Token::TYPE_CAST:
@@ -416,30 +414,9 @@ class Variable {
     {
         $set_max = 1024;
         $set_counter = 0;
-        $operator_max = 1024;
-        $operator_counter = 0;
         while(Set::has($token)){
             $set = Set::get($token);
-            while(Operator::has($set)){
-                $statement = Operator::get($set);
-                if($statement === false){
-                    trace();
-                    ddd($set);
-                }
-                $set = Operator::remove($set, $statement);
-                $statement = Operator::create($build, $storage, $statement, $depth);
-                $key = key($statement);
-                $set[$key]['value'] = $statement[$key];
-                $set[$key]['type'] = Token::TYPE_CODE;
-                $set[$key]['depth'] = $depth;
-                unset($set[$key]['execute']);
-                unset($set[$key]['is_executed']);
-                $token[$key] = $set[$key];
-                $operator_counter++;
-                if($operator_counter > $operator_max){
-                    break;
-                }
-            }
+            $set = Operator::solve($build, $storage, $set);
             $target = Set::target($token);
             $token = Set::pre_remove($token);
             $token = Set::replace($token, $set, $target);
@@ -449,31 +426,7 @@ class Variable {
                 break;
             }
         }
-        $operator = $token;
-        while(Operator::has($operator)){
-            $statement = Operator::get($operator);
-            if($statement === false){
-                trace();
-                ddd($operator);
-            }
-            $operator = Operator::remove($operator, $statement);
-            $statement = Operator::create($build, $storage, $statement, $depth);
-            if(empty($statement)){
-                throw new Exception('Operator error');
-            }
-            $key = key($statement);
-            $operator[$key]['value'] = $statement[$key];
-            $operator[$key]['type'] = Token::TYPE_CODE;
-            $operator[$key]['depth'] = $depth;
-            unset($operator[$key]['execute']);
-            unset($operator[$key]['is_executed']);
-            unset($operator[$key]['is_operator']);
-            $operator_counter++;
-            if($operator_counter > $operator_max){
-                break;
-            }
-        }
-        $operator_counter = 0;
+        $operator = Operator::solve($build, $storage, $token);
         $result = '';
         $in_array = false;
         $is_collect = false;
@@ -597,10 +550,6 @@ class Variable {
                                 }
                             }
                         }
-                    }
-                    $operator_counter++;
-                    if($operator_counter > $operator_max){
-                        break;
                     }
                 }
             } else {
