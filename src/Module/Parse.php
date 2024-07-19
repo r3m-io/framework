@@ -818,12 +818,6 @@ class Parse {
                 'object' => $object,
                 'url' => $url,
             ]);
-            if(str_contains($string, 'require')){
-                $object->config('test', true);
-            }
-            if($object->config('test')){
-
-            }
             try {
                 $tree = $build->require('function', $tree);
                 $tree = $build->require('modifier', $tree);
@@ -832,7 +826,6 @@ class Parse {
                 if(empty($document)){
                     $document = [];
                 }
-
                 $document = $build->create('header', $tree, $document);
                 $document = $build->create('class', $tree, $document);
                 $build->indent(2);
