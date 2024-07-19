@@ -361,11 +361,18 @@ class Parse {
                         if(str_contains($value, 'try')){
                             $is_debug = true;
                         }
+                        $disable_function_prepare = $this->object()->config('parse.compile.disable.function.Parse::prepare_code');
+                        $this->object()->config('parse.compile.disable.function.Parse::prepare_code', false);
                         $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                         if($disable_function){
                             $this->object()->config('parse.compile.disable.function.Value::contains_replace', $disable_function);
                         } else {
                             $this->object()->config('delete', 'parse.compile.disable.function.Value::contains_replace');
+                        }
+                        if($disable_function_prepare){
+                            $this->object()->config('parse.compile.disable.function.Parse::prepare_code', $disable_function_prepare);
+                        } else {
+                            $this->object()->config('delete', 'parse.compile.disable.function.Parse::prepare_code');
                         }
                     }
                     elseif(!is_scalar($value)){
@@ -447,15 +454,29 @@ class Parse {
                         ){
                             $value = Literal::uniform($object, $value);
                             $disable_function = $this->object()->config('parse.compile.disable.function.Value::contains_replace');
+                            $disable_function_prepare = $this->object()->config('parse.compile.disable.function.Parse::prepare_code');
+                            $this->object()->config('parse.compile.disable.function.Parse::prepare_code', false);
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                             if($disable_function){
                                 $this->object()->config('parse.compile.disable.function.Value::contains_replace', $disable_function);
                             } else {
                                 $this->object()->config('delete', 'parse.compile.disable.function.Value::contains_replace');
                             }
+                            if($disable_function_prepare){
+                                $this->object()->config('parse.compile.disable.function.Parse::prepare_code', $disable_function_prepare);
+                            } else {
+                                $this->object()->config('delete', 'parse.compile.disable.function.Parse::prepare_code');
+                            }
                         }
                         elseif(!is_scalar($value)){
+                            $disable_function_prepare = $this->object()->config('parse.compile.disable.function.Parse::prepare_code');
+                            $this->object()->config('parse.compile.disable.function.Parse::prepare_code', false);
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
+                            if($disable_function_prepare){
+                                $this->object()->config('parse.compile.disable.function.Parse::prepare_code', $disable_function_prepare);
+                            } else {
+                                $this->object()->config('delete', 'parse.compile.disable.function.Parse::prepare_code');
+                            }
                         }
                         $string->{$key} = $value;
                     }
@@ -1017,8 +1038,12 @@ class Parse {
         return $data;
     }
 
-    public static function prepare_code($object, $storage, $string): string
+    public static function prepare_code(App $object, $storage, $string): string
     {
+        $is_disabled = $object->config('parse.compile.disable.function.Parse::prepare_code');
+        if($is_disabled){
+            return $string;
+        }
         $string = str_replace('/*{{R3M}}*/', '{R3M}', $string); //rcss files
         $string = str_replace('{{ R3M }}', '{R3M}', $string);
         $string = str_replace('{{R3M}}', '{R3M}', $string);
