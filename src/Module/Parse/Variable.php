@@ -362,6 +362,11 @@ class Variable {
                                 }
                             }
                             $attribute_list = Operator::solve($build, $storage, $attribute_list);
+                            if(array_key_exists('type', $attribute_list)){
+                                $attribute_list = [
+                                    $attribute_list
+                                ];
+                            }
                             foreach($attribute_list as $token_nr => $attribute){
                                 if(!is_array($attribute)){
                                     ddd($attribute_list);
