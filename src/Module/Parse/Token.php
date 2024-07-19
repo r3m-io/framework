@@ -1428,9 +1428,16 @@ class Token {
         $is_method = null;
         $is_variable = null;
         $depth = null;
+        $set_depth = null;
         $attribute_nr = 0;
         $variable_nr = 0;
         foreach($token as $nr => $record){
+            if($record['value'] === '('){
+                $set_depth++;
+            }
+            if($record['value'] === ')'){
+                $set_depth--;
+            }
             if(
                 !array_key_exists('type', $record) &&
                 is_array($record)
@@ -1486,6 +1493,10 @@ class Token {
                 elseif(
                     (
                         $record['type'] === Token::TYPE_CURLY_CLOSE
+                    ) ||
+                    (
+                        $set_depth === 0 &&
+                        $record['value'] === ')'
                     )
                     /*
                     ||
