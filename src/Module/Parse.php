@@ -794,6 +794,7 @@ class Parse {
                 $object->config('test', true);
             }
             if($object->config('test')){
+                trace();
                d($tree);
             }
             try {
