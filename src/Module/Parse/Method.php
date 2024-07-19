@@ -287,6 +287,7 @@ class Method {
                         }
 
                     } else {
+                        d($attribute);
                         $result = '$this->' . $record['method']['php_name'] . '($this->parse(), $this->storage(), ' . $attribute . ')';
                     }
                 } else {
