@@ -464,10 +464,6 @@ class Parse {
                             $disable_function_prepare = $this->object()->config('parse.compile.disable.function.Parse::prepare_code');
 //                            $this->object()->config('parse.compile.disable.function.Parse::prepare_code', true);
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
-                            if(str_contains($value, '{') && !str_contains($value, '{{')){
-                                trace();
-                                ddd($value);
-                            }
                             if($disable_function){
                                 $this->object()->config('parse.compile.disable.function.Value::contains_replace', $disable_function);
                             } else {
@@ -826,9 +822,7 @@ class Parse {
                 $object->config('test', true);
             }
             if($object->config('test')){
-                trace();
-                d($string);
-               d($tree);
+
             }
             try {
                 $tree = $build->require('function', $tree);
