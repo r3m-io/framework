@@ -153,7 +153,8 @@ class Method {
                     }
 
                     $attribute .= $value . ', ';
-                }                
+                }
+                d($attribute);
             } else {
                 foreach($record['method']['attribute'] as $nr => $token){
                     $token = $build->require('modifier', $token);
