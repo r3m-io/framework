@@ -1516,7 +1516,6 @@ class Token {
 //                    d($variable);
                     $variable = Token::modifier($variable, $options);
 //                    trace();
-                    d($variable);
                     $token[$is_variable]['variable']['modifier'] = $variable;
                     $token[$is_variable]['parse'] = $token[$is_variable]['value'];
                     foreach($token[$is_variable]['variable']['modifier'] as $modifier_nr => $modifier_list){
