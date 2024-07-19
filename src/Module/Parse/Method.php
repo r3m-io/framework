@@ -158,7 +158,6 @@ class Method {
 
                     $attribute .= $value . ', ';
                 }
-                d($attribute);
             } else {
                 foreach($record['method']['attribute'] as $nr => $token){
                     $token = $build->require('modifier', $token);
@@ -292,7 +291,6 @@ class Method {
                         }
 
                     } else {
-                        d($attribute);
                         $result = '$this->' . $record['method']['php_name'] . '($this->parse(), $this->storage(), ' . $attribute . ')';
                     }
                 } else {
