@@ -128,7 +128,6 @@ class Method {
                             $list[$nr] .= $token_value['value'];
                         }                        
                     }
-                    /* disabled @ 2024-07-19
                     $list[$nr] = str_replace(
                         [
                             '{{',
@@ -144,7 +143,6 @@ class Method {
                         ],
                         $list[$nr]
                     );
-                    */
                 }
                 foreach($list as $nr => $value){
                     if(substr($value, 0, 2) == '\\\'' && substr($value, -2, 2) == '\\\''){
