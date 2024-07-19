@@ -575,6 +575,7 @@ class Parse {
         elseif($type === 'string' && stristr($string, '{') === false){
             return $string;
         } else {
+            d($string);
             if(str_contains($string, 'Navigation.js')){
 //                trace();
 //                d($string);
