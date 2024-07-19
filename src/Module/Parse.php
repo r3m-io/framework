@@ -578,7 +578,7 @@ class Parse {
 //            d($string);
             if(str_contains($string, 'Navigation.js')){
 //                trace();
-                ddd($string);
+                d($string);
             }
             //this section takes at least 5 msec per document: file:put 2msec, opcache::put 2msec, rest 1msec
             $build = $this->build(new Build($this->object(), $this, $is_debug));
