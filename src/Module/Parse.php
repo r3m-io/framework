@@ -362,7 +362,7 @@ class Parse {
                             $is_debug = true;
                         }
                         $disable_function_prepare = $this->object()->config('parse.compile.disable.function.Parse::prepare_code');
-                        $this->object()->config('parse.compile.disable.function.Parse::prepare_code', true);
+//                        $this->object()->config('parse.compile.disable.function.Parse::prepare_code', true);
                         $string[$key] = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                         if($disable_function){
                             $this->object()->config('parse.compile.disable.function.Value::contains_replace', $disable_function);
@@ -462,8 +462,12 @@ class Parse {
                             $value = Literal::uniform($object, $value);
                             $disable_function = $this->object()->config('parse.compile.disable.function.Value::contains_replace');
                             $disable_function_prepare = $this->object()->config('parse.compile.disable.function.Parse::prepare_code');
-                            $this->object()->config('parse.compile.disable.function.Parse::prepare_code', true);
+//                            $this->object()->config('parse.compile.disable.function.Parse::prepare_code', true);
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
+                            if(str_contains($value, '{') && !str_contains($value, '{{')){
+                                trace();
+                                ddd($value);
+                            }
                             if($disable_function){
                                 $this->object()->config('parse.compile.disable.function.Value::contains_replace', $disable_function);
                             } else {
