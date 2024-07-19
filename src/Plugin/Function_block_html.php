@@ -11,11 +11,12 @@
 use R3m\Io\Module\Parse;
 use R3m\Io\Module\Data;
 
-function function_block_html(Parse $parse, Data $data, $name='', $value=null){    
+function function_block_html(Parse $parse, Data $data, $name='', $value=null){
     if($value === null){
         $value = $name;
         $name = null;
-    }        
+    }
+    ddd($value);
     $search = [" ", "\t", "\n", "\r", "\r\n"];
     $replace = ['','','','',''];
     $content = trim($value, "\r\n\s\t");
