@@ -463,6 +463,7 @@ class Parse {
                             $disable_function = $this->object()->config('parse.compile.disable.function.Value::contains_replace');
                             $disable_function_prepare = $this->object()->config('parse.compile.disable.function.Parse::prepare_code');
                             $this->object()->config('parse.compile.disable.function.Parse::prepare_code', false);
+                            d($value);
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                             if($disable_function){
                                 $this->object()->config('parse.compile.disable.function.Value::contains_replace', $disable_function);
