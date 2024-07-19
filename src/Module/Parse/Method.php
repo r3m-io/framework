@@ -130,14 +130,14 @@ class Method {
                     }
                     $list[$nr] = str_replace(
                         [
-                            '{{',
-                            '}}',
+//                            '{{',
+//                            '}}',
                             '\\\'',
                             '\'',
                         ],
                         [
-                            '{',
-                            '}',
+//                            '{',
+//                            '}',
                             '\\\\\'',
                             '\\\''
                         ],
@@ -145,7 +145,7 @@ class Method {
                     );
                 }
                 foreach($list as $nr => $value){
-                    if(substr($value, 0, 2) == '\\\'' && substr($value, -2, 2) == '\\\''){
+                    if(substr($value, 0, 2) === '\\\'' && substr($value, -2, 2) === '\\\''){
                         $value = substr($value, 2, -2);
                     }
                     if(is_string($value)){
