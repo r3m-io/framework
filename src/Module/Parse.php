@@ -477,7 +477,7 @@ class Parse {
                         }
                         elseif(!is_scalar($value)){
                             $disable_function_prepare = $this->object()->config('parse.compile.disable.function.Parse::prepare_code');
-                            $this->object()->config('parse.compile.disable.function.Parse::prepare_code', true);
+//                            $this->object()->config('parse.compile.disable.function.Parse::prepare_code', true);
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                             if($disable_function_prepare){
                                 $this->object()->config('parse.compile.disable.function.Parse::prepare_code', $disable_function_prepare);
