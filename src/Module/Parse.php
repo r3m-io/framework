@@ -463,7 +463,6 @@ class Parse {
                             $disable_function = $this->object()->config('parse.compile.disable.function.Value::contains_replace');
                             $disable_function_prepare = $this->object()->config('parse.compile.disable.function.Parse::prepare_code');
                             $this->object()->config('parse.compile.disable.function.Parse::prepare_code', false);
-                            d($value);
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                             if($disable_function){
                                 $this->object()->config('parse.compile.disable.function.Value::contains_replace', $disable_function);
@@ -606,8 +605,8 @@ class Parse {
         } else {
 //            d($string);
             if(str_contains($string, 'Navigation.js')){
-                trace();
-                d($string);
+//                trace();
+//                d($string);
             }
 
             //this section takes at least 5 msec per document: file:put 2msec, opcache::put 2msec, rest 1msec
