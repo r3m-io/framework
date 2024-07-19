@@ -16,6 +16,7 @@ function function_block_html(Parse $parse, Data $data, $name='', $value=null){
         $value = $name;
         $name = null;
     }
+    trace();
     ddd($value);
     $search = [" ", "\t", "\n", "\r", "\r\n"];
     $replace = ['','','','',''];
