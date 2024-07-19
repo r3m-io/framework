@@ -823,6 +823,7 @@ class Parse {
             }
             if($object->config('test')){
                 trace();
+                d($string);
                d($tree);
             }
             try {
@@ -1045,6 +1046,9 @@ class Parse {
         return $data;
     }
 
+    /**
+     * @throws Exception
+     */
     public static function prepare_code(App $object, $storage, $string): string
     {
         $is_disabled = $object->config('parse.compile.disable.function.Parse::prepare_code');
