@@ -363,6 +363,9 @@ class Variable {
                             }
                             $attribute_list = Operator::solve($build, $storage, $attribute_list);
                             foreach($attribute_list as $token_nr => $attribute){
+                                if(!array_key_exists('type', $attribute)){
+                                    ddd($attribute_list);
+                                }
                                 switch($attribute['type']){
                                     case Token::TYPE_CAST:
                                     case Token::TYPE_EXCLAMATION:
