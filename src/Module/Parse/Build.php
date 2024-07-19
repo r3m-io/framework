@@ -753,7 +753,7 @@ class Build {
                             throw new Exception('if must be a method, use {if()} on line: ' . $select['row'] . ', column: ' .  $select['column']  . ' in: ' .  $data->data('r3m.io.parse.view.url') );
                         } else {
                             ddd($select);
-                            throw new Exception('Possible variable sign or method missing (), on line: ' . $select['row'] . ', column: ' .  $select['column']  . ' in: ' .  $data->data('r3m.io.parse.view.url'));
+                            throw new Exception('Possible variable sign or method missing (), "' . $select['value'] . '" on line: ' . $select['row'] . ', column: ' .  $select['column']  . ' in: ' .  $data->data('r3m.io.parse.view.url'));
                         }
                     case Token::TYPE_IS_MINUS_MINUS :
                     case Token::TYPE_IS_PLUS_PLUS :
