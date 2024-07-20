@@ -440,6 +440,7 @@ class Variable {
                 break;
             }
         }
+        d($token);
         $operator = Operator::solve($build, $storage, $token);
         $result = '';
         $in_array = false;
