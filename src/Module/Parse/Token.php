@@ -1485,9 +1485,15 @@ class Token {
                     continue;
                 }
                 elseif($record['value'] === '('){
+                    if($set_depth === null){
+                        $set_depth = 0;
+                    }
                     $set_depth++;
                 }
                 elseif($record['value'] === ')'){
+                    if($set_depth === null){
+                        ddd($token);
+                    }
                     $set_depth--;
                 }
                 if(
