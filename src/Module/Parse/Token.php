@@ -1432,21 +1432,21 @@ class Token {
         $attribute_nr = 0;
         $variable_nr = 0;
         foreach($token as $nr => $record){
-            if(!is_array($record) || !array_key_exists('value', $record)){
-                d($token);
-                ddd($record);
-            }
-            if($record['value'] === '('){
-                $set_depth++;
-            }
-            if($record['value'] === ')'){
-                $set_depth--;
-            }
             if(
                 !array_key_exists('type', $record) &&
                 is_array($record)
             ){
                 $token[$nr] = Token::define($record, $options);
+            }
+            elseif(!is_array($record) || !array_key_exists('value', $record)){
+                d($token);
+                ddd($record);
+            }
+            elseif($record['value'] === '('){
+                $set_depth++;
+            }
+            elseif($record['value'] === ')'){
+                $set_depth--;
             }
             elseif(
                 $is_variable === null &&
