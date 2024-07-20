@@ -94,6 +94,7 @@ class Set {
             elseif($record['depth'] == $highest && $record['value'] == ')'){
                 $is_collect = false;
                 unset($token[$nr]);
+                break;
             }
             elseif($is_collect){
                 $token[$nr] = null;
