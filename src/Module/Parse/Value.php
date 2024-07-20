@@ -378,6 +378,8 @@ class Value {
 
     public static function remove_comment($input=null){
         if(is_scalar($input)){
+            ddd($input);
+
             $rows = explode(PHP_EOL, $input);
             $output = [];
             $is_comment = false;
