@@ -376,7 +376,7 @@ class Value {
         return '';
     }
 
-    public function remove_comment($input=null){
+    public static function remove_comment($input=null){
         if(is_scalar($input)){
             $rows = explode(PHP_EOL, $input);
             $output = [];
