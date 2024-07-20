@@ -1486,14 +1486,11 @@ class Token {
                 }
                 elseif($record['value'] === '('){
                     $set_depth++;
-                    ddd($record);
                 }
                 elseif($record['value'] === ')'){
                     $set_depth--;
-                    ddd($record);
                 }
-
-                elseif(
+                if(
                     $set_depth === 0 &&
                     $record['value'] === ')'
                 ){
