@@ -1438,16 +1438,6 @@ class Token {
             ){
                 $token[$nr] = Token::define($record, $options);
             }
-            elseif(!is_array($record) || !array_key_exists('value', $record)){
-                d($token);
-                ddd($record);
-            }
-            elseif($record['value'] === '('){
-                $set_depth++;
-            }
-            elseif($record['value'] === ')'){
-                $set_depth--;
-            }
             elseif(
                 $is_variable === null &&
                 $record['type'] === Token::TYPE_METHOD
@@ -1494,6 +1484,15 @@ class Token {
                     unset($token[$nr]);
                     continue;
                 }
+                elseif($record['value'] === '('){
+                    $set_depth++;
+                    ddd($record);
+                }
+                elseif($record['value'] === ')'){
+                    $set_depth--;
+                    ddd($record);
+                }
+
                 elseif(
                     $set_depth === 0 &&
                     $record['value'] === ')'
