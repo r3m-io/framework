@@ -378,45 +378,10 @@ class Value {
 
     public static function remove_comment($input=null){
         if(is_scalar($input)){
-            ddd($input);
-
-            $rows = explode(PHP_EOL, $input);
-            $output = [];
-            $is_comment = false;
-            $is_doc_comment = false;
-            foreach($rows as $row){
-                $row = trim($row);
-                $explode = explode('/**', $row, 2);
-                if(array_key_exists(1, $explode)){
-                    if($explode[0] !== ''){
-                        $output[] = $explode[0];
-                    }
-                    $is_doc_comment = true;
-                    continue;
-                }
-                $explode = explode('/*', $row, 2);
-                if(array_key_exists(1, $explode)){
-                    if($explode[0] !== ''){
-                        $output[] = $explode[0];
-                    }
-                    $is_comment = true;
-                    continue;
-                }
-                $explode = explode('*/', $row, 2);
-                if(array_key_exists(1, $explode)){
-                    if($explode[1] !== ''){
-                        $output[] = $explode[1];
-                    }
-                    $is_comment = false;
-                    $is_doc_comment = true;
-                    continue;
-                }
-                if($is_comment || $is_doc_comment){
-                    continue;
-                }
-                $output[] = $row;
-            }
-            return implode(PHP_EOL, $output);
+            // Remove single line comments
+            $input = preg_replace('/\/\/.*(\r?\n|$)/', '', $input);
+            // Remove multi-line comments
+            $input = preg_replace('!/\*.*?\*/!s', '', $input);
         }
         elseif(is_array($input)){
             foreach($input as $key => $value){
@@ -428,5 +393,6 @@ class Value {
                 $input->{$key} = Value::remove_comment($value);
             }
         }
+        return $input;
     }
 }
