@@ -1273,7 +1273,16 @@ class Build {
                 array_key_exists('has_modifier', $record['variable'])
             ){
                 if(!array_key_exists('modifier', $record['variable'])){
-                    throw new Exception('Malformed modifier ("'.  $record['value'] . '") on line: ' . $record['row'] . ' column: ' . $record['column'] . ' in: ' . $storage->data('source');
+                    throw new Exception(
+                        'Malformed modifier ("'.
+                        $record['value'] .
+                        '") on line: ' .
+                        $record['row'] .
+                        ' column: ' .
+                        $record['column'] .
+                        ' in: ' .
+                        $storage->data('source')
+                    );
                 }
                 foreach($record['variable']['modifier'] as $modifier_list_nr => $modifier_list){
                     foreach($modifier_list as $modifier_nr => $modifier){
