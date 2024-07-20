@@ -375,4 +375,48 @@ class Value {
         }
         return '';
     }
+
+    public function remove_comment($input=null){
+        if(is_scalar($input)){
+            $rows = explode(PHP_EOL, $input);
+            $output = [];
+            $is_comment = false;
+            $is_doc_comment = false;
+            foreach($rows as $row){
+                $row = trim($row);
+                if(strpos($row, '/**') !== false){
+                    $is_doc_comment = true;
+                    continue;
+                }
+                elseif(
+                    strpos($row, '/*') !== false
+                ){
+                    $is_comment = true;
+                    continue;
+                }
+                elseif(
+                    strpos($row, '*/') !== false
+                ){
+                    $is_comment = false;
+                    $is_doc_comment = true;
+                    continue;
+                }
+                if($is_comment || $is_doc_comment){
+                    continue;
+                }
+                $output[] = $row;
+            }
+            return implode(PHP_EOL, $output);
+        }
+        elseif(is_array($input)){
+            foreach($input as $key => $value){
+                $input[$key] = $this->remove_comment($value);
+            }
+        }
+        elseif(is_object($input)){
+            foreach($input as $key => $value){
+                $input->{$key} = $this->remove_comment($value);
+            }
+        }
+    }
 }

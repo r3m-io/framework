@@ -752,6 +752,7 @@ class Build {
                     true
                 )
             ){
+                /*
                 if($record['type'] === Token::TYPE_DOC_COMMENT){
                     $is_doc_comment = true;
                 }
@@ -764,6 +765,7 @@ class Build {
                 elseif($is_comment && $record['type'] === Token::TYPE_COMMENT_CLOSE){
                     $is_comment = false;
                 }
+                */
                 $run[] = $this->indent() . 'echo \'' . str_replace('\'', '\\\'', $record['value']) . '\';';
                 $run[] = '';
             }
