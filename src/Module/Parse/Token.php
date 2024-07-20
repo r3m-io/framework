@@ -1505,6 +1505,7 @@ class Token {
                         ||
                         (
                             $in_set === true &&
+                            $set_depth === 0 &&
                             $record['value'] === ')'
                         )
                     ){
