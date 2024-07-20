@@ -427,24 +427,17 @@ class Variable {
         $set_max = 1024;
         $set_counter = 0;
         while(Set::has($token)){
-            d($token);
             $set = Set::get($token);
-            d($set);
             $set = Operator::solve($build, $storage, $set);
             $target = Set::target($token);
-            d($target);
             $token = Set::pre_remove($token);
-            d($token);
             $token = Set::replace($token, $set, $target);
-            d($token);
             $token = Set::remove($token);
-            d($token);
             $set_counter++;
             if($set_counter > $set_max){
                 break;
             }
         }
-        d($token);
         $operator = Operator::solve($build, $storage, $token);
         $result = '';
         $in_array = false;
