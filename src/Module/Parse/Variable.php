@@ -427,7 +427,9 @@ class Variable {
         $set_max = 1024;
         $set_counter = 0;
         while(Set::has($token)){
+            d($token);
             $set = Set::get($token);
+            d($set);
             $set = Operator::solve($build, $storage, $set);
             $target = Set::target($token);
             $token = Set::pre_remove($token);
