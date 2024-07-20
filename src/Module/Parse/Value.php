@@ -378,8 +378,6 @@ class Value {
 
     public static function remove_comment($input=null){
         if(is_scalar($input)){
-            // Remove single line comments
-            $input = preg_replace('/\/\/(?![^\s]*\b(?:https?:\/\/|www\.|ftp:\/\/)\b)[^\r\n]*/', '', $input);
             // Remove multi-line comments
             $input = preg_replace('!/\*.*?\*/!s', '', $input);
         }
