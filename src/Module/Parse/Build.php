@@ -742,7 +742,16 @@ class Build {
                 $is_tag = true;
                 continue;
             }
-            elseif($record['type'] == Token::TYPE_DOC_COMMENT){
+            elseif(
+                in_array(
+                    $record['type'], [
+                        Token::TYPE_DOC_COMMENT,
+                        Token::TYPE_COMMENT,
+                        Token::TYPE_COMMENT_CLOSE,
+                    ],
+                    true
+                )
+            ){
                 $run[] = $this->indent() . 'echo \'' . str_replace('\'', '\\\'', $record['value']) . '\';';
                 $run[] = '';
             }
