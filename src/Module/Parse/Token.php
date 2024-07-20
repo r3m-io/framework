@@ -1432,6 +1432,10 @@ class Token {
         $attribute_nr = 0;
         $variable_nr = 0;
         foreach($token as $nr => $record){
+            if(!is_array($record) || !array_key_exists('value', $record)){
+                d($token);
+                ddd($record);
+            }
             if($record['value'] === '('){
                 $set_depth++;
             }
