@@ -121,8 +121,8 @@ class OutputFilter extends Main {
      */
     public static function trigger(App $object, Destination $destination, $options=[]): mixed
     {
-        ddd($options);
         $filters = $object->get(App::OUTPUTFILTER)->data(OutputFilter::OBJECT);
+        d($filters);
         $response = null;
         if(empty($filters)){
             if(
