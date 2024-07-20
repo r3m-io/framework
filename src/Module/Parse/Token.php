@@ -1504,6 +1504,7 @@ class Token {
                     ){
                         d($variable);
                         d($method);
+                        d($token);
                         ddd('yes');
                         //nothing
                     }
