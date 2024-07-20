@@ -1502,7 +1502,7 @@ class Token {
                         $set_depth === 0 &&
                         $record['value'] === ')'
                     ){
-                        d('yes');
+                        ddd('yes');
                         //nothing
                     }
                     elseif(
