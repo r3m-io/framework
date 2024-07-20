@@ -1281,7 +1281,7 @@ class Build {
                         ' column: ' .
                         $record['column'] .
                         ' in: ' .
-                        $storage->data('source')
+                        $storage->data('r3m.io.parse.view.url')
                     );
                 }
                 foreach($record['variable']['modifier'] as $modifier_list_nr => $modifier_list){
