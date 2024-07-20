@@ -1492,6 +1492,7 @@ class Token {
                 }
                 elseif($record['value'] === ')'){
                     if($set_depth === null){
+                        d($record);
                         ddd($token);
                     }
                     $set_depth--;
