@@ -112,6 +112,17 @@ class Value {
             case Token::TYPE_DOC_COMMENT :
             case Token::TYPE_COMMENT :
             case Token::TYPE_COMMENT_CLOSE :
+                if(
+                    in_array(
+                        $record['type'],
+                        [
+                            Token::TYPE_COMMENT,
+                            Token::TYPE_COMMENT_CLOSE
+                        ]
+                    )
+                ){
+                    ddd($record);
+                }
                 return $record['value'];
             case Token::TYPE_CODE :
             case Token::TYPE_QUOTE_SINGLE :
