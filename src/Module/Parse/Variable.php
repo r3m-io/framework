@@ -432,9 +432,13 @@ class Variable {
             d($set);
             $set = Operator::solve($build, $storage, $set);
             $target = Set::target($token);
+            d($target);
             $token = Set::pre_remove($token);
+            d($token);
             $token = Set::replace($token, $set, $target);
+            d($token);
             $token = Set::remove($token);
+            d($token);
             $set_counter++;
             if($set_counter > $set_max){
                 break;
