@@ -183,6 +183,7 @@ class Variable {
                 case '=' :
                     $assign = '$this->storage()->set(\'';
                     $assign .= $variable['variable']['attribute'] . '\', ';
+                    d($token);
                     $value = Variable::getValue($build, $storage, $token, $is_result);
                     $assign .= $value . ')';
                     return $assign;
