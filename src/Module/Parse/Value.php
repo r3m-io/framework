@@ -384,19 +384,27 @@ class Value {
             $is_doc_comment = false;
             foreach($rows as $row){
                 $row = trim($row);
-                if(strpos($row, '/**') !== false){
+                $explode = explode('/**', $row, 2);
+                if(array_key_exists(1, $explode)){
+                    if($explode[0] !== ''){
+                        $output[] = $explode[0];
+                    }
                     $is_doc_comment = true;
                     continue;
                 }
-                elseif(
-                    strpos($row, '/*') !== false
-                ){
+                $explode = explode('/*', $row, 2);
+                if(array_key_exists(1, $explode)){
+                    if($explode[0] !== ''){
+                        $output[] = $explode[0];
+                    }
                     $is_comment = true;
                     continue;
                 }
-                elseif(
-                    strpos($row, '*/') !== false
-                ){
+                $explode = explode('*/', $row, 2);
+                if(array_key_exists(1, $explode)){
+                    if($explode[1] !== ''){
+                        $output[] = $explode[1];
+                    }
                     $is_comment = false;
                     $is_doc_comment = true;
                     continue;
