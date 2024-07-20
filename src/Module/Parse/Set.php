@@ -42,6 +42,7 @@ class Set {
                 $record['value'] === ')'
             ){
                 $is_collect = false;
+                break;
             }
             elseif($is_collect){
                 $set[$nr] = $record;
