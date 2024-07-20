@@ -1501,28 +1501,12 @@ class Token {
                         continue;
                     }
                     elseif(
-                        (
-                            $record['type'] === Token::TYPE_CURLY_CLOSE
-                        ) ||
+                        $record['type'] === Token::TYPE_CURLY_CLOSE
+                        ||
                         (
                             $in_set === true &&
                             $record['value'] === ')'
                         )
-
-
-                        /*
-                        ||
-                        (
-                            $record['is_operator'] === true &&
-                            (
-                                $record['type'] !== Token::TYPE_COLON &&
-                                $record['type'] !== Token::TYPE_IS_ARRAY_OPERATOR &&
-                                $record['type'] !== Token::TYPE_IS_PLUS &&
-                                $record['type'] !== Token::TYPE_IS_MINUS &&
-                                $record['type'] !== Token::TYPE_DOT
-                            )
-                        )
-                        */
                     ){
                         $token[$is_variable]['type'] = Token::TYPE_VARIABLE;
 //                    d($variable);
