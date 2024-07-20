@@ -818,6 +818,9 @@ class Parse {
                 'object' => $object,
                 'url' => $url,
             ]);
+            if(str_contains($string, '$options.null2')){
+                ddd($tree);
+            }
             try {
                 $tree = $build->require('function', $tree);
                 $tree = $build->require('modifier', $tree);
