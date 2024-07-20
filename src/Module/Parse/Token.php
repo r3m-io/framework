@@ -1428,7 +1428,8 @@ class Token {
         $is_method = null;
         $is_variable = null;
         $depth = null;
-        $set_depth = null;
+        $set_depth = 0;
+        $in_set = false;
         $attribute_nr = 0;
         $variable_nr = 0;
         foreach($token as $nr => $record){
@@ -1439,17 +1440,9 @@ class Token {
                 $token[$nr] = Token::define($record, $options);
             } else {
                 if($record['value'] === '('){
-                    if($set_depth === null){
-                        $set_depth = 0;
-                    }
                     $set_depth++;
                 }
                 elseif($record['value'] === ')'){
-                    if($set_depth === null){
-                        d($nr);
-                        d($record);
-                        ddd($token);
-                    }
                     $set_depth--;
                 }
                 if(
@@ -1479,6 +1472,9 @@ class Token {
                         continue;
                     }
                     $method[$nr] = $record;
+                    if($set_depth > 0){
+                        $in_set = true;
+                    }
                 }
                 elseif(
                     $record['type'] === Token::TYPE_VARIABLE &&
@@ -1498,20 +1494,15 @@ class Token {
                         unset($token[$nr]);
                         continue;
                     }
-                    if(
-                        $set_depth === 0 &&
-                        $record['value'] === ')'
-                    ){
-                        d($variable);
-                        d($method);
-                        d($token);
-                        ddd('yes');
-                        //nothing
-                    }
                     elseif(
                         (
                             $record['type'] === Token::TYPE_CURLY_CLOSE
+                        ) ||
+                        (
+                            $in_set === true &&
+                            $record['value'] === ')'
                         )
+
 
                         /*
                         ||
@@ -1539,6 +1530,7 @@ class Token {
                             }
                         }
                         $is_variable = null;
+                        $in_set = false;
                         $variable_nr = 0;
                         $variable = [];
                         continue;
@@ -1548,6 +1540,9 @@ class Token {
                         $record['type'] = Token::TYPE_MODIFIER;
                     }
                     $variable[$variable_nr][] = $record;
+                    if($set_depth > 0){
+                        $in_set = true;
+                    }
                     unset($token[$nr]);
                 }
             }
