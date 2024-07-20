@@ -1022,6 +1022,7 @@ class Token {
                     true
                 )
             ){
+                d('yes');
                 $is_outside = true;
                 continue;
             }
