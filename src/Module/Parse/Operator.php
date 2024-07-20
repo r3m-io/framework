@@ -39,7 +39,7 @@ class Operator {
         while (Operator::has($token)) {
             $statement = Operator::get($token);
             if ($statement === false) {
-                ddd($token);
+                d($token);
                 trace();
             }
             $token = Operator::remove($token, $statement);
