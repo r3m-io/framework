@@ -1437,54 +1437,8 @@ class Token {
                 is_array($record)
             ){
                 $token[$nr] = Token::define($record, $options);
-            }
-            elseif(
-                $is_variable === null &&
-                $record['type'] === Token::TYPE_METHOD
-            ){
-                $is_method = $nr;
-                $depth = $record['depth'];
-            }
-            elseif($is_method !== null){
-                if(
-                    $record['value'] === '(' &&
-                    $record['depth'] === $depth + 1
-                ){
-                    if(!empty($method)){
-                        foreach($method as $unset => $item){
-                            $token[$is_method]['value'] .= $item['value'];
-                            unset($token[$unset]);
-                        }
-                    }
-                    $method = [];
-                    $is_method = null;
-                    $depth = null;
-                    continue;
-                }
-                if($record['type'] === Token::TYPE_WHITESPACE){
-                    continue;
-                }
-                $method[$nr] = $record;
-            }
-            elseif(
-                $record['type'] === Token::TYPE_VARIABLE &&
-                key_exists('variable', $record) &&
-                key_exists('has_modifier', $record['variable']) &&
-                $record['variable']['has_modifier'] === true
-            ){
-                $is_variable = $nr;
-            }
-            elseif($is_variable !== null){
-                if($record['type'] === Token::TYPE_WHITESPACE){
-                    unset($token[$nr]);
-                    continue;
-                }
-                elseif($record['type'] === Token::TYPE_PIPE){
-                    $variable_nr++;
-                    unset($token[$nr]);
-                    continue;
-                }
-                elseif($record['value'] === '('){
+            } else {
+                if($record['value'] === '('){
                     if($set_depth === null){
                         $set_depth = 0;
                     }
@@ -1499,52 +1453,99 @@ class Token {
                     $set_depth--;
                 }
                 if(
-                    $set_depth === 0 &&
-                    $record['value'] === ')'
+                    $is_variable === null &&
+                    $record['type'] === Token::TYPE_METHOD
                 ){
-                    //nothing
+                    $is_method = $nr;
+                    $depth = $record['depth'];
+                }
+                elseif($is_method !== null){
+                    if(
+                        $record['value'] === '(' &&
+                        $record['depth'] === $depth + 1
+                    ){
+                        if(!empty($method)){
+                            foreach($method as $unset => $item){
+                                $token[$is_method]['value'] .= $item['value'];
+                                unset($token[$unset]);
+                            }
+                        }
+                        $method = [];
+                        $is_method = null;
+                        $depth = null;
+                        continue;
+                    }
+                    if($record['type'] === Token::TYPE_WHITESPACE){
+                        continue;
+                    }
+                    $method[$nr] = $record;
                 }
                 elseif(
-                    (
-                        $record['type'] === Token::TYPE_CURLY_CLOSE
-                    )
-
-                    /*
-                    ||
-                    (
-                        $record['is_operator'] === true &&
-                        (
-                            $record['type'] !== Token::TYPE_COLON &&
-                            $record['type'] !== Token::TYPE_IS_ARRAY_OPERATOR &&
-                            $record['type'] !== Token::TYPE_IS_PLUS &&
-                            $record['type'] !== Token::TYPE_IS_MINUS &&
-                            $record['type'] !== Token::TYPE_DOT
-                        )
-                    )
-                    */
+                    $record['type'] === Token::TYPE_VARIABLE &&
+                    key_exists('variable', $record) &&
+                    key_exists('has_modifier', $record['variable']) &&
+                    $record['variable']['has_modifier'] === true
                 ){
-                    $token[$is_variable]['type'] = Token::TYPE_VARIABLE;
-//                    d($variable);
-                    $variable = Token::modifier($variable, $options);
-//                    trace();
-                    $token[$is_variable]['variable']['modifier'] = $variable;
-                    $token[$is_variable]['parse'] = $token[$is_variable]['value'];
-                    foreach($token[$is_variable]['variable']['modifier'] as $modifier_nr => $modifier_list){
-                        foreach($modifier_list as $modifier_key => $modifier){
-                            $token[$is_variable]['parse'] .= $token[$is_variable]['variable']['operator'] . $modifier['parse'];
-                        }                        
+                    $is_variable = $nr;
+                }
+                elseif($is_variable !== null){
+                    if($record['type'] === Token::TYPE_WHITESPACE){
+                        unset($token[$nr]);
+                        continue;
                     }
-                    $is_variable = null;
-                    $variable_nr = 0;
-                    $variable = [];                    
-                    continue;
+                    elseif($record['type'] === Token::TYPE_PIPE){
+                        $variable_nr++;
+                        unset($token[$nr]);
+                        continue;
+                    }
+                    if(
+                        $set_depth === 0 &&
+                        $record['value'] === ')'
+                    ){
+                        //nothing
+                    }
+                    elseif(
+                        (
+                            $record['type'] === Token::TYPE_CURLY_CLOSE
+                        )
+
+                        /*
+                        ||
+                        (
+                            $record['is_operator'] === true &&
+                            (
+                                $record['type'] !== Token::TYPE_COLON &&
+                                $record['type'] !== Token::TYPE_IS_ARRAY_OPERATOR &&
+                                $record['type'] !== Token::TYPE_IS_PLUS &&
+                                $record['type'] !== Token::TYPE_IS_MINUS &&
+                                $record['type'] !== Token::TYPE_DOT
+                            )
+                        )
+                        */
+                    ){
+                        $token[$is_variable]['type'] = Token::TYPE_VARIABLE;
+//                    d($variable);
+                        $variable = Token::modifier($variable, $options);
+//                    trace();
+                        $token[$is_variable]['variable']['modifier'] = $variable;
+                        $token[$is_variable]['parse'] = $token[$is_variable]['value'];
+                        foreach($token[$is_variable]['variable']['modifier'] as $modifier_nr => $modifier_list){
+                            foreach($modifier_list as $modifier_key => $modifier){
+                                $token[$is_variable]['parse'] .= $token[$is_variable]['variable']['operator'] . $modifier['parse'];
+                            }
+                        }
+                        $is_variable = null;
+                        $variable_nr = 0;
+                        $variable = [];
+                        continue;
+                    }
+                    if(empty($variable[$variable_nr])){
+                        $variable[$variable_nr] = [];
+                        $record['type'] = Token::TYPE_MODIFIER;
+                    }
+                    $variable[$variable_nr][] = $record;
+                    unset($token[$nr]);
                 }
-                if(empty($variable[$variable_nr])){
-                    $variable[$variable_nr] = [];
-                    $record['type'] = Token::TYPE_MODIFIER;
-                }
-                $variable[$variable_nr][] = $record;
-                unset($token[$nr]);
             }
         }
         return $token;
