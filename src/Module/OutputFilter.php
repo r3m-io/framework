@@ -122,9 +122,6 @@ class OutputFilter extends Main {
     public static function trigger(App $object, Destination $destination, $options=[]): mixed
     {
         $filters = $object->get(App::OUTPUTFILTER)->data(OutputFilter::OBJECT);
-        if($filters){
-            ddd($filters);
-        }
         $response = null;
         if(empty($filters)){
             if(
@@ -183,6 +180,10 @@ class OutputFilter extends Main {
                     }
                 }
             }
+        }
+        if($filters){
+            d($filters);
+            ddd($response);
         }
         if($response){
             return $response;
