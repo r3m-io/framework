@@ -183,6 +183,9 @@ class OutputFilter extends Main {
         }
         if($filters){
             d($filters);
+            if(array_key_exists('response', $options)){
+                d($options['response']);
+            }
             ddd($response);
         }
         if($response){
