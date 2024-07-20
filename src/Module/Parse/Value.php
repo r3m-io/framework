@@ -109,6 +109,9 @@ class Value {
             case Token::TYPE_IS_SMALLER_SMALLER :
             case Token::TYPE_IS_SPACESHIP :
             case Token::TYPE_IS_XOR_EQUAL :
+            case Token::TYPE_DOC_COMMENT :
+            case Token::TYPE_COMMENT :
+            case Token::TYPE_COMMENT_CLOSE :
                 return $record['value'];
             case Token::TYPE_CODE :
             case Token::TYPE_QUOTE_SINGLE :
@@ -170,9 +173,7 @@ class Value {
                         return '$this->' . $trait_name[1] . '()';
                     }
                 }
-            case Token::TYPE_COMMENT :
             case Token::TYPE_COMMENT_SINGLE_LINE :
-            case Token::TYPE_DOC_COMMENT :
                 return '\'\'';
             case Token::TYPE_WHITESPACE :
             case Token::TYPE_CURLY_CLOSE :
