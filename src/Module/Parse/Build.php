@@ -752,7 +752,6 @@ class Build {
                         if($select['value'] == 'if'){
                             throw new Exception('if must be a method, use {if()} on line: ' . $select['row'] . ', column: ' .  $select['column']  . ' in: ' .  $data->data('r3m.io.parse.view.url') );
                         } else {
-                            ddd($select);
                             throw new Exception('Possible variable sign or method missing (), "' . $select['value'] . '" on line: ' . $select['row'] . ', column: ' .  $select['column']  . ' in: ' .  $data->data('r3m.io.parse.view.url'));
                         }
                     case Token::TYPE_IS_MINUS_MINUS :
@@ -1274,8 +1273,7 @@ class Build {
                 array_key_exists('has_modifier', $record['variable'])
             ){
                 if(!array_key_exists('modifier', $record['variable'])){
-                    d($record);
-                    ddd($tree);
+                    throw new Exception('Malformed modifier ("'.  $record['value'] . '") on line: ' . $record['row'] . ' column: ' . $record['column'] . ' in: ' . $storage->data('source');
                 }
                 foreach($record['variable']['modifier'] as $modifier_list_nr => $modifier_list){
                     foreach($modifier_list as $modifier_nr => $modifier){
