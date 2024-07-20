@@ -1491,13 +1491,16 @@ class Token {
                     continue;
                 }
                 elseif(
+                    $set_depth === 0 &&
+                    $record['value'] === ')'
+                ){
+                    //nothing
+                }
+                elseif(
                     (
                         $record['type'] === Token::TYPE_CURLY_CLOSE
-                    ) ||
-                    (
-                        $set_depth === 0 &&
-                        $record['value'] === ')'
                     )
+
                     /*
                     ||
                     (
