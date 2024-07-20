@@ -410,12 +410,12 @@ class Value {
         }
         elseif(is_array($input)){
             foreach($input as $key => $value){
-                $input[$key] = $this->remove_comment($value);
+                $input[$key] = Value::remove_comment($value);
             }
         }
         elseif(is_object($input)){
             foreach($input as $key => $value){
-                $input->{$key} = $this->remove_comment($value);
+                $input->{$key} = Value::remove_comment($value);
             }
         }
     }
