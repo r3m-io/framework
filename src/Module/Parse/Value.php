@@ -363,7 +363,9 @@ class Value {
                 }
                 $last = array_pop($result);
                 if($last){
-                    $last = substr($last, 0, -2);
+                    if($last !== '['){
+                        $last = substr($last, 0, -2);
+                    }
                     $result[] = $last;
                 }
                 $result[] = ']';
