@@ -756,21 +756,24 @@ class Controller {
     /**
      * @throws Exception
      */
-    public static function output_filter(App $object): void
+    public static function decorate(App $object, $list=[]): void
     {
-        OutputFilter::on($object, [
-            (object) [
-                "uuid" => Core::uuid(),
-                "options" => (object) [
-                    "priority" => 10,
-                    "command" => [],
-                    "controller" => [
-                        "Package:R3m:Io:Output:Filter:Output:Filter:Comment:remove"
-                    ]
-                ],
-                "route" => "*",
-                "#class" => "System.Output.Filter"
-            ]
-        ]);
+        if(empty($list)){
+            $list = [
+                (object) [
+                    "uuid" => Core::uuid(),
+                    "options" => (object) [
+                        "priority" => 10,
+                        "command" => [],
+                        "controller" => [
+                            "Package:R3m:Io:Output:Filter:Output:Filter:Comment:remove"
+                        ]
+                    ],
+                    "route" => "*",
+                    "#class" => "System.Output.Filter"
+                ]
+            ];
+        }
+        OutputFilter::on($object, $list);
     }
 }
