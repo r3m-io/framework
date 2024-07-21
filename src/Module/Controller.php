@@ -752,4 +752,25 @@ class Controller {
     {
         return $object->route()::find($object, $name, $options);
     }
+
+    /**
+     * @throws Exception
+     */
+    public static function output_filter(App $object): void
+    {
+        OutputFilter::on($object, [
+            (object) [
+                "uuid" => Core::uuid(),
+                "options" => (object) [
+                    "priority" => 10,
+                    "command" => [],
+                    "controller" => [
+                        "Package:R3m:Io:Output:Filter:Output:Filter:Comment:remove"
+                    ]
+                ],
+                "route" => "*",
+                "#class" => "System.Output.Filter"
+            ]
+        ]);
+    }
 }
