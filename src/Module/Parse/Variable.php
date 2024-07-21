@@ -566,7 +566,6 @@ class Variable {
                     }
                 }
             } else {
-                d($record);
                 if($record['type'] === Token::TYPE_CURLY_OPEN){
                     $selection = [];
                     $is_collect = true;
@@ -679,7 +678,6 @@ class Variable {
         if(substr($result, -3) === ' . '){
             $result = substr($result,0, -3);
         }
-        d($result);
         return $result;
     }
 }
