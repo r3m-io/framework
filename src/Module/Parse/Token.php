@@ -2551,7 +2551,7 @@ class Token {
                     }
                     elseif($doc_comment_open_nr !== null){
                         $token[$doc_comment_open_nr]['value'] .= $record['value'];
-                        d($token[$comment_open_nr]);
+                        d($token[$doc_comment_open_nr]);
                         $doc_comment_open_nr = null;
                         unset($token[$nr]);
                         $previous_nr = $doc_comment_open_nr;
