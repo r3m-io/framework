@@ -2543,7 +2543,8 @@ class Token {
                 ){
                     if($comment_open_nr !== null){
                         $token[$comment_open_nr]['value'] .= $record['value'];
-                        d($token[$comment_open_nr]);
+                        unset($token[$comment_open_nr]); //@2024-07-21 added, don't want comment in generated code
+//                        d($token[$comment_open_nr]);
                         $comment_open_nr = null;
                         unset($token[$nr]);
                         $previous_nr = $comment_open_nr;
@@ -2551,6 +2552,7 @@ class Token {
                     }
                     elseif($doc_comment_open_nr !== null){
                         $token[$doc_comment_open_nr]['value'] .= $record['value'];
+                        unset($token[$doc_comment_open_nr]); //@2024-07-21 added, don't want comment in generated code
                         d($token[$doc_comment_open_nr]);
                         $doc_comment_open_nr = null;
                         unset($token[$nr]);
@@ -2575,6 +2577,7 @@ class Token {
                         $record['type'] === Token::TYPE_WHITESPACE &&
                         stristr($record['value'], "\n") !== false
                     ){
+                        unset($token[$comment_single_line_nr]); //@2024-07-21 added, don't want comment in generated code
                         $comment_single_line_nr = null;
                     } else {
                         $token[$comment_single_line_nr]['value'] .= $record['value'];
