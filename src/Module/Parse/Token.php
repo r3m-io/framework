@@ -2553,7 +2553,6 @@ class Token {
                     elseif($doc_comment_open_nr !== null){
                         $token[$doc_comment_open_nr]['value'] .= $record['value'];
                         unset($token[$doc_comment_open_nr]); //@2024-07-21 added, don't want comment in generated code
-                        d($token[$doc_comment_open_nr]);
                         $doc_comment_open_nr = null;
                         unset($token[$nr]);
                         $previous_nr = $doc_comment_open_nr;
