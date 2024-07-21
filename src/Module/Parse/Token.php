@@ -1315,9 +1315,7 @@ class Token {
             if($check_attribute === true){
                 foreach($token[$token_nr][$modifier]['attribute'] as $attribute_nr => $attribute){
                     $attribute = Token::cast($attribute);
-                    d($attribute);
                     $token[$token_nr][$modifier]['attribute'][$attribute_nr] = Token::array($attribute);
-                    d($token[$token_nr][$modifier]['attribute'][$attribute_nr]);
                 }
             }
             $token[$token_nr][$modifier]['parse'] = $parse;            
