@@ -2536,7 +2536,88 @@ class Token {
                     }
                 }
             } else {
-                d($record);
+                if(
+                    $record['type'] === Token::TYPE_COMMENT_CLOSE &&
+                    $quote_single_toggle === false &&
+                    $quote_double_toggle === false
+                ){
+                    if($comment_open_nr !== null){
+                        $token[$comment_open_nr]['value'] .= $record['value'];
+                        $comment_open_nr = null;
+                        unset($token[$nr]);
+                        $previous_nr = $comment_open_nr;
+                        continue;
+                    }
+                    elseif($doc_comment_open_nr !== null){
+                        $token[$doc_comment_open_nr]['value'] .= $record['value'];
+                        $doc_comment_open_nr = null;
+                        unset($token[$nr]);
+                        $previous_nr = $doc_comment_open_nr;
+                        continue;
+                    }
+                }
+                elseif($comment_open_nr !== null){
+                    $token[$comment_open_nr]['value'] .= $record['value'];
+                    unset($token[$nr]);
+                    $previous_nr = $comment_open_nr;
+                    continue;
+                }
+                elseif($doc_comment_open_nr !== null){
+                    $token[$doc_comment_open_nr]['value'] .= $record['value'];
+                    unset($token[$nr]);
+                    $previous_nr = $doc_comment_open_nr;
+                    continue;
+                }
+                elseif($comment_single_line_nr !== null){
+                    if(
+                        $record['type'] === Token::TYPE_WHITESPACE &&
+                        stristr($record['value'], "\n") !== false
+                    ){
+                        $comment_single_line_nr = null;
+                    } else {
+                        $token[$comment_single_line_nr]['value'] .= $record['value'];
+                        unset($token[$nr]);
+                        $previous_nr = $nr;
+                        continue;
+                    }
+                }
+                if(
+                    $record['type'] === Token::TYPE_COMMENT &&
+                    $quote_single_toggle === false &&
+                    $quote_double_toggle === false
+                ){
+                    $comment_open_nr = $nr;
+                    $previous_nr = $nr;
+                    continue;
+                }
+                elseif(
+                    $record['type'] === Token::TYPE_DOC_COMMENT &&
+                    $quote_single_toggle === false &&
+                    $quote_double_toggle === false
+                ){
+                    $doc_comment_open_nr = $nr;
+                    $previous_nr = $nr;
+                    continue;
+                }
+                elseif(
+                    (
+                        $record['type'] === Token::TYPE_COMMENT_SINGLE_LINE &&
+                        $quote_single_toggle === false &&
+                        $quote_double_toggle === false &&
+                        !isset($previous_nr)
+                    ) ||
+                    (
+                        $record['type'] === Token::TYPE_COMMENT_SINGLE_LINE &&
+                        $quote_single_toggle === false &&
+                        $quote_double_toggle === false &&
+                        isset($previous_nr) &&
+                        $token[$previous_nr]['type'] !== Token::TYPE_COLON //make exception for uris
+                    )
+                ){
+                    $comment_single_line_nr = $nr;
+                    $previous_nr = $nr;
+                    continue;
+                }
             }
             $previous_nr = $nr;
         }
