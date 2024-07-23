@@ -32,7 +32,7 @@ class Cli {
      * @throws ObjectException
      * @throws Exception
      */
-    public static function read($url='', $text='')
+    public static function read($type='', $text='')
     {
         $is_flush = false;
         if(ob_get_level() > 0){
@@ -41,11 +41,11 @@ class Cli {
         if($is_flush){
             ob_flush();
         }
-        if(empty($url)){
-            $url = 'input';
+        if(empty($type)){
+            $type = 'input';
         }
         $input = null;
-        switch($url){
+        switch($type){
             case Cli::INPUT:
                 fwrite(STDOUT, $text);
                 if($is_flush){
@@ -66,6 +66,7 @@ class Cli {
                 system('stty -echo');
                 $input = trim(fgets(STDIN));
                 system('stty echo');
+                echo PHP_EOL;
             break;
             case Cli::STREAM :
                 $input = trim(fgets(STDIN));
