@@ -11,6 +11,7 @@ class Server extends Controller {
 
     public static function url(App $object, $response=null): object
     {
+        d($response);
         $result = [];
         if(
             !empty($response) &&
