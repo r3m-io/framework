@@ -1933,6 +1933,9 @@ class Core
     public static function is_uuid($string=''): bool
     {
         //format: %s%s-%s-%s-%s-%s%s%s
+        if(!is_string($string)){
+            return false;
+        }
         $explode = explode('-', $string);
         if(strlen($string) !== 36){
             return false;
