@@ -1537,10 +1537,12 @@ class Core
                             if(property_exists($object, $shift)){
                                 $object = $object->{$shift};
                                 $ready = false;
+                                /*
                                 if($is_debug === true){
                                     d($object);
                                     ddd($attributeList);
                                 }
+                                */
                                 foreach($attributeList as $attributeList_nr => $attribute){
                                     if(
                                         is_array($object) &&
