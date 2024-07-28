@@ -1191,6 +1191,7 @@ class Core
             }
             $need_next_change = false;
             $ready = false;
+            var_dump($properties);
             while(!empty($properties)){
                 foreach($properties as $nr => $property){
                     if(strpos($property, '.') !== false){
