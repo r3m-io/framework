@@ -1171,6 +1171,7 @@ class Core
             $attributeList = Core::explode_multi(Core::ATTRIBUTE_EXPLODE, (string) $attributeList);
         }
         if($is_debug === true){
+            d($object);
             ddd($attributeList);
         }
         if(is_array($object)){
