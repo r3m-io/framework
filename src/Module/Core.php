@@ -1191,8 +1191,6 @@ class Core
             }
             $need_next_change = false;
             $ready = false;
-            echo '1194';
-            var_dump($properties);
             while(!empty($properties)){
                 foreach($properties as $nr => $property){
                     if(strpos($property, '.') !== false){
@@ -1291,6 +1289,9 @@ class Core
                                         $need_next_change = false;
                                         $ready = true;
                                     }
+                                    elseif(is_null($object)){ //added @2024-07-28
+                                        return null;
+                                    }
                                     elseif($need_next_change === false){
                                         $need_next_change = true;
                                         $ready = false;
@@ -1334,6 +1335,9 @@ class Core
                                         unset($attributeList[$attributeList_nr]);
                                         $need_next_change = false;
                                         $ready = true;
+                                    }
+                                    elseif(is_null($object)){ //added @2024-07-28
+                                        return null;
                                     }
                                     elseif($need_next_change === false){
                                         $need_next_change = true;
@@ -1490,6 +1494,9 @@ class Core
                                         unset($attributeList[$attributeList_nr]);
                                         $need_next_change = false;
                                         $ready = true;
+                                    }
+                                    elseif(is_null($object)){ //added @2024-07-28
+                                        return null;
                                     }
                                     elseif($need_next_change === false){
                                         $need_next_change = true;
