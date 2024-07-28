@@ -1293,6 +1293,12 @@ class Core
                                     elseif(is_null($object)){ //added @2024-07-28
                                         return null;
                                     }
+                                    elseif(is_array($object)){ //added @2024-07-28
+                                        return null;
+                                    }
+                                    elseif(is_object($object)){ //added @2024-07-28
+                                        return null;
+                                    }
                                     elseif($need_next_change === false){
                                         $need_next_change = true;
                                         $ready = false;
@@ -1338,6 +1344,12 @@ class Core
                                         $ready = true;
                                     }
                                     elseif(is_null($object)){ //added @2024-07-28
+                                        return null;
+                                    }
+                                    elseif(is_array($object)){ //added @2024-07-28
+                                        return null;
+                                    }
+                                    elseif(is_object($object)){ //added @2024-07-28
                                         return null;
                                     }
                                     elseif($need_next_change === false){
@@ -1495,6 +1507,12 @@ class Core
                                     elseif(is_null($object)){ //added @2024-07-28
                                         return null;
                                     }
+                                    elseif(is_array($object)){ //added @2024-07-28
+                                        return null;
+                                    }
+                                    elseif(is_object($object)){ //added @2024-07-28
+                                        return null;
+                                    }
                                     elseif($need_next_change === false){
                                         $need_next_change = true;
                                         $ready = false;
@@ -1543,6 +1561,12 @@ class Core
                                         $ready = true;
                                     }
                                     elseif(is_null($object)){ //added @2024-07-28
+                                        return null;
+                                    }
+                                    elseif(is_array($object)){ //added @2024-07-28
+                                        return null;
+                                    }
+                                    elseif(is_object($object)){ //added @2024-07-28
                                         return null;
                                     }
                                     elseif($need_next_change === false){
