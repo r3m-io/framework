@@ -1400,8 +1400,6 @@ class Core
             }
             $need_next_change = false;
             $ready = false;
-            echo '1399';
-            var_dump($properties);
             while(!empty($properties)){
                 foreach($properties as $nr => $property){
                     if(strpos($property, '.') !== false){
@@ -1466,8 +1464,6 @@ class Core
                     }
                     return null;
                 }
-                echo 1463;
-                var_dump($properties);
                 foreach($properties as $nr => $property){
                     $attributeList = explode('.', $property);
                     if(array_key_exists(1, $attributeList)){
