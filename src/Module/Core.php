@@ -1534,6 +1534,9 @@ class Core
                                         $need_next_change = false;
                                         $ready = true;
                                     }
+                                    elseif(is_null($object)){ //added @2024-07-28
+                                        return null;
+                                    }
                                     elseif($need_next_change === false){
                                         $need_next_change = true;
                                         $ready = false;
