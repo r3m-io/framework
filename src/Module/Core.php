@@ -1462,6 +1462,8 @@ class Core
                     }
                     return null;
                 }
+                echo 1463;
+                var_dump($properties);
                 foreach($properties as $nr => $property){
                     $attributeList = explode('.', $property);
                     if(array_key_exists(1, $attributeList)){
