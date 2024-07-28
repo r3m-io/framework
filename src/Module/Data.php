@@ -391,7 +391,6 @@ class Data {
                     if('options.status.url'){
                         $get = Core::object_get($attribute, $this->data(),$this->is_debug);
                         var_dump($get);
-                        die;
                     }
                     return Core::object_get($attribute, $this->data(),$this->is_debug);
                 }
