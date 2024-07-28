@@ -1170,6 +1170,9 @@ class Core
         if(is_string($attributeList) || is_numeric($attributeList)) {
             $attributeList = Core::explode_multi(Core::ATTRIBUTE_EXPLODE, (string) $attributeList);
         }
+        if($is_debug === true){
+            ddd($attributeList);
+        }
         if(is_array($object)){
             $properties = [];
             if(

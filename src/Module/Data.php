@@ -389,6 +389,7 @@ class Data {
                 }
                 if(is_string($attribute)){
                     if($attribute === 'options.status.url'){
+                        $this->is_debug = true;
                         d($this->is_debug);
                         $get = Core::object_get($attribute, $this->data(),$this->is_debug);
                         ddd($get);
