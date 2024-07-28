@@ -388,9 +388,9 @@ class Data {
                     $attribute = (string) $attribute;
                 }
                 if(is_string($attribute)){
-                    if('options.status.url'){
+                    if($attribute === 'options.status.url'){
                         $get = Core::object_get($attribute, $this->data(),$this->is_debug);
-                        var_dump($get);
+                        ddd($get);
                     }
                     return Core::object_get($attribute, $this->data(),$this->is_debug);
                 }
