@@ -1401,10 +1401,6 @@ class Core
             }
             $need_next_change = false;
             $ready = false;
-            if($is_debug === true){
-                d($object);
-                ddd($properties);
-            }
             while(!empty($properties)){
                 foreach($properties as $nr => $property){
                     if(strpos($property, '.') !== false){
@@ -1468,6 +1464,10 @@ class Core
                         return $object;
                     }
                     return null;
+                }
+                if($is_debug === true){
+                    d($object);
+                    ddd($properties);
                 }
                 foreach($properties as $nr => $property){
                     $attributeList = explode('.', $property);
