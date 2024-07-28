@@ -1465,10 +1465,6 @@ class Core
                     }
                     return null;
                 }
-                if($is_debug === true){
-                    d($object);
-                    ddd($properties);
-                }
                 foreach($properties as $nr => $property){
                     $attributeList = explode('.', $property);
                     if(array_key_exists(1, $attributeList)){
@@ -1523,6 +1519,10 @@ class Core
                             if(property_exists($object, $shift)){
                                 $object = $object->{$shift};
                                 $ready = false;
+                                if($is_debug === true){
+                                    d($object);
+                                    ddd($attributeList);
+                                }
                                 foreach($attributeList as $attributeList_nr => $attribute){
                                     if(
                                         is_array($object) &&
