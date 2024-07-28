@@ -1170,10 +1170,7 @@ class Core
         if(is_string($attributeList) || is_numeric($attributeList)) {
             $attributeList = Core::explode_multi(Core::ATTRIBUTE_EXPLODE, (string) $attributeList);
         }
-        if($is_debug === true){
-            d($object);
-            ddd($attributeList);
-        }
+
         if(is_array($object)){
             $properties = [];
             if(
@@ -1404,6 +1401,10 @@ class Core
             }
             $need_next_change = false;
             $ready = false;
+            if($is_debug === true){
+                d($object);
+                ddd($properties);
+            }
             while(!empty($properties)){
                 foreach($properties as $nr => $property){
                     if(strpos($property, '.') !== false){
