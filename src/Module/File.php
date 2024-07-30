@@ -677,7 +677,6 @@ class File {
         } else {
             $result .= $seconds . ' seconds';
         }
-
         return $result;
     }
 
