@@ -664,13 +664,13 @@ class File {
         $seconds = $seconds % 60;
         $result = 'In ';
         if($days > 0){
-            $result .= $days . ' days';
+            $result .= $days . ' days and ';
         }
         if($hours > 0){
-            $result .= $hours . ' hours';
+            $result .= $hours . ' hours and ';
         }
         if ($minutes > 0){
-            $result .= $minutes . ' minutes';
+            $result .= $minutes . ' minutes and ';
         }
         $result .= $seconds . ' seconds';
         return $result;
