@@ -656,28 +656,27 @@ class File {
 
     }
 
-    public static function time_format($seconds=0): string
+    public static function time_format($seconds=0, $string='In '): string
     {
         $days = floor($seconds / (3600 * 24));
         $hours = floor($seconds / 3600);
         $minutes = floor(($seconds / 60) % 60);
         $seconds = $seconds % 60;
-        $result = 'In ';
         if($days > 0){
-            $result .= $days . ' days and ';
+            $string .= $days . ' days and ';
         }
         if($hours > 0){
-            $result .= $hours . ' hours and ';
+            $string .= $hours . ' hours and ';
         }
         if ($minutes > 0){
-            $result .= $minutes . ' minutes and ';
+            $string .= $minutes . ' minutes and ';
         }
         if($seconds < 0){
-            $result = 'Almost there';
+            $string = 'Almost there';
         } else {
-            $result .= $seconds . ' seconds';
+            $string .= $seconds . ' seconds';
         }
-        return $result;
+        return $string;
     }
 
     /**
