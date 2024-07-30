@@ -656,6 +656,26 @@ class File {
 
     }
 
+    public static function time_format($seconds=0): string
+    {
+        $days = floor($seconds / (3600 * 24));
+        $hours = floor($seconds / 3600);
+        $minutes = floor(($seconds / 60) % 60);
+        $seconds = $seconds % 60;
+        $result = 'In ';
+        if($days > 0){
+            $result .= $days . ' days';
+        }
+        if($hours > 0){
+            $result .= $hours . ' hours';
+        }
+        if ($minutes > 0){
+            $result .= $minutes . ' minutes';
+        }
+        $result .= $seconds . ' seconds';
+        return $result;
+    }
+
     /**
      * @throws Exception
      */
