@@ -36,6 +36,9 @@ class File {
     const LINE = 'line';
     const LINES = 'lines';
 
+    const IN = 'In ';
+    const ELAPSED = 'Elapsed: ';
+
     public static function is($url=''): bool
     {
         $url = rtrim($url, '/');
@@ -656,7 +659,7 @@ class File {
 
     }
 
-    public static function time_format($seconds=0, $string='In '): string
+    public static function time_format($seconds=0, $string=File::IN): string
     {
         $days = floor($seconds / (3600 * 24));
         $hours = floor($seconds / 3600);
