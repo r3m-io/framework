@@ -666,18 +666,37 @@ class File {
         $minutes = floor(($seconds / 60) % 60);
         $seconds = $seconds % 60;
         if($days > 0){
-            $string .= $days . ' days and ';
+            if($days === 1){
+                $string .= $days . ' day and ';
+            } else {
+                $string .= $days . ' days and ';
+            }
+
         }
         if($hours > 0){
-            $string .= $hours . ' hours and ';
+            if($hours === 1){
+                $string .= $hours . ' hour and ';
+            } else {
+                $string .= $hours . ' hours and ';
+            }
+
         }
         if ($minutes > 0){
-            $string .= $minutes . ' minutes and ';
+            if($minutes === 1){
+                $string .= $minutes . ' minute and ';
+            } else {
+                $string .= $minutes . ' minutes and ';
+            }
+
         }
         if($seconds < 0){
             $string = 'Almost there';
         } else {
-            $string .= $seconds . ' seconds';
+            if($seconds === 1){
+                $string .= $seconds . ' second';
+            } else {
+                $string .= $seconds . ' seconds';
+            }
         }
         return $string;
     }
