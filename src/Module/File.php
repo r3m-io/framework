@@ -672,7 +672,12 @@ class File {
         if ($minutes > 0){
             $result .= $minutes . ' minutes and ';
         }
-        $result .= $seconds . ' seconds';
+        if($seconds < 0){
+            $result = 'Almost there';
+        } else {
+            $result .= $seconds . ' seconds';
+        }
+
         return $result;
     }
 
