@@ -2038,7 +2038,7 @@ class Core
     public static function is_hex($string=''): bool
     {
         if(strtoupper(substr($string, 0, 2)) === '0X'){
-            return ctype_xdigit(substr($string, 2);
+            return ctype_xdigit(substr($string, 2));
         }
         return ctype_xdigit($string);
     }
