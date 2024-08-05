@@ -2035,7 +2035,12 @@ class Core
         return $variable;
     }
 
-    public static function ucfirst_sentence($string = '', $delimiter = '.'): string
+    public static function is_hex($string=''): bool
+    {
+        return ctype_xdigit($string);
+    }
+
+    public static function ucfirst_sentence($string='', $delimiter='.'): string
     {
         $explode = explode($delimiter, $string);
         foreach ($explode as $nr => $part) {
