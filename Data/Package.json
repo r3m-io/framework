@@ -749,6 +749,11 @@
           "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Node/",
           "to" : "{{config('project.dir.node')}}",
           "recursive": true
+        },
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Plugin/",
+          "to" : "{{config('project.dir.plugin')}}",
+          "recursive": true
         }
       ],
       "command" : [
