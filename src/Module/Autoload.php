@@ -492,7 +492,15 @@ class Autoload {
         $object = $this->object();
         $logger_error = $object->config('project.log.error');
         $logger_debug = $object->config('project.log.debug');
-        if($object->config('ramdisk.url')){
+        if($object->config('posix.id') === 1000){
+            $dir_temp = '/tmp/' .
+                $object->config('posix.id') .
+                $object->config('ds') .
+                'Autoload' .
+                $object->config('ds')
+            ;
+        }
+        elseif($object->config('ramdisk.url')){
             $dir_temp = $object->config('ramdisk.url') .
                 $object->config('posix.id') .
                 $object->config('ds') .
