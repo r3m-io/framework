@@ -12,7 +12,8 @@ class Server extends Controller {
     public static function url(App $object, $response=null): object
     {
         $result = [];
-        ddd($response);
+        trace();
+        d($response);
         if(
             !empty($response) &&
             is_array($response)
