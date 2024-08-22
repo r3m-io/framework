@@ -201,6 +201,7 @@ class Config extends Data {
     const POSIX_ID = 'posix.id';
 
     CONST WWW_DATA_DIR = 33;
+    CONST USER_DATA_DIR = 1000;
 
     /**
      * @throws ObjectException
@@ -415,6 +416,22 @@ class Config extends Data {
             }
         }
         elseif($object->config('posix.id') === Config::WWW_DATA_DIR){
+            $dir_temp = $object->config('framework.dir.temp');
+            $dir =
+                $dir_temp .
+                $object->config('posix.id') .
+                $object->config('ds')
+            ;
+            $dir_cache =
+                $dir .
+                'Cache' .
+                $object->config('ds')
+            ;
+            if(!Dir::is($dir_cache)){
+                Dir::create($dir_cache, Dir::CHMOD);
+            }
+        }
+        elseif($object->config('posix.id') === Config::USER_DATA_DIR){
             $dir_temp = $object->config('framework.dir.temp');
             $dir =
                 $dir_temp .
