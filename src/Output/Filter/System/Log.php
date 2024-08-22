@@ -34,6 +34,7 @@ class Log extends Controller {
                 }
             }
         }
+        d($result);
         return (object) $result;
     }
 }
