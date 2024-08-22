@@ -24,7 +24,6 @@ class Logger {
     {
         $interface = $object->config('log');
         $is = null;
-        ddd($object->config());
         d($interface);
         if($interface){
             foreach($interface as $name => $record){
