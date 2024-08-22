@@ -14,7 +14,10 @@ class Log extends Controller {
         $result = [];
         if(
             !empty($response) &&
-            is_array($response)
+            (
+                is_object($response) ||
+                is_array($response)
+            )
         ){
             foreach($response as $nr => $record){
                 if(
