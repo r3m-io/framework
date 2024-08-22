@@ -24,6 +24,7 @@ class Logger {
     {
         $interface = $object->config('log');
         $is = null;
+        d($interface);
         if($interface){
             foreach($interface as $name => $record){
                 $name = ucfirst($name);
