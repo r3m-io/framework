@@ -115,12 +115,22 @@ class Parse {
             ;
             Dir::create($cache_dir);
         } else {
-            $cache_dir =
-                $config->data('framework.dir.temp') .
-                $config->data(Config::POSIX_ID) .
-                $config->data('ds') .
-                $config->data('dictionary.compile') .
-                $config->data('ds');
+            if($config->data(Config::POSIX_ID) === 1000){
+                $cache_dir =
+                    '/tmp/' .
+                    $config->data(Config::POSIX_ID) .
+                    $config->data('ds') .
+                    $config->data('dictionary.compile') .
+                    $config->data('ds');
+            } else {
+                $cache_dir =
+                    $config->data('framework.dir.temp') .
+                    $config->data(Config::POSIX_ID) .
+                    $config->data('ds') .
+                    $config->data('dictionary.compile') .
+                    $config->data('ds');
+            }
+
             Dir::create($cache_dir);
         }
         $this->cache_dir($cache_dir);
