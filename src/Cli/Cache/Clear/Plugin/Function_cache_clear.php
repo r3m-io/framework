@@ -8,6 +8,10 @@ use R3m\Io\Module\Dir;
 use R3m\Io\Module\Core;
 use R3m\Io\Module\File;
 
+/**
+ * @throws \R3m\Io\Exception\ObjectException
+ * @throws \R3m\Io\Exception\FileWriteException
+ */
 function function_cache_clear(Parse $parse, Data $data){
     $object = $parse->object();
     $dir = new Dir();
@@ -57,4 +61,8 @@ function function_cache_clear(Parse $parse, Data $data){
         $cacheDriver->deleteAll();
     }
     opcache_reset();
+    File::permission($object, [
+        'dir' => $temp_dir,
+        'dir_www' => $temp_dir . '33/'
+    ]);
 }

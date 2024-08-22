@@ -58,4 +58,8 @@ function function_cache_clear(Parse $parse, Data $data){
     }
     opcache_reset();
     opcache_invalidate('/Application/vendor/r3m_io/framework/src/Module/Parse.php', true);
+    File::permission($object, [
+        'dir' => $temp_dir,
+        'dir_www' => $temp_dir . '33/'
+    ]);
 }
