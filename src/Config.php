@@ -433,6 +433,7 @@ class Config extends Data {
         }
         elseif($object->config('posix.id') === Config::USER_DATA_DIR){
             $dir_temp = $object->config('framework.dir.temp');
+            $dir_temp = '/tmp/';
             $dir =
                 $dir_temp .
                 $object->config('posix.id') .
