@@ -9,7 +9,7 @@ use R3m\Io\Module\Controller;
 class Log extends Controller {
     const DIR = __DIR__ . '/';
 
-    public static function output_filter(App $object, $response=null): object
+    public static function output_filter(App $object, $response=null): array | object
     {
         $result = [];
         $count = 0;
