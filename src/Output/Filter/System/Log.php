@@ -12,6 +12,7 @@ class Log extends Controller {
     public static function output_filter(App $object, $response=null): object
     {
         $result = [];
+        ddd($response);
         if(
             !empty($response) &&
             (
