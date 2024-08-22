@@ -12,11 +12,11 @@ class Server extends Controller {
     public static function url(App $object, $response=null): object
     {
         $result = [];
-        trace();
-        d($response);
+        $count = 0;
         if(
             !empty($response) &&
-            is_array($response)
+            is_array($response) ||
+            is_object($response)
         ){
             foreach($response as $nr => $record){
                 if(
@@ -26,6 +26,7 @@ class Server extends Controller {
                 ){
                     $name = str_replace('.', '-', strtolower($record['name']));
                     $result[$name] = $record['options'];
+                    $count++;
                 }
                 elseif(
                     is_object($record) &&
@@ -34,9 +35,14 @@ class Server extends Controller {
                 ){
                     $name = str_replace('.', '-', strtolower($record->name));
                     $result[strtolower($name)] = $record->options;
+                    $count++;
                 }
             }
         }
-        return (object) $result;
+        if($count > 0){
+            return (object) $result;
+        }
+        return $response;
+
     }
 }
