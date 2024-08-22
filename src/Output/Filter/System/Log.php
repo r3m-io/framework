@@ -12,7 +12,7 @@ class Log extends Controller {
     public static function output_filter(App $object, $response=null): object
     {
         $result = [];
-        ddd($response);
+        d($response);
         if(
             !empty($response) &&
             (
@@ -35,7 +35,7 @@ class Log extends Controller {
                 }
             }
         }
-        d($result);
+        ddd($result);
         return (object) $result;
     }
 }
