@@ -34,8 +34,10 @@ class Log extends Controller {
                     $result[$record->name] = $record;
                 }
             }
+            return (object) $result;
+        } else {
+            return $response;
         }
-        d($result);
-        return (object) $result;
+
     }
 }
