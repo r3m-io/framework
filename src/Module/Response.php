@@ -168,7 +168,6 @@ class Response {
                 }
                 $json->script = $object->data(App::SCRIPT);
                 $json->link = $object->data(App::LINK);
-                ddd('end');
                 if($type === Response::TYPE_OBJECT_LINE){
                     return Core::object($json, Core::OBJECT_JSON_LINE);
                 } else {
