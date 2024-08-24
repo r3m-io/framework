@@ -772,7 +772,13 @@
         "{{config('project.dir.vendor')}}{{$this.#key}}/Data/System.Route.json"
       ],
       "installation" : "{{config('project.dir.data')}}{{config('dictionary.package')}}{{config('ds')}}{{$this.#key}}{{config('ds')}}{{config('dictionary.installation')}}{{config('extension.json')}}",
-      "copy" : [],
+      "copy" : [
+        {
+          "from" : "{{config('project.dir.vendor')}}{{$this.#parentNode.#key}}/src/Package/",
+          "to" : "{{package.dir(config('project.dir.package'), $this.#parentNode.#key)}}",
+          "recursive": true
+        }
+      ],
       "command" : [
         "{{binary('php Bin/R3m.php')}} {{$this.#key}} setup"
       ],
