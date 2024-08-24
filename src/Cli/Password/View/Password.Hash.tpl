@@ -3,7 +3,7 @@
 {{$password = terminal.readline('Password: ', 'hidden')}}
 {{$again = terminal.readline('Password again: ', 'hidden')}}
 {{if($password === $again)}}
-    {{break()}}
+{{break()}}
 {{else}}
 Password mismatch.
 {{/if}}
