@@ -18,6 +18,7 @@ use Exception;
 class Cli {
     const INPUT = 'input';
     const INPUT_HIDDEN = 'input-hidden';
+    const HIDDEN = 'hidden';
     const STREAM = 'stream';
     const COLOR_BLACK = 0;
     const COLOR_RED = 1;
@@ -58,6 +59,7 @@ class Cli {
                 $input = trim(fgets(STDIN));
             break;
             case Cli::INPUT_HIDDEN:
+            case Cli::HIDDEN:
                 fwrite(STDOUT, $text);
                 if($is_flush){
                     ob_flush();
@@ -73,7 +75,7 @@ class Cli {
                 $input = Core::object($input);
             break;
             default:
-                throw new Exception('Could not detect type: (input | input-hidden | stream)');
+                throw new Exception('Could not detect type: (input | input-hidden | hidden | stream)');
 
         }
         return $input;
