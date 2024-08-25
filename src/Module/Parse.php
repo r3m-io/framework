@@ -881,7 +881,7 @@ class Parse {
                     $string = $template->run();
                     $is_disabled = $this->object()->config('parse.compile.disable.function.Value::contains_replace');
 //                    $string = Parse::comment($string, 'is_disabled: ' . $is_disabled);
-//                    $is_disabled = true;
+                    $is_disabled = true;
                     if(!$is_disabled){
                         $string = Value::contains_replace(
                             [
