@@ -429,6 +429,9 @@ class Config extends Data {
             ;
             if(!Dir::is($dir_cache)){
                 Dir::create($dir_cache, Dir::CHMOD);
+                File::permission($object, [
+                    'cache' => $dir_cache
+                ]);
             }
         }
         elseif($object->config('posix.id') === Config::USER_DATA_DIR){
