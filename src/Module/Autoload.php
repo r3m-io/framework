@@ -510,6 +510,12 @@ class Autoload {
         } else {
             $dir_temp = $object->config('framework.dir.temp') .
                 $object->config('posix.id') .
+                $object->config('ds')
+            ;
+            Dir::create($dir_temp, Dir::CHMOD);
+            File::permission($object, ['dir' => $dir_temp]);
+            $dir_temp = $object->config('framework.dir.temp') .
+                $object->config('posix.id') .
                 $object->config('ds') .
                 'Autoload' .
                 $object->config('ds')
@@ -519,6 +525,7 @@ class Autoload {
             Dir::create($dir_temp, Dir::CHMOD);
             File::permission($object, ['dir' => $dir_temp]);
         }
+
         if(!empty($prefixList)){
             foreach($prefixList as $nr => $item){
                 if(empty($item['prefix'])){
