@@ -517,12 +517,7 @@ class Autoload {
         }
         if(!Dir::is($dir_temp)){
             Dir::create($dir_temp, Dir::CHMOD);
-            if(
-                Config::posix_id() === 0 &&
-                Config::posix_id() !== $object->config('posix.id')
-            ){
-                exec('chown www-data:www-data ' . $dir_temp);
-            }
+            File::permission($object, ['dir' => $dir_temp]);
         }
         if(!empty($prefixList)){
             foreach($prefixList as $nr => $item){
