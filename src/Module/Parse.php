@@ -1030,9 +1030,7 @@ class Parse {
         $ob = ob_get_contents();
         ob_end_clean();
         if($ob){
-            trace();
-            d($string);
-            ddd($ob);
+            $string = $ob . $string;
         }
         return $string;
     }
