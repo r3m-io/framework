@@ -329,6 +329,7 @@ class Parse {
         ){
             return $string;
         }
+        ob_start();
         $original = $string;
         $object = $this->object();
         if($storage === null){            
@@ -1025,6 +1026,11 @@ class Parse {
             } else {
                 return $string;
             }
+        }
+        $ob = ob_end_clean();
+        if($ob){
+            trace();
+            ddd($ob);
         }
         return $string;
     }
