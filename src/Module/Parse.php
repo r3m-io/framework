@@ -498,9 +498,6 @@ class Parse {
                             ob_start();
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
                             $ob = ob_get_clean();
-                            if($ob){
-                                $value = $ob . $value;
-                            }
                             if($disable_function_prepare){
                                 $this->object()->config('parse.compile.disable.function.Parse::prepare_code', $disable_function_prepare);
                             } else {
