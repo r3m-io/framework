@@ -614,10 +614,9 @@ class Parse {
         elseif($type === 'string' && stristr($string, '{') === false){
             return $string;
         } else {
-            d($string);
-            if(str_contains($string, 'Navigation.js')){
-//                trace();
-//                d($string);
+            if(str_contains($string, '{{require($this.#rootNode.template.url)}}')){
+                trace();
+                ddd($string);
             }
 
             //this section takes at least 5 msec per document: file:put 2msec, opcache::put 2msec, rest 1msec
