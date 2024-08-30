@@ -309,7 +309,6 @@ class Parse {
      */
     public function compile($string='', $data=[], $storage=null, $depth=null, $is_debug=false): mixed
     {
-        d($string);
         $type = gettype($string);
         if(
             $string === null ||
@@ -615,7 +614,7 @@ class Parse {
         elseif($type === 'string' && stristr($string, '{') === false){
             return $string;
         } else {
-//            d($string);
+            d($string);
             if(str_contains($string, 'Navigation.js')){
 //                trace();
 //                d($string);
