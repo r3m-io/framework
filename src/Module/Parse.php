@@ -476,6 +476,7 @@ class Parse {
 //                            $this->object()->config('parse.compile.disable.function.Parse::prepare_code', true);
                             ob_start();
                             $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
+                            $ob = ob_get_contents();
                             ob_end_clean();
                             if($ob){
                                 $value = $ob . $value;
@@ -495,7 +496,8 @@ class Parse {
                             $disable_function_prepare = $this->object()->config('parse.compile.disable.function.Parse::prepare_code');
 //                            $this->object()->config('parse.compile.disable.function.Parse::prepare_code', false);
                             ob_start();
-                            $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);$ob = ob_get_contents();
+                            $value = $this->compile($value, $storage->data(), $storage, $depth, $is_debug);
+                            $ob = ob_get_contents();
                             ob_end_clean();
                             if($ob){
                                 $value = $ob . $value;
