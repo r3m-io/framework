@@ -616,6 +616,7 @@ class Parse {
         } else {
             if(str_contains($string, '{{require($this.#rootNode.template.url)}}')){
                 d($string);
+                $is_debug = true;
             }
 
             //this section takes at least 5 msec per document: file:put 2msec, opcache::put 2msec, rest 1msec
@@ -1029,6 +1030,9 @@ class Parse {
         ob_end_clean();
         if($ob){
             $string = $ob . $string;
+        }
+        if($is_debug){
+            ddd($string);
         }
         return $string;
     }
