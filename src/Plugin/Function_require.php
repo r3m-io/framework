@@ -148,7 +148,7 @@ function function_require(Parse $parse, Data $data, $url='', $storage=[]){
         if($ob){
             $compile = $ob . $compile;
         }
-        return $compile;
+        return ltrim($compile);
     } else {
         $source = $data->data('r3m.io.parse.view.source.url');
         $data->data('r3m.io.parse.view.source.url', $url);
@@ -162,7 +162,7 @@ function function_require(Parse $parse, Data $data, $url='', $storage=[]){
             $result = $ob . $result;
         }
         $data->data('r3m.io.parse.view.source.url', $source);
-        return $result;
+        return ltrim($result);
     }
 
 }
