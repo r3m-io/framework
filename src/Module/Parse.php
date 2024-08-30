@@ -1031,6 +1031,7 @@ class Parse {
         ob_end_clean();
         if($ob){
             trace();
+            d($string);
             ddd($ob);
         }
         return $string;
