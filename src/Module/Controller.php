@@ -726,7 +726,6 @@ class Controller {
         if($ob){
             $read = $ob . $read;
         }
-        ob_end_clean();
         Parse::readback($object, $parse, App::SCRIPT);
         Parse::readback($object, $parse, App::LINK);
         return $read;
