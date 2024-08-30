@@ -178,7 +178,7 @@ class Build {
         $document[] = $this->indent(2) . '}';
         $document[] = $this->indent(2) . 'catch(Exception $exception){';
         $document[] = $this->indent(3) . 'if(ob_get_length() > 0){';
-        $document[] = $this->indent(4) . 'ob_end_clean();';
+        $document[] = $this->indent(4) . 'ob_get_clean();';
         $document[] = $this->indent(3) . '}';
 //        $document[] = $this->indent(3) . 'd($exception);'; //debug
         $document[] = $this->indent(3) . 'throw $exception;';
