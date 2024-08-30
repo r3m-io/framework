@@ -614,9 +614,10 @@ class Parse {
         elseif($type === 'string' && stristr($string, '{') === false){
             return $string;
         } else {
+            $is_debug_tmp = false;
             if(str_contains($string, '{{require($this.#rootNode.template.url)}}')){
                 d($string);
-                $is_debug = true;
+                $is_debug_tmp = true;
             }
 
             //this section takes at least 5 msec per document: file:put 2msec, opcache::put 2msec, rest 1msec
@@ -1031,7 +1032,7 @@ class Parse {
         if($ob){
             $string = $ob . $string;
         }
-        if($is_debug){
+        if($is_debug_tmp){
             d($original);
             d($string);
         }
