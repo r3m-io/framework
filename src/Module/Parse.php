@@ -1026,10 +1026,6 @@ class Parse {
         if($ob){
             $string = $ob . $string;
         }
-        if($is_debug_tmp){
-            d($original);
-            ddd($string);
-        }
         return $string;
     }
 
