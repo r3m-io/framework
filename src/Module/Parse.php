@@ -1033,7 +1033,7 @@ class Parse {
         }
         if($is_debug){
             d($original);
-            ddd($string);
+            d($string);
         }
         return $string;
     }
