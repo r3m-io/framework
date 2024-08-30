@@ -628,8 +628,7 @@ class Build {
     public function write($url, $document=[], $string=''): string
     {
         $object = $this->object();
-        $write = implode("\n", $document);
-        ddd($write);
+        $write = trim(implode("\n", $document));
         $this->storage()->data('time.end', microtime(true));
         $this->storage()->data('time.duration', $this->storage()->data('time.end') - $this->storage()->data('time.start'));
         $write = str_replace($this->storage()->data('placeholder.generation.time'), round($this->storage()->data('time.duration') * 1000, 2). ' msec', $write);
