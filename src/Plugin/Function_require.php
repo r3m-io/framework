@@ -114,6 +114,7 @@ function function_require(Parse $parse, Data $data, $url='', $storage=[]){
         $data_data->data('ldelim', '{');
         $data_data->data('rdelim', '}');
         $parse->storage()->data('r3m.io.parse.view.source.mtime', $mtime);
+        ob_start();
         $parser = new Parse($parse->object());
         $compile =  $parser->compile($read, [], $data_data);
         $data_script = $data_data->data('script');
@@ -142,13 +143,24 @@ function function_require(Parse $parse, Data $data, $url='', $storage=[]){
             }
             $data->data('link', array_merge($link, $data_link));
         }
+        $ob = ob_get_contents();
+        ob_end_clean();
+        if($ob){
+            $compile = $ob . $compile;
+        }
         return $compile;
     } else {
         $source = $data->data('r3m.io.parse.view.source.url');
         $data->data('r3m.io.parse.view.source.url', $url);
         $parse->storage()->data('r3m.io.parse.view.source.mtime', $mtime);
+        ob_start();
         $parser = new Parse($parse->object());
         $result = $parser->compile($read, [], $data);
+        $ob = ob_get_contents();
+        ob_end_clean();
+        if($ob){
+            $result = $ob . $result;
+        }
         $data->data('r3m.io.parse.view.source.url', $source);
         return $result;
     }
