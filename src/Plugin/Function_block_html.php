@@ -38,7 +38,7 @@ function function_block_html(Parse $parse, Data $data, $name='', $value=null){
     }
     $value = implode('<', $content);    
     if(empty($name)){
-        return $value;
+        echo $value;
     } else {
         $data->data($name, $value);
         return '';
