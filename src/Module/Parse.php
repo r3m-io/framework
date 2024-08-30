@@ -615,8 +615,7 @@ class Parse {
             return $string;
         } else {
             if(str_contains($string, '{{require($this.#rootNode.template.url)}}')){
-                trace();
-                ddd($string);
+                d($string);
             }
 
             //this section takes at least 5 msec per document: file:put 2msec, opcache::put 2msec, rest 1msec
