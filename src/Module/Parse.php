@@ -1034,7 +1034,7 @@ class Parse {
         }
         if($is_debug_tmp){
             d($original);
-            d($string);
+            ddd($string);
         }
         return $string;
     }
