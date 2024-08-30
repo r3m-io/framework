@@ -138,8 +138,6 @@ class Response {
                 }
             case Response::TYPE_OBJECT :
             case Response::TYPE_OBJECT_LINE :
-                trace();
-                d($response);
                 $json = new stdClass();
                 $json->html = $response->data();
                 if($object->data('method')){
