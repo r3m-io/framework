@@ -24,7 +24,11 @@ function function_block_html(Parse $parse, Data $data, $name='', $value=null){
         $dataRow = explode('>', $row);
         if(count($dataRow)>=2){
             foreach ($dataRow as $dataRowNr => $dataR){
-                $tmp = str_replace($search, $replace, $dataR);
+                if($dataRowNr > 0){
+                    $tmp = str_replace($search, $replace, $dataR);
+                } else {
+                    $tmp = $dataR;
+                }
                 if(empty($tmp)){
                     $dataRow[$dataRowNr] = '';
                 }
@@ -34,9 +38,9 @@ function function_block_html(Parse $parse, Data $data, $name='', $value=null){
     }
     $value = implode('<', $content);    
     if(empty($name)){
-        echo $value;
+        return $value;
     } else {
-        $data->data($name, $value);     
-    }    
-    return '';
+        $data->data($name, $value);
+        return '';
+    }
 }
