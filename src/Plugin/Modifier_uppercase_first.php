@@ -12,6 +12,5 @@ use R3m\Io\Module\Parse;
 use R3m\Io\Module\Data;
 
 function modifier_uppercase_first(Parse $parse, Data $data, $value){
-    d($value);
     return ucfirst($value);
 }
