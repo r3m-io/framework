@@ -139,7 +139,7 @@ class Response {
             case Response::TYPE_OBJECT :
             case Response::TYPE_OBJECT_LINE :
                 $json = new stdClass();
-                $json->html = $response->data();
+                $json->html = ltrim($response->data());
                 if($object->data('method')){
                     $json->method = $object->data('method');
                 } else {
