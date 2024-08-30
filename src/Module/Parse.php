@@ -329,10 +329,9 @@ class Parse {
         ){
             return $string;
         }
-        ob_start();
         $original = $string;
         $object = $this->object();
-        if($storage === null){            
+        if($storage === null){
             $storage = $this->storage(new Data());
         }
         if(is_object($data)){
@@ -614,10 +613,10 @@ class Parse {
         elseif($type === 'string' && stristr($string, '{') === false){
             return $string;
         } else {
-            $is_debug_tmp = false;
-            if(str_contains($string, '{{require($this.#rootNode.template.url)}}')){
-                d($string);
-                $is_debug_tmp = true;
+//            d($string);
+            if(str_contains($string, 'Navigation.js')){
+//                trace();
+//                d($string);
             }
 
             //this section takes at least 5 msec per document: file:put 2msec, opcache::put 2msec, rest 1msec
@@ -668,7 +667,6 @@ class Parse {
                     $is_disabled = $this->object()->config('parse.compile.disable.function.Value::contains_replace');
 //                    $is_disabled = true;
 //                    $string = Parse::comment($string, 'is_disabled: ' . $is_disabled);
-                    $is_disabled = true;
                     if(!$is_disabled){
                         $string = Value::contains_replace(
                             [
@@ -883,7 +881,7 @@ class Parse {
                     $string = $template->run();
                     $is_disabled = $this->object()->config('parse.compile.disable.function.Value::contains_replace');
 //                    $string = Parse::comment($string, 'is_disabled: ' . $is_disabled);
-                    $is_disabled = true;
+//                    $is_disabled = true;
                     if(!$is_disabled){
                         $string = Value::contains_replace(
                             [
@@ -1026,15 +1024,6 @@ class Parse {
             } else {
                 return $string;
             }
-        }
-        $ob = ob_get_contents();
-        ob_end_clean();
-        if($ob){
-            $string = $ob . $string;
-        }
-        if($is_debug_tmp){
-            d($original);
-            d($string);
         }
         return $string;
     }
