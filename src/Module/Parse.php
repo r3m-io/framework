@@ -661,13 +661,16 @@ class Parse {
             if($file_exist){
                 $file_mtime = File::mtime($url);
             }
-            $file_mtime = false; //bug solved ?
+//            $file_mtime = false; //bug solved  pre output in the cache?
             if($file_exist && $file_mtime === $mtime){
                 //cache file
                 $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
                 try {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = $template->run();
+                    d($url);
+                    d($string);
+
                     $is_disabled = $this->object()->config('parse.compile.disable.function.Value::contains_replace');
 //                    $is_disabled = true;
 //                    $string = Parse::comment($string, 'is_disabled: ' . $is_disabled);
