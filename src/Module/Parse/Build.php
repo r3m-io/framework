@@ -187,8 +187,8 @@ class Build {
         $document[] = '';
         $document[] = $this->indent(0) . $storage->data('placeholder.function');
         $document[] = $this->indent(0) . '}';
-        $document[] = '';
-        $document[] = $this->storage()->data('placeholder.trait');
+//        $document[] = '';
+//        $document[] = $this->storage()->data('placeholder.trait');
         return $document;
     }
 
