@@ -488,7 +488,7 @@ class App extends Data {
                         }
 
                         $result = $controller::{$function}($object);
-                        if(!is_object($result)){
+                        if(!is_object($result) && strlen($result) !== 690){
                             d($result);
                         }
                         Event::trigger($object, 'app.run.route.controller', [
