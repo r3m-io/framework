@@ -750,6 +750,7 @@ class App extends Data {
         } else {
             ob_Start();
             $response = new Response($output, $object->config('response.output'));
+            ob_end_clean();
             return Response::output($object, $response);
         }
     }
