@@ -486,9 +486,9 @@ class App extends Data {
                                 ') triggered.'
                             );
                         }
-//                        ob_start();
+                        ob_start();
                         $result = $controller::{$function}($object);
-//                        ob_get_clean();
+                        ob_get_clean();
                         Event::trigger($object, 'app.run.route.controller', [
                             'destination' => $destination,
                             'response' => $result
@@ -748,9 +748,7 @@ class App extends Data {
         elseif($output instanceof Response){
             return Response::output($object, $output);
         } else {
-            ob_Start();
             $response = new Response($output, $object->config('response.output'));
-            ob_end_clean();
             return Response::output($object, $response);
         }
     }
