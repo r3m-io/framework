@@ -668,7 +668,7 @@ class Parse {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = trim($template->run());
                     trace();
-                    d('yes');
+                    d($string);
                     $is_disabled = $this->object()->config('parse.compile.disable.function.Value::contains_replace');
 //                    $is_disabled = true;
 //                    $string = Parse::comment($string, 'is_disabled: ' . $is_disabled);
@@ -809,7 +809,6 @@ class Parse {
                 catch (Exception $exception){
                     return $exception;
                 }
-
             }
             elseif(File::exist($url) && File::mtime($url) !== $mtime){
                 Event::trigger($object, 'parse.compile.opcache.invalidate', [
