@@ -486,9 +486,9 @@ class App extends Data {
                                 ') triggered.'
                             );
                         }
-                        ob_start();
+//                        ob_start();
                         $result = $controller::{$function}($object);
-                        ob_get_clean();
+//                        ob_get_clean();
                         Event::trigger($object, 'app.run.route.controller', [
                             'destination' => $destination,
                             'response' => $result
