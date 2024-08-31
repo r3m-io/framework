@@ -18,7 +18,7 @@ function function_block_html(Parse $parse, Data $data, $name='', $value=null){
     }
     $search = [" ", "\t", "\n", "\r", "\r\n"];
     $replace = ['','','','',''];
-    $content = trim($value, "\r\n\s\t");
+    $content = trim($value);
     $content = explode('<', $content);
     foreach ($content as $nr => $row){
         $dataRow = explode('>', $row);
