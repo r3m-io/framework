@@ -748,6 +748,7 @@ class App extends Data {
         elseif($output instanceof Response){
             return Response::output($object, $output);
         } else {
+            ob_Start();
             $response = new Response($output, $object->config('response.output'));
             return Response::output($object, $response);
         }
