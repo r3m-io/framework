@@ -666,10 +666,7 @@ class Parse {
                 $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
                 try {
                     $template = new $class(new Parse($this->object()), $storage);
-                    $string = trim($template->run());
-                    d($url);
-                    d($original);
-                    d($string);
+                    $string = $template->run();
                     $is_disabled = $this->object()->config('parse.compile.disable.function.Value::contains_replace');
 //                    $is_disabled = true;
 //                    $string = Parse::comment($string, 'is_disabled: ' . $is_disabled);
@@ -805,12 +802,12 @@ class Parse {
                         }
 
                     }
-                    d($string);
                     return $string;
                 }
                 catch (Exception $exception){
                     return $exception;
                 }
+
             }
             elseif(File::exist($url) && File::mtime($url) !== $mtime){
                 Event::trigger($object, 'parse.compile.opcache.invalidate', [
@@ -855,7 +852,6 @@ class Parse {
                 $document = $build->create('use', $tree, $document);
                 $document = $build->create('trait', $tree, $document);
 //                d($mtime);
-                d($document);
                 $write = $build->write($url, $document, $string);
                 if($mtime !== null){
                     $touch = File::touch($url, $mtime);
