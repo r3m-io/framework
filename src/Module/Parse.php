@@ -666,7 +666,7 @@ class Parse {
                 $class = $build->storage()->data('namespace') . '\\' . $build->storage()->data('class');
                 try {
                     $template = new $class(new Parse($this->object()), $storage);
-                    $string = $template->run();
+                    $string = trim($template->run());
                     $is_disabled = $this->object()->config('parse.compile.disable.function.Value::contains_replace');
 //                    $is_disabled = true;
 //                    $string = Parse::comment($string, 'is_disabled: ' . $is_disabled);
