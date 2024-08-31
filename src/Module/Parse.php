@@ -885,8 +885,7 @@ class Parse {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = $template->run();
                     $ob = ob_get_clean();
-                    d($string);
-                    d($ob);
+                    $string = $ob . $string;
                     $is_disabled = $this->object()->config('parse.compile.disable.function.Value::contains_replace');
 //                    $string = Parse::comment($string, 'is_disabled: ' . $is_disabled);
                     $is_disabled = true;
