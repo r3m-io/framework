@@ -668,6 +668,7 @@ class Parse {
                     $template = new $class(new Parse($this->object()), $storage);
                     $string = trim($template->run());
                     trace();
+                    d($original);
                     d($string);
                     $is_disabled = $this->object()->config('parse.compile.disable.function.Value::contains_replace');
 //                    $is_disabled = true;
