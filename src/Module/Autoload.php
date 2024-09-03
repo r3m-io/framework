@@ -595,8 +595,11 @@ class Autoload {
                 if (empty($item['directory'])) {
                     continue;
                 }
-
-                if(is_array($fileList[$nr]) && empty($this->expose())){
+                if(
+                    array_key_exists($nr, $fileList) &&
+                    is_array($fileList[$nr]) &&
+                    empty($this->expose())
+                ){
                     foreach($fileList[$nr] as $file){
                         /* must become a debug flag?
                         if($logger_error){
