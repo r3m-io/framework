@@ -530,26 +530,25 @@ class Autoload {
         }
 
         if(!empty($prefixList)){
-            foreach($prefixList as $nr => $item){
-                if(empty($item['prefix'])){
+            foreach($prefixList as $nr => $item) {
+                if (empty($item['prefix'])) {
                     continue;
                 }
-                if(empty($item['directory'])){
+                if (empty($item['directory'])) {
                     continue;
                 }
                 $item['file'] = false;
                 if (str_starts_with($load, $item['prefix'])) {
                     $item['file'] =
-                    trim(substr($load, strlen($item['prefix'])),'\\');
+                        trim(substr($load, strlen($item['prefix'])), '\\');
                     $item['file'] =
-                    str_replace('\\', DIRECTORY_SEPARATOR, $item['file']);
+                        str_replace('\\', DIRECTORY_SEPARATOR, $item['file']);
                     $tmp = explode('.', $item['file']);
-                    if(count($tmp) >= 2){
+                    if (count($tmp) >= 2) {
                         array_pop($tmp);
                     }
                     $item['file'] = implode('.', $tmp);
-                }
-                elseif($is_data === false) {
+                } elseif ($is_data === false) {
                     continue; //changed @ 2023-11-16
                     /*
                     File::append(
@@ -563,139 +562,148 @@ class Autoload {
                     $item['file'] = implode('.', $tmp);
                     */
                 }
-                if(empty($item['file'])){
+                if (empty($item['file'])) {
                     $item['file'] = $load;
                 }
-                if(!empty($item['file'])){
+                if (!empty($item['file'])) {
                     $item['load'] = $load;
                     $item['file'] = str_replace('\\', DIRECTORY_SEPARATOR, $item['file']);
-                    $item['file'] = str_replace('.'  . DIRECTORY_SEPARATOR , DIRECTORY_SEPARATOR, $item['file']);
+                    $item['file'] = str_replace('.' . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $item['file']);
                     $item['baseName'] = basename(
                         $this->removeExtension($item['file'],
                             array(
                                 Autoload::EXT_PHP,
                                 Autoload::EXT_TPL
                             )
-                    ));
+                        ));
                     $item['baseName'] = explode(DIRECTORY_SEPARATOR, $item['baseName'], 2);
                     $item['baseName'] = end($item['baseName']);
                     $item['dirName'] = dirname($item['file']);
-                    if($item['dirName'] == '.'){
+                    if ($item['dirName'] == '.') {
                         unset($item['dirName']);
                     }
                     $fileList[$nr] = $this->fileList($item, $url);
-                    if($mode === Autoload::MODE_LOCATION){
-                        return $fileList;
-                    }
-                    if(is_array($fileList[$nr]) && empty($this->expose())){
-                        foreach($fileList[$nr] as $file){
-                            /* must become a debug flag?
-                            if($logger_error){
-                                $object->logger($logger_error)->info('Autoload file: ' . $file, [is_readable($file) , file_exists($file)]);
-                            }
-                            */
-                            /*
-                            File::append(
-                                $dir_temp .
-                                'Autoload.File.log',
-                                $file  . ' --> ' . is_readable($file) . '-' .file_exists($file) . PHP_EOL
-                            );
-                            */
-                            if(file_exists($file)){
-                                if(
-                                    empty($object->config('ramdisk.is.disabled')) &&
-                                    $object->config('autoload.cache.file.name')
-                                ){
-                                    $config_dir = $object->config('ramdisk.url') .
-                                        $object->config(Config::POSIX_ID) .
-                                        $object->config('ds') .
-                                        Autoload::NAME .
-                                        $object->config('ds')
-                                    ;
-                                    $config_url = $config_dir .
-                                        'File.Mtime' .
-                                        $object->config('extension.json')
-                                    ;
-                                    $mtime = $object->get(sha1($config_url));
-                                    if(empty($mtime)){
-                                        $mtime = [];
-                                        if(file_exists($config_url)){
-                                            $content = file_get_contents($config_url);
-                                            if($content){
-                                                $mtime = json_decode($content, true);
-                                            }
+                }
+            }
+            if($mode === Autoload::MODE_LOCATION){
+                return $fileList;
+            }
+            foreach($prefixList as $nr => $item){
+                if (empty($item['prefix'])) {
+                    continue;
+                }
+                if (empty($item['directory'])) {
+                    continue;
+                }
+
+                if(is_array($fileList[$nr]) && empty($this->expose())){
+                    foreach($fileList[$nr] as $file){
+                        /* must become a debug flag?
+                        if($logger_error){
+                            $object->logger($logger_error)->info('Autoload file: ' . $file, [is_readable($file) , file_exists($file)]);
+                        }
+                        */
+                        /*
+                        File::append(
+                            $dir_temp .
+                            'Autoload.File.log',
+                            $file  . ' --> ' . is_readable($file) . '-' .file_exists($file) . PHP_EOL
+                        );
+                        */
+                        if(file_exists($file)){
+                            if(
+                                empty($object->config('ramdisk.is.disabled')) &&
+                                $object->config('autoload.cache.file.name')
+                            ){
+                                $config_dir = $object->config('ramdisk.url') .
+                                    $object->config(Config::POSIX_ID) .
+                                    $object->config('ds') .
+                                    Autoload::NAME .
+                                    $object->config('ds')
+                                ;
+                                $config_url = $config_dir .
+                                    'File.Mtime' .
+                                    $object->config('extension.json')
+                                ;
+                                $mtime = $object->get(sha1($config_url));
+                                if(empty($mtime)){
+                                    $mtime = [];
+                                    if(file_exists($config_url)){
+                                        $content = file_get_contents($config_url);
+                                        if($content){
+                                            $mtime = json_decode($content, true);
                                         }
                                     }
-                                    if(
-                                        $mtime &&
-                                        $file === $object->config('autoload.cache.file.name') &&
-                                        array_key_exists(sha1($file), $mtime) &&
-                                        file_exists($mtime[sha1($file)]) &&
-                                        filemtime($file) === filemtime($mtime[sha1($file)])
-                                    ){
-                                        //from ramdisk
-                                        $this->cache($file, $load);
-                                        return $file;
-                                    } else {
-                                        if(Autoload::ramdisk_exclude_load($object, $load)){
-                                            //controllers cannot be cached
-                                            //don't cache R3m\Io\Module\Compile because they are already cached
+                                }
+                                if(
+                                    $mtime &&
+                                    $file === $object->config('autoload.cache.file.name') &&
+                                    array_key_exists(sha1($file), $mtime) &&
+                                    file_exists($mtime[sha1($file)]) &&
+                                    filemtime($file) === filemtime($mtime[sha1($file)])
+                                ){
+                                    //from ramdisk
+                                    $this->cache($file, $load);
+                                    return $file;
+                                } else {
+                                    if(Autoload::ramdisk_exclude_load($object, $load)){
+                                        //controllers cannot be cached
+                                        //don't cache R3m\Io\Module\Compile because they are already cached
+                                    }
+                                    else {
+                                        //from disk
+                                        //copy to ramdisk
+                                        $dirname = dirname($object->config('autoload.cache.file.name'));
+                                        if(!is_dir($dirname)){
+                                            mkdir($dirname, 0750, true);
+                                            if(
+                                                Config::posix_id() === 0 &&
+                                                Config::posix_id() !== $object->config(Config::POSIX_ID)
+                                            ){
+                                                exec('chown www-data:www-data ' . $dirname);
+                                            }
                                         }
-                                        else {
-                                            //from disk
-                                            //copy to ramdisk
-                                            $dirname = dirname($object->config('autoload.cache.file.name'));
-                                            if(!is_dir($dirname)){
-                                                mkdir($dirname, 0750, true);
+                                        $read = file_get_contents($file);
+                                        if(Autoload::ramdisk_exclude_content($object, $read, $file)){
+                                            //files with content __DIR__, __FILE__ cannot be cached
+                                        } else {
+                                            //save to file
+                                            file_put_contents($object->config('autoload.cache.file.name'), $read);
+                                            touch($object->config('autoload.cache.file.name'), filemtime($file));
+                                            if(
+                                                Config::posix_id() === 0 &&
+                                                Config::posix_id() !== $object->config(Config::POSIX_ID)
+                                            ){
+                                                exec('chown www-data:www-data ' . $object->config('autoload.cache.file.name'));
+                                            }
+                                            //save file reference for filemtime comparison
+                                            $mtime[sha1($object->config('autoload.cache.file.name'))] = $file;
+                                            if(!is_dir($config_dir)){
+                                                mkdir($config_dir, 0750, true);
                                                 if(
                                                     Config::posix_id() === 0 &&
                                                     Config::posix_id() !== $object->config(Config::POSIX_ID)
                                                 ){
-                                                    exec('chown www-data:www-data ' . $dirname);
+                                                    exec('chown www-data:www-data ' . $config_dir);
                                                 }
                                             }
-                                            $read = file_get_contents($file);
-                                            if(Autoload::ramdisk_exclude_content($object, $read, $file)){
-                                                //files with content __DIR__, __FILE__ cannot be cached
-                                            } else {
-                                                //save to file
-                                                file_put_contents($object->config('autoload.cache.file.name'), $read);
-                                                touch($object->config('autoload.cache.file.name'), filemtime($file));
-                                                if(
-                                                    Config::posix_id() === 0 &&
-                                                    Config::posix_id() !== $object->config(Config::POSIX_ID)
-                                                ){
-                                                    exec('chown www-data:www-data ' . $object->config('autoload.cache.file.name'));
-                                                }
-                                                //save file reference for filemtime comparison
-                                                $mtime[sha1($object->config('autoload.cache.file.name'))] = $file;
-                                                if(!is_dir($config_dir)){
-                                                    mkdir($config_dir, 0750, true);
-                                                    if(
-                                                        Config::posix_id() === 0 &&
-                                                        Config::posix_id() !== $object->config(Config::POSIX_ID)
-                                                    ){
-                                                        exec('chown www-data:www-data ' . $config_dir);
-                                                    }
-                                                }
-                                                $write = json_encode($mtime, JSON_PRETTY_PRINT | JSON_PRESERVE_ZERO_FRACTION);
-                                                file_put_contents($config_url, $write);
-                                                $object->set(sha1($config_url), $mtime);
-                                                exec('chmod 640 ' . $object->config('autoload.cache.file.name'));
-                                                exec('chmod 640 ' . $config_url);
-                                                if(
-                                                    Config::posix_id() === 0 &&
-                                                    Config::posix_id() !== $object->config(Config::POSIX_ID)
-                                                ){
-                                                    exec('chown www-data:www-data ' . $config_url);
-                                                }
+                                            $write = json_encode($mtime, JSON_PRETTY_PRINT | JSON_PRESERVE_ZERO_FRACTION);
+                                            file_put_contents($config_url, $write);
+                                            $object->set(sha1($config_url), $mtime);
+                                            exec('chmod 640 ' . $object->config('autoload.cache.file.name'));
+                                            exec('chmod 640 ' . $config_url);
+                                            if(
+                                                Config::posix_id() === 0 &&
+                                                Config::posix_id() !== $object->config(Config::POSIX_ID)
+                                            ){
+                                                exec('chown www-data:www-data ' . $config_url);
                                             }
                                         }
                                     }
                                 }
-                                $this->cache($file, $load);
-                                return $file;
                             }
+                            $this->cache($file, $load);
+                            return $file;
                         }
                     }
                 }
