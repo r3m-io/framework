@@ -33,6 +33,9 @@ class Autoload {
     const EXT_CLASS_PHP = 'class.php';
     const EXT_TRAIT_PHP = 'trait.php';
 
+    const MODE_DEFAULT = 'default';
+    const MODE_LOCATION = 'location';
+
     const TYPE_ERROR = 'error';
 
     protected $expose;
@@ -483,7 +486,7 @@ class Autoload {
      * @throws LocateException
      * @throws Exception
      */
-    public function locate($load=null, $is_data=false){
+    public function locate($load=null, $is_data=false, $mode=Autoload::MODE_DEFAULT){
         $dir = $this->cache_dir();
         $url = $dir . Autoload::FILE;
         $load = ltrim($load, '\\');
@@ -581,6 +584,9 @@ class Autoload {
                         unset($item['dirName']);
                     }
                     $fileList[$nr] = $this->fileList($item, $url);
+                    if($mode === Autoload::MODE_LOCATION){
+                        return $fileList;
+                    }
                     if(is_array($fileList[$nr]) && empty($this->expose())){
                         foreach($fileList[$nr] as $file){
                             /* must become a debug flag?
