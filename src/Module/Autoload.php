@@ -472,7 +472,10 @@ class Autoload {
         $data[] = $item['directory'] . $item['file_dot'] . DIRECTORY_SEPARATOR . str_replace('_', '.', $item['baseName']) . '.' . Autoload::EXT_PHP;
         $data[] = $item['directory'] . $item['file'] . DIRECTORY_SEPARATOR . $item['baseName'] . '.' . Autoload::EXT_PHP;
         $explode = explode('.', $item['file_dot']);
-        if(array_key_exists(1, $explode)){
+        if(
+            $explode[0] !== $item['file_dot'] &&
+            $explode[0] !== $item['file']
+        ){
             $data[] = $item['directory'] . $explode[0] . DIRECTORY_SEPARATOR . $item['file_dot'] . '.' . Autoload::EXT_PHP;
             $data[] = $item['directory'] . $explode[0] . DIRECTORY_SEPARATOR . $item['file'] . '.' . Autoload::EXT_PHP;
             $data[] = $item['directory'] . $explode[0] . DIRECTORY_SEPARATOR . str_replace('_', '.', $item['baseName']) . '.' . Autoload::EXT_PHP;
