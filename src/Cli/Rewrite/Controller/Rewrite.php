@@ -135,7 +135,7 @@ class Rewrite extends Controller {
                         foreach($options->from as $from){
                             $read = str_replace($from, $options->to, $read);
                         }
-                        File::write($file->url);
+                        File::write($file->url, $read);
                     }
                 }
             } else {
@@ -143,7 +143,7 @@ class Rewrite extends Controller {
                 foreach($options->from as $from){
                     $read = str_replace($from, $options->to, $read);
                 }
-                File::write($file->url);
+                File::write($file->url, $read);
             }
         }
     }
