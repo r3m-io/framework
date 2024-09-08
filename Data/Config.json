@@ -18,7 +18,7 @@
                 "uuid",
                 "password",
                 "ramdisk",
-                "rename",
+                "rewrite",
                 "bin",
                 "zip"
             ]
