@@ -18,6 +18,7 @@
                 "uuid",
                 "password",
                 "ramdisk",
+                "rename",
                 "bin",
                 "zip"
             ]
