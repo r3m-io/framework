@@ -13,7 +13,6 @@ use R3m\Io\Config;
 
 use R3m\Io\Exception\LocateException;
 use R3m\Io\Exception\ObjectException;
-use R3m\Io\Module\Core;
 
 $dir = __DIR__;
 $dir_vendor =
@@ -28,7 +27,8 @@ $autoload = require $autoload;
 try {
     $config = new Config(
         [
-            'dir.vendor' => $dir_vendor
+            'dir.vendor' => $dir_vendor,
+            'time.start' => microtime(true),
         ]
     );
     $app = new App($autoload, $config);
@@ -37,11 +37,7 @@ try {
         echo $result;
     }
     elseif(is_array($result)){
-        if(Core::is_array_nested($result)){
-            echo Core::object($result, Core::OBJECT_JSON);
-        } else {
-            echo implode(PHP_EOL, $result);
-        }
+        echo implode(PHP_EOL, $result);
     }
 } catch (Exception | LocateException | ObjectException $e) {
     echo $e;
