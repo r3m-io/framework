@@ -32,10 +32,12 @@ class Rewrite extends Controller {
 
     const COMMAND_INFO = 'info';
     const COMMAND_DIRECTORY = 'directory';
+    const COMMAND_BATCH = 'batch';
 
     const COMMAND = [
         Rewrite::COMMAND_INFO,
-        Rewrite::COMMAND_DIRECTORY
+        Rewrite::COMMAND_DIRECTORY,
+        Rewrite::COMMAND_BATCH
     ];
     const DEFAULT_COMMAND = Rewrite::COMMAND_INFO;
 
@@ -146,5 +148,63 @@ class Rewrite extends Controller {
                 File::write($file->url, $read);
             }
         }
+    }
+
+
+
+
+    /**
+     * @throws Exception
+     */
+    private static function batch(App $object)
+    {
+        $options = App::options($object);
+        if (property_exists($options, 'directory') === false) {
+            throw new Exception('Directory not found');
+        }
+        $dir = new Dir();
+        $list = $dir->read($options->directory, true);
+        foreach($list as $file){
+            if($file->type === File::TYPE){
+                $extension = File::extension($file->url);
+                ddd($extension);
+            }
+        }
+
+
+
+
+        /*
+        if (property_exists($options, 'package') === false) {
+            throw new Exception('Package not found');
+        }
+        $package = $options->package;
+        $data = '
+        app rewrite directory -directory=/home/remco/difference-fun/' . $package . '/ -extension=php -from[]=R3m\\Io -to=Difference\\Fun
+        app rewrite directory -directory=/home/remco/difference-fun/' . $package . '/ -extension=php -from[]=R3m -to=Difference
+        app rewrite directory -directory=/home/remco/difference-fun/' . $package . '/ -extension=php -from[]=\'Io\' -to=\'Fun\'
+        app rewrite directory -directory=/home/remco/difference-fun/' . $package . '/ -extension=php -from[]=r3m.io -to=difference.fun
+        app rewrite directory -directory=/home/remco/difference-fun/' . $package . '/ -extension=php -from[]=r3m_io -to=difference_fun
+        app rewrite directory -directory=/home/remco/difference-fun/' . $package . '/ -extension=json -from[]=r3m_io -to=difference_fun
+        app rewrite directory -directory=/home/remco/difference-fun/' . $package . '/ -extension=json -from[]=R3m\\\\Io -to=Difference\\\\fun
+        app rewrite directory -directory=/home/remco/difference-fun/' . $package . '/ -extension=json -from[]=R3m\\Io -to=Difference\\fun
+        app rewrite directory -directory=/home/remco/difference-fun/' . $package . '/ -extension=json -from[]=r3m_io -to=difference_fun
+        app rewrite directory -directory=/home/remco/difference-fun/' . $package . '/ -extension=json -from[]=r3m-io -to=difference-fun
+        app rewrite directory -directory=/home/remco/difference-fun/' . $package . '/ -extension=json -from[]=r3m.io -to=difference.fun
+        app rewrite directory -directory=/home/remco/difference-fun/' . $package . '/ -extension=json -from[]=R3m:Io -to=Difference:Fun
+        app rewrite directory -directory=/home/remco/difference-fun/' . $package . '/ -extension=json -from[]=R3m.Io -to=Difference.Fun
+        app rewrite directory -directory=/home/remco/difference-fun/' . $package . '/ -extension=tpl -from[]=R3m:Io -to=Difference:Fun
+        app rewrite directory -directory=/home/remco/difference-fun/' . $package . '/ -extension=tpl -from[]=R3m.Io -to=Difference.Fun
+        app rewrite directory -directory=/home/remco/difference-fun/' . $package . '/ -extension=tpl -from[]=r3m.io -to=difference.fun
+        app rewrite directory -directory=/home/remco/difference-fun/' . $package . '/ -extension=tpl -from[]=r3m_io -to=difference_fun';
+        $data = explode(PHP_EOL, $data);
+        foreach($data as $nr => $line) {
+            $line = trim($line);
+            if (empty($line)) {
+                continue;
+            }
+            exec($line);
+        }
+        */
     }
 }
