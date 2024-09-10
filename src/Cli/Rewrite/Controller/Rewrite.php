@@ -181,18 +181,10 @@ class Rewrite extends Controller {
         }
         $package = $options->package;
         $data = '
-        app rewrite directory -directory=/home/remco/raxon/' . $package . '/ -extension=php -from[]=Difference -to=Raxon
-        app rewrite directory -directory=/home/remco/raxon/' . $package . '/ -extension=php -from[]=Fun -to=Org
-        app rewrite directory -directory=/home/remco/raxon/' . $package . '/ -extension=php -from[]=difference -to=raxon
-        app rewrite directory -directory=/home/remco/raxon/' . $package . '/ -extension=php -from[]=fun -to=org
-        app rewrite directory -directory=/home/remco/raxon/' . $package . '/ -extension=json -from[]=Difference -to=Raxon
-        app rewrite directory -directory=/home/remco/raxon/' . $package . '/ -extension=json -from[]=Fun -to=Org
-        app rewrite directory -directory=/home/remco/raxon/' . $package . '/ -extension=json -from[]=difference -to=raxon
-        app rewrite directory -directory=/home/remco/raxon/' . $package . '/ -extension=json -from[]=fun -to=org
-        app rewrite directory -directory=/home/remco/raxon/' . $package . '/ -extension=tpl -from[]=Difference -to=Raxon
-        app rewrite directory -directory=/home/remco/raxon/' . $package . '/ -extension=tpl -from[]=Fun -to=Org
-        app rewrite directory -directory=/home/remco/raxon/' . $package . '/ -extension=tpl -from[]=difference -to=raxon
-        app rewrite directory -directory=/home/remco/raxon/' . $package . '/ -extension=tpl -from[]=fun -to=org        
+        app rewrite directory -directory=/home/remco/raxon/' . $package . '/ -extension=php -from[]=\'Raxon\Org\' -to=Raxon
+        app rewrite directory -directory=/home/remco/raxon/' . $package . '/ -extension=php -from[]=raxon_org -to=raxon                
+        app rewrite directory -directory=/home/remco/raxon/' . $package . '/ -extension=json -from[]=Raxon:Org -to=Raxon                
+        app rewrite directory -directory=/home/remco/raxon/' . $package . '/ -extension=tpl -from[]=Raxon:Org -to=Raxon                
         ';
         $data = explode(PHP_EOL, $data);
         foreach($data as $nr => $line) {
