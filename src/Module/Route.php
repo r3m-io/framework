@@ -1205,6 +1205,7 @@ class Route extends Data {
                 $route->data($response['list']);
             }
             $object->data(App::ROUTE, $route);
+            ddd($route);
         }
     }
 
