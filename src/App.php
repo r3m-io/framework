@@ -106,7 +106,6 @@ class App extends Data {
         Config::configure($this);
         Logger::configure($this);
         Host::configure($this);
-        ddd($this->config('host'));
         Domain::configure($this);
         Event::configure($this);
         Middleware::configure($this);
